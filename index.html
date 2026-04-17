@@ -46,7 +46,7 @@
         }
         .player-area {
             background: rgba(15, 20, 34, 0.8);
-            padding: 1.2rem 1rem;
+            padding: 1.5rem 1rem;
             text-align: center;
         }
         .live-blink {
@@ -64,8 +64,6 @@
             50% { opacity: 0.55; }
             100% { opacity: 1; }
         }
-        
-        /* Shoutcast Player Butonları */
         .player-controls {
             display: flex;
             justify-content: center;
@@ -91,17 +89,33 @@
             font-size: 1.8rem;
             color: white;
         }
-        .volume-slider {
-            width: 100px;
-            height: 4px;
-            background: #2a3448;
-            border-radius: 5px;
-            margin: 10px auto;
-        }
         .status-text {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #8da3d0;
             margin-top: 10px;
+        }
+        .volume-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .volume-slider {
+            width: 120px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #2a3448;
+            border-radius: 5px;
+            outline: none;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #7aa2f7;
+            cursor: pointer;
         }
         .warning-box {
             background: rgba(255, 193, 7, 0.15);
@@ -230,21 +244,23 @@
     <div class="player-area">
         <div class="live-blink">🔴 CANLI YAYIN</div>
         
-        <!-- HTML5 Audio Player ile doğrudan stream -->
-        <audio id="radioPlayer" style="width: 100%; border-radius: 40px; margin: 10px 0;">
-            <source src="http://uk4freenew.listen2myradio.com:20895/stream" type="audio/mpeg">
-            Tarayıcınız audio elementini desteklemiyor.
-        </audio>
+        <!-- Shoutcast v1 için özel audio element -->
+        <audio id="radioPlayer" style="display: none;"></audio>
         
         <div class="player-controls">
             <button class="ctrl-btn" id="playBtn"><i class="fas fa-play"></i></button>
             <button class="ctrl-btn" id="pauseBtn"><i class="fas fa-pause"></i></button>
-            <button class="ctrl-btn" id="muteBtn"><i class="fas fa-volume-up"></i></button>
+        </div>
+        
+        <div class="volume-control">
+            <i class="fas fa-volume-down" style="color: #8da3d0; font-size: 0.8rem;"></i>
+            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="80">
+            <i class="fas fa-volume-up" style="color: #8da3d0; font-size: 0.8rem;"></i>
         </div>
         
         <div class="status-text" id="playerStatus">🎵 Yayın hazır • Play butonuna basın</div>
         <div class="warning-box">
-            📢 Yayın başlamazsa Play butonuna basın. Ses gelmezse tarayıcınızı yenileyip tekrar deneyin.
+            📢 <strong>Bilgi:</strong> Yayın Shoutcast v1 protokolü kullanıyor. Play butonuna bastıktan sonra ses gelmesi 3-5 saniye sürebilir.
         </div>
     </div>
 
@@ -286,68 +302,120 @@
 
 <script>
     (function(){
-        // ============= RADYO PLAYER =============
-        const audio = document.getElementById('radioPlayer');
+        // ============= SHOUTCAST V1 RADYO PLAYER =============
+        // Shoutcast v1 stream adresi (HTTP)
+        const STREAM_URL = "http://uk4freenew.listen2myradio.com:20895/stream";
+        
+        // CORS proxy ile HTTPS üzerinden çalıştırma
+        const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+        const FINAL_URL = PROXY_URL + STREAM_URL;
+        
+        let audioElement = null;
+        let isPlaying = false;
+        
         const playBtn = document.getElementById('playBtn');
         const pauseBtn = document.getElementById('pauseBtn');
-        const muteBtn = document.getElementById('muteBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
         const playerStatus = document.getElementById('playerStatus');
         
-        let isMuted = false;
+        // Ses seviyesi ikonu güncelleme
+        function updateVolumeIcon(value) {
+            const volumeUpIcon = document.querySelector('.volume-control i:last-child');
+            const volumeDownIcon = document.querySelector('.volume-control i:first-child');
+            if (value == 0) {
+                volumeUpIcon.className = "fas fa-volume-mute";
+            } else if (value < 30) {
+                volumeUpIcon.className = "fas fa-volume-down";
+            } else {
+                volumeUpIcon.className = "fas fa-volume-up";
+            }
+        }
         
-        // Play butonu
-        playBtn.addEventListener('click', () => {
-            audio.play().then(() => {
+        // Audio elementini oluştur
+        function createAudio() {
+            if (audioElement) {
+                audioElement.pause();
+                audioElement.src = '';
+            }
+            audioElement = new Audio();
+            audioElement.src = FINAL_URL;
+            audioElement.crossOrigin = "anonymous";
+            
+            // Ses seviyesini ayarla
+            const volumeValue = volumeSlider.value / 100;
+            audioElement.volume = volumeValue;
+            
+            audioElement.addEventListener('canplay', () => {
+                if (isPlaying) {
+                    audioElement.play().catch(e => console.log("Play error:", e));
+                }
+            });
+            
+            audioElement.addEventListener('playing', () => {
                 playerStatus.innerHTML = "🔴 CANLI YAYIN AKIYOR";
                 playBtn.style.opacity = "0.5";
                 pauseBtn.style.opacity = "1";
-            }).catch(err => {
-                console.error("Oynatma hatası:", err);
-                playerStatus.innerHTML = "❌ Yayın bağlantı hatası! Sayfayı yenileyip tekrar deneyin.";
             });
-        });
+            
+            audioElement.addEventListener('pause', () => {
+                if (isPlaying) {
+                    playerStatus.innerHTML = "⏸ Yayın durduruldu";
+                }
+            });
+            
+            audioElement.addEventListener('error', (e) => {
+                console.error("Stream hatası:", e);
+                playerStatus.innerHTML = "⚠️ Proxy hatası! Lütfen yeni sekmede https://cors-anywhere.herokuapp.com/ adresini açıp 'Request temporary access' butonuna basın, sonra sayfayı yenileyin.";
+                isPlaying = false;
+                playBtn.style.opacity = "1";
+                pauseBtn.style.opacity = "0.5";
+            });
+            
+            audioElement.addEventListener('waiting', () => {
+                playerStatus.innerHTML = "⏳ Yayın yükleniyor...";
+            });
+        }
         
-        // Pause butonu
-        pauseBtn.addEventListener('click', () => {
-            audio.pause();
-            playerStatus.innerHTML = "⏸ Yayın durduruldu";
+        function startPlayback() {
+            if (isPlaying) return;
+            isPlaying = true;
+            createAudio();
+            audioElement.play().catch(err => {
+                console.error("Oynatma hatası:", err);
+                playerStatus.innerHTML = "❌ Proxy izni gerekli! https://cors-anywhere.herokuapp.com/ adresini açıp izin verin.";
+                isPlaying = false;
+                playBtn.style.opacity = "1";
+                pauseBtn.style.opacity = "0.5";
+            });
+            playerStatus.innerHTML = "🔗 Bağlanıyor...";
+        }
+        
+        function stopPlayback() {
+            if (!isPlaying) return;
+            isPlaying = false;
+            if (audioElement) {
+                audioElement.pause();
+            }
             playBtn.style.opacity = "1";
             pauseBtn.style.opacity = "0.5";
-        });
+            playerStatus.innerHTML = "⏸ Yayın durduruldu";
+        }
         
-        // Ses aç/kapa
-        muteBtn.addEventListener('click', () => {
-            if (isMuted) {
-                audio.volume = 1;
-                muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                isMuted = false;
-            } else {
-                audio.volume = 0;
-                muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                isMuted = true;
+        // Ses seviyesi değiştiğinde
+        volumeSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            updateVolumeIcon(value);
+            if (audioElement) {
+                audioElement.volume = value / 100;
             }
         });
         
-        // Hata durumunda
-        audio.addEventListener('error', (e) => {
-            console.error("Stream hatası:", e);
-            playerStatus.innerHTML = "⚠️ Yayın sunucusuna bağlanılamıyor. Lütfen daha sonra tekrar deneyin.";
-        });
-        
-        // Oynatma başladığında
-        audio.addEventListener('playing', () => {
-            playerStatus.innerHTML = "🔴 CANLI YAYIN AKIYOR";
-        });
-        
-        // Duraklatıldığında
-        audio.addEventListener('pause', () => {
-            if (audio.currentTime > 0) {
-                playerStatus.innerHTML = "⏸ Yayın durduruldu";
-            }
-        });
+        playBtn.addEventListener('click', startPlayback);
+        pauseBtn.addEventListener('click', stopPlayback);
         
         // Başlangıç durumu
         pauseBtn.style.opacity = "0.5";
+        updateVolumeIcon(80);
         
         // ============= CHAT =============
         const chatMessagesDiv = document.getElementById('chatMessages');
@@ -437,18 +505,6 @@
             newsIdx = (newsIdx + 1) % newsItems.length;
             document.getElementById('newsTicker').innerHTML = "📌 " + newsItems[newsIdx];
         }, 10000);
-        
-        // Sayfa yüklendiğinde otomatik oynatmayı dene (bazı tarayıcılar izin vermeyebilir)
-        setTimeout(() => {
-            audio.play().then(() => {
-                playerStatus.innerHTML = "🔴 CANLI YAYIN AKIYOR";
-                playBtn.style.opacity = "0.5";
-                pauseBtn.style.opacity = "1";
-            }).catch(() => {
-                console.log("Otomatik oynatma engellendi, kullanıcı Play butonuna basmalı");
-                playerStatus.innerHTML = "🎵 Yayın hazır • Play butonuna basın";
-            });
-        }, 1000);
     })();
 </script>
 </body>
