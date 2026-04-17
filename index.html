@@ -46,7 +46,7 @@
         }
         .player-area {
             background: rgba(15, 20, 34, 0.8);
-            padding: 1.5rem 1rem;
+            padding: 1rem;
             text-align: center;
         }
         .live-blink {
@@ -57,29 +57,34 @@
             background-clip: text;
             color: transparent;
             animation: blinkLive 1s infinite;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         @keyframes blinkLive {
             0% { opacity: 1; }
             50% { opacity: 0.55; }
             100% { opacity: 1; }
         }
-        .radio-embed {
-            background: #0a0e1a;
+        .radio-frame {
+            width: 100%;
+            height: 140px;
+            border: none;
             border-radius: 16px;
-            padding: 10px;
+            background: #0a0e1a;
             margin: 10px 0;
         }
-        iframe {
-            width: 100%;
-            height: 120px;
-            border: none;
+        .warning-box {
+            background: rgba(255, 193, 7, 0.15);
+            border-left: 3px solid #ffc107;
+            padding: 10px;
+            font-size: 0.7rem;
             border-radius: 12px;
+            margin: 10px 0;
+            color: #ffd966;
         }
         .status-text {
             font-size: 0.7rem;
             color: #8da3d0;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         .news-section {
             background: rgba(11, 16, 32, 0.9);
@@ -182,7 +187,7 @@
         }
         @media (max-width: 500px) {
             .chat-messages { height: 220px; }
-            iframe { height: 100px; }
+            .radio-frame { height: 120px; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -198,15 +203,14 @@
     <div class="player-area">
         <div class="live-blink">🔴 CANLI YAYIN</div>
         
-        <!-- LISTEN2MYRADIO RESMİ EMBED PLAYER (KESİN ÇALIŞIR) -->
-        <div class="radio-embed">
-            <iframe src="https://listen2myradio.com/embed.php?username=uk4freenew&amp;port=20895&amp;autoplay=0" 
-                    scrolling="no" 
-                    allow="autoplay">
-            </iframe>
+        <!-- Listen2myradio'nun verdiği özel dinleme linki -->
+        <iframe class="radio-frame" src="https://vomradyo.radio12345.com" allow="autoplay"></iframe>
+        
+        <div class="warning-box">
+            ⚡ Yayın otomatik başlamazsa lütfen iframe içindeki PLAY butonuna basın.
         </div>
         
-        <div class="status-text" id="playerStatus">🎵 Yayın aktif • Play butonuna basarak dinleyin</div>
+        <div class="status-text" id="playerStatus">🎵 Yayın aktif • Radyo çalıyor</div>
     </div>
 
     <div class="news-section">
