@@ -75,6 +75,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.2s;
+        }
+        .ctrl-btn:active {
+            transform: scale(0.95);
         }
         .ctrl-btn i {
             font-size: 2rem;
@@ -246,19 +250,12 @@
 <script>
     (function(){
         // =====================================================
-        // RADYO STREAM - SHOUTCAST DİREKT BAĞLANTI
+        // RADYO STREAM - DOĞRU STREAM ADRESİ (BULDUNUZ!)
+        // https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=s1_20895_stream_521336994
         // =====================================================
         
-        // Shoutcast stream adresi (Listen2myradio)
-        // Alternatif stream URL'leri dene:
-        const STREAM_URLS = [
-            "http://uk4freenew.listen2myradio.com:20895/stream",
-            "http://uk4freenew.listen2myradio.com:20895/;",
-            "http://109.169.23.84:20895/stream",
-            "http://109.169.23.84:20895/;"
-        ];
+        const STREAM_URL = "https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=s1_20895_stream_521336994";
         
-        let currentUrlIndex = 0;
         let audioElement = null;
         let isPlaying = false;
         
@@ -266,22 +263,14 @@
         const playPauseIcon = document.getElementById('playPauseIcon');
         const playerStatusSpan = document.getElementById('playerStatus');
         
-        function destroyAudio() {
+        function initAudioStream() {
             if (audioElement) {
                 audioElement.pause();
                 audioElement.src = '';
-                audioElement = null;
             }
-        }
-        
-        function initAudioStream() {
-            destroyAudio();
-            
-            const streamUrl = STREAM_URLS[currentUrlIndex];
-            console.log("Bağlanılan stream adresi:", streamUrl);
-            
             audioElement = new Audio();
-            audioElement.src = streamUrl;
+            audioElement.src = STREAM_URL;
+            audioElement.crossOrigin = "anonymous";
             
             audioElement.addEventListener('canplay', () => {
                 if (isPlaying) {
@@ -291,36 +280,23 @@
             
             audioElement.addEventListener('playing', () => {
                 playerStatusSpan.innerHTML = "🔴 CANLI YAYIN AKIYOR";
-                currentUrlIndex = 0; // başarılı olunca sıfırla
             });
             
             audioElement.addEventListener('error', (e) => {
-                console.error("Stream hatası, diğer adres deneniyor...");
-                // Bir sonraki URL'yi dene
-                if (currentUrlIndex < STREAM_URLS.length - 1) {
-                    currentUrlIndex++;
-                    if (isPlaying) {
-                        initAudioStream();
-                        audioElement.play().catch(() => {});
-                        playerStatusSpan.innerHTML = "🔄 Farklı bağlantı deneniyor...";
-                    }
-                } else {
-                    playerStatusSpan.innerHTML = "❌ Yayın bağlantı hatası! Yayın sunucusu kapalı olabilir.";
-                    isPlaying = false;
-                    playPauseIcon.className = "fas fa-play";
-                    currentUrlIndex = 0;
-                }
+                console.error("Stream hatası:", e);
+                playerStatusSpan.innerHTML = "❌ Yayın bağlantı hatası! Lütfen sayfayı yenileyip tekrar deneyin.";
+                isPlaying = false;
+                playPauseIcon.className = "fas fa-play";
             });
         }
         
         function startPlayback() {
             if (isPlaying) return;
             isPlaying = true;
-            currentUrlIndex = 0;
             initAudioStream();
             audioElement.play().catch(err => {
                 console.error("Oynatma başlatılamadı:", err);
-                playerStatusSpan.innerHTML = "⚠️ Bağlantı kurulamıyor. Lütfen tekrar deneyin.";
+                playerStatusSpan.innerHTML = "⚠️ Tarayıcı otomatik oynatmaya izin vermedi. Lütfen butona tekrar tıklayın.";
                 isPlaying = false;
                 playPauseIcon.className = "fas fa-play";
             });
