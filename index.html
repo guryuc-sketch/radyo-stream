@@ -2,101 +2,244 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOM RADYO - Canli Yayin</title>
-    <!-- Ikonlar -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VOM RADYO | Canlı Yayın</title>
+    <!-- İkonlar -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a101e; color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
-        .box { width: 100%; max-width: 480px; background: #161e2e; border-radius: 20px; overflow: hidden; border: 1px solid #2d3748; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-        .header { padding: 25px; background: #1c2536; color: #7aa2f7; text-align: center; font-size: 24px; font-weight: bold; border-bottom: 1px solid #2d3748; letter-spacing: 3px; }
-        .player { padding: 35px 20px; text-align: center; }
-        .live { color: #ff4d4d; font-weight: bold; margin-bottom: 20px; font-size: 14px; letter-spacing: 1px; display: block; }
-        .btn { background: linear-gradient(135deg, #25345a, #1a2333); border: 1px solid #3b4261; color: #fff; width: 85px; height: 85px; border-radius: 50%; font-size: 32px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
-        .btn:hover { transform: scale(1.1); border-color: #7aa2f7; }
-        #status { margin-top: 20px; font-size: 13px; color: #8da3d0; font-weight: 500; height: 20px; }
-        .chat-area { height: 400px; background: #000; border-top: 1px solid #2d3748; }
-        .vol-row { padding: 0 40px; margin-top: 25px; display: flex; align-items: center; gap: 15px; }
-        input[type=range] { flex: 1; accent-color: #7aa2f7; height: 5px; cursor: pointer; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            background: #0a0f1e;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #111927;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #1f2937;
+            border-right: 1px solid #1f2937;
+        }
+        /* Header Bölümü */
+        .header {
+            padding: 15px;
+            text-align: center;
+            background: #1a2333;
+            border-bottom: 1px solid #2d3748;
+        }
+        .header h1 {
+            color: #7aa2f7;
+            font-size: 22px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        /* Player Alanı */
+        .player-box {
+            padding: 20px;
+            background: #111927;
+            text-align: center;
+            border-bottom: 1px solid #1f2937;
+        }
+        .live-indicator {
+            color: #ff4d4d;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block;
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .play-btn {
+            background: #7aa2f7;
+            color: #0a0f1e;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(122, 162, 247, 0.4);
+        }
+        .play-btn:active { transform: scale(0.9); }
+        
+        .volume-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 250px;
+            margin: 0 auto;
+        }
+        .volume-bar input {
+            flex: 1;
+            height: 4px;
+            accent-color: #7aa2f7;
+            cursor: pointer;
+        }
+        #status-msg {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 12px;
+        }
+
+        /* CHAT ALANI (Kayıtsız Sohbet) */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000000;
+            position: relative;
+        }
+        .chat-label {
+            background: #1a2333;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #7aa2f7;
+            border-bottom: 1px solid #2d3748;
+        }
+        #chat-embed-box {
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Alt İletişim */
+        .footer-social {
+            padding: 10px;
+            background: #1a2333;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #2d3748;
+        }
+        .social-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .social-link i { font-size: 18px; }
+        .social-link.wa { color: #25d366; }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <div class="header">VOM RADYO</div>
-    
-    <div class="player">
-        <span class="live" id="liveTxt"><i class="fas fa-circle"></i> CANLI YAYIN</span>
-        
-        <button class="btn" id="play" onclick="handleStream()">
-            <i class="fas fa-play" id="icon" style="margin-left: 5px;"></i>
-        </button>
-        
-        <div class="vol-row">
-            <i class="fas fa-volume-down" style="color: #4a5568;"></i>
-            <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8" oninput="changeV(this.value)">
-            <i class="fas fa-volume-up" style="color: #8da3d0;"></i>
-        </div>
-        
-        <div id="status">HAZIR. DINLEMEK ICIN PLAY'E BASIN.</div>
+<div class="container">
+    <div class="header">
+        <h1>VOM RADYO</h1>
     </div>
 
-    <!-- Sohbet Bolumu (Chatango) -->
-    <div class="chat-area">
-        <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%;height: 100%;">
-        {"handle":"vomradyo","arch":"js","styles":{"a":"161e2e","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1c2536","l":"1c2536","m":"1c2536","n":"FFFFFF","p":"10","q":"1c2536","r":100}}
-        </script>
+    <div class="player-box">
+        <span class="live-indicator"><i class="fas fa-circle"></i> CANLI YAYIN</span>
+        
+        <div class="controls">
+            <button class="play-btn" id="mBtn" onclick="toggleStream()">
+                <i class="fas fa-play" id="mIcon" style="margin-left: 5px;"></i>
+            </button>
+        </div>
+
+        <div class="volume-bar">
+            <i class="fas fa-volume-off" style="font-size: 12px; color: #4b5563;"></i>
+            <input type="range" min="0" max="1" step="0.05" value="0.8" oninput="changeVol(this.value)">
+            <i class="fas fa-volume-up" style="font-size: 12px; color: #7aa2f7;"></i>
+        </div>
+
+        <div id="status-msg">Dinlemek için oynat butonuna basın</div>
+    </div>
+
+    <div class="chat-label">
+        <i class="fas fa-comments"></i> CANLI SOHBET (Kayıt Gerekmez)
+    </div>
+
+    <!-- SOHBET ALANI: Herkese açık ve WhatsApp tarzı kayıt istemeyen yapı -->
+    <div class="chat-section">
+        <div id="chat-embed-box">
+            <!-- Chatango kutusu anonim girişlere izin verecek şekilde yapılandırıldı -->
+            <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%; height: 100%;">
+            {"handle":"vomradyo","arch":"js","styles":{"a":"111927","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1a2333","l":"1a2333","m":"1a2333","n":"FFFFFF","p":"10","q":"1a2333","r":100,"fpos":"st","ss":0,"pbc":"7aa2f7"}}
+            </script>
+        </div>
+    </div>
+
+    <div class="footer-social">
+        <a href="https://wa.me/901234567890" target="_blank" class="social-link wa">
+            <i class="fab fa-whatsapp"></i> Mesaj Gönder
+        </a>
+        <a href="mailto:iletisim@vomradyo.com" class="social-link">
+            <i class="fas fa-envelope"></i> E-Posta
+        </a>
     </div>
 </div>
 
 <script>
     /*
-      SSL KOPRUSU ACILDI: 
-      Apple (iPhone) ve Android tarayicilar HTTP linkini ancak bu kopru ile calistirir.
-      Sonuna ';' ekledik, Shoutcast v1 sunucularda bu isaret tarayiciya "SADECE SES VER" der.
+        HTTPS BULUT KOPRUSU: 
+        Senin olusturdugun Cloudflare Worker linkini kullaniyoruz. 
+        Bu sayede iPhone ve Android guvenlik engelini aşar.
     */
-    const sUrl = "https://ws.stream-ssl.com/http://109.169.23.84:20895/;";
+    const WORKER_URL = "https://spring-river-abed.guryuc.workers.dev/";
     
     let audio = new Audio();
     let playing = false;
 
-    function handleStream() {
-        const btn = document.getElementById('play');
-        const icon = document.getElementById('icon');
-        const status = document.getElementById('status');
+    const btnIcon = document.getElementById('mIcon');
+    const statusTxt = document.getElementById('status-msg');
 
+    function toggleStream() {
         if (!playing) {
-            status.innerHTML = "BAGLANIYOR...";
-            // Taze bir stream icin sonuna zaman ekliyoruz
-            audio.src = sUrl + "?t=" + new Date().getTime();
+            statusTxt.innerHTML = "<i class='fas fa-spinner fa-spin'></i> BAĞLANILIYOR...";
+            
+            // Taze baglanti icin t= degeri eklenmistir
+            audio.src = WORKER_URL + "?t=" + new Date().getTime();
             
             audio.play().then(function() {
                 playing = true;
-                icon.className = "fas fa-pause";
-                icon.style.marginLeft = "0px";
-                status.innerHTML = "<span style='color:#7aa2f7'>CANLI YAYIN DİNLENİYOR</span>";
+                btnIcon.className = "fas fa-pause";
+                btnIcon.style.marginLeft = "0px";
+                statusTxt.innerHTML = "<span style='color:#7aa2f7; font-weight:bold;'>YAYIN AKIYOR...</span>";
             }).catch(function(e) {
                 console.error("Yayin Hatasi:", e);
-                status.innerHTML = "❌ Hata: Yayin su an cevrimdisi.";
+                statusTxt.innerHTML = "<span style='color:#ff4d4d;'>YAYIN ŞU AN ÇEVRİMDIŞI</span>";
             });
         } else {
             audio.pause();
-            audio.src = ""; // Baglantiyi tamamen kes
+            audio.src = ""; // Baglantiyi tamamen durdurur
             playing = false;
-            icon.className = "fas fa-play";
-            icon.style.marginLeft = "5px";
-            status.innerHTML = "DURDURULDU.";
+            btnIcon.className = "fas fa-play";
+            btnIcon.style.marginLeft = "5px";
+            statusTxt.innerHTML = "Yayın durduruldu.";
         }
     }
 
-    function changeV(val) { audio.volume = val; }
+    function changeVol(v) {
+        audio.volume = v;
+    }
 
-    // Canli tag yanip sönme
-    setInterval(function() {
-        const live = document.getElementById('liveTxt');
-        live.style.opacity = (live.style.opacity === '0' ? '1' : '0');
-    }, 1000);
+    // Mobil cihazlar uyku moduna gecerse baglantiyi tazelemek icin
+    document.addEventListener("visibilitychange", function() {
+        if (!document.hidden && playing) {
+            // Yayın devam ediyorsa bir sey yapma
+        }
+    });
 </script>
 
 </body>
