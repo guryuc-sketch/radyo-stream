@@ -2,66 +2,145 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOM RADYO - CANLI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VOM RADYO | CANLI YAYIN</title>
+    <!-- Ikonlar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background: #0d1117; 
-            font-family: sans-serif; 
-            color: white; 
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            color: #fff; 
             height: 100vh; 
             display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
+            justify-content: center; 
         }
-        .header { 
-            padding: 15px; 
-            background: #161b22; 
-            text-align: center; 
-            border-bottom: 2px solid #58a6ff; 
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #58a6ff;
-            letter-spacing: 2px;
-        }
-        /* Radyo Player'ın Geleceği Yer */
-        .player-frame {
-            height: 180px; /* Sadece player'ın sığacağı kadar */
+        .app {
             width: 100%;
-            border: none;
-            background: #0d1117;
-        }
-        /* Sohbet Bölümü */
-        .chat-section {
-            flex: 1;
-            background: #000;
-            border-top: 2px solid #30363d;
-        }
-        .info {
-            padding: 5px;
-            font-size: 11px;
-            color: #8b949e;
-            text-align: center;
+            max-width: 500px;
             background: #161b22;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            border-left: 1px solid #30363d;
+            border-right: 1px solid #30363d;
+        }
+        /* PLAYER BOLUMU */
+        .player-unit {
+            padding: 30px 20px;
+            text-align: center;
+            background: #0d1117;
+            border-bottom: 2px solid #58a6ff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .brand { font-size: 26px; font-weight: 900; letter-spacing: 5px; color: #58a6ff; margin-bottom: 15px; }
+        .play-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: none;
+            background: #58a6ff;
+            color: #0d1117;
+            font-size: 35px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(88, 166, 255, 0.4);
+        }
+        .play-btn:active { transform: scale(0.9); }
+        .status { margin-top: 15px; font-size: 14px; font-weight: bold; color: #8b949e; }
+        
+        /* SES CIZGISI */
+        .vol { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 20px; padding: 0 50px; }
+        .vol input { flex: 1; accent-color: #58a6ff; cursor: pointer; height: 5px; }
+
+        /* SOHBET BOLUMU */
+        .chat-container { flex: 1; background: #000; overflow: hidden; display: flex; flex-direction: column; }
+        .chat-head { background: #21262d; padding: 10px 15px; font-size: 13px; color: #58a6ff; font-weight: 700; }
+        
+        /* TELEFONLAR ICIN SABITLEME */
+        @media (max-width: 600px) {
+            .brand { font-size: 20px; }
+            .play-btn { width: 75px; height: 75px; font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">VOM RADYO CANLI YAYIN</div>
+<div class="app">
+    <!-- Player Alanı -->
+    <div class="player-unit">
+        <div class="brand">VOM RADYO</div>
+        
+        <button class="play-btn" onclick="togglePlay()" id="masterBtn">
+            <i class="fas fa-play" id="btnIco" style="margin-left: 5px;"></i>
+        </button>
 
-    <!-- RADYO PLAYER: Kendi sayfanı güvenli şekilde buraya gömüyoruz -->
-    <iframe src="https://vomradyo.radio12345.com/" class="player-frame" scrolling="no"></iframe>
+        <div class="vol">
+            <i class="fas fa-volume-down" style="color:#484f58; font-size:12px;"></i>
+            <input type="range" min="0" max="1" step="0.1" value="0.8" oninput="setV(this.value)">
+            <i class="fas fa-volume-up" style="color:#58a6ff; font-size:12px;"></i>
+        </div>
 
-    <div class="info">Sohbet ekranında takma adını belirleyip yazışmaya başlayabilirsin.</div>
+        <div class="status" id="stMsg">YAYINI DİNLEMEK İÇİN BAS</div>
+    </div>
 
-    <!-- CHAT BÖLÜMÜ -->
-    <div class="chat-section">
+    <div class="chat-head"><i class="fas fa-comments"></i> CANLI SOHBET (Kayıtsız/Anlık)</div>
+
+    <!-- Sohbet Sistemi -->
+    <div class="chat-container">
         <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%;height: 100%;">
-        {"handle":"vomradyo","arch":"js","styles":{"a":"0d1117","b":100,"c":"FFFFFF","d":"FFFFFF","k":"161b22","l":"161b22","m":"161b22","n":"FFFFFF","p":"10","q":"161b22","r":100,"fpos":"st","ss":0,"pbc":"58a6ff"}}
+        {"handle":"vomradyo","arch":"js","styles":{"a":"161b22","b":100,"c":"FFFFFF","d":"FFFFFF","k":"21262d","l":"21262d","m":"21262d","n":"FFFFFF","p":"10","q":"21262d","r":100,"fpos":"st","ss":0,"pbc":"58a6ff"}}
         </script>
     </div>
+</div>
+
+<script>
+    /* 
+      ÖNEMLİ: Daha önce oluşturduğun Cloudflare Worker adresini buraya tırnak içinde yapıştır.
+      Eğer Worker bozuksa, şu adresi dene: https://ws.stream-ssl.com/http://109.169.23.84:20895/;
+    */
+    const RADYO_URL = "https://spring-river-abed.guryuc.workers.dev/";
+    
+    let audio = new Audio();
+    let isPlaying = false;
+
+    function togglePlay() {
+        const icon = document.getElementById('btnIco');
+        const msg = document.getElementById('stMsg');
+
+        if (!isPlaying) {
+            msg.innerHTML = "BAĞLANILIYOR...";
+            // Taze bağlantı için cache temizleme
+            audio.src = RADYO_URL + "?cb=" + Date.now();
+            
+            audio.play().then(() => {
+                isPlaying = true;
+                icon.className = "fas fa-pause";
+                icon.style.marginLeft = "0px";
+                msg.innerHTML = "🔴 YAYIN AKIYOR...";
+                msg.style.color = "#f85149";
+            }).catch(e => {
+                console.error(e);
+                msg.innerHTML = "⚠️ BAĞLANTI HATASI! (Sunucuyu kontrol et)";
+                isPlaying = false;
+            });
+        } else {
+            audio.pause();
+            audio.src = ""; // Akışı kes
+            isPlaying = false;
+            icon.className = "fas fa-play";
+            icon.style.marginLeft = "5px";
+            msg.innerHTML = "DURDURULDU.";
+            msg.style.color = "#8b949e";
+        }
+    }
+
+    function setV(v) { audio.volume = v; }
+</script>
 
 </body>
 </html>
