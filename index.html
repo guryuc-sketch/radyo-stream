@@ -7,108 +7,97 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: #0b0e14; color: #ffffff; font-family: sans-serif; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
-        .app-container { width: 100%; max-width: 500px; display: flex; flex-direction: column; background: #12171f; }
+        body { background: #0d1117; color: #fff; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; overflow: hidden; }
+        .main-container { width: 100%; max-width: 500px; height: 100vh; margin: 0 auto; display: flex; flex-direction: column; background: #161b22; }
         
-        /* Player Kısmı */
-        .player-card { background: #1a222c; padding: 20px; text-align: center; border-bottom: 2px solid #000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .brand { font-size: 24px; color: #7aa2f7; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px; }
-        .live-label { font-size: 11px; color: #ff4d4d; animation: blink 1s infinite; margin-bottom: 15px; display: block; font-weight: bold; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        /* Radyo Player Bolumu */
+        .radyo-top { background: #0d1117; padding: 20px; text-align: center; border-bottom: 2px solid #30363d; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .brand-name { color: #58a6ff; font-size: 26px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 5px; }
+        .live-pulse { color: #f85149; font-size: 11px; font-weight: bold; margin-bottom: 15px; display: block; animation: pulsate 1.2s infinite; }
+        @keyframes pulsate { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
         
-        .play-btn { width: 70px; height: 70px; border-radius: 50%; border: none; background: #7aa2f7; color: #12171f; font-size: 28px; cursor: pointer; transition: 0.2s; margin-bottom: 10px; }
-        .play-btn:active { transform: scale(0.9); }
+        .p-btn { width: 75px; height: 75px; border-radius: 50%; border: none; background: #58a6ff; color: #0d1117; font-size: 30px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 0 20px rgba(88, 166, 255, 0.3); }
+        .p-btn:active { transform: scale(0.9); }
         
-        #status-txt { font-size: 13px; color: #a0aec0; margin: 10px 0; font-style: italic; }
-        
-        .vol-box { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0 40px; }
-        .vol-box input { flex: 1; height: 4px; accent-color: #7aa2f7; }
+        #status-txt { margin-top: 15px; font-size: 14px; color: #8b949e; font-weight: 600; min-height: 20px; }
+        .vol-box { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px 40px; }
+        .vol-box input { flex: 1; height: 4px; accent-color: #58a6ff; cursor: pointer; }
 
-        /* Sohbet Kısmı */
-        .chat-wrap { flex: 1; background: #000; display: flex; flex-direction: column; }
-        .chat-header { background: #1a222c; padding: 8px 15px; font-size: 12px; color: #7aa2f7; border-top: 1px solid #2d3748; }
-
-        /* WhatsApp tarzı Alt Menü */
-        .social-bar { background: #1a222c; padding: 12px; display: flex; justify-content: space-around; border-top: 1px solid #2d3748; }
-        .social-btn { color: #a0aec0; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 6px; }
-        .wa-btn { color: #25d366; }
+        /* Sohbet Bolumu */
+        .chat-frame { flex: 1; background: #000; border-top: 1px solid #30363d; overflow: hidden; position: relative; }
+        .chat-banner { background: #21262d; padding: 8px 15px; font-size: 13px; color: #58a6ff; font-weight: 700; border-bottom: 1px solid #30363d; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="player-card">
-        <div class="brand">VOM RADYO</div>
-        <span class="live-label">● CANLI YAYIN</span>
+<div class="main-container">
+    <!-- Player Alanı -->
+    <div class="radyo-top">
+        <div class="brand-name">VOM RADYO</div>
+        <span class="live-pulse">● CANLI YAYIN AKIŞI</span>
         
-        <button class="play-btn" id="mButton" onclick="tgl()">
-            <i class="fas fa-play" id="mIcon"></i>
+        <button class="p-btn" onclick="startRadyo()">
+            <i class="fas fa-play" id="btnIco" style="margin-left: 5px;"></i>
         </button>
 
         <div class="vol-box">
-            <i class="fas fa-volume-down" style="font-size: 12px; color:#4a5568"></i>
-            <input type="range" min="0" max="1" step="0.05" value="0.8" oninput="sv(this.value)">
-            <i class="fas fa-volume-up" style="font-size: 12px; color:#7aa2f7"></i>
+            <i class="fas fa-volume-down" style="font-size:12px; color:#484f58"></i>
+            <input type="range" min="0" max="1" step="0.05" value="0.8" oninput="ajst(this.value)">
+            <i class="fas fa-volume-up" style="font-size:12px; color:#58a6ff"></i>
         </div>
         
-        <div id="status-txt">Hazır • Oynat'a basın</div>
+        <div id="status-txt">Yayını dinlemek için PLAY butonuna bas</div>
     </div>
 
-    <div class="chat-header"><i class="fas fa-comments"></i> CANLI SOHBET (Takma Ad Yaz Geri)</div>
-    
-    <div class="chat-wrap">
-        <!-- Kayıtsız WhatsApp Tarzı Sohbet -->
+    <!-- Sohbet Kutusu -->
+    <div class="chat-banner"><i class="fas fa-comments"></i> CANLI SOHBET (Mesaj Yaz Gönder)</div>
+    <div class="chat-frame">
         <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%; height: 100%;">
-        {"handle":"vomradyo","arch":"js","styles":{"a":"12171f","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1a222c","l":"1a222c","m":"1a222c","n":"FFFFFF","p":"10","q":"1a222c","r":100,"fpos":"st","ss":0,"pbc":"7aa2f7"}}
+        {"handle":"vomradyo","arch":"js","styles":{"a":"161b22","b":100,"c":"FFFFFF","d":"FFFFFF","k":"21262d","l":"21262d","m":"21262d","n":"FFFFFF","p":"10","q":"21262d","r":100,"fpos":"st","ss":0,"pbc":"58a6ff"}}
         </script>
-    </div>
-
-    <div class="social-bar">
-        <a href="https://wa.me/901234567890" target="_blank" class="social-btn wa-btn">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-        </a>
-        <a href="#" class="social-btn">
-            <i class="fas fa-share-alt"></i> Paylaş
-        </a>
     </div>
 </div>
 
 <script>
-    // SENİN WORKER LİNKİN
-    const URL = "https://spring-river-abed.guryuc.workers.dev/";
+    /* 
+       Senin Cloudflare Worker Linkin. 
+       Eğer çalışmazsa linki bir kez tarayıcıda tek başına açıp 'Tamam' de.
+    */
+    const WORKER_LINK = "https://spring-river-abed.guryuc.workers.dev/";
     
-    let a = new Audio();
-    let isP = false;
-    const btn = document.getElementById('mButton');
-    const icon = document.getElementById('mIcon');
-    const st = document.getElementById('status-txt');
+    let radyoSes = new Audio();
+    let playingNow = false;
 
-    function tgl() {
-        if (!isP) {
+    function startRadyo() {
+        const ico = document.getElementById('btnIco');
+        const st = document.getElementById('status-txt');
+
+        if (!playingNow) {
             st.innerHTML = "<i class='fas fa-spinner fa-spin'></i> BAĞLANILIYOR...";
-            a.src = URL + "?t=" + Date.now(); // Cache kırmak için
+            // Bağlantıyı temizleyip başlat
+            radyoSes.src = WORKER_LINK + "?v=" + Date.now();
             
-            a.play().then(() => {
-                isP = true;
-                icon.className = "fas fa-pause";
-                st.innerHTML = "<b>YAYIN AKIYOR</b>";
-                st.style.color = "#7aa2f7";
+            radyoSes.play().then(() => {
+                playingNow = true;
+                ico.className = "fas fa-pause";
+                ico.style.marginLeft = "0px";
+                st.innerHTML = "<span style='color:#58a6ff;'>● RADYO ÇALIYOR</span>";
             }).catch(e => {
                 console.error(e);
-                st.innerHTML = "❌ HATA: YAYIN ALINAMADI";
-                st.style.color = "#ff4d4d";
+                st.innerHTML = "<span style='color:#f85149;'>❌ HATA: YAYIN ALINAMADI</span>";
+                playingNow = false;
             });
         } else {
-            a.pause();
-            a.src = ""; // Bağlantıyı kopar
-            isP = false;
-            icon.className = "fas fa-play";
-            st.innerHTML = "Yayın durduruldu";
-            st.style.color = "#a0aec0";
+            radyoSes.pause();
+            radyoSes.src = ""; // Streami kes
+            playingNow = false;
+            ico.className = "fas fa-play";
+            ico.style.marginLeft = "5px";
+            st.innerHTML = "Durduruldu.";
         }
     }
 
-    function sv(v) { a.volume = v; }
+    function ajst(val) { radyoSes.volume = val; }
 </script>
 
 </body>
