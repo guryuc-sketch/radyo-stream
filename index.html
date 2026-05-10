@@ -3,243 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VOM RADYO | Canlı Yayın</title>
-    <!-- İkonlar -->
+    <title>VOM RADYO | LIVE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            background: #0a0f1e;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: #111927;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            border-left: 1px solid #1f2937;
-            border-right: 1px solid #1f2937;
-        }
-        /* Header Bölümü */
-        .header {
-            padding: 15px;
-            text-align: center;
-            background: #1a2333;
-            border-bottom: 1px solid #2d3748;
-        }
-        .header h1 {
-            color: #7aa2f7;
-            font-size: 22px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        /* Player Alanı */
-        .player-box {
-            padding: 20px;
-            background: #111927;
-            text-align: center;
-            border-bottom: 1px solid #1f2937;
-        }
-        .live-indicator {
-            color: #ff4d4d;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            display: block;
-            animation: blink 1.5s infinite;
-        }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        body { background: #0b0e14; color: #ffffff; font-family: sans-serif; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        .app-container { width: 100%; max-width: 500px; display: flex; flex-direction: column; background: #12171f; }
         
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-        .play-btn {
-            background: #7aa2f7;
-            color: #0a0f1e;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(122, 162, 247, 0.4);
-        }
+        /* Player Kısmı */
+        .player-card { background: #1a222c; padding: 20px; text-align: center; border-bottom: 2px solid #000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .brand { font-size: 24px; color: #7aa2f7; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px; }
+        .live-label { font-size: 11px; color: #ff4d4d; animation: blink 1s infinite; margin-bottom: 15px; display: block; font-weight: bold; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        
+        .play-btn { width: 70px; height: 70px; border-radius: 50%; border: none; background: #7aa2f7; color: #12171f; font-size: 28px; cursor: pointer; transition: 0.2s; margin-bottom: 10px; }
         .play-btn:active { transform: scale(0.9); }
         
-        .volume-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            max-width: 250px;
-            margin: 0 auto;
-        }
-        .volume-bar input {
-            flex: 1;
-            height: 4px;
-            accent-color: #7aa2f7;
-            cursor: pointer;
-        }
-        #status-msg {
-            font-size: 13px;
-            color: #94a3b8;
-            margin-top: 12px;
-        }
+        #status-txt { font-size: 13px; color: #a0aec0; margin: 10px 0; font-style: italic; }
+        
+        .vol-box { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0 40px; }
+        .vol-box input { flex: 1; height: 4px; accent-color: #7aa2f7; }
 
-        /* CHAT ALANI (Kayıtsız Sohbet) */
-        .chat-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #000000;
-            position: relative;
-        }
-        .chat-label {
-            background: #1a2333;
-            padding: 8px 15px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #7aa2f7;
-            border-bottom: 1px solid #2d3748;
-        }
-        #chat-embed-box {
-            flex: 1;
-            width: 100%;
-        }
+        /* Sohbet Kısmı */
+        .chat-wrap { flex: 1; background: #000; display: flex; flex-direction: column; }
+        .chat-header { background: #1a222c; padding: 8px 15px; font-size: 12px; color: #7aa2f7; border-top: 1px solid #2d3748; }
 
-        /* Alt İletişim */
-        .footer-social {
-            padding: 10px;
-            background: #1a2333;
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid #2d3748;
-        }
-        .social-link {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .social-link i { font-size: 18px; }
-        .social-link.wa { color: #25d366; }
+        /* WhatsApp tarzı Alt Menü */
+        .social-bar { background: #1a222c; padding: 12px; display: flex; justify-content: space-around; border-top: 1px solid #2d3748; }
+        .social-btn { color: #a0aec0; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+        .wa-btn { color: #25d366; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>VOM RADYO</h1>
-    </div>
-
-    <div class="player-box">
-        <span class="live-indicator"><i class="fas fa-circle"></i> CANLI YAYIN</span>
+<div class="app-container">
+    <div class="player-card">
+        <div class="brand">VOM RADYO</div>
+        <span class="live-label">● CANLI YAYIN</span>
         
-        <div class="controls">
-            <button class="play-btn" id="mBtn" onclick="toggleStream()">
-                <i class="fas fa-play" id="mIcon" style="margin-left: 5px;"></i>
-            </button>
-        </div>
+        <button class="play-btn" id="mButton" onclick="tgl()">
+            <i class="fas fa-play" id="mIcon"></i>
+        </button>
 
-        <div class="volume-bar">
-            <i class="fas fa-volume-off" style="font-size: 12px; color: #4b5563;"></i>
-            <input type="range" min="0" max="1" step="0.05" value="0.8" oninput="changeVol(this.value)">
-            <i class="fas fa-volume-up" style="font-size: 12px; color: #7aa2f7;"></i>
+        <div class="vol-box">
+            <i class="fas fa-volume-down" style="font-size: 12px; color:#4a5568"></i>
+            <input type="range" min="0" max="1" step="0.05" value="0.8" oninput="sv(this.value)">
+            <i class="fas fa-volume-up" style="font-size: 12px; color:#7aa2f7"></i>
         </div>
-
-        <div id="status-msg">Dinlemek için oynat butonuna basın</div>
+        
+        <div id="status-txt">Hazır • Oynat'a basın</div>
     </div>
 
-    <div class="chat-label">
-        <i class="fas fa-comments"></i> CANLI SOHBET (Kayıt Gerekmez)
+    <div class="chat-header"><i class="fas fa-comments"></i> CANLI SOHBET (Takma Ad Yaz Geri)</div>
+    
+    <div class="chat-wrap">
+        <!-- Kayıtsız WhatsApp Tarzı Sohbet -->
+        <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%; height: 100%;">
+        {"handle":"vomradyo","arch":"js","styles":{"a":"12171f","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1a222c","l":"1a222c","m":"1a222c","n":"FFFFFF","p":"10","q":"1a222c","r":100,"fpos":"st","ss":0,"pbc":"7aa2f7"}}
+        </script>
     </div>
 
-    <!-- SOHBET ALANI: Herkese açık ve WhatsApp tarzı kayıt istemeyen yapı -->
-    <div class="chat-section">
-        <div id="chat-embed-box">
-            <!-- Chatango kutusu anonim girişlere izin verecek şekilde yapılandırıldı -->
-            <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%; height: 100%;">
-            {"handle":"vomradyo","arch":"js","styles":{"a":"111927","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1a2333","l":"1a2333","m":"1a2333","n":"FFFFFF","p":"10","q":"1a2333","r":100,"fpos":"st","ss":0,"pbc":"7aa2f7"}}
-            </script>
-        </div>
-    </div>
-
-    <div class="footer-social">
-        <a href="https://wa.me/901234567890" target="_blank" class="social-link wa">
-            <i class="fab fa-whatsapp"></i> Mesaj Gönder
+    <div class="social-bar">
+        <a href="https://wa.me/901234567890" target="_blank" class="social-btn wa-btn">
+            <i class="fab fa-whatsapp"></i> WhatsApp
         </a>
-        <a href="mailto:iletisim@vomradyo.com" class="social-link">
-            <i class="fas fa-envelope"></i> E-Posta
+        <a href="#" class="social-btn">
+            <i class="fas fa-share-alt"></i> Paylaş
         </a>
     </div>
 </div>
 
 <script>
-    /*
-        HTTPS BULUT KOPRUSU: 
-        Senin olusturdugun Cloudflare Worker linkini kullaniyoruz. 
-        Bu sayede iPhone ve Android guvenlik engelini aşar.
-    */
-    const WORKER_URL = "https://spring-river-abed.guryuc.workers.dev/";
+    // SENİN WORKER LİNKİN
+    const URL = "https://spring-river-abed.guryuc.workers.dev/";
     
-    let audio = new Audio();
-    let playing = false;
+    let a = new Audio();
+    let isP = false;
+    const btn = document.getElementById('mButton');
+    const icon = document.getElementById('mIcon');
+    const st = document.getElementById('status-txt');
 
-    const btnIcon = document.getElementById('mIcon');
-    const statusTxt = document.getElementById('status-msg');
-
-    function toggleStream() {
-        if (!playing) {
-            statusTxt.innerHTML = "<i class='fas fa-spinner fa-spin'></i> BAĞLANILIYOR...";
+    function tgl() {
+        if (!isP) {
+            st.innerHTML = "<i class='fas fa-spinner fa-spin'></i> BAĞLANILIYOR...";
+            a.src = URL + "?t=" + Date.now(); // Cache kırmak için
             
-            // Taze baglanti icin t= degeri eklenmistir
-            audio.src = WORKER_URL + "?t=" + new Date().getTime();
-            
-            audio.play().then(function() {
-                playing = true;
-                btnIcon.className = "fas fa-pause";
-                btnIcon.style.marginLeft = "0px";
-                statusTxt.innerHTML = "<span style='color:#7aa2f7; font-weight:bold;'>YAYIN AKIYOR...</span>";
-            }).catch(function(e) {
-                console.error("Yayin Hatasi:", e);
-                statusTxt.innerHTML = "<span style='color:#ff4d4d;'>YAYIN ŞU AN ÇEVRİMDIŞI</span>";
+            a.play().then(() => {
+                isP = true;
+                icon.className = "fas fa-pause";
+                st.innerHTML = "<b>YAYIN AKIYOR</b>";
+                st.style.color = "#7aa2f7";
+            }).catch(e => {
+                console.error(e);
+                st.innerHTML = "❌ HATA: YAYIN ALINAMADI";
+                st.style.color = "#ff4d4d";
             });
         } else {
-            audio.pause();
-            audio.src = ""; // Baglantiyi tamamen durdurur
-            playing = false;
-            btnIcon.className = "fas fa-play";
-            btnIcon.style.marginLeft = "5px";
-            statusTxt.innerHTML = "Yayın durduruldu.";
+            a.pause();
+            a.src = ""; // Bağlantıyı kopar
+            isP = false;
+            icon.className = "fas fa-play";
+            st.innerHTML = "Yayın durduruldu";
+            st.style.color = "#a0aec0";
         }
     }
 
-    function changeVol(v) {
-        audio.volume = v;
-    }
-
-    // Mobil cihazlar uyku moduna gecerse baglantiyi tazelemek icin
-    document.addEventListener("visibilitychange", function() {
-        if (!document.hidden && playing) {
-            // Yayın devam ediyorsa bir sey yapma
-        }
-    });
+    function sv(v) { a.volume = v; }
 </script>
 
 </body>
