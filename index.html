@@ -81,10 +81,15 @@
                 st.style.color = "#f85149";
             });
 
-            a.volume = document.getElementById('vol').value;
-            a.play().catch(function() {
-                st.innerHTML = "❌ Tarayici engelledi, tekrar dene";
-            });
+            a.play().catch(function(e) {
+    console.log(e);
+    // Kullanici etkileşimi ile tekrar dene
+    document.addEventListener('click', function retry() {
+        a.play().catch(function(){});
+        document.removeEventListener('click', retry);
+    }, {once: true});
+    st.innerHTML = "⚠️ Tekrar Play'e bas";
+});
 
         } else {
             a.pause();
