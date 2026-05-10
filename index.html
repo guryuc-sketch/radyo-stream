@@ -2,489 +2,170 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>RADYO STREAM | Canlı Yayın</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOM RADYO - LIVE</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            color: #eef4ff;
-            padding: 16px;
-            min-height: 100vh;
+            background: #0a0f1e;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            padding: 10px;
         }
-        .stream-container {
-            max-width: 550px;
+        .container {
             width: 100%;
-            background: rgba(18, 25, 40, 0.95);
-            border-radius: 2rem;
+            max-width: 450px;
+            background: #121928;
+            border-radius: 15px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid #2d3748;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .radio-header {
-            background: linear-gradient(135deg, #111927, #0d1220);
-            padding: 1.2rem 1.5rem;
+        .header {
+            padding: 20px;
+            text-align: center;
+            background: #1a2333;
+            border-bottom: 1px solid #2d3748;
+        }
+        .header h1 {
+            color: #7aa2f7;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        .player-box {
+            padding: 30px 20px;
             text-align: center;
         }
-        .radio-header h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #ffffff, #7aa2f7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .live-tag {
+            color: #ff4d4d;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
         }
-        .radio-header p {
-            font-size: 0.7rem;
-            color: #8e9bbe;
-        }
-        .player-area {
-            background: rgba(15, 20, 34, 0.8);
-            padding: 1.5rem 1rem;
-            text-align: center;
-        }
-        .live-blink {
-            font-size: 1.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: blinkLive 1s infinite;
-            margin-bottom: 1rem;
-        }
-        @keyframes blinkLive {
-            0% { opacity: 1; }
-            50% { opacity: 0.55; }
-            100% { opacity: 1; }
-        }
-        .player-controls {
+        .controls {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin: 15px 0;
+            margin-bottom: 20px;
         }
-        .ctrl-btn {
-            background: linear-gradient(135deg, #1f2a44, #1a2340);
-            border: none;
-            width: 65px;
-            height: 65px;
-            border-radius: 65px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-        }
-        .ctrl-btn:active {
-            transform: scale(0.95);
-        }
-        .ctrl-btn i {
-            font-size: 1.8rem;
+        .btn {
+            background: #1f2a44;
+            border: 1px solid #3b4261;
             color: white;
-        }
-        .status-text {
-            font-size: 0.75rem;
-            color: #8da3d0;
-            margin-top: 10px;
-            min-height: 20px;
-        }
-        .volume-control {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .volume-slider {
-            width: 120px;
-            height: 4px;
-            -webkit-appearance: none;
-            background: #2a3448;
-            border-radius: 5px;
-            outline: none;
-        }
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: #7aa2f7;
             cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .news-section {
-            background: rgba(11, 16, 32, 0.9);
-            padding: 12px 16px;
-        }
-        .news-ticker {
-            background: rgba(1, 1, 51, 0.4);
-            border-radius: 20px;
-            padding: 10px 14px;
-            font-size: 0.8rem;
-            border-left: 3px solid #ffb347;
-        }
-        .chat-section {
-            background: rgba(15, 22, 37, 0.9);
-            padding: 1rem;
-        }
-        .chat-title {
+        .btn:hover { background: #25345a; }
+        .vol-row {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #b9fbc0;
+            padding: 0 40px;
         }
-        .chat-messages {
-            background: rgba(6, 10, 20, 0.8);
-            border-radius: 24px;
-            height: 260px;
-            overflow-y: auto;
-            padding: 12px;
-            margin-bottom: 12px;
-        }
-        .message-bubble {
-            max-width: 85%;
-            padding: 8px 14px;
-            border-radius: 22px;
-            font-size: 0.85rem;
-            background: #1e2a3e;
-            color: #f0f3ff;
-            margin-bottom: 8px;
-        }
-        .message-bubble.own {
-            background: #2b5f8a;
-            margin-left: auto;
-        }
-        .message-meta {
-            font-size: 0.6rem;
-            color: #a2b5e0;
-            margin-bottom: 4px;
-        }
-        .chat-input-area {
-            display: flex;
-            gap: 10px;
-            background: rgba(12, 17, 34, 0.9);
-            padding: 6px 10px;
-            border-radius: 60px;
-        }
-        .chat-input-area input {
+        input[type=range] {
             flex: 1;
-            background: transparent;
-            border: none;
-            padding: 10px;
-            color: white;
-            outline: none;
-        }
-        .send-btn {
-            background: #25D366;
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 44px;
             cursor: pointer;
         }
-        .contact-section {
-            background: rgba(11, 16, 32, 0.9);
-            padding: 14px 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
+        #status {
+            font-size: 12px;
+            color: #8da3d0;
+            margin-top: 15px;
         }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(22, 31, 51, 0.8);
-            padding: 6px 18px;
-            border-radius: 40px;
-            text-decoration: none;
-            color: #e2eaff;
-            font-size: 0.8rem;
-        }
-        .footer-copyright {
-            font-size: 0.65rem;
-            text-align: center;
-            padding: 14px;
-            color: #6c7ea0;
-            background: rgba(7, 12, 24, 0.9);
+        /* Chat Box */
+        .chat-area {
+            height: 350px;
+            background: #000;
+            border-top: 1px solid #2d3748;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome (İkonlar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<div class="stream-container">
-    <div class="radio-header">
-        <h1>RADYO STREAM</h1>
-        <p>✦ canlı yayın ✦</p>
+<div class="container">
+    <div class="header">
+        <h1>VOM RADYO</h1>
     </div>
 
-    <div class="player-area">
-        <div class="live-blink">🔴 CANLI YAYIN</div>
-        
-        <!-- DOĞRUDAN HTTP STREAM -->
-        <audio id="radioPlayer" preload="none"></audio>
-        
-        <div class="player-controls">
-            <button class="ctrl-btn" id="playBtn"><i class="fas fa-play"></i></button>
-            <button class="ctrl-btn" id="pauseBtn"><i class="fas fa-pause"></i></button>
+    <div class="player-box">
+        <div class="live-tag">
+            <i class="fas fa-circle" id="blink" style="font-size:10px;"></i> CANLI YAYIN
         </div>
-        
-        <div class="volume-control">
-            <i class="fas fa-volume-down" style="color: #8da3d0; font-size: 0.8rem;"></i>
-            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="80">
-            <i class="fas fa-volume-up" style="color: #8da3d0; font-size: 0.8rem;"></i>
+
+        <div class="controls">
+            <button class="btn" id="play" onclick="togglePlay()"><i class="fas fa-play" id="icon"></i></button>
         </div>
-        
-        <div class="status-text" id="playerStatus">🎵 Yayın hazır • Play butonuna basın</div>
+
+        <div class="vol-row">
+            <i class="fas fa-volume-down"></i>
+            <input type="range" id="volume" min="0" max="1" step="0.1" value="0.8" oninput="changeVol(this.value)">
+            <i class="fas fa-volume-up"></i>
+        </div>
+
+        <div id="status">Hazir. Oynata basin.</div>
     </div>
 
-    <div class="news-section">
-        <div class="news-ticker" id="newsTicker">
-            🌟 RADYO STREAM 7/24 kesintisiz müzik yayını • Canlı sohbete katılın!
-        </div>
-    </div>
-
-    <div class="chat-section">
-        <div class="chat-title">
-            <i class="fab fa-whatsapp"></i> <span>CANLI SOHBET</span>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message-bubble">
-                <div class="message-meta"><span>🎵 Radyo Bot</span><span>şimdi</span></div>
-                RADYO STREAM'e hoş geldiniz! 🎵
-            </div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Mesaj yaz" autocomplete="off">
-            <button class="send-btn" id="sendMsgBtn"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <div class="contact-section">
-        <a href="https://wa.me/901234567890" target="_blank" class="contact-item">
-            <i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp
-        </a>
-        <a href="mailto:radyostream@example.com" class="contact-item">
-            <i class="fas fa-envelope"></i> E-posta
-        </a>
-    </div>
-    
-    <div class="footer-copyright">
-        © 2025 <span>RADYO STREAM</span> — tüm hakları saklıdır
+    <!-- Sohbet Bolumu -->
+    <div class="chat-area">
+        <!-- Chatango widget baslangic -->
+        <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%;height: 100%;">
+        {"handle":"vomradyo","arch":"js","styles":{"a":"121928","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1a2333","l":"1a2333","m":"1a2333","n":"FFFFFF","p":"10","q":"1a2333","r":100,"fpos":"st","ss":0}}
+        </script>
+        <!-- Chatango widget bitis -->
     </div>
 </div>
 
 <script>
-    (function(){
-        // STREAM AYARLARI
-        const STREAM_URL = "http://uk4freenew.listen2myradio.com:20895/stream";
-        const ALT_STREAM_URL = "http://109.169.23.84:20895/stream";
-        
-        let audioElement = null;
-        let isPlaying = false;
-        let currentStream = STREAM_URL;
-        
-        const playBtn = document.getElementById('playBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const playerStatus = document.getElementById('playerStatus');
-        
-        function createAudio() {
-            if (audioElement) {
-                audioElement.pause();
-                audioElement.src = '';
-            }
-            
-            audioElement = new Audio();
-            audioElement.src = currentStream;
-            audioElement.volume = volumeSlider.value / 100;
-            
-            audioElement.addEventListener('canplay', () => {
-                playerStatus.innerHTML = "✅ Bağlantı başarılı!";
-                if (isPlaying) {
-                    audioElement.play().catch(handleError);
-                }
+    // Dinamik HTTPS Tüneli
+    var streamUrl = "https://ws.stream-ssl.com/http://109.169.23.84:20895/;";
+    var audio = new Audio();
+    var playing = false;
+    var btn = document.getElementById('play');
+    var icon = document.getElementById('icon');
+    var statusTxt = document.getElementById('status');
+
+    function togglePlay() {
+        if (!playing) {
+            statusTxt.innerHTML = "Baglaniyor...";
+            audio.src = streamUrl;
+            audio.play().then(function() {
+                playing = true;
+                icon.className = "fas fa-pause";
+                statusTxt.innerHTML = "YAYINDA";
+            }).catch(function(e) {
+                statusTxt.innerHTML = "Hata: Sunucu kapali olabilir.";
             });
-            
-            audioElement.addEventListener('playing', () => {
-                playerStatus.innerHTML = "🔴 CANLI YAYIN AKIYOR";
-                playBtn.style.opacity = "0.5";
-                pauseBtn.style.opacity = "1";
-            });
-            
-            audioElement.addEventListener('error', handleError);
-            
-            audioElement.addEventListener('waiting', () => {
-                playerStatus.innerHTML = "⏳ Yükleniyor...";
-            });
+        } else {
+            audio.pause();
+            audio.src = ""; 
+            playing = false;
+            icon.className = "fas fa-play";
+            statusTxt.innerHTML = "Durduruldu.";
         }
-        
-        function handleError(err) {
-            console.error("Hata:", err);
-            
-            if (currentStream === STREAM_URL) {
-                currentStream = ALT_STREAM_URL;
-                playerStatus.innerHTML = "🔄 Alternatif sunucu deneniyor...";
-                createAudio();
-                if (isPlaying) {
-                    audioElement.play().catch(() => {
-                        playerStatus.innerHTML = "❌ Tarayıcı HTTP engelliyor. Firefox'ta about:config'dan media.block-autoplay-until-in-foreground = false yapın.";
-                        isPlaying = false;
-                        updateButtons();
-                    });
-                }
-            } else {
-                playerStatus.innerHTML = "❌ Bağlantı başarısız! Firefox/Edge ayarlarından HTTP izni verin.";
-                isPlaying = false;
-                updateButtons();
-            }
-        }
-        
-        function updateButtons() {
-            if (isPlaying) {
-                playBtn.style.opacity = "0.5";
-                pauseBtn.style.opacity = "1";
-            } else {
-                playBtn.style.opacity = "1";
-                pauseBtn.style.opacity = "0.5";
-            }
-        }
-        
-        function startPlayback() {
-            if (isPlaying) return;
-            isPlaying = true;
-            currentStream = STREAM_URL;
-            createAudio();
-            
-            playerStatus.innerHTML = "🔗 Bağlanıyor...";
-            
-            audioElement.play().catch(err => {
-                console.error("Oynatma hatası:", err);
-                handleError(err);
-            });
-        }
-        
-        function stopPlayback() {
-            if (!isPlaying) return;
-            isPlaying = false;
-            if (audioElement) {
-                audioElement.pause();
-                audioElement.currentTime = 0;
-            }
-            playerStatus.innerHTML = "⏸ Yayın durduruldu";
-            updateButtons();
-        }
-        
-        volumeSlider.addEventListener('input', (e) => {
-            const value = e.target.value;
-            if (audioElement) {
-                audioElement.volume = value / 100;
-            }
-        });
-        
-        playBtn.addEventListener('click', startPlayback);
-        pauseBtn.addEventListener('click', stopPlayback);
-        
-        pauseBtn.style.opacity = "0.5";
-        
-        // CHAT
-        const chatMessagesDiv = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendMsgBtn');
-        
-        let username = "Dinleyici_" + Math.floor(Math.random() * 900 + 100);
-        let messageHistory = [];
-        
-        function loadMessages() {
-            const stored = localStorage.getItem('radioChat');
-            if (stored) {
-                try {
-                    messageHistory = JSON.parse(stored);
-                    renderMessages();
-                } catch(e) {}
-            }
-        }
-        
-        function saveMessages() {
-            localStorage.setItem('radioChat', JSON.stringify(messageHistory.slice(-50)));
-        }
-        
-        function renderMessages() {
-            chatMessagesDiv.innerHTML = '';
-            messageHistory.forEach(msg => {
-                const isOwn = msg.username === username;
-                const bubbleDiv = document.createElement('div');
-                bubbleDiv.className = "message-bubble" + (isOwn ? " own" : "");
-                bubbleDiv.innerHTML = `
-                    <div class="message-meta"><span>${escapeHtml(msg.username)}</span><span>${msg.time}</span></div>
-                    <div>${escapeHtml(msg.text)}</div>
-                `;
-                chatMessagesDiv.appendChild(bubbleDiv);
-            });
-            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-        }
-        
-        function escapeHtml(str) {
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-        
-        function addMessage(text) {
-            if (!text.trim()) return;
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-            messageHistory.push({
-                username: username,
-                text: text.trim().substring(0, 200),
-                time: timeStr
-            });
-            saveMessages();
-            renderMessages();
-        }
-        
-        function sendMessage() {
-            const text = chatInput.value;
-            if (!text.trim()) return;
-            addMessage(text);
-            chatInput.value = '';
-        }
-        
-        sendBtn.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
-        
-        loadMessages();
-        setTimeout(() => {
-            addMessage("Sohbete katıldım! 🎵");
-        }, 1000);
-        
-        const newsItems = [
-            "🎵 RADYO STREAM 7/24 kesintisiz yayında",
-            "🎧 Shoutcast teknolojisi ile kristal netliğinde ses",
-            "💬 Canlı sohbete katılın!",
-            "📻 128 kbps kalitesinde kesintisiz müzik"
-        ];
-        let newsIdx = 0;
-        setInterval(() => {
-            newsIdx = (newsIdx + 1) % newsItems.length;
-            document.getElementById('newsTicker').innerHTML = "📌 " + newsItems[newsIdx];
-        }, 10000);
-    })();
+    }
+
+    function changeVol(v) {
+        audio.volume = v;
+    }
+
+    // Yanıp sönen canlı simgesi
+    setInterval(function() {
+        var dot = document.getElementById('blink');
+        dot.style.visibility = (dot.style.visibility === 'hidden' ? 'visible' : 'hidden');
+    }, 1000);
 </script>
+
 </body>
 </html>
