@@ -6,47 +6,73 @@
     <title>VOM RADYO - LIVE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background:#0a0f1e; color:white; font-family:sans-serif; text-align:center; padding:20px; }
-        .box { max-width:400px; margin:auto; background:#111927; padding:30px; border-radius:20px; border:1px solid #1f2937; }
-        .play-btn { width:80px; height:80px; border-radius:50%; border:none; background:#7aa2f7; font-size:30px; cursor:pointer; }
-        #st { margin-top:15px; color:#94a3b8; font-size:14px; }
-        .chat-box { margin-top:20px; height:350px; background:#000; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#0d1117; color:#fff; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+        .box { width:100%; max-width:480px; background:#161b22; border-radius:20px; border:1px solid #30363d; text-align:center; overflow:hidden; }
+        .header { padding:25px; background:#1c2536; color:#58a6ff; font-size:26px; font-weight:900; letter-spacing:4px; }
+        .player { padding:35px 20px; }
+        .live { color:#f85149; font-size:12px; font-weight:bold; animation:blink 1.2s infinite; display:block; margin-bottom:20px; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .btn { width:85px; height:85px; border-radius:50%; border:none; background:#58a6ff; color:#0d1117; font-size:32px; cursor:pointer; transition:0.2s; box-shadow:0 0 25px rgba(88,166,255,0.3); }
+        .btn:active { transform:scale(0.9); }
+        #st { margin-top:18px; font-size:14px; color:#8b949e; font-weight:bold; }
+        .vol { display:flex; align-items:center; gap:12px; padding:18px 50px 0; }
+        .vol input { flex:1; accent-color:#58a6ff; }
+        .chat { height:380px; background:#000; border-top:1px solid #30363d; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h2>VOM RADYO</h2>
-        <br>
-        <button class="play-btn" onclick="playRad()" id="b"><i class="fas fa-play" id="i"></i></button>
-        <div id="st">Yayını başlatmak için bas</div>
+<div class="box">
+    <div class="header">VOM RADYO</div>
+    <div class="player">
+        <span class="live">● CANLI YAYIN</span>
+        <button class="btn" onclick="tgl()">
+            <i class="fas fa-play" id="ico" style="margin-left:5px"></i>
+        </button>
+        <div class="vol">
+            <i class="fas fa-volume-down" style="color:#484f58;font-size:12px"></i>
+            <input type="range" min="0" max="1" step="0.05" value="0.8" oninput="a.volume=this.value">
+            <i class="fas fa-volume-up" style="color:#58a6ff;font-size:12px"></i>
+        </div>
+        <div id="st">Yayını dinlemek için bas</div>
     </div>
-
-    <div class="chat-box">
-        <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width: 100%;height: 100%;">
-        {"handle":"vomradyo","arch":"js","styles":{"a":"111927","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1a2333","l":"1a2333","m":"1a2333","n":"FFFFFF","p":"10","q":"1a2333","r":100}}
+    <div class="chat">
+        <script id="cid0020000392375834863" data-cfasync="false" async src="https://st.chatango.com/js/gz/emb.js" style="width:100%;height:100%;">
+        {"handle":"vomradyo","arch":"js","styles":{"a":"161b22","b":100,"c":"FFFFFF","d":"FFFFFF","k":"1c2536","l":"1c2536","m":"1c2536","n":"FFFFFF","p":"10","q":"1c2536","r":100,"fpos":"st","ss":0}}
         </script>
     </div>
+</div>
 
-    <script>
-        var sUrl = "https://spring-river-abed.guryuc.workers.dev/"; 
-        var a = new Audio();
-        var isP = false;
+<script>
+    var STREAM = "https://spring-river-abed.guryuc.workers.dev/";
+    var a = new Audio();
+    var pl = false;
 
-        function playRad() {
-            var st = document.getElementById('st');
-            var i = document.getElementById('i');
-            if (!isP) {
-                st.innerHTML = "Sinyal Çekiliyor...";
-                a.src = sUrl + "?cb=" + Math.random();
-                a.play().then(function() {
-                    isP = true; i.className = "fas fa-pause"; st.innerHTML = "CANLI YAYINDA";
-                }).catch(function() {
-                    st.innerHTML = "Hata: Sunucu bağlanmayı reddetti.";
-                });
-            } else {
-                a.pause(); a.src = ""; isP = false; i.className = "fas fa-play"; st.innerHTML = "Durduruldu.";
-            }
+    function tgl() {
+        var ico = document.getElementById('ico');
+        var st = document.getElementById('st');
+        if (!pl) {
+            st.innerHTML = "Bağlanıyor...";
+            a = new Audio(STREAM + "?t=" + Date.now());
+            a.play().then(function() {
+                pl = true;
+                ico.className = "fas fa-pause";
+                ico.style.marginLeft = "0";
+                st.innerHTML = "🔴 YAYIN AKIYOR";
+                st.style.color = "#58a6ff";
+            }).catch(function(e) {
+                st.innerHTML = "❌ Hata: " + e.message;
+            });
+        } else {
+            a.pause();
+            a.src = "";
+            pl = false;
+            ico.className = "fas fa-play";
+            ico.style.marginLeft = "5px";
+            st.innerHTML = "Durduruldu.";
+            st.style.color = "#8b949e";
         }
-    </script>
+    }
+</script>
 </body>
 </html>
