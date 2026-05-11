@@ -62,8 +62,10 @@
             st.innerHTML = "Bağlanıyor...";
             st.style.color = "#8b949e";
 
-            a = new Audio();
-            a.src = STREAM + "?t=" + Date.now();
+            if (a) { a.pause(); a.src = ""; }
+            
+            a = new Audio(STREAM + "?t=" + Date.now());
+            a.volume = document.getElementById('vol').value;
 
             a.addEventListener('playing', function() {
                 pl = true;
@@ -77,19 +79,14 @@
                 pl = false;
                 ico.className = "fas fa-play";
                 ico.style.marginLeft = "5px";
-                st.innerHTML = "❌ Yayin su an kapali";
+                st.innerHTML = "❌ Yayin kapali";
                 st.style.color = "#f85149";
             });
 
-            a.play().catch(function(e) {
-    console.log(e);
-    // Kullanici etkileşimi ile tekrar dene
-    document.addEventListener('click', function retry() {
-        a.play().catch(function(){});
-        document.removeEventListener('click', retry);
-    }, {once: true});
-    st.innerHTML = "⚠️ Tekrar Play'e bas";
-});
+            a.play().catch(function() {
+                st.innerHTML = "⚠️ Tekrar Play'e bas";
+                pl = false;
+            });
 
         } else {
             a.pause();
