@@ -1413,7 +1413,7 @@
     
     window.deleteCommentFirebase = function(postId, commentId) {
         const pwd = prompt("Admin şifresi:");
-        if(pwd === "admin123") {
+        if(pwd === "") {
             deleteCommentFromFirebase(postId, commentId);
         } else if(pwd !== null) {
             alert("Şifre yanlış!");
