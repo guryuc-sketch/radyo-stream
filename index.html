@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    
-    <!-- ★★★ SEO GELİŞTİRMELERİ ★★★ -->
     <title>VOM | Kültür Sanat Blogu - Dijital Sanat, Müzik ve Radyo</title>
     <meta name="description" content="VOM Kültür Sanat Blogu: Yeni medya, dijital sanat, web radyo, şiir-müzik buluşmaları, fotoğraf sanatı ve kültürel içerikler. Canlı radyo ve video albümlerle zenginleştirilmiş sanat platformu.">
     <meta name="keywords" content="kültür sanat, dijital sanat, web radyo, vom, sanat blogu, müzik, şiir, fotoğraf sanatı, minimalist fotoğrafçılık, yeni medya">
@@ -13,1557 +11,327 @@
     <meta name="language" content="tr">
     <meta name="revisit-after" content="7 days">
     <link rel="canonical" href="https://vomyayin.dpdns.org/">
-    
-    <!-- Open Graph / Sosyal Medya Paylaşım Etiketleri -->
     <meta property="og:title" content="VOM | Kültür Sanat Blogu">
     <meta property="og:description" content="Sanatın ve kültürün dijital yüzü: Canlı radyo, video albümler, yorumlar ve güncel sanat yazıları.">
     <meta property="og:image" content="https://picsum.photos/id/104/800/450">
     <meta property="og:url" content="https://vomyayin.dpdns.org/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="tr_TR">
-    
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="VOM | Kültür Sanat Blogu">
     <meta name="twitter:description" content="Canlı radyo, video albümler ve kültür sanat üzerine yazılar.">
     <meta name="twitter:image" content="https://picsum.photos/id/104/800/450">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #f0f2f5;
-            font-family: 'Source Sans 3', sans-serif;
-            color: #1a1e24;
-            line-height: 1.5;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        #wrapper {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            #wrapper {
-                padding: 1.5rem;
-                gap: 1.5rem;
-            }
-        }
-
-        @media (min-width: 992px) {
-            #wrapper {
-                flex-direction: row;
-                align-items: flex-start;
-            }
-            #main {
-                flex: 2.2;
-                min-width: 0;
-            }
-            #sidebar {
-                flex: 1;
-                min-width: 280px;
-                position: sticky;
-                top: 1rem;
-            }
-        }
-
-        #header {
-            background: white;
-            border-radius: 16px;
-            padding: 0.8rem 1rem;
-            margin-bottom: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid #e5e9f0;
-        }
-
-        @media (min-width: 480px) {
-            #header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1rem 1.5rem;
-            }
-        }
-
-        #header h1 a {
-            font-size: 1.5rem;
-            font-weight: 800;
-            text-decoration: none;
-            background: linear-gradient(135deg, #1a2a3a, #2c3e66);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .links ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            list-style: none;
-            justify-content: center;
-        }
-
-        .links a {
-            text-decoration: none;
-            color: #4a5568;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .links a:hover {
-            color: #2c5f8a;
-        }
-
-        .chat-button-side {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            border-radius: 2rem;
-            padding: 0.8rem 1rem;
-            margin: 0.5rem 0 1rem 0;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 4px 12px rgba(37,211,102,0.3);
-        }
-        .chat-button-side:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(37,211,102,0.4);
-        }
-        .chat-button-side a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        .chat-button-side i {
-            font-size: 1.2rem;
-        }
-        .chat-button-side.offline {
-            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-        .chat-button-side.offline:hover {
-            transform: none;
-        }
-
-        .main ul {
-            display: flex;
-            gap: 0.5rem;
-            list-style: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-container {
-            display: flex;
-            gap: 0.3rem;
-            align-items: center;
-        }
-
-        #search-input {
-            padding: 0.5rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 30px;
-            outline: none;
-            font-size: 0.85rem;
-            width: 160px;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        #search-input:focus {
-            border-color: #2c5f8a;
-            box-shadow: 0 0 0 3px rgba(44,95,138,0.1);
-            width: 180px;
-        }
-
-        .search-btn {
-            background: #2c5f8a;
-            border: none;
-            color: white;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .search-btn:hover {
-            background: #1e4668;
-            transform: scale(1.05);
-        }
-
-        .search-results {
-            background: white;
-            border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid #eef2f6;
-            display: none;
-        }
-        .search-results h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-        .search-results ul {
-            list-style: none;
-        }
-        .search-results li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #eef2f6;
-        }
-        .search-results li:last-child {
-            border-bottom: none;
-        }
-        .search-results a {
-            text-decoration: none;
-            color: #2c5f8a;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-        }
-        .search-results p {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 0.3rem;
-        }
-        .close-search {
-            float: right;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: #999;
-            transition: 0.2s;
-        }
-        .close-search:hover {
-            color: #e33b3b;
-        }
-
-        .post {
-            background: white;
-            border-radius: 20px;
-            margin-bottom: 1.2rem;
-            padding: 1rem;
-            border: 1px solid #eef2f6;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            transition: 0.2s;
-        }
-
-        .post:hover {
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        @media (min-width: 480px) {
-            .post {
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .post {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-        }
-
-        .post header {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        @media (min-width: 480px) {
-            .post header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-            }
-            .meta {
-                text-align: right;
-            }
-        }
-
-        .title h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .title h2 a {
-            text-decoration: none;
-            color: #1e293b;
-        }
-
-        @media (min-width: 480px) {
-            .title h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .title h2 {
-                font-size: 1.8rem;
-            }
-        }
-
-        .title p {
-            color: #64748b;
-            font-size: 0.8rem;
-            margin-top: 0.2rem;
-        }
-
-        .meta {
-            font-size: 0.75rem;
-            color: #6c7a91;
-        }
-
-        .author {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.3rem;
-            text-decoration: none;
-            color: #334155;
-        }
-
-        .author img {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .image.featured {
-            margin: 0.8rem 0;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .image.featured img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .post p {
-            color: #2d3e50;
-            margin: 0.8rem 0;
-            font-size: 0.9rem;
-        }
-
-        .post-footer {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-top: 1rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #edf2f7;
-        }
-
-        @media (min-width: 480px) {
-            .post-footer {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        .button {
-            background: #f1f5f9;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.8rem;
-            color: #1f2a44;
-            display: inline-block;
-            transition: 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .stats {
-            display: flex;
-            gap: 1rem;
-            list-style: none;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .stats li {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .stats a {
-            text-decoration: none;
-            color: #6b7a8a;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .comments-section {
-            margin-top: 1rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #eef2f6;
-            display: none;
-        }
-
-        .comments-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 0.5rem;
-        }
-
-        .comments-list {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 0.8rem;
-        }
-
-        .comment-item {
-            background: #f8fafc;
-            padding: 0.6rem;
-            border-radius: 12px;
-            margin-bottom: 0.5rem;
-            font-size: 0.75rem;
-            position: relative;
-        }
-        .comment-item:hover .delete-comment {
-            display: inline-block;
-        }
-        .delete-comment {
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            background: #e33b3b;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            display: none;
-            transition: 0.2s;
-        }
-        .delete-comment:hover {
-            background: #cc0000;
-            transform: scale(1.05);
-        }
-
-        .add-comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        @media (min-width: 480px) {
-            .add-comment-form {
-                flex-direction: column;
-            }
-        }
-
-        .comment-input {
-            padding: 0.5rem 0.8rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            outline: none;
-        }
-        
-        .comment-text {
-            padding: 0.5rem 0.8rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            outline: none;
-            font-family: inherit;
-            resize: vertical;
-        }
-
-        .submit-comment {
-            background: #2c5f8a;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .radio-metallic-sidebar {
-            background: radial-gradient(circle at 20% 30%, #e8eaef, #b9bfcc);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255,255,255,0.7);
-        }
-
-        .radio-header-side {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.8rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .station-name-side {
-            font-size: 1.2rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #1a1e24;
-        }
-
-        .live-badge-side {
-            background: #7f8c8d;
-            color: white;
-            font-size: 0.6rem;
-            font-weight: 700;
-            padding: 0.2rem 0.6rem;
-            border-radius: 60px;
-        }
-
-        .controls-side {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.8rem;
-            margin: 0.8rem 0;
-            flex-wrap: wrap;
-        }
-
-        .ctrl-btn-side {
-            background: radial-gradient(circle at 30% 20%, #eff2f9, #c4cad9);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            cursor: pointer;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.2), -3px -3px 6px rgba(255,255,255,0.6);
-            color: #2c2f3a;
-        }
-
-        .play-pause-side {
-            width: 60px;
-            height: 60px;
-            font-size: 1.6rem;
-        }
-
-        .volume-side {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .volume-slider-side {
-            width: 100px;
-            height: 3px;
-        }
-
-        .track-title-side {
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: white !important;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-        }
-        .track-artist-side {
-            font-size: 0.65rem;
-            color: rgba(255,255,255,0.8) !important;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-        }
-        .time-elapsed-side {
-            font-family: monospace;
-            font-size: 0.7rem;
-            background: #1e1f26;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
-            color: #b9fbc0;
-        }
-
-        .video-container-side {
-            background: transparent;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-        .video-cover {
-            position: relative;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .video-cover:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        .video-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .play-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-        .video-cover:hover .play-overlay {
-            background: rgba(0,0,0,0.55);
-        }
-        .play-overlay i {
-            font-size: 3.5rem;
-            color: white;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
-            transition: transform 0.2s;
-        }
-        .video-cover:hover .play-overlay i {
-            transform: scale(1.1);
-            color: #ff0000;
-        }
-        .video-note {
-            font-size: 0.65rem;
-            text-align: center;
-            margin-top: 0.5rem;
-            color: #6c86a3;
-        }
-
-        /* CHAT POPUP */
-        .chat-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px;
-            max-width: 90vw;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            z-index: 10001;
-            overflow: hidden;
-            font-family: inherit;
-            flex-direction: column;
-            max-height: 85vh;
-        }
-        .chat-popup.active {
-            display: flex;
-            animation: fadeInUp 0.3s ease;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translate(-50%, -40%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
-        }
-        .chat-header {
-            background: #075E54;
-            color: white;
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-        .chat-header .chat-title {
-            margin: 0;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-        .chat-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .chat-close:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-            background: #ECE5DD;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            min-height: 300px;
-            max-height: 50vh;
-        }
-        .chat-message {
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 18px;
-            font-size: 0.85rem;
-            word-break: break-word;
-        }
-        .chat-message.received {
-            background: white;
-            align-self: flex-start;
-            border-top-left-radius: 4px;
-        }
-        .chat-message.sent {
-            background: #DCF8C6;
-            align-self: flex-end;
-            border-top-right-radius: 4px;
-        }
-        .chat-message-username {
-            font-weight: 700;
-            font-size: 0.7rem;
-            margin-bottom: 0.2rem;
-            color: #075E54;
-        }
-        .chat-message-time {
-            font-size: 0.6rem;
-            color: #999;
-            margin-top: 0.2rem;
-            text-align: right;
-        }
-        .chat-system {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #666;
-            margin: 0.3rem 0;
-        }
-        .chat-input-area {
-            display: flex;
-            flex-direction: column;
-            padding: 12px;
-            background: #f0f0f0;
-            gap: 10px;
-            border-top: 1px solid #ddd;
-            flex-shrink: 0;
-        }
-        .chat-input-area input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            outline: none;
-            background: #f8f9fa;
-        }
-        .chat-input-area textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            outline: none;
-            background: white;
-            resize: none;
-            overflow-y: hidden;
-            font-family: inherit;
-            line-height: 1.4;
-            max-height: 150px;
-        }
-        .chat-input-area textarea:focus {
-            border-color: #075E54;
-        }
-        .chat-input-area button {
-            background: #075E54;
-            border: none;
-            color: white;
-            padding: 12px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: 0.2s;
-            width: 100%;
-        }
-        .chat-input-area button:hover {
-            background: #054a3e;
-        }
-        .chat-status {
-            text-align: center;
-            font-size: 0.65rem;
-            padding: 8px;
-            background: #f0f0f0;
-            color: #666;
-            border-top: 1px solid #e0e0e0;
-            flex-shrink: 0;
-        }
-        .chat-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 10000;
-        }
-        .chat-overlay.active {
-            display: block;
-        }
-
-        .video-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .video-modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            position: relative;
-            width: 95%;
-            max-width: 500px;
-        }
-
-        @media (min-width: 768px) {
-            .modal-content {
-                max-width: 800px;
-            }
-        }
-
-        .modal-content iframe {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 16px;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .blurb {
-            background: white;
-            border-radius: 20px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid #eef2f6;
-        }
-
-        .blurb h2 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .site-footer {
-            text-align: center;
-            padding: 1rem 0;
-            font-size: 0.7rem;
-            color: #6c86a3;
-            border-top: 1px solid #eef2f6;
-            margin-top: 0.5rem;
-        }
-
-        .icons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .icons a {
-            font-size: 1.5rem;
-            transition: 0.2s;
-        }
-
-        .icons a:hover {
-            transform: scale(1.1);
-            color: #2c5f8a;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 1rem 0;
-        }
-
-        .disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-
-        .heart-animation {
-            animation: heartBeat 0.3s ease;
-        }
-
-        @keyframes pulseLive {
-            0% { opacity: 0.7; }
-            70% { opacity: 1; }
-            100% { opacity: 0.7; }
-        }
-
-        .live-badge-side:not(.offline) {
-            animation: pulseLive 1.2s infinite;
-        }
-        
-        .highlight {
-            background-color: #fff9c4;
-            transition: background-color 0.5s;
-        }
-        
-        @media (max-width: 480px) {
-            .chat-popup {
-                width: 95vw;
-                height: auto;
-                max-height: 85vh;
-            }
-            .chat-messages {
-                max-height: 45vh;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#f0f2f5;font-family:'Source Sans 3',sans-serif;color:#1a1e24;line-height:1.5}
+        html{scroll-behavior:smooth}
+        #wrapper{max-width:1300px;margin:0 auto;padding:0.75rem;display:flex;flex-direction:column;gap:1rem}
+        @media (min-width:768px){#wrapper{padding:1.5rem;gap:1.5rem}}
+        @media (min-width:992px){#wrapper{flex-direction:row;align-items:flex-start}#main{flex:2.2;min-width:0}#sidebar{flex:1;min-width:280px;position:sticky;top:1rem}}
+        #header{background:white;border-radius:16px;padding:0.8rem 1rem;margin-bottom:0;display:flex;flex-direction:column;gap:0.8rem;box-shadow:0 1px 3px rgba(0,0,0,0.05);border:1px solid #e5e9f0}
+        @media (min-width:480px){#header{flex-direction:row;justify-content:space-between;align-items:center;padding:1rem 1.5rem}}
+        #header h1 a{font-size:1.5rem;font-weight:800;text-decoration:none;background:linear-gradient(135deg,#1a2a3a,#2c3e66);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .links ul{display:flex;flex-wrap:wrap;gap:1rem;list-style:none;justify-content:center}
+        .links a{text-decoration:none;color:#4a5568;font-weight:500;font-size:0.9rem;transition:0.2s;cursor:pointer}
+        .links a:hover{color:#2c5f8a}
+        .chat-button-side{background:linear-gradient(135deg,#25D366,#128C7E);border-radius:2rem;padding:0.8rem 1rem;margin:0.5rem 0 1rem 0;text-align:center;cursor:pointer;transition:all 0.3s ease;border:none;box-shadow:0 4px 12px rgba(37,211,102,0.3)}
+        .chat-button-side:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(37,211,102,0.4)}
+        .chat-button-side a{color:white;text-decoration:none;font-weight:600;font-size:0.9rem;display:flex;align-items:center;justify-content:center;gap:0.5rem}
+        .chat-button-side i{font-size:1.2rem}
+        .chat-button-side.offline{background:linear-gradient(135deg,#95a5a6,#7f8c8d);box-shadow:none;cursor:not-allowed}
+        .chat-button-side.offline:hover{transform:none}
+        .main ul{display:flex;gap:0.5rem;list-style:none;align-items:center;justify-content:center}
+        .search-container{display:flex;gap:0.3rem;align-items:center}
+        #search-input{padding:0.5rem 1rem;border:1px solid #ddd;border-radius:30px;outline:none;font-size:0.85rem;width:160px;transition:all 0.2s ease;background:white}
+        #search-input:focus{border-color:#2c5f8a;box-shadow:0 0 0 3px rgba(44,95,138,0.1);width:180px}
+        .search-btn{background:#2c5f8a;border:none;color:white;width:34px;height:34px;border-radius:50%;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center}
+        .search-btn:hover{background:#1e4668;transform:scale(1.05)}
+        .search-results{background:white;border-radius:16px;padding:1rem;margin-bottom:1rem;border:1px solid #eef2f6;display:none}
+        .search-results h3{margin-bottom:0.5rem;font-size:1rem}
+        .search-results ul{list-style:none}
+        .search-results li{padding:0.8rem 0;border-bottom:1px solid #eef2f6}
+        .search-results li:last-child{border-bottom:none}
+        .search-results a{text-decoration:none;color:#2c5f8a;font-weight:600;font-size:0.95rem;cursor:pointer}
+        .search-results p{font-size:0.8rem;color:#666;margin-top:0.3rem}
+        .close-search{float:right;cursor:pointer;font-size:1.2rem;color:#999;transition:0.2s}
+        .close-search:hover{color:#e33b3b}
+        .post{background:white;border-radius:20px;margin-bottom:1.2rem;padding:1rem;border:1px solid #eef2f6;box-shadow:0 2px 8px rgba(0,0,0,0.03);transition:0.2s}
+        .post:hover{box-shadow:0 4px 15px rgba(0,0,0,0.08)}
+        @media (min-width:480px){.post{padding:1.5rem;margin-bottom:1.5rem}}
+        @media (min-width:768px){.post{padding:2rem;margin-bottom:2rem}}
+        .post header{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem}
+        @media (min-width:480px){.post header{flex-direction:row;justify-content:space-between;align-items:flex-start}.meta{text-align:right}}
+        .title h2{font-size:1.3rem;font-weight:700}
+        .title h2 a{text-decoration:none;color:#1e293b}
+        @media (min-width:480px){.title h2{font-size:1.5rem}}
+        @media (min-width:768px){.title h2{font-size:1.8rem}}
+        .title p{color:#64748b;font-size:0.8rem;margin-top:0.2rem}
+        .meta{font-size:0.75rem;color:#6c7a91}
+        .author{display:flex;align-items:center;gap:0.5rem;margin-top:0.3rem;text-decoration:none;color:#334155}
+        .author img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+        .image.featured{margin:0.8rem 0;border-radius:16px;overflow:hidden}
+        .image.featured img{width:100%;height:auto;display:block}
+        .post p{color:#2d3e50;margin:0.8rem 0;font-size:0.9rem}
+        .post-footer{display:flex;flex-direction:column;gap:0.8rem;margin-top:1rem;padding-top:0.8rem;border-top:1px solid #edf2f7}
+        @media (min-width:480px){.post-footer{flex-direction:row;justify-content:space-between;align-items:center}}
+        .button{background:#f1f5f9;padding:0.5rem 1.2rem;border-radius:40px;text-decoration:none;font-weight:600;font-size:0.8rem;color:#1f2a44;display:inline-block;transition:0.2s;cursor:pointer;border:none}
+        .stats{display:flex;gap:1rem;list-style:none;align-items:center;flex-wrap:wrap}
+        .stats li{display:inline-flex;align-items:center;gap:0.3rem}
+        .stats a{text-decoration:none;color:#6b7a8a;font-size:0.85rem;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:0.3rem}
+        .comments-section{margin-top:1rem;padding-top:0.8rem;border-top:1px solid #eef2f6;display:none}
+        .comments-title{font-size:0.85rem;font-weight:600;color:#475569;margin-bottom:0.5rem}
+        .comments-list{max-height:300px;overflow-y:auto;margin-bottom:0.8rem}
+        .comment-item{background:#f8fafc;padding:0.6rem;border-radius:12px;margin-bottom:0.5rem;font-size:0.75rem;position:relative}
+        .comment-item:hover .delete-comment{display:inline-block}
+        .delete-comment{position:absolute;right:8px;top:8px;background:#e33b3b;color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:0.7rem;cursor:pointer;display:none;transition:0.2s}
+        .delete-comment:hover{background:#cc0000;transform:scale(1.05)}
+        .add-comment-form{display:flex;flex-direction:column;gap:0.5rem}
+        @media (min-width:480px){.add-comment-form{flex-direction:column}}
+        .comment-input{padding:0.5rem 0.8rem;border:1px solid #e2e8f0;border-radius:30px;font-size:0.8rem;outline:none}
+        .comment-text{padding:0.5rem 0.8rem;border:1px solid #e2e8f0;border-radius:16px;font-size:0.8rem;outline:none;font-family:inherit;resize:vertical}
+        .submit-comment{background:#2c5f8a;color:white;border:none;border-radius:30px;padding:0.5rem 1rem;font-size:0.75rem;font-weight:600;cursor:pointer}
+        .radio-metallic-sidebar{background:radial-gradient(circle at 20% 30%,#e8eaef,#b9bfcc);border-radius:1.5rem;padding:1rem;margin-bottom:1rem;border:1px solid rgba(255,255,255,0.7)}
+        .radio-header-side{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.5rem}
+        .station-name-side{font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:0.5rem;color:#1a1e24}
+        .live-badge-side{background:#7f8c8d;color:white;font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:60px}
+        .controls-side{display:flex;justify-content:center;align-items:center;gap:0.8rem;margin:0.8rem 0;flex-wrap:wrap}
+        .ctrl-btn-side{background:radial-gradient(circle at 30% 20%,#eff2f9,#c4cad9);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:pointer;box-shadow:4px 4px 10px rgba(0,0,0,0.2),-3px -3px 6px rgba(255,255,255,0.6);color:#2c2f3a}
+        .play-pause-side{width:60px;height:60px;font-size:1.6rem}
+        .volume-side{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.5rem}
+        .volume-slider-side{width:100px;height:3px}
+        .track-title-side{font-weight:700;font-size:0.85rem;color:white !important;text-shadow:0 1px 1px rgba(0,0,0,0.3)}
+        .track-artist-side{font-size:0.65rem;color:rgba(255,255,255,0.8) !important;text-shadow:0 1px 1px rgba(0,0,0,0.2)}
+        .time-elapsed-side{font-family:monospace;font-size:0.7rem;background:#1e1f26;padding:0.2rem 0.5rem;border-radius:20px;color:#b9fbc0}
+        .video-container-side{background:transparent;border-radius:1.5rem;overflow:hidden;margin-bottom:1rem}
+        .video-cover{position:relative;border-radius:1.5rem;overflow:hidden;cursor:pointer;aspect-ratio:16/9;background:#000;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:transform 0.2s,box-shadow 0.2s}
+        .video-cover:hover{transform:scale(1.02);box-shadow:0 8px 25px rgba(0,0,0,0.2)}
+        .video-cover img{width:100%;height:100%;object-fit:cover;display:block}
+        .play-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+        .video-cover:hover .play-overlay{background:rgba(0,0,0,0.55)}
+        .play-overlay i{font-size:3.5rem;color:white;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));transition:transform 0.2s}
+        .video-cover:hover .play-overlay i{transform:scale(1.1);color:#ff0000}
+        .video-note{font-size:0.65rem;text-align:center;margin-top:0.5rem;color:#6c86a3}
+        .chat-popup{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;max-width:90vw;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.3);z-index:10001;overflow:hidden;font-family:inherit;flex-direction:column;max-height:85vh}
+        .chat-popup.active{display:flex;animation:fadeInUp 0.3s ease}
+        @keyframes fadeInUp{from{opacity:0;transform:translate(-50%,-40%)}to{opacity:1;transform:translate(-50%,-50%)}}
+        .chat-header{background:#075E54;color:white;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+        .chat-header .chat-title{margin:0;font-size:1rem;display:flex;align-items:center;gap:8px;font-weight:600}
+        .chat-close{background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+        .chat-close:hover{background:rgba(255,255,255,0.2)}
+        .chat-messages{flex:1;overflow-y:auto;padding:12px;background:#ECE5DD;display:flex;flex-direction:column;gap:8px;min-height:300px;max-height:50vh}
+        .chat-message{max-width:80%;padding:8px 12px;border-radius:18px;font-size:0.85rem;word-break:break-word}
+        .chat-message.received{background:white;align-self:flex-start;border-top-left-radius:4px}
+        .chat-message.sent{background:#DCF8C6;align-self:flex-end;border-top-right-radius:4px}
+        .chat-message-username{font-weight:700;font-size:0.7rem;margin-bottom:0.2rem;color:#075E54}
+        .chat-message-time{font-size:0.6rem;color:#999;margin-top:0.2rem;text-align:right}
+        .chat-system{text-align:center;font-size:0.7rem;color:#666;margin:0.3rem 0}
+        .chat-input-area{display:flex;flex-direction:column;padding:12px;background:#f0f0f0;gap:10px;border-top:1px solid #ddd;flex-shrink:0}
+        .chat-input-area input{width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:25px;font-size:0.9rem;outline:none;background:#f8f9fa}
+        .chat-input-area textarea{width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:25px;font-size:0.9rem;outline:none;background:white;resize:none;overflow-y:hidden;font-family:inherit;line-height:1.4;max-height:150px}
+        .chat-input-area textarea:focus{border-color:#075E54}
+        .chat-input-area button{background:#075E54;border:none;color:white;padding:12px;border-radius:25px;cursor:pointer;font-size:0.9rem;font-weight:600;transition:0.2s;width:100%}
+        .chat-input-area button:hover{background:#054a3e}
+        .chat-status{text-align:center;font-size:0.65rem;padding:8px;background:#f0f0f0;color:#666;border-top:1px solid #e0e0e0;flex-shrink:0}
+        .chat-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000}
+        .chat-overlay.active{display:block}
+        .video-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;justify-content:center;align-items:center}
+        .video-modal.active{display:flex}
+        .modal-content{position:relative;width:95%;max-width:500px}
+        @media (min-width:768px){.modal-content{max-width:800px}}
+        .modal-content iframe{width:100%;aspect-ratio:16/9;border-radius:16px}
+        .close-modal{position:absolute;top:-40px;right:0;background:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;font-weight:bold}
+        .blurb{background:white;border-radius:20px;padding:1rem;margin-bottom:1rem;border:1px solid #eef2f6}
+        .blurb h2{font-size:1.2rem;margin-bottom:0.5rem}
+        .site-footer{text-align:center;padding:1rem 0;font-size:0.7rem;color:#6c86a3;border-top:1px solid #eef2f6;margin-top:0.5rem}
+        .icons{display:flex;justify-content:center;gap:1.5rem;margin-bottom:0.8rem}
+        .icons a{font-size:1.5rem;transition:0.2s}
+        .icons a:hover{transform:scale(1.1);color:#2c5f8a}
+        .pagination{display:flex;justify-content:center;gap:0.8rem;margin:1rem 0}
+        .disabled{opacity:0.5;pointer-events:none}
+        @keyframes heartBeat{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+        .heart-animation{animation:heartBeat 0.3s ease}
+        @keyframes pulseLive{0%{opacity:0.7}70%{opacity:1}100%{opacity:0.7}}
+        .live-badge-side:not(.offline){animation:pulseLive 1.2s infinite}
+        .highlight{background-color:#fff9c4;transition:background-color 0.5s}
+        @media (max-width:480px){.chat-popup{width:95vw;height:auto;max-height:85vh}.chat-messages{max-height:45vh}}
     </style>
 </head>
 <body>
-
 <div id="wrapper">
     <div id="main">
         <header id="header">
             <h1><a href="#" onclick="resetSearch(); return false;">VOMblog.</a></h1>
-            <nav class="links">
-                <ul>
-                    <li><a href="#" onclick="resetSearch(); return false;">Ana Sayfa</a></li>
-                    <li><a href="#" id="contactNavLink">İletişim</a></li>
-                </ul>
-            </nav>
-            <nav class="main">
-                <ul>
-                    <li class="search-container">
-                        <form id="search-form" onsubmit="return false;" style="display: flex; gap: 0.3rem;">
-                            <input type="text" id="search-input" placeholder="Ara...">
-                            <button type="button" class="search-btn" id="search-btn"><i class="fas fa-search"></i></button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
+            <nav class="links"><ul><li><a href="#" onclick="resetSearch(); return false;">Ana Sayfa</a></li><li><a href="#" id="contactNavLink">İletişim</a></li></ul></nav>
+            <nav class="main"><ul><li class="search-container"><form id="search-form" onsubmit="return false;" style="display:flex; gap:0.3rem;"><input type="text" id="search-input" placeholder="Ara..."><button type="button" class="search-btn" id="search-btn"><i class="fas fa-search"></i></button></form></li></ul></nav>
         </header>
-
-        <div id="search-results" class="search-results">
-            <span class="close-search" onclick="closeSearch()">&times;</span>
-            <h2 style="font-size: 1rem; margin-bottom: 0.5rem;"><i class="fas fa-search"></i> Arama Sonuçları</h2>
-            <ul id="search-results-list"></ul>
-        </div>
-
+        <div id="search-results" class="search-results"><span class="close-search" onclick="closeSearch()">&times;</span><h2 style="font-size:1rem; margin-bottom:0.5rem;"><i class="fas fa-search"></i> Arama Sonuçları</h2><ul id="search-results-list"></ul></div>
         <div id="posts-container">
-            <!-- 1. MAKALE -->
             <article class="post" data-post-id="1" data-title="Yeni Medya Çağı: Video ve Radyo" data-content="Bugünün blog dünyasında sadece metin yetmiyor. Ziyaretçiler artık video pencereleri ve canlı radyo yayınları ile etkileşim bekliyor.">
-                <header>
-                    <div class="title">
-                        <h2><a href="#">Yeni Medya Çağı: Video ve Radyo</a></h2>
-                        <p>İki Şehir, Bir Kadın</p>
-                    </div>
-                  <div class="meta">
-                    <time datetime="2025-03-20">20 Mart 2026</time>
-                      <a href="#" class="author"><span class="name">Fatma Altun</span><img src="images/fatma.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/1.jpg'"></a>
-                    </div>
-                </header>
+                <header><div class="title"><h2><a href="#">Yeni Medya Çağı: Video ve Radyo</a></h2><p>İki Şehir, Bir Kadın</p></div><div class="meta"><time datetime="2025-03-20">20 Mart 2026</time><a href="#" class="author"><span class="name">Fatma Altun</span><img src="images/fatma.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/1.jpg'"></a></div></header>
                 <a href="#" class="image featured"><img src="images/F-1.png" alt="featured" onerror="this.src='https://picsum.photos/id/104/800/400'"></a>
-              <p class="post-content">Bugünün blog dünyasında sadece metin yetmiyor. Ziyaretçiler artık video pencereleri ve canlı radyo yayınları ile etkileşim bekliyor. Bu yüzden web sitemize özel bir web radio player ve video oynatıcı entegre ettik.</p>
-                <div class="post-footer">
-                    <ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul>
-                    <ul class="stats">
-                      <li class="comment-toggle" data-post="1"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li>
-                    </ul>
-                </div>
-                <div class="comments-section" id="comments-section-1">
-                    <div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div>
-                    <div class="comments-list" id="comments-list-1"></div>
-                    <div class="add-comment-form">
-                        <input type="text" class="comment-input" id="comment-input-1" placeholder="Adınız">
-                        <textarea class="comment-text" id="comment-text-1" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
-                        <button class="submit-comment" data-post="1">Gönder</button>
-                    </div>
-                </div>
+                <p class="post-content">Bugünün blog dünyasında sadece metin yetmiyor. Ziyaretçiler artık video pencereleri ve canlı radyo yayınları ile etkileşim bekliyor. Bu yüzden web sitemize özel bir web radio player ve video oynatıcı entegre ettik.</p>
+                <div class="post-footer"><ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="1"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
+                <div class="comments-section" id="comments-section-1"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-1"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-1" placeholder="Adınız"><textarea class="comment-text" id="comment-text-1" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="1">Gönder</button></div></div>
             </article>
-
-            <!-- 2. MAKALE -->
             <article class="post" data-post-id="2" data-title="Web Radyo Dinleme Alışkanlıkları Artıyor" data-content="HTML5 audio elementi sayesinde herhangi bir eklentiye ihtiyaç duymadan radyo yayınlarını web sitenize ekleyebilirsiniz. 3D metalik radyo player ile canlı müzik keyfini test edebilirsiniz.">
-                <header>
-                    <div class="title">
-                        <h2><a href="#">Web Radyo Dinleme Alışkanlıkları</a></h2>
-                        <p>Ferzen Abla</p>
-                    </div>
-                  <div class="meta">
-                    <time datetime="2025-03-15">15 Mart 2025</time>
-                      <a href="#" class="author"><span class="name">Ferzen Soydemir</span><img src="images/ferzen.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/2.jpg'"></a>
-                    </div>
-                </header>
+                <header><div class="title"><h2><a href="#">Web Radyo Dinleme Alışkanlıkları</a></h2><p>Ferzen Abla</p></div><div class="meta"><time datetime="2025-03-15">15 Mart 2025</time><a href="#" class="author"><span class="name">Ferzen Soydemir</span><img src="images/ferzen.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/2.jpg'"></a></div></header>
                 <a href="#" class="image featured"><img src="images/F-1.png" alt="radio" onerror="this.src='https://picsum.photos/id/107/800/400'"></a>
-              <p class="post-content">HTML5 audio elementi sayesinde herhangi bir eklentiye ihtiyaç duymadan radyo yayınlarını web sitenize ekleyebilirsiniz. 3D metalik radyo player ile canlı müzik keyfini test edebilirsiniz.</p>
-                <div class="post-footer">
-                    <ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul>
-                    <ul class="stats">
-                      <li class="comment-toggle" data-post="2"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li>
-                    </ul>
-                </div>
-                <div class="comments-section" id="comments-section-2">
-                    <div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div>
-                    <div class="comments-list" id="comments-list-2"></div>
-                    <div class="add-comment-form">
-                        <input type="text" class="comment-input" id="comment-input-2" placeholder="Adınız">
-                        <textarea class="comment-text" id="comment-text-2" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
-                        <button class="submit-comment" data-post="2">Gönder</button>
-                    </div>
-                </div>
+                <p class="post-content">HTML5 audio elementi sayesinde herhangi bir eklentiye ihtiyaç duymadan radyo yayınlarını web sitenize ekleyebilirsiniz. 3D metalik radyo player ile canlı müzik keyfini test edebilirsiniz.</p>
+                <div class="post-footer"><ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="2"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
+                <div class="comments-section" id="comments-section-2"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-2"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-2" placeholder="Adınız"><textarea class="comment-text" id="comment-text-2" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="2">Gönder</button></div></div>
             </article>
-
-            <!-- 3. MAKALE -->
             <article class="post" data-post-id="3" data-title="Tamamen Duyarlı Tasarım" data-content="Günümüz web siteleri responsive olmak zorunda. Bu şablon akıllı telefonlarda bile mükemmel görüntüleniyor. Video ve radyo oynatıcılar mobil cihazlarda da sorunsuz çalışır.">
-                <header>
-                    <div class="title">
-                        <h2><a href="#">Tamamen Duyarlı Tasarım</a></h2>
-                        <p>Amerika Notları</p>
-                    </div>
-                  <div class="meta">
-                    <time datetime="2025-03-10">10 Mart 2025</time>
-                      <a href="#" class="author"><span class="name">Nilüfer Gürler</span><img src="images/nil.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/3.jpg'"></a>
-                    </div>
-                </header>
+                <header><div class="title"><h2><a href="#">Tamamen Duyarlı Tasarım</a></h2><p>Amerika Notları</p></div><div class="meta"><time datetime="2025-03-10">10 Mart 2025</time><a href="#" class="author"><span class="name">Nilüfer Gürler</span><img src="images/nil.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/3.jpg'"></a></div></header>
                 <a href="#" class="image featured"><img src="images/F-1.png" alt="responsive" onerror="this.src='https://picsum.photos/id/20/800/400'"></a>
-              <p class="post-content">Günümüz web siteleri responsive olmak zorunda. Bu şablon akıllı telefonlarda bile mükemmel görüntüleniyor. Video ve radyo oynatıcılar mobil cihazlarda da sorunsuz çalışır.</p>
-                <div class="post-footer">
-                    <ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul>
-                    <ul class="stats">
-                      <li class="comment-toggle" data-post="3"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li>
-                    </ul>
-                </div>
-                <div class="comments-section" id="comments-section-3">
-                    <div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div>
-                    <div class="comments-list" id="comments-list-3"></div>
-                    <div class="add-comment-form">
-                        <input type="text" class="comment-input" id="comment-input-3" placeholder="Adınız">
-                        <textarea class="comment-text" id="comment-text-3" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
-                        <button class="submit-comment" data-post="3">Gönder</button>
-                    </div>
-                </div>
+                <p class="post-content">Günümüz web siteleri responsive olmak zorunda. Bu şablon akıllı telefonlarda bile mükemmel görüntüleniyor. Video ve radyo oynatıcılar mobil cihazlarda da sorunsuz çalışır.</p>
+                <div class="post-footer"><ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="3"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
+                <div class="comments-section" id="comments-section-3"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-3"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-3" placeholder="Adınız"><textarea class="comment-text" id="comment-text-3" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="3">Gönder</button></div></div>
             </article>
-
-            <!-- 4. MAKALE -->
             <article class="post" data-post-id="4" data-title="Dijital Sanatın Yükselişi" data-content="Dijital sanat, son yıllarda büyük bir ivme kazandı. Yapay zeka ve NFT'ler sanat dünyasında devrim yaratıyor.">
-                <header>
-                    <div class="title">
-                        <h2><a href="#">Dijital Sanatın Yükselişi</a></h2>
-                        <p>Özlemce</p>
-                    </div>
-                  <div class="meta">
-                    <time datetime="2025-03-05">5 Mart 2025</time>
-                      <a href="#" class="author"><span class="name">Özlem Tüm</span><img src="images/ozlem.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/4.jpg'"></a>
-                    </div>
-                </header>
+                <header><div class="title"><h2><a href="#">Dijital Sanatın Yükselişi</a></h2><p>Özlemce</p></div><div class="meta"><time datetime="2025-03-05">5 Mart 2025</time><a href="#" class="author"><span class="name">Özlem Tüm</span><img src="images/ozlem.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/4.jpg'"></a></div></header>
                 <a href="#" class="image featured"><img src="images/F-1.png" alt="digital art" onerror="this.src='https://picsum.photos/id/106/800/400'"></a>
-              <p class="post-content">Dijital sanat, son yıllarda büyük bir ivme kazandı. Yapay zeka ve NFT'ler sanat dünyasında devrim yaratıyor. Artık herkes dijital ortamda eser üretebiliyor ve bunları küresel pazarda satabiliyor.</p>
-                <div class="post-footer">
-                    <ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul>
-                    <ul class="stats">
-                      <li class="comment-toggle" data-post="4"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li>
-                    </ul>
-                </div>
-                <div class="comments-section" id="comments-section-4">
-                    <div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div>
-                    <div class="comments-list" id="comments-list-4"></div>
-                    <div class="add-comment-form">
-                        <input type="text" class="comment-input" id="comment-input-4" placeholder="Adınız">
-                        <textarea class="comment-text" id="comment-text-4" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
-                        <button class="submit-comment" data-post="4">Gönder</button>
-                    </div>
-                </div>
+                <p class="post-content">Dijital sanat, son yıllarda büyük bir ivme kazandı. Yapay zeka ve NFT'ler sanat dünyasında devrim yaratıyor. Artık herkes dijital ortamda eser üretebiliyor ve bunları küresel pazarda satabiliyor.</p>
+                <div class="post-footer"><ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="4"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
+                <div class="comments-section" id="comments-section-4"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-4"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-4" placeholder="Adınız"><textarea class="comment-text" id="comment-text-4" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="4">Gönder</button></div></div>
             </article>
-
-            <!-- 5. MAKALE -->
             <article class="post" data-post-id="5" data-title="Şiir ve Müzik Buluşması: HAZİRAN" data-content="VOM'un yeni albümü HAZİRAN, şiir ve müziği buluşturuyor. Albümde 10 parça yer alıyor.">
-                <header>
-                    <div class="title">
-                        <h2><a href="#">Şiir ve Müzik Buluşması: HAZİRAN</a></h2>
-                        <p>Kesitler</p>
-                    </div>
-                  <div class="meta">
-                    <time datetime="2025-02-28">28 Şubat 2025</time>
-                      <a href="#" class="author"><span class="name">Münire Özgencan</span><img src="images/münire.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/5.jpg'"></a>
-                    </div>
-                </header>
+                <header><div class="title"><h2><a href="#">Şiir ve Müzik Buluşması: HAZİRAN</a></h2><p>Kesitler</p></div><div class="meta"><time datetime="2025-02-28">28 Şubat 2025</time><a href="#" class="author"><span class="name">Münire Özgencan</span><img src="images/münire.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/women/5.jpg'"></a></div></header>
                 <a href="#" class="image featured"><img src="images/F-1.png" alt="music" onerror="this.src='https://picsum.photos/id/29/800/400'"></a>
-              <p class="post-content">VOM'un yeni albümü HAZİRAN, şiir ve müziği buluşturuyor. Albümde 10 parça yer alıyor. Şairlerin dizeleri bestelendi ve unutulmaz bir eser ortaya çıktı. Yakında tüm platformlarda!</p>
-                <div class="post-footer">
-                    <ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul>
-                    <ul class="stats">
-                      <li class="comment-toggle" data-post="5"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li>
-                    </ul>
-                </div>
-                <div class="comments-section" id="comments-section-5">
-                    <div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div>
-                    <div class="comments-list" id="comments-list-5"></div>
-                    <div class="add-comment-form">
-                        <input type="text" class="comment-input" id="comment-input-5" placeholder="Adınız">
-                        <textarea class="comment-text" id="comment-text-5" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
-                        <button class="submit-comment" data-post="5">Gönder</button>
-                    </div>
-                </div>
+                <p class="post-content">VOM'un yeni albümü HAZİRAN, şiir ve müziği buluşturuyor. Albümde 10 parça yer alıyor. Şairlerin dizeleri bestelendi ve unutulmaz bir eser ortaya çıktı. Yakında tüm platformlarda!</p>
+                <div class="post-footer"><ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="5"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
+                <div class="comments-section" id="comments-section-5"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-5"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-5" placeholder="Adınız"><textarea class="comment-text" id="comment-text-5" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="5">Gönder</button></div></div>
             </article>
-
-            <!-- 6. MAKALE -->
             <article class="post" data-post-id="6" data-title="Fotoğraf Sanatında Minimalizm" data-content="Az eşya, çok anlam: Minimalist fotoğrafçılık son dönemlerin en popüler akımlarından biri haline geldi.">
-                <header>
-                    <div class="title">
-                        <h2><a href="#">Fotoğraf Sanatında Minimalizm</a></h2>
-                        <p>Sesler Yüzler Sokaklar</p>
-                    </div>
-                  <div class="meta">
-                    <time datetime="2025-02-20">20 Şubat 2025</time>
-                      <a href="#" class="author"><span class="name">Fuat Durutaş</span><img src="images/fuat.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/men/1.jpg'"></a>
-                    </div>
-                </header>
+                <header><div class="title"><h2><a href="#">Fotoğraf Sanatında Minimalizm</a></h2><p>Sesler Yüzler Sokaklar</p></div><div class="meta"><time datetime="2025-02-20">20 Şubat 2025</time><a href="#" class="author"><span class="name">Fuat Durutaş</span><img src="images/fuat.png" alt="avatar" onerror="this.src='https://randomuser.me/api/portraits/men/1.jpg'"></a></div></header>
                 <a href="#" class="image featured"><img src="images/F-1.png" alt="minimalism" onerror="this.src='https://picsum.photos/id/96/800/400'"></a>
-              <p class="post-content">Az eşya, çok anlam: Minimalist fotoğrafçılık son dönemlerin en popüler akımlarından biri haline geldi. Boşluk, sadelik ve dinginlik ön planda. Bu akımın önde gelen isimlerini ve tekniklerini inceliyoruz.</p>
-                <div class="post-footer">
-                    <ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul>
-                    <ul class="stats">
-                      <li class="comment-toggle" data-post="6"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li>
-                    </ul>
-                </div>
-                <div class="comments-section" id="comments-section-6">
-                    <div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div>
-                    <div class="comments-list" id="comments-list-6"></div>
-                    <div class="add-comment-form">
-                        <input type="text" class="comment-input" id="comment-input-6" placeholder="Adınız">
-                        <textarea class="comment-text" id="comment-text-6" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
-                        <button class="submit-comment" data-post="6">Gönder</button>
-                    </div>
-                </div>
+                <p class="post-content">Az eşya, çok anlam: Minimalist fotoğrafçılık son dönemlerin en popüler akımlarından biri haline geldi. Boşluk, sadelik ve dinginlik ön planda. Bu akımın önde gelen isimlerini ve tekniklerini inceliyoruz.</p>
+                <div class="post-footer"><ul class="actions"><li><a href="#" class="button">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="6"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
+                <div class="comments-section" id="comments-section-6"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-6"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-6" placeholder="Adınız"><textarea class="comment-text" id="comment-text-6" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="6">Gönder</button></div></div>
             </article>
         </div>
     </div>
-
     <div id="sidebar">
         <div class="radio-metallic-sidebar" id="vomRadioSidebar">
-            <div class="radio-header-side">
-                <div class="station-name-side"><i class="fas fa-broadcast-tower"></i><span>VOM RADYO</span></div>
-                <div class="live-badge-side" id="liveBadgeSide">YAYIN YOK</div>
-            </div>
-            <div class="song-panel-side" style="background: rgba(30,32,40,0.7); border-radius: 1rem; padding: 0.5rem; margin: 0.5rem 0;">
-                <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: space-between;">
-                    <i class="fas fa-music" style="color:#f5c542;"></i>
-                    <div style="flex:1">
-                        <div class="track-title-side" id="trackTitleSide">VOM Canlı Yayın</div>
-                        <div class="track-artist-side" id="trackArtistSide">Sanat · Şiir · Kültür</div>
-                    </div>
-                    <div class="time-elapsed-side" id="timeDisplaySide">00:00</div>
-                </div>
-            </div>
-            <div class="controls-side">
-                <div class="ctrl-btn-side" id="stopBtnSide"><i class="fas fa-stop"></i></div>
-                <div class="ctrl-btn-side play-pause-side" id="mainPlayPauseSide"><i class="fas fa-play" id="playPauseIconSide"></i></div>
-            </div>
-            <div class="volume-side" style="text-align:center;">
-                <i class="fas fa-volume-down"></i>
-                <input type="range" id="volumeSliderSide" class="volume-slider-side" min="0" max="1" step="0.01" value="0.7">
-                <i class="fas fa-volume-up"></i>
-            </div>
+            <div class="radio-header-side"><div class="station-name-side"><i class="fas fa-broadcast-tower"></i><span>VOM RADYO</span></div><div class="live-badge-side" id="liveBadgeSide">YAYIN YOK</div></div>
+            <div class="song-panel-side" style="background:rgba(30,32,40,0.7); border-radius:1rem; padding:0.5rem; margin:0.5rem 0;"><div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; justify-content:space-between;"><i class="fas fa-music" style="color:#f5c542;"></i><div style="flex:1"><div class="track-title-side" id="trackTitleSide">VOM Canlı Yayın</div><div class="track-artist-side" id="trackArtistSide">Sanat · Şiir · Kültür</div></div><div class="time-elapsed-side" id="timeDisplaySide">00:00</div></div></div>
+            <div class="controls-side"><div class="ctrl-btn-side" id="stopBtnSide"><i class="fas fa-stop"></i></div><div class="ctrl-btn-side play-pause-side" id="mainPlayPauseSide"><i class="fas fa-play" id="playPauseIconSide"></i></div></div>
+            <div class="volume-side" style="text-align:center;"><i class="fas fa-volume-down"></i><input type="range" id="volumeSliderSide" class="volume-slider-side" min="0" max="1" step="0.01" value="0.7"><i class="fas fa-volume-up"></i></div>
             <div class="radio-status-side" style="text-align:center; font-size:0.6rem; margin-top:0.5rem;" id="streamStatusSide"><i class="fas fa-headphones"></i> Bir sonraki yayını bekleyin.</div>
         </div>
-
-        <div class="chat-button-side" id="chatButtonSide">
-            <a href="#" id="chatLinkSide"><i class="fab fa-whatsapp"></i> Canlı Sohbet</a>
-        </div>
-
-        <div class="video-container-side">
-            <div class="video-cover" id="openVideoBtn">
-                <img src="https://img.youtube.com/vi/3VGJkfQ9FPA/maxresdefault.jpg" alt="Video Kapak" onerror="this.src='https://img.youtube.com/vi/3VGJkfQ9FPA/hqdefault.jpg'">
-                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-            </div>
-            <div class="video-note"><i class="fas fa-film"></i> VOM VİDEO ALBÜM - İzlemek için tıklayın</div>
-        </div>
-
-        <div id="contactSection" class="blurb">
-            <h2>İletişim</h2>
-            <p>VOM YAYIN, sanatın gücüne ve kültürün toplumsal değişimdeki rolüne inanan bir grup yazar ve sanatseverden oluşmaktadır. Topluluk üyeleri edebiyat, tiyatro, müzik, resim ve diğer sanat dallarında yeteneklerini birleştirerek insan deneyimine odaklı eserler üretmektedir. Ticari bir amacı olmayan grup, Cumhuriyet değerlerine bağlı kalarak sanatsal özgürlüğü teşvik eden bir platform sunmaktadır.</p>
-            <p><br>VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. Hem sanatsal üretimlerle hem de toplumsal etkileşimleriyle kültürel ve sanatsal zenginlik yaratmaya çalışan bir topluluktur.</p>
-            <p>&nbsp;</p>
-            <p><strong>Görüş ve Önerileriniz için;</strong></p>
-            <p>&nbsp;</p>
-            <p><a href="mailto:info@vomyayin.dpdns.org" style="color: #2c5f8a; text-decoration: none; font-weight: 600;">📧 info@vomyayin.dpdns.org</a></p>
-        </div>
-
-        <div class="site-footer">
-            <ul class="icons">
-                <li><a href="https://www.instagram.com/vom_oyun/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="mailto:info@vomyayin.dpdns.org"><i class="fas fa-envelope"></i></a></li>
-            </ul>
-            <p class="copyright">© 2026 VOM YAYIN | Tasarım: VOM | Tüm Hakları Saklıdır.</p>
-        </div>
+        <div class="chat-button-side" id="chatButtonSide"><a href="#" id="chatLinkSide"><i class="fab fa-whatsapp"></i> Canlı Sohbet</a></div>
+        <div class="video-container-side"><div class="video-cover" id="openVideoBtn"><img src="https://img.youtube.com/vi/3VGJkfQ9FPA/maxresdefault.jpg" alt="Video Kapak" onerror="this.src='https://img.youtube.com/vi/3VGJkfQ9FPA/hqdefault.jpg'"><div class="play-overlay"><i class="fas fa-play-circle"></i></div></div><div class="video-note"><i class="fas fa-film"></i> VOM VİDEO ALBÜM - İzlemek için tıklayın</div></div>
+        <div id="contactSection" class="blurb"><h2>İletişim</h2><p>VOM YAYIN, sanatın gücüne ve kültürün toplumsal değişimdeki rolüne inanan bir grup yazar ve sanatseverden oluşmaktadır. Topluluk üyeleri edebiyat, tiyatro, müzik, resim ve diğer sanat dallarında yeteneklerini birleştirerek insan deneyimine odaklı eserler üretmektedir. Ticari bir amacı olmayan grup, Cumhuriyet değerlerine bağlı kalarak sanatsal özgürlüğü teşvik eden bir platform sunmaktadır.</p><p><br>VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. Hem sanatsal üretimlerle hem de toplumsal etkileşimleriyle kültürel ve sanatsal zenginlik yaratmaya çalışan bir topluluktur.</p><p>&nbsp;</p><p><strong>Görüş ve Önerileriniz için;</strong></p><p>&nbsp;</p><p><a href="mailto:info@vomyayin.dpdns.org" style="color:#2c5f8a; text-decoration:none; font-weight:600;">📧 info@vomyayin.dpdns.org</a></p></div>
+        <div class="site-footer"><ul class="icons"><li><a href="https://www.instagram.com/vom_oyun/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li><li><a href="mailto:info@vomyayin.dpdns.org"><i class="fas fa-envelope"></i></a></li></ul><p class="copyright">© 2026 VOM YAYIN | Tasarım: VOM | Tüm Hakları Saklıdır.</p></div>
     </div>
 </div>
-
-<!-- CHAT POPUP -->
 <div class="chat-overlay" id="chatOverlay"></div>
-<div class="chat-popup" id="chatPopup">
-    <div class="chat-header">
-        <div class="chat-title"><i class="fab fa-whatsapp"></i> VOM Canlı Sohbet</div>
-        <button class="chat-close" id="chatCloseBtn">&times;</button>
-    </div>
-    <div class="chat-messages" id="chatMessages">
-        <div class="chat-system">💬 Sohbete hoş geldiniz!</div>
-    </div>
-    <div class="chat-input-area">
-        <input type="text" id="chatUsername" placeholder="👤 Kullanıcı adınız">
-        <textarea id="chatInput" placeholder="💬 Mesajınızı yazın (Enter gönder)" rows="1"></textarea>
-        <button id="chatSendBtn"><i class="fas fa-paper-plane"></i> Gönder</button>
-    </div>
-    <div class="chat-status" id="chatStatus"><i class="fas fa-circle" style="color:#25D366; font-size:0.6rem;"></i> Realtime Database bağlı</div>
-</div>
-
-<div id="videoModal" class="video-modal">
-    <div class="modal-content" style="position:relative; width:90%; max-width:800px; margin:auto;">
-        <div class="close-modal" id="closeModalBtn" style="position:absolute; top:-40px; right:0; cursor:pointer; color:white; font-size:2rem;">&times;</div>
-        <iframe id="youtubeIframe" src="about:blank" width="100%" style="aspect-ratio:16/9; border-radius:16px; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-</div>
-
+<div class="chat-popup" id="chatPopup"><div class="chat-header"><div class="chat-title"><i class="fab fa-whatsapp"></i> VOM Canlı Sohbet</div><button class="chat-close" id="chatCloseBtn">&times;</button></div><div class="chat-messages" id="chatMessages"><div class="chat-system">💬 Sohbete hoş geldiniz!</div></div><div class="chat-input-area"><input type="text" id="chatUsername" placeholder="👤 Kullanıcı adınız"><textarea id="chatInput" placeholder="💬 Mesajınızı yazın (Enter gönder)" rows="1"></textarea><button id="chatSendBtn"><i class="fas fa-paper-plane"></i> Gönder</button></div><div class="chat-status" id="chatStatus">Sohbet sadece canlı yayında açıktır.</div></div>
+<div id="videoModal" class="video-modal"><div class="modal-content" style="position:relative; width:90%; max-width:800px; margin:auto;"><div class="close-modal" id="closeModalBtn" style="position:absolute; top:-40px; right:0; cursor:pointer; color:white; font-size:2rem;">&times;</div><iframe id="youtubeIframe" src="about:blank" width="100%" style="aspect-ratio:16/9; border-radius:16px; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
 <script>
-// TEK SCRIPT - RADYO (DÜZELTİLMİŞ), YORUM, ARAMA
-(function() {
-    // ========== FIREBASE YAPILANDIRMASI (YORUM İÇİN) ==========
-    const firebaseConfigComments = {
-        apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
-        authDomain: "vom-yayin.firebaseapp.com",
-        projectId: "vom-yayin",
-        storageBucket: "vom-yayin.firebasestorage.app",
-        messagingSenderId: "93785669208",
-        appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d"
-    };
-    
-    let commentsDb = null;
-    
-    async function initFirebaseComments() {
-        try {
-            const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
-            const { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
-            const app = initializeApp(firebaseConfigComments);
-            commentsDb = getFirestore(app);
-            window.firestoreHelpers = { addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, collection };
-            for(let i = 1; i <= 6; i++) loadCommentsFromFirebase(i);
-        } catch(e) { console.error('Firebase yorum hatası:', e); }
-    }
-    
-    async function loadCommentsFromFirebase(postId) {
-        if(!commentsDb || !window.firestoreHelpers) return;
-        const { getDocs, collection, query, orderBy } = window.firestoreHelpers;
-        try {
-            const q = query(collection(commentsDb, `comments_post_${postId}`), orderBy('timestamp', 'asc'));
-            const snapshot = await getDocs(q);
-            const comments = [];
-            snapshot.forEach(doc => { comments.push({ id: doc.id, ...doc.data() }); });
-            renderCommentsFirebase(postId, comments);
-        } catch(e) { console.error('Yorumlar yüklenemedi:', e); }
-    }
-    
-    async function addCommentToFirebase(postId, author, text) {
-        if(!commentsDb || !window.firestoreHelpers) { alert('Yorum sistemi bağlanamadı.'); return false; }
-        const { addDoc, collection, serverTimestamp } = window.firestoreHelpers;
-        try {
-            await addDoc(collection(commentsDb, `comments_post_${postId}`), {
-                author: author.trim(), text: text.trim(), timestamp: serverTimestamp(), date: new Date().toLocaleString('tr-TR')
-            });
-            loadCommentsFromFirebase(postId);
-            return true;
-        } catch(e) { console.error('Yorum eklenemedi:', e); alert('Yorum eklenirken hata oluştu.'); return false; }
-    }
-    
-    async function deleteCommentFromFirebase(postId, commentId) {
-        if(!commentsDb || !window.firestoreHelpers) return;
-        const { deleteDoc, doc } = window.firestoreHelpers;
-        try { await deleteDoc(doc(commentsDb, `comments_post_${postId}`, commentId)); loadCommentsFromFirebase(postId); }
-        catch(e) { console.error('Yorum silinemedi:', e); }
-    }
-    
-    function renderCommentsFirebase(postId, comments) {
-        const listDiv = document.getElementById(`comments-list-${postId}`);
-        const countDisplaySpan = document.querySelector(`#comments-section-${postId} .comment-count-display`);
-        const toggleCountSpan = document.querySelector(`.comment-toggle[data-post="${postId}"] .comment-count`);
-        if(!listDiv) return;
-        if(comments.length === 0) listDiv.innerHTML = '<div style="text-align:center; padding:0.5rem; color:#888;">Henüz yorum yok.</div>';
-        else listDiv.innerHTML = comments.map(c => `<div class="comment-item"><strong>${escapeHtml(c.author)}</strong>: ${escapeHtml(c.text)}<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">${c.date || new Date(c.timestamp?.toDate()).toLocaleString('tr-TR')}</div><button class="delete-comment" onclick="deleteCommentFirebase(${postId}, '${c.id}')"><i class="fas fa-trash"></i></button></div>`).join('');
-        if(countDisplaySpan) countDisplaySpan.textContent = comments.length;
-        if(toggleCountSpan) toggleCountSpan.textContent = comments.length;
-    }
-    
-    // DÜZELTİLDİ: Şifre "vomadmin2026"
-    window.deleteCommentFirebase = function(postId, commentId) {
-        const pwd = prompt("Admin şifresi:");
-        if(pwd === "vomadmin2026") {
-            deleteCommentFromFirebase(postId, commentId);
-        } else if(pwd !== null) {
-            alert("Şifre yanlış!");
-        }
-    };
-    
-    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-    
-    document.querySelectorAll('.comment-toggle').forEach(btn => {
-        const postId = parseInt(btn.dataset.post);
-        btn.addEventListener('click', (e) => { e.preventDefault(); const section = document.getElementById(`comments-section-${postId}`); if(section) section.style.display = section.style.display === 'none' ? 'block' : 'none'; });
-    });
-    
-    document.querySelectorAll('.submit-comment').forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const postId = parseInt(btn.dataset.post);
-            const author = document.getElementById(`comment-input-${postId}`)?.value.trim() || "Ziyaretçi";
-            const text = document.getElementById(`comment-text-${postId}`)?.value.trim();
-            if(text) { await addCommentToFirebase(postId, author, text); document.getElementById(`comment-input-${postId}`).value = ""; document.getElementById(`comment-text-${postId}`).value = ""; }
-            else alert("Lütfen bir yorum yazın.");
-        });
-    });
-    
-    initFirebaseComments();
-    
-    // ========== RADYO YAYIN DURUMU ==========
-    const STREAM_URL = "https://external-designing-million-producer.trycloudflare.com/vomyayin";
-    
-    function updateLiveUI(live) {
-        const badge = document.getElementById('liveBadgeSide');
-        const chatBtn = document.getElementById('chatButtonSide');
-        const statusTxt = document.getElementById('streamStatusSide');
-        if (live) {
-            if(badge) { badge.innerText = "CANLI YAYIN"; badge.style.background = "#25D366"; }
-            if(chatBtn) { chatBtn.style.opacity = "1"; chatBtn.style.pointerEvents = "auto"; }
-            if(statusTxt) statusTxt.innerHTML = '<i class="fas fa-headphones"></i> Yayındayız!';
-        } else {
-            if(badge) { badge.innerText = "YAYIN YOK"; badge.style.background = "#7f8c8d"; }
-            if(chatBtn) { chatBtn.style.opacity = "0.5"; chatBtn.style.pointerEvents = "none"; }
-            if(statusTxt) statusTxt.innerHTML = '<i class="fas fa-clock"></i> Bir sonraki yayını bekleyin.';
-        }
-    }
-    
-    function checkLiveStatus() {
-        fetch("https://radyo.vomyayin.dpdns.org/status-json.xsl?nocache=" + Date.now())
-            .then(res => res.json()).then(data => {
-                let isLive = false;
-                if (data.icestats && data.icestats.source) {
-                    const sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
-                    isLive = sources.some(s => s.listenurl && s.listenurl.includes("/vomyayin"));
-                }
-                updateLiveUI(isLive);
-            }).catch(() => updateLiveUI(false));
-    }
-    setInterval(checkLiveStatus, 30000); checkLiveStatus();
-    
-    // ========== RADYO PLAYER (DÜZELTİLMİŞ) ==========
+(function(){
+    const STREAM_URL = "https://radyo.vomyayin.dpdns.org/vomyayin";
     let audio = null;
     let isPlaying = false;
     let timerInterval = null;
     let playStartTime = 0;
     let currentElapsed = 0;
-    
-    function createAudio() {
-        if(audio) {
-            audio.pause();
-            audio.src = '';
-        }
-        audio = new Audio();
-        audio.preload = "none";
-    }
-    
-    function startClock() {
-        if(timerInterval) clearInterval(timerInterval);
-        playStartTime = Date.now() - currentElapsed * 1000;
-        timerInterval = setInterval(() => {
-            const timeEl = document.getElementById('timeDisplaySide');
-            if(timeEl && isPlaying) {
-                currentElapsed = Math.floor((Date.now() - playStartTime) / 1000);
-                const m = Math.floor(currentElapsed / 60);
-                const s = currentElapsed % 60;
-                timeEl.innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-            }
-        }, 200);
-    }
-    
-    function stopClock() { clearInterval(timerInterval); currentElapsed = 0; const timeEl = document.getElementById('timeDisplaySide'); if(timeEl) timeEl.innerText = "00:00"; }
-    
-    function togglePlay() {
-        if (!isPlaying) {
-            if(audio) { audio.pause(); audio.src = ''; }
-            audio = new Audio();
-            audio.src = STREAM_URL + "?nocache=" + Date.now();
-            audio.play().then(() => {
-                isPlaying = true;
-                const icon = document.getElementById('playPauseIconSide');
-                if(icon) icon.className = "fas fa-pause";
-                startClock();
-            }).catch(() => alert("Yayına şu an ulaşılamıyor."));
-        } else {
-            if(audio) {
-                audio.pause();
-                audio.src = '';
-            }
-            isPlaying = false;
-            const icon = document.getElementById('playPauseIconSide');
-            if(icon) icon.className = "fas fa-play";
-            stopClock();
-        }
-    }
-    
-    function pauseStream() {
-        if(audio) {
-            audio.pause();
-            audio.src = '';
-        }
-        isPlaying = false;
-        const icon = document.getElementById('playPauseIconSide');
-        if(icon) icon.className = "fas fa-play";
-        stopClock();
-    }
-    
-    const playBtn = document.getElementById('mainPlayPauseSide');
-    const stopBtn = document.getElementById('stopBtnSide');
-    const volumeSlider = document.getElementById('volumeSliderSide');
-    
-    if(playBtn) playBtn.onclick = togglePlay;
-    if(stopBtn) stopBtn.onclick = pauseStream;
-    if(volumeSlider) volumeSlider.oninput = (e) => { if(audio) audio.volume = e.target.value; };
-    
-    // ========== ARAMA FONKSİYONU ==========
-    const searchBtn = document.getElementById('search-btn');
-    const searchInput = document.getElementById('search-input');
-    const searchDiv = document.getElementById('search-results');
-    const searchList = document.getElementById('search-results-list');
-    const postsContainer = document.getElementById('posts-container');
-    const allPosts = Array.from(document.querySelectorAll('.post'));
-    
-    window.resetSearch = function() { if(searchInput) searchInput.value = ''; if(searchDiv) searchDiv.style.display = 'none'; if(postsContainer) postsContainer.style.display = 'block'; allPosts.forEach(p => p.style.display = 'block'); };
-    window.closeSearch = function() { if(searchDiv) searchDiv.style.display = 'none'; if(postsContainer) postsContainer.style.display = 'block'; if(searchInput) searchInput.value = ''; };
-    
-    function performSearch() {
-        const q = searchInput.value.trim().toLowerCase();
-        if(q === '') { closeSearch(); return; }
-        const results = [];
-        allPosts.forEach(p => {
-            const title = p.querySelector('.title h2')?.innerText?.toLowerCase() || '';
-            const content = p.querySelector('.post-content')?.innerText?.toLowerCase() || '';
-            if(title.includes(q) || content.includes(q)) results.push(p);
-        });
-        if(results.length > 0) {
-            searchList.innerHTML = '';
-            results.forEach(p => {
-                const title = p.querySelector('.title h2')?.innerText || 'Başlıksız';
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = '#';
-                a.innerHTML = `<i class="fas fa-search"></i> ${title}`;
-                a.onclick = (e) => { e.preventDefault(); closeSearch(); p.scrollIntoView({ behavior: 'smooth', block: 'start' }); p.classList.add('highlight'); setTimeout(() => p.classList.remove('highlight'), 2000); };
-                li.appendChild(a);
-                searchList.appendChild(li);
-            });
-            searchDiv.style.display = 'block';
-            postsContainer.style.display = 'none';
-        } else {
-            searchList.innerHTML = '<li>Sonuç bulunamadı.</li>';
-            searchDiv.style.display = 'block';
-            postsContainer.style.display = 'none';
-        }
-    }
-    
-    if(searchBtn) searchBtn.onclick = performSearch;
-    if(searchInput) searchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') performSearch(); });
-    
-    // ========== CHAT VE MODAL KONTROLLERİ ==========
-    document.getElementById('chatButtonSide')?.addEventListener('click', (e) => { e.preventDefault(); document.getElementById('chatPopup').classList.add('active'); document.getElementById('chatOverlay').classList.add('active'); document.body.style.overflow = 'hidden'; });
-    document.getElementById('chatCloseBtn')?.addEventListener('click', () => { document.getElementById('chatPopup').classList.remove('active'); document.getElementById('chatOverlay').classList.remove('active'); document.body.style.overflow = ''; });
-    document.getElementById('chatOverlay')?.addEventListener('click', () => { document.getElementById('chatPopup').classList.remove('active'); document.getElementById('chatOverlay').classList.remove('active'); document.body.style.overflow = ''; });
-    document.getElementById('openVideoBtn')?.addEventListener('click', () => { document.getElementById('videoModal').classList.add('active'); document.getElementById('youtubeIframe').src = "https://www.youtube.com/embed/3VGJkfQ9FPA?autoplay=1&rel=0"; document.body.style.overflow = 'hidden'; });
-    document.getElementById('closeModalBtn')?.addEventListener('click', () => { document.getElementById('videoModal').classList.remove('active'); document.getElementById('youtubeIframe').src = ""; document.body.style.overflow = ''; });
-    document.getElementById('videoModal')?.addEventListener('click', (e) => { if(e.target === document.getElementById('videoModal')) { document.getElementById('videoModal').classList.remove('active'); document.getElementById('youtubeIframe').src = ""; document.body.style.overflow = ''; } });
-    document.getElementById('contactNavLink')?.addEventListener('click', (e) => { e.preventDefault(); document.getElementById('contactSection').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-    document.getElementById('chatInput')?.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; });
+    function createAudio(){if(audio){audio.pause();audio.src='';}audio=new Audio();audio.preload="metadata";audio.crossOrigin="anonymous";audio.onended=()=>pauseStream();audio.onerror=()=>{if(isPlaying)alert("Yayına şu an ulaşılamıyor.");};}
+    function startClock(){if(timerInterval)clearInterval(timerInterval);playStartTime=Date.now()-currentElapsed*1000;timerInterval=setInterval(()=>{const timeEl=document.getElementById('timeDisplaySide');if(timeEl&&isPlaying){currentElapsed=Math.floor((Date.now()-playStartTime)/1000);const m=Math.floor(currentElapsed/60);const s=currentElapsed%60;timeEl.innerText=`${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;}},200);}
+    function stopClock(){clearInterval(timerInterval);currentElapsed=0;const timeEl=document.getElementById('timeDisplaySide');if(timeEl)timeEl.innerText="00:00";}
+    function togglePlay(){if(!isPlaying){createAudio();audio.src=STREAM_URL+"?nocache="+Date.now();audio.play().then(()=>{isPlaying=true;const icon=document.getElementById('playPauseIconSide');if(icon)icon.className="fas fa-pause";startClock();}).catch(()=>alert("Yayına şu an ulaşılamıyor."));}else{pauseStream();}}
+    function pauseStream(){if(audio){audio.pause();audio.src='';}isPlaying=false;const icon=document.getElementById('playPauseIconSide');if(icon)icon.className="fas fa-play";stopClock();}
+    document.getElementById('mainPlayPauseSide')?.addEventListener('click',togglePlay);
+    document.getElementById('stopBtnSide')?.addEventListener('click',pauseStream);
+    document.getElementById('volumeSliderSide')?.addEventListener('input',(e)=>{if(audio)audio.volume=e.target.value;});
+    function updateLiveUI(live){const badge=document.getElementById('liveBadgeSide');const chatBtn=document.getElementById('chatButtonSide');const statusTxt=document.getElementById('streamStatusSide');if(live){if(badge){badge.innerText="CANLI YAYIN";badge.style.background="#25D366";badge.classList.remove('offline');}if(chatBtn){chatBtn.style.opacity="1";chatBtn.style.pointerEvents="auto";}if(statusTxt)statusTxt.innerHTML='<i class="fas fa-headphones"></i> Yayındayız!';}else{if(badge){badge.innerText="YAYIN YOK";badge.style.background="#7f8c8d";}if(chatBtn){chatBtn.style.opacity="0.5";chatBtn.style.pointerEvents="none";}if(statusTxt)statusTxt.innerHTML='<i class="fas fa-clock"></i> Bir sonraki yayını bekleyin.';}}
+    updateLiveUI(true);
+    const searchBtn=document.getElementById('search-btn'),searchInput=document.getElementById('search-input'),searchDiv=document.getElementById('search-results'),searchList=document.getElementById('search-results-list'),postsContainer=document.getElementById('posts-container'),allPosts=Array.from(document.querySelectorAll('.post'));
+    window.resetSearch=function(){if(searchInput)searchInput.value='';if(searchDiv)searchDiv.style.display='none';if(postsContainer)postsContainer.style.display='block';allPosts.forEach(post=>post.style.display='block');};
+    window.closeSearch=function(){if(searchDiv)searchDiv.style.display='none';if(postsContainer)postsContainer.style.display='block';if(searchInput)searchInput.value='';};
+    function performSearch(){const query=searchInput.value.trim().toLowerCase();if(query===''){closeSearch();return;}const results=[];allPosts.forEach(post=>{const title=post.querySelector('.title h2')?.innerText?.toLowerCase()||'';const content=post.querySelector('.post-content')?.innerText?.toLowerCase()||'';const dataTitle=post.getAttribute('data-title')?.toLowerCase()||'';const dataContent=post.getAttribute('data-content')?.toLowerCase()||'';if(title.includes(query)||content.includes(query)||dataTitle.includes(query)||dataContent.includes(query)){results.push(post);}});if(results.length>0){searchList.innerHTML='';results.forEach(post=>{const title=post.querySelector('.title h2')?.innerText||post.getAttribute('data-title')||'Başlıksız';const li=document.createElement('li');const link=document.createElement('a');link.href='#';link.innerHTML=`<i class="fas fa-search"></i> ${title}`;link.onclick=(e)=>{e.preventDefault();closeSearch();post.scrollIntoView({behavior:'smooth',block:'start'});post.classList.add('highlight');setTimeout(()=>post.classList.remove('highlight'),2000);};li.appendChild(link);searchList.appendChild(li);});searchDiv.style.display='block';postsContainer.style.display='none';}else{searchList.innerHTML='<li><i class="fas fa-frown"></i> Sonuç bulunamadı.</li>';searchDiv.style.display='block';postsContainer.style.display='none';}}
+    if(searchBtn)searchBtn.addEventListener('click',performSearch);
+    if(searchInput)searchInput.addEventListener('keypress',(e)=>{if(e.key==='Enter')performSearch();});
+    const chatButton=document.getElementById('chatButtonSide'),chatPopup=document.getElementById('chatPopup'),chatOverlay=document.getElementById('chatOverlay'),chatCloseBtn=document.getElementById('chatCloseBtn'),openVideoBtn=document.getElementById('openVideoBtn'),videoModal=document.getElementById('videoModal'),closeModalBtn=document.getElementById('closeModalBtn'),youtubeIframe=document.getElementById('youtubeIframe'),contactNavLink=document.getElementById('contactNavLink'),contactSection=document.getElementById('contactSection');
+    if(chatButton)chatButton.onclick=(e)=>{e.preventDefault();chatPopup.classList.add('active');chatOverlay.classList.add('active');document.body.style.overflow='hidden';};
+    if(chatCloseBtn)chatCloseBtn.onclick=()=>{chatPopup.classList.remove('active');chatOverlay.classList.remove('active');document.body.style.overflow='';};
+    if(chatOverlay)chatOverlay.onclick=()=>{chatPopup.classList.remove('active');chatOverlay.classList.remove('active');document.body.style.overflow='';};
+    if(openVideoBtn)openVideoBtn.onclick=()=>{videoModal.classList.add('active');if(youtubeIframe)youtubeIframe.src="https://www.youtube.com/embed/3VGJkfQ9FPA?autoplay=1&rel=0";document.body.style.overflow='hidden';};
+    if(closeModalBtn)closeModalBtn.onclick=()=>{videoModal.classList.remove('active');if(youtubeIframe)youtubeIframe.src="about:blank";document.body.style.overflow='';};
+    if(videoModal)videoModal.onclick=(e)=>{if(e.target===videoModal){videoModal.classList.remove('active');if(youtubeIframe)youtubeIframe.src="about:blank";document.body.style.overflow='';}};
+    if(contactNavLink&&contactSection)contactNavLink.onclick=(e)=>{e.preventDefault();contactSection.scrollIntoView({behavior:'smooth',block:'start'});};
+    const chatInput2=document.getElementById('chatInput');
+    if(chatInput2)chatInput2.addEventListener('input',function(){this.style.height='auto';this.style.height=this.scrollHeight+'px';});
 })();
 </script>
-
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-  import { getDatabase, ref, push, onChildAdded, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
-  
+  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+  import { getDatabase, ref, push, onChildAdded, serverTimestamp as rtdbTimestamp, remove } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
   const firebaseConfig = {
+    apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
+    authDomain: "vom-yayin.firebaseapp.com",
+    projectId: "vom-yayin",
+    storageBucket: "vom-yayin.firebasestorage.app",
+    messagingSenderId: "93785669208",
+    appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  async function loadComments(postId) {
+    try {
+      const q = query(collection(db, `comments_post_${postId}`), orderBy('timestamp', 'asc'));
+      const snapshot = await getDocs(q);
+      const comments = [];
+      snapshot.forEach(doc => { comments.push({ id: doc.id, ...doc.data() }); });
+      renderComments(postId, comments);
+    } catch(e) { console.error('Yorumlar yüklenemedi:', e); }
+  }
+  function renderComments(postId, comments) {
+    const listDiv = document.getElementById(`comments-list-${postId}`);
+    const countDisplaySpan = document.querySelector(`#comments-section-${postId} .comment-count-display`);
+    const toggleCountSpan = document.querySelector(`.comment-toggle[data-post="${postId}"] .comment-count`);
+    if(!listDiv) return;
+    if(comments.length === 0) listDiv.innerHTML = '<div style="text-align:center; padding:0.5rem; color:#888;">Henüz yorum yok. İlk yorumu siz yazın!</div>';
+    else listDiv.innerHTML = comments.map(c => `<div class="comment-item"><strong>${escapeHtml(c.author)}</strong>: ${escapeHtml(c.text)}<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">${c.date || new Date(c.timestamp?.toDate()).toLocaleString('tr-TR')}</div><button class="delete-comment" onclick="deleteCommentFirebase(${postId}, '${c.id}')"><i class="fas fa-trash"></i></button></div>`).join('');
+    if(countDisplaySpan) countDisplaySpan.textContent = comments.length;
+    if(toggleCountSpan) toggleCountSpan.textContent = comments.length;
+  }
+  window.deleteCommentFirebase = async function(postId, commentId) {
+    const pwd = prompt("Admin şifresi:");
+    if(pwd === "vomadmin2026") {
+      try { await deleteDoc(doc(db, `comments_post_${postId}`, commentId)); loadComments(postId); }
+      catch(e) { console.error('Yorum silinemedi:', e); }
+    } else if(pwd !== null) alert("Şifre yanlış!");
+  };
+  window.addCommentToFirebase = async function(postId, author, text) {
+    try {
+      await addDoc(collection(db, `comments_post_${postId}`), {
+        author: author.trim(),
+        text: text.trim(),
+        timestamp: serverTimestamp(),
+        date: new Date().toLocaleString('tr-TR')
+      });
+      loadComments(postId);
+      return true;
+    } catch(e) { console.error('Yorum eklenemedi:', e); alert('Yorum eklenirken hata oluştu.'); return false; }
+  };
+  function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+  document.querySelectorAll('.comment-toggle').forEach(btn => {
+    const postId = parseInt(btn.dataset.post);
+    btn.addEventListener('click', (e) => { e.preventDefault(); const section = document.getElementById(`comments-section-${postId}`); if(section) { if(section.style.display === 'none') { section.style.display = 'block'; loadComments(postId); } else { section.style.display = 'none'; } } });
+  });
+  document.querySelectorAll('.submit-comment').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const postId = parseInt(btn.dataset.post);
+      const author = document.getElementById(`comment-input-${postId}`)?.value.trim() || "Ziyaretçi";
+      const text = document.getElementById(`comment-text-${postId}`)?.value.trim();
+      if(text) { await window.addCommentToFirebase(postId, author, text); document.getElementById(`comment-input-${postId}`).value = ""; document.getElementById(`comment-text-${postId}`).value = ""; }
+      else alert("Lütfen bir yorum yazın.");
+    });
+  });
+  const rtdbApp = initializeApp({
     apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
     authDomain: "vom-yayin.firebaseapp.com",
     projectId: "vom-yayin",
@@ -1571,28 +339,24 @@
     messagingSenderId: "93785669208",
     appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d",
     databaseURL: "https://vom-yayin-default-rtdb.europe-west1.firebasedatabase.app/"
-  };
-  
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const messagesRef = ref(db, 'messages');
-  
-  async function sendMessage() {
+  }, 'rtdb');
+  const rtdb = getDatabase(rtdbApp);
+  const messagesRef = ref(rtdb, 'messages');
+  window.sendChatMessage = async function() {
     const username = document.getElementById('chatUsername')?.value.trim();
     const message = document.getElementById('chatInput')?.value.trim();
     if(!message) return;
     const finalUsername = (username && username !== '') ? username : 'Anonim';
-    try {
-      await push(messagesRef, { username: finalUsername, message: message, timestamp: serverTimestamp() });
-      const chatInput = document.getElementById('chatInput');
-      if(chatInput) { chatInput.value = ''; chatInput.style.height = 'auto'; }
-    } catch (error) {
-      console.error('Mesaj hatası:', error);
-      if (error.code === 'PERMISSION_DENIED' || error.message?.includes('permission_denied')) alert('🔇 Sohbet şu anda kapalıdır.');
-      else alert('❌ Mesaj gönderilemedi.');
-    }
-  }
-  
+    try { await push(messagesRef, { username: finalUsername, message: message, timestamp: rtdbTimestamp() }); document.getElementById('chatInput').value = ''; }
+    catch(e) { alert('Mesaj gönderilemedi: ' + (e.code === 'PERMISSION_DENIED' ? 'Sohbet kapalı' : 'Hata')); }
+  };
+  window.deleteChatMessage = async function(messageId) {
+    const pwd = prompt("Admin şifresi:");
+    if(pwd === "vomadmin2026") {
+      try { await remove(ref(rtdb, `messages/${messageId}`)); alert("Mesaj silindi"); }
+      catch(e) { alert("Silinemedi"); }
+    } else if(pwd !== null) alert("Şifre yanlış!");
+  };
   onChildAdded(messagesRef, (snapshot) => {
     const container = document.getElementById('chatMessages');
     if(!container) return;
@@ -1605,18 +369,12 @@
     div.className = isSelf ? 'chat-message sent' : 'chat-message received';
     if(isSelf) div.innerHTML = `${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
     else div.innerHTML = `<div class="chat-message-username">${escapeHtml(data.username)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
+    if(currentUser === 'admin') div.innerHTML += `<button onclick="deleteChatMessage('${snapshot.key}')" style="margin-left:8px;">🗑️</button>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   });
-  
-  function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    const sendBtn = document.getElementById('chatSendBtn');
-    const chatInput = document.getElementById('chatInput');
-    if(sendBtn) { const newBtn = sendBtn.cloneNode(true); sendBtn.parentNode.replaceChild(newBtn, sendBtn); newBtn.addEventListener('click', sendMessage); }
-    if(chatInput) chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
-  });
+  document.getElementById('chatSendBtn')?.addEventListener('click', window.sendChatMessage);
+  document.getElementById('chatInput')?.addEventListener('keypress', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); window.sendChatMessage(); } });
 </script>
 </body>
 </html>
