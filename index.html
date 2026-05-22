@@ -1302,7 +1302,7 @@
 </div>
 
 <script>
-// TEK SCRIPT - RADYO, YORUM (FIREBASE), ARAMA
+// TEK SCRIPT - RADYO (DÜZELTİLMİŞ), YORUM, ARAMA
 (function() {
     // ========== FIREBASE YAPILANDIRMASI (YORUM İÇİN) ==========
     const firebaseConfigComments = {
@@ -1315,28 +1315,16 @@
     };
     
     let commentsDb = null;
-    let commentsCollection = null;
     
-    // Firebase'i dinamik olarak yükle
     async function initFirebaseComments() {
         try {
             const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
             const { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
-            
             const app = initializeApp(firebaseConfigComments);
             commentsDb = getFirestore(app);
-            commentsCollection = collection;
-            window.firestoreHelpers = { addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp };
-            
-            console.log('Firebase yorum sistemi bağlandı');
-            
-            // Tüm yorumları yükle
-            for(let i = 1; i <= 6; i++) {
-                loadCommentsFromFirebase(i);
-            }
-        } catch(e) {
-            console.error('Firebase yorum bağlantı hatası:', e);
-        }
+            window.firestoreHelpers = { addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, collection };
+            for(let i = 1; i <= 6; i++) loadCommentsFromFirebase(i);
+        } catch(e) { console.error('Firebase yorum hatası:', e); }
     }
     
     async function loadCommentsFromFirebase(postId) {
@@ -1346,361 +1334,228 @@
             const q = query(collection(commentsDb, `comments_post_${postId}`), orderBy('timestamp', 'asc'));
             const snapshot = await getDocs(q);
             const comments = [];
-            snapshot.forEach(doc => {
-                comments.push({ id: doc.id, ...doc.data() });
-            });
+            snapshot.forEach(doc => { comments.push({ id: doc.id, ...doc.data() }); });
             renderCommentsFirebase(postId, comments);
-        } catch(e) {
-            console.error('Yorumlar yüklenemedi:', e);
-        }
+        } catch(e) { console.error('Yorumlar yüklenemedi:', e); }
     }
     
     async function addCommentToFirebase(postId, author, text) {
-        if(!commentsDb || !window.firestoreHelpers) {
-            alert('Yorum sistemi bağlanamadı, lütfen sayfayı yenileyin.');
-            return false;
-        }
+        if(!commentsDb || !window.firestoreHelpers) { alert('Yorum sistemi bağlanamadı.'); return false; }
         const { addDoc, collection, serverTimestamp } = window.firestoreHelpers;
         try {
             await addDoc(collection(commentsDb, `comments_post_${postId}`), {
-                author: author.trim(),
-                text: text.trim(),
-                timestamp: serverTimestamp(),
-                date: new Date().toLocaleString('tr-TR')
+                author: author.trim(), text: text.trim(), timestamp: serverTimestamp(), date: new Date().toLocaleString('tr-TR')
             });
             loadCommentsFromFirebase(postId);
             return true;
-        } catch(e) {
-            console.error('Yorum eklenemedi:', e);
-            alert('Yorum eklenirken bir hata oluştu.');
-            return false;
-        }
+        } catch(e) { console.error('Yorum eklenemedi:', e); alert('Yorum eklenirken hata oluştu.'); return false; }
     }
     
     async function deleteCommentFromFirebase(postId, commentId) {
         if(!commentsDb || !window.firestoreHelpers) return;
         const { deleteDoc, doc } = window.firestoreHelpers;
-        try {
-            await deleteDoc(doc(commentsDb, `comments_post_${postId}`, commentId));
-            loadCommentsFromFirebase(postId);
-        } catch(e) {
-            console.error('Yorum silinemedi:', e);
-        }
+        try { await deleteDoc(doc(commentsDb, `comments_post_${postId}`, commentId)); loadCommentsFromFirebase(postId); }
+        catch(e) { console.error('Yorum silinemedi:', e); }
     }
     
     function renderCommentsFirebase(postId, comments) {
         const listDiv = document.getElementById(`comments-list-${postId}`);
         const countDisplaySpan = document.querySelector(`#comments-section-${postId} .comment-count-display`);
         const toggleCountSpan = document.querySelector(`.comment-toggle[data-post="${postId}"] .comment-count`);
-        
         if(!listDiv) return;
-        
-        if(comments.length === 0) {
-            listDiv.innerHTML = '<div style="text-align:center; padding:0.5rem; color:#888;">Henüz yorum yok. İlk yorumu siz yazın!</div>';
-        } else {
-            listDiv.innerHTML = comments.map(c => `
-                <div class="comment-item">
-                    <strong>${escapeHtml(c.author)}</strong>: ${escapeHtml(c.text)}
-                    <div style="font-size:0.6rem; color:#aaa; margin-top:4px;">${c.date || new Date(c.timestamp?.toDate()).toLocaleString('tr-TR')}</div>
-                    <button class="delete-comment" onclick="deleteCommentFirebase(${postId}, '${c.id}')"><i class="fas fa-trash"></i></button>
-                </div>
-            `).join('');
-        }
-        
+        if(comments.length === 0) listDiv.innerHTML = '<div style="text-align:center; padding:0.5rem; color:#888;">Henüz yorum yok.</div>';
+        else listDiv.innerHTML = comments.map(c => `<div class="comment-item"><strong>${escapeHtml(c.author)}</strong>: ${escapeHtml(c.text)}<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">${c.date || new Date(c.timestamp?.toDate()).toLocaleString('tr-TR')}</div><button class="delete-comment" onclick="deleteCommentFirebase(${postId}, '${c.id}')"><i class="fas fa-trash"></i></button></div>`).join('');
         if(countDisplaySpan) countDisplaySpan.textContent = comments.length;
         if(toggleCountSpan) toggleCountSpan.textContent = comments.length;
     }
     
+    // DÜZELTİLDİ: Şifre "vomadmin2026"
     window.deleteCommentFirebase = function(postId, commentId) {
         const pwd = prompt("Admin şifresi:");
-        if(pwd === "") {
+        if(pwd === "vomadmin2026") {
             deleteCommentFromFirebase(postId, commentId);
         } else if(pwd !== null) {
             alert("Şifre yanlış!");
         }
     };
     
-    function escapeHtml(str) {
-        if(!str) return '';
-        return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
-    }
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
     
-    // Yorum butonlarını bağla
     document.querySelectorAll('.comment-toggle').forEach(btn => {
         const postId = parseInt(btn.dataset.post);
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = document.getElementById(`comments-section-${postId}`);
-            if(section) {
-                if(section.style.display === 'none') {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            }
-        });
+        btn.addEventListener('click', (e) => { e.preventDefault(); const section = document.getElementById(`comments-section-${postId}`); if(section) section.style.display = section.style.display === 'none' ? 'block' : 'none'; });
     });
     
     document.querySelectorAll('.submit-comment').forEach(btn => {
         btn.addEventListener('click', async () => {
             const postId = parseInt(btn.dataset.post);
-            const authorInput = document.getElementById(`comment-input-${postId}`);
-            const textArea = document.getElementById(`comment-text-${postId}`);
-            const author = authorInput ? authorInput.value.trim() : "Ziyaretçi";
-            const text = textArea ? textArea.value.trim() : "";
-            
-            if(text) {
-                await addCommentToFirebase(postId, author, text);
-                if(authorInput) authorInput.value = "";
-                if(textArea) textArea.value = "";
-            } else {
-                alert("Lütfen bir yorum yazın.");
-            }
+            const author = document.getElementById(`comment-input-${postId}`)?.value.trim() || "Ziyaretçi";
+            const text = document.getElementById(`comment-text-${postId}`)?.value.trim();
+            if(text) { await addCommentToFirebase(postId, author, text); document.getElementById(`comment-input-${postId}`).value = ""; document.getElementById(`comment-text-${postId}`).value = ""; }
+            else alert("Lütfen bir yorum yazın.");
         });
     });
     
-    // Firebase yorum sistemini başlat
     initFirebaseComments();
     
-    // ========== 1. RADYO YAYIN DURUMU ==========
-    const STREAM_BASE_URL = "https://radyo.vomyayin.dpdns.org"; 
-    const MOUNT_POINT = "/vomyayin";
-    const STREAM_URL = STREAM_BASE_URL + MOUNT_POINT;
-
+    // ========== RADYO YAYIN DURUMU ==========
+    const STREAM_URL = "https://vomyayin.dpdns.org/vomyayin";
+    
     function updateLiveUI(live) {
         const badge = document.getElementById('liveBadgeSide');
         const chatBtn = document.getElementById('chatButtonSide');
         const statusTxt = document.getElementById('streamStatusSide');
-
         if (live) {
-            badge.innerText = "CANLI YAYIN";
-            badge.style.background = "#25D366";
-            chatBtn.style.opacity = "1";
-            chatBtn.style.pointerEvents = "auto";
-            statusTxt.innerHTML = '<i class="fas fa-headphones"></i> Yayındayız, aramıza hoş geldiniz!';
+            if(badge) { badge.innerText = "CANLI YAYIN"; badge.style.background = "#25D366"; }
+            if(chatBtn) { chatBtn.style.opacity = "1"; chatBtn.style.pointerEvents = "auto"; }
+            if(statusTxt) statusTxt.innerHTML = '<i class="fas fa-headphones"></i> Yayındayız!';
         } else {
-            badge.innerText = "YAYIN YOK";
-            badge.style.background = "#7f8c8d";
-            chatBtn.style.opacity = "0.5";
-            chatBtn.style.pointerEvents = "none";
-            statusTxt.innerHTML = '<i class="fas fa-clock"></i> Bir sonraki yayın için takipte kalın.';
+            if(badge) { badge.innerText = "YAYIN YOK"; badge.style.background = "#7f8c8d"; }
+            if(chatBtn) { chatBtn.style.opacity = "0.5"; chatBtn.style.pointerEvents = "none"; }
+            if(statusTxt) statusTxt.innerHTML = '<i class="fas fa-clock"></i> Bir sonraki yayını bekleyin.';
         }
     }
-
+    
     function checkLiveStatus() {
-        fetch(STREAM_BASE_URL + "/status-json.xsl?nocache=" + Date.now())
-            .then(res => res.json())
-            .then(data => {
+        fetch("https://radyo.vomyayin.dpdns.org/status-json.xsl?nocache=" + Date.now())
+            .then(res => res.json()).then(data => {
                 let isLive = false;
                 if (data.icestats && data.icestats.source) {
                     const sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
-                    isLive = sources.some(s => s.listenurl && s.listenurl.includes(MOUNT_POINT));
+                    isLive = sources.some(s => s.listenurl && s.listenurl.includes("/vomyayin"));
                 }
                 updateLiveUI(isLive);
-            })
-            .catch(() => updateLiveUI(false));
+            }).catch(() => updateLiveUI(false));
     }
-    setInterval(checkLiveStatus, 30000); 
-    checkLiveStatus();
-
-    // ========== 2. RADYO PLAYER ==========
-    const audio = new Audio();
+    setInterval(checkLiveStatus, 30000); checkLiveStatus();
+    
+    // ========== RADYO PLAYER (DÜZELTİLMİŞ) ==========
+    let audio = null;
     let isPlaying = false;
     let timerInterval = null;
-
-    function togglePlay() {
-        if (!isPlaying) {
-            audio.src = STREAM_URL + "?cache=" + Date.now();
-            audio.play().then(() => {
-                isPlaying = true;
-                updateIcon();
-                startClock();
-            }).catch(() => alert("Yayına şu an ulaşılamıyor. Lütfen yayın saatini bekleyin."));
-        } else {
-            pauseStream();
+    let playStartTime = 0;
+    let currentElapsed = 0;
+    
+    function createAudio() {
+        if(audio) {
+            audio.pause();
+            audio.src = '';
         }
+        audio = new Audio();
+        audio.preload = "none";
     }
-
-    function pauseStream() {
-        audio.pause();
-        isPlaying = false;
-        updateIcon();
-        stopClock();
-    }
-
-    function updateIcon() {
-        const icon = document.getElementById('playPauseIconSide');
-        if(icon) icon.className = isPlaying ? "fas fa-pause" : "fas fa-play";
-    }
-
+    
     function startClock() {
         if(timerInterval) clearInterval(timerInterval);
+        playStartTime = Date.now() - currentElapsed * 1000;
         timerInterval = setInterval(() => {
             const timeEl = document.getElementById('timeDisplaySide');
-            if(timeEl && audio && !isNaN(audio.currentTime)) {
-                const m = Math.floor(audio.currentTime / 60);
-                const s = Math.floor(audio.currentTime % 60);
+            if(timeEl && isPlaying) {
+                currentElapsed = Math.floor((Date.now() - playStartTime) / 1000);
+                const m = Math.floor(currentElapsed / 60);
+                const s = currentElapsed % 60;
                 timeEl.innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
             }
-        }, 1000);
+        }, 200);
     }
-
-    function stopClock() {
-        clearInterval(timerInterval);
-        const timeEl = document.getElementById('timeDisplaySide');
-        if(timeEl) timeEl.innerText = "00:00";
+    
+    function stopClock() { clearInterval(timerInterval); currentElapsed = 0; const timeEl = document.getElementById('timeDisplaySide'); if(timeEl) timeEl.innerText = "00:00"; }
+    
+    function togglePlay() {
+        if (!isPlaying) {
+            if(audio) { audio.pause(); audio.src = ''; }
+            audio = new Audio();
+            audio.src = STREAM_URL + "?nocache=" + Date.now();
+            audio.play().then(() => {
+                isPlaying = true;
+                const icon = document.getElementById('playPauseIconSide');
+                if(icon) icon.className = "fas fa-pause";
+                startClock();
+            }).catch(() => alert("Yayına şu an ulaşılamıyor."));
+        } else {
+            if(audio) {
+                audio.pause();
+                audio.src = '';
+            }
+            isPlaying = false;
+            const icon = document.getElementById('playPauseIconSide');
+            if(icon) icon.className = "fas fa-play";
+            stopClock();
+        }
     }
-
+    
+    function pauseStream() {
+        if(audio) {
+            audio.pause();
+            audio.src = '';
+        }
+        isPlaying = false;
+        const icon = document.getElementById('playPauseIconSide');
+        if(icon) icon.className = "fas fa-play";
+        stopClock();
+    }
+    
     const playBtn = document.getElementById('mainPlayPauseSide');
     const stopBtn = document.getElementById('stopBtnSide');
     const volumeSlider = document.getElementById('volumeSliderSide');
     
     if(playBtn) playBtn.onclick = togglePlay;
     if(stopBtn) stopBtn.onclick = pauseStream;
-    if(volumeSlider) volumeSlider.oninput = (e) => audio.volume = e.target.value;
-
-    // ========== 3. ARAMA FONKSİYONU ==========
+    if(volumeSlider) volumeSlider.oninput = (e) => { if(audio) audio.volume = e.target.value; };
+    
+    // ========== ARAMA FONKSİYONU ==========
     const searchBtn = document.getElementById('search-btn');
     const searchInput = document.getElementById('search-input');
-    const searchResultsDiv = document.getElementById('search-results');
-    const searchResultsList = document.getElementById('search-results-list');
+    const searchDiv = document.getElementById('search-results');
+    const searchList = document.getElementById('search-results-list');
     const postsContainer = document.getElementById('posts-container');
     const allPosts = Array.from(document.querySelectorAll('.post'));
-
-    window.resetSearch = function() {
-        if(searchInput) searchInput.value = '';
-        if(searchResultsDiv) searchResultsDiv.style.display = 'none';
-        if(postsContainer) postsContainer.style.display = 'block';
-        allPosts.forEach(post => post.style.display = 'block');
-    };
-
-    window.closeSearch = function() {
-        if(searchResultsDiv) searchResultsDiv.style.display = 'none';
-        if(postsContainer) postsContainer.style.display = 'block';
-        if(searchInput) searchInput.value = '';
-    };
-
+    
+    window.resetSearch = function() { if(searchInput) searchInput.value = ''; if(searchDiv) searchDiv.style.display = 'none'; if(postsContainer) postsContainer.style.display = 'block'; allPosts.forEach(p => p.style.display = 'block'); };
+    window.closeSearch = function() { if(searchDiv) searchDiv.style.display = 'none'; if(postsContainer) postsContainer.style.display = 'block'; if(searchInput) searchInput.value = ''; };
+    
     function performSearch() {
-        const query = searchInput.value.trim().toLowerCase();
-        if(query === '') { closeSearch(); return; }
+        const q = searchInput.value.trim().toLowerCase();
+        if(q === '') { closeSearch(); return; }
         const results = [];
-        allPosts.forEach(post => {
-            const title = post.querySelector('.title h2')?.innerText?.toLowerCase() || '';
-            const content = post.querySelector('.post-content')?.innerText?.toLowerCase() || '';
-            const dataTitle = post.getAttribute('data-title')?.toLowerCase() || '';
-            const dataContent = post.getAttribute('data-content')?.toLowerCase() || '';
-            if(title.includes(query) || content.includes(query) || dataTitle.includes(query) || dataContent.includes(query)) {
-                results.push(post);
-            }
+        allPosts.forEach(p => {
+            const title = p.querySelector('.title h2')?.innerText?.toLowerCase() || '';
+            const content = p.querySelector('.post-content')?.innerText?.toLowerCase() || '';
+            if(title.includes(q) || content.includes(q)) results.push(p);
         });
         if(results.length > 0) {
-            searchResultsList.innerHTML = '';
-            results.forEach(post => {
-                const title = post.querySelector('.title h2')?.innerText || post.getAttribute('data-title') || 'Başlıksız';
+            searchList.innerHTML = '';
+            results.forEach(p => {
+                const title = p.querySelector('.title h2')?.innerText || 'Başlıksız';
                 const li = document.createElement('li');
-                const link = document.createElement('a');
-                link.href = '#';
-                link.innerHTML = `<i class="fas fa-search"></i> ${title}`;
-                link.onclick = (e) => {
-                    e.preventDefault();
-                    closeSearch();
-                    post.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    post.classList.add('highlight');
-                    setTimeout(() => post.classList.remove('highlight'), 2000);
-                };
-                li.appendChild(link);
-                searchResultsList.appendChild(li);
+                const a = document.createElement('a');
+                a.href = '#';
+                a.innerHTML = `<i class="fas fa-search"></i> ${title}`;
+                a.onclick = (e) => { e.preventDefault(); closeSearch(); p.scrollIntoView({ behavior: 'smooth', block: 'start' }); p.classList.add('highlight'); setTimeout(() => p.classList.remove('highlight'), 2000); };
+                li.appendChild(a);
+                searchList.appendChild(li);
             });
-            searchResultsDiv.style.display = 'block';
+            searchDiv.style.display = 'block';
             postsContainer.style.display = 'none';
         } else {
-            searchResultsList.innerHTML = '<li><i class="fas fa-frown"></i> Sonuç bulunamadı.</li>';
-            searchResultsDiv.style.display = 'block';
+            searchList.innerHTML = '<li>Sonuç bulunamadı.</li>';
+            searchDiv.style.display = 'block';
             postsContainer.style.display = 'none';
         }
     }
-
-    if(searchBtn) searchBtn.addEventListener('click', performSearch);
+    
+    if(searchBtn) searchBtn.onclick = performSearch;
     if(searchInput) searchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') performSearch(); });
-
-    // ========== 4. CHAT VE MODAL KONTROLLERİ ==========
-    const chatButton = document.getElementById('chatButtonSide');
-    const chatPopup = document.getElementById('chatPopup');
-    const chatOverlay = document.getElementById('chatOverlay');
-    const chatCloseBtn = document.getElementById('chatCloseBtn');
-    const openVideoBtn = document.getElementById('openVideoBtn');
-    const videoModal = document.getElementById('videoModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const youtubeIframe = document.getElementById('youtubeIframe');
-    const contactNavLink = document.getElementById('contactNavLink');
-    const contactSection = document.getElementById('contactSection');
-
-    if(chatButton) {
-        chatButton.onclick = (e) => {
-            e.preventDefault();
-            chatPopup.classList.add('active');
-            chatOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-    }
     
-    if(chatCloseBtn) {
-        chatCloseBtn.onclick = () => {
-            chatPopup.classList.remove('active');
-            chatOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-    }
-    
-    if(chatOverlay) {
-        chatOverlay.onclick = () => {
-            chatPopup.classList.remove('active');
-            chatOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-    }
-    
-    if(openVideoBtn) {
-        openVideoBtn.onclick = () => {
-            videoModal.classList.add('active');
-            if(youtubeIframe) youtubeIframe.src = "https://www.youtube.com/embed/3VGJkfQ9FPA?autoplay=1&rel=0";
-            document.body.style.overflow = 'hidden';
-        };
-    }
-    
-    if(closeModalBtn) {
-        closeModalBtn.onclick = () => {
-            videoModal.classList.remove('active');
-            if(youtubeIframe) youtubeIframe.src = "";
-            document.body.style.overflow = '';
-        };
-    }
-    
-    if(videoModal) {
-        videoModal.onclick = (e) => {
-            if(e.target === videoModal) {
-                videoModal.classList.remove('active');
-                if(youtubeIframe) youtubeIframe.src = "";
-                document.body.style.overflow = '';
-            }
-        };
-    }
-    
-    if(contactNavLink && contactSection) {
-        contactNavLink.onclick = (e) => {
-            e.preventDefault();
-            contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        };
-    }
-
-    // Chat input auto-resize
-    const chatInput = document.getElementById('chatInput');
-    if(chatInput) {
-        chatInput.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = this.scrollHeight + 'px';
-        });
-    }
+    // ========== CHAT VE MODAL KONTROLLERİ ==========
+    document.getElementById('chatButtonSide')?.addEventListener('click', (e) => { e.preventDefault(); document.getElementById('chatPopup').classList.add('active'); document.getElementById('chatOverlay').classList.add('active'); document.body.style.overflow = 'hidden'; });
+    document.getElementById('chatCloseBtn')?.addEventListener('click', () => { document.getElementById('chatPopup').classList.remove('active'); document.getElementById('chatOverlay').classList.remove('active'); document.body.style.overflow = ''; });
+    document.getElementById('chatOverlay')?.addEventListener('click', () => { document.getElementById('chatPopup').classList.remove('active'); document.getElementById('chatOverlay').classList.remove('active'); document.body.style.overflow = ''; });
+    document.getElementById('openVideoBtn')?.addEventListener('click', () => { document.getElementById('videoModal').classList.add('active'); document.getElementById('youtubeIframe').src = "https://www.youtube.com/embed/3VGJkfQ9FPA?autoplay=1&rel=0"; document.body.style.overflow = 'hidden'; });
+    document.getElementById('closeModalBtn')?.addEventListener('click', () => { document.getElementById('videoModal').classList.remove('active'); document.getElementById('youtubeIframe').src = ""; document.body.style.overflow = ''; });
+    document.getElementById('videoModal')?.addEventListener('click', (e) => { if(e.target === document.getElementById('videoModal')) { document.getElementById('videoModal').classList.remove('active'); document.getElementById('youtubeIframe').src = ""; document.body.style.overflow = ''; } });
+    document.getElementById('contactNavLink')?.addEventListener('click', (e) => { e.preventDefault(); document.getElementById('contactSection').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    document.getElementById('chatInput')?.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; });
 })();
 </script>
 
@@ -1722,104 +1577,46 @@
   const db = getDatabase(app);
   const messagesRef = ref(db, 'messages');
   
-  // === DÜZELTİLMİŞ: HATA YAKALAMALI SEND MESSAGE ===
   async function sendMessage() {
     const username = document.getElementById('chatUsername')?.value.trim();
     const message = document.getElementById('chatInput')?.value.trim();
-    
-    if(!message) {
-      return;
-    }
-    
+    if(!message) return;
     const finalUsername = (username && username !== '') ? username : 'Anonim';
-    
     try {
-      await push(messagesRef, {
-        username: finalUsername,
-        message: message,
-        timestamp: serverTimestamp()
-      });
-      
-      // Başarılı: input temizle
+      await push(messagesRef, { username: finalUsername, message: message, timestamp: serverTimestamp() });
       const chatInput = document.getElementById('chatInput');
-      if(chatInput) {
-        chatInput.value = '';
-        chatInput.style.height = 'auto';
-      }
-      
+      if(chatInput) { chatInput.value = ''; chatInput.style.height = 'auto'; }
     } catch (error) {
-      // FIREBASE KURALLARI İZİN VERMİYORSA (write: false ise) buraya düşer
-      console.error('Mesaj gönderme hatası:', error);
-      
-      // Kullanıcıya anlaşılır uyarı
-      if (error.code === 'PERMISSION_DENIED' || error.message?.includes('permission_denied')) {
-        alert('🔇 Sohbet şu anda kapalıdır. Sadece canlı yayın saatlerinde mesaj gönderebilirsiniz.');
-      } else {
-        alert('❌ Mesaj gönderilemedi. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.');
-      }
+      console.error('Mesaj hatası:', error);
+      if (error.code === 'PERMISSION_DENIED' || error.message?.includes('permission_denied')) alert('🔇 Sohbet şu anda kapalıdır.');
+      else alert('❌ Mesaj gönderilemedi.');
     }
   }
   
-  // Mesajları dinle (hata yönetimi eklendi)
-  try {
-    onChildAdded(messagesRef, (snapshot) => {
-      const container = document.getElementById('chatMessages');
-      if(!container) return;
-      const data = snapshot.val();
-      const currentUser = document.getElementById('chatUsername')?.value.trim() || '';
-      const isSelf = (data.username === currentUser);
-      let timeStr = '';
-      if(data.timestamp) {
-        const date = new Date(data.timestamp);
-        timeStr = date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-      }
-      const div = document.createElement('div');
-      div.className = isSelf ? 'chat-message sent' : 'chat-message received';
-      if(isSelf) {
-        div.innerHTML = `${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
-      } else {
-        div.innerHTML = `<div class="chat-message-username">${escapeHtml(data.username)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
-      }
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
-    }, (error) => {
-      console.error('Mesaj dinleme hatası:', error);
-      const statusSpan = document.getElementById('chatStatus');
-      if(statusSpan) {
-        statusSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Bağlantı sorunu, yeniden bağlanılıyor...';
-      }
-    });
-  } catch(e) {
-    console.error('Chat dinleyici hatası:', e);
-  }
+  onChildAdded(messagesRef, (snapshot) => {
+    const container = document.getElementById('chatMessages');
+    if(!container) return;
+    const data = snapshot.val();
+    const currentUser = document.getElementById('chatUsername')?.value.trim() || '';
+    const isSelf = (data.username === currentUser);
+    let timeStr = '';
+    if(data.timestamp) { const date = new Date(data.timestamp); timeStr = date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }); }
+    const div = document.createElement('div');
+    div.className = isSelf ? 'chat-message sent' : 'chat-message received';
+    if(isSelf) div.innerHTML = `${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
+    else div.innerHTML = `<div class="chat-message-username">${escapeHtml(data.username)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  });
   
-  function escapeHtml(str) {
-    if(!str) return '';
-    return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
-  }
+  function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
   
-  // Butonları bağla
   document.addEventListener('DOMContentLoaded', function() {
     const sendBtn = document.getElementById('chatSendBtn');
     const chatInput = document.getElementById('chatInput');
-    
-    if(sendBtn) {
-      // Eski event listener'ları temizle (çakışma önleme)
-      const newBtn = sendBtn.cloneNode(true);
-      sendBtn.parentNode.replaceChild(newBtn, sendBtn);
-      newBtn.addEventListener('click', sendMessage);
-    }
-    
-    if(chatInput) {
-      chatInput.addEventListener('keypress', (e) => {
-        if(e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          sendMessage();
-        }
-      });
-    }
+    if(sendBtn) { const newBtn = sendBtn.cloneNode(true); sendBtn.parentNode.replaceChild(newBtn, sendBtn); newBtn.addEventListener('click', sendMessage); }
+    if(chatInput) chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
   });
 </script>
-
 </body>
 </html>
