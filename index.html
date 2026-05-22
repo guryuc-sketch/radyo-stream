@@ -256,7 +256,7 @@
     function updateLiveUI(live){
         const badge=document.getElementById('liveBadgeSide');const chatBtn=document.getElementById('chatButtonSide');const statusTxt=document.getElementById('streamStatusSide');
         if(live){if(badge){badge.innerText="CANLI YAYIN";badge.style.background="#25D366";badge.classList.remove('offline');}if(chatBtn){chatBtn.style.opacity="1";chatBtn.style.pointerEvents="auto";}if(statusTxt)statusTxt.innerHTML='<i class="fas fa-headphones"></i> Yayındayız!';}
-        else{if(badge){badge.innerText="YAYIN YOK";badge.style.background="#7f8c8d";}if(chatBtn){chatBtn.style.opacity="0.5";chatBtn.style.pointerEvents="none";}if(statusTxt)statusTxt.innerHTML='<i class="fas fa-clock"></i> Bir sonraki yayını bekleyin.';}
+        else{if(badge){badge.innerText="YAYIN YOK";badge.style.background="#7f8c8d";badge.classList.add('offline');}if(chatBtn){chatBtn.style.opacity="0.5";chatBtn.style.pointerEvents="none";}if(statusTxt)statusTxt.innerHTML='<i class="fas fa-clock"></i> Bir sonraki yayını bekleyin.';}
     }
     setInterval(checkLiveStatus, 15000);
     checkLiveStatus();
@@ -386,7 +386,7 @@
     if(isSelf) div.innerHTML = `${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
     else div.innerHTML = `<div class="chat-message-username">${escapeHtml(data.username)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
     const isAdmin = currentUser === 'admin';
-    if(isAdmin) div.innerHTML += `<button onclick="deleteChatMessage('${snapshot.key}')" style="margin-left:8px; background:#e33b3b; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer;">🗑️</button>`;
+    if(isAdmin) div.innerHTML += `<button onclick="deleteChatMessage('${snapshot.key}')" style="margin-left:8px; background:#e33b3b; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; color:white;">🗑️</button>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   });
