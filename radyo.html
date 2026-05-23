@@ -495,7 +495,9 @@
     const messagesRef = ref(rtdb, 'messages');
 
     // ---------- RADYO (CANLI YAYIN) ----------
-    https://added-density-congratulations-partially.trycloudflare.com
+    // CANLI YAYIN STREAM URL - DÜZELTİLDİ
+    const STREAM_URL = "https://added-density-congratulations-partially.trycloudflare.com";
+    
     const audio = new Audio();
     audio.preload = "metadata";
     audio.crossOrigin = "anonymous";
@@ -514,7 +516,7 @@
     const chatButton = document.getElementById('chatButtonSide');
 
     let isPlaying = false;
-    let isLiveActive = true;      // yayın akışı canlı mı?
+    let isLiveActive = true;
     let errorTimeout = null;
     let timeInterval = null;
     let trackInterval = null;
@@ -608,6 +610,7 @@
     }
 
     function handleStreamError() {
+        console.warn("Stream hatası algılandı");
         if (isLiveActive) setLiveStatus(false);
     }
 
@@ -644,7 +647,11 @@
                     if (isLiveActive && isPlaying) updateRandomTrack();
                 }, 9000);
                 updateRandomTrack();
-            }).catch(() => handleStreamError());
+                streamStatusSpan.innerText = "🔴 Canlı yayın";
+            }).catch((err) => {
+                console.error("Play hatası:", err);
+                handleStreamError();
+            });
             return;
         }
         if (!audio.src || audio.src !== STREAM_URL) {
@@ -661,13 +668,18 @@
                 }, 9000);
             }
             updateRandomTrack();
-        }).catch(() => handleStreamError());
+            streamStatusSpan.innerText = "🔴 Canlı yayın";
+        }).catch((err) => {
+            console.error("Play hatası:", err);
+            handleStreamError();
+        });
     }
 
     function pauseRadio() {
         audio.pause();
         isPlaying = false;
         playPauseIcon.className = "fas fa-play";
+        streamStatusSpan.innerText = "⏸ Durduruldu";
     }
 
     function stopRadio() {
@@ -676,6 +688,7 @@
         isPlaying = false;
         playPauseIcon.className = "fas fa-play";
         timeDisplaySpan.innerText = "00:00";
+        streamStatusSpan.innerText = "⏹ Durduruldu";
     }
 
     const finalPlayHandler = () => {
@@ -684,9 +697,18 @@
     };
     playBtn.onclick = finalPlayHandler;
     mainPlayPause.onclick = finalPlayHandler;
-    stopBtn.onclick = () => { if (isPlaying) stopRadio(); else { audio.pause(); audio.currentTime = 0; timeDisplaySpan.innerText = "00:00"; } };
+    stopBtn.onclick = () => { 
+        if (isPlaying) stopRadio(); 
+        else { 
+            audio.pause(); 
+            audio.currentTime = 0; 
+            timeDisplaySpan.innerText = "00:00";
+            streamStatusSpan.innerText = "⏹ Durduruldu";
+        } 
+    };
     volumeSlider.addEventListener('input', (e) => { audio.volume = parseFloat(e.target.value); });
 
+    // Audio'yu hazırla ama otomatik başlatma
     audio.src = STREAM_URL;
     audio.load();
     initAudioEvents();
@@ -790,8 +812,7 @@
         }
     });
 
-    // Yayın kapandığında mesajları temizle (setLiveStatus zaten yapıyor)
-    // Ekstra periyodik kontrol
+    // Yayın kapandığında popup'ı kapat
     setInterval(() => {
         if (!isLiveActive && chatPopup.classList.contains('active')) {
             chatPopup.classList.remove('active');
