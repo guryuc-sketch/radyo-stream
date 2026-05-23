@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+    <title>VOM | 3D Metalik Radyo Player - Canlı Sohbet</title>
+    <meta name="description" content="VOM Radyo - 3D metalik tasarımlı canlı radyo player, kesintisiz müzik ve kültür sanat yayını. Canlı sohbet ile dinleyicilerle etkileşime geçin.">
+    <meta name="keywords" content="radyo player, canlı radyo, web radio, metalik radyo, sohbet, chat, vom radyo">
+    <meta name="author" content="VOM YAYIN">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #d9dce5 0%, #c2c6d1 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .radio-container {
+            max-width: 580px;
+            width: 100%;
+            background: radial-gradient(circle at 20% 30%, #e8eaef, #b9bfcc);
+            border-radius: 3rem;
+            box-shadow: 20px 20px 35px rgba(0, 0, 0, 0.3), -8px -8px 18px rgba(255, 255, 255, 0.6), inset 2px 2px 4px rgba(255,255,255,0.5), inset -3px -3px 6px rgba(0,0,0,0.1);
+            padding: 1.8rem 1.8rem 1.8rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        .radio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .station-name {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #2d2f36, #1e2027);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .station-name i {
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: #3a3f4b;
+            text-shadow: 0 1px 0 white;
+            font-size: 1.7rem;
+        }
+
+        .live-badge {
+            background: #e33b3b;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.9rem;
+            border-radius: 60px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .live-badge.offline {
+            background: #6c757d;
+            color: #e9ecef;
+        }
+
+        .song-info-panel {
+            background: rgba(30, 32, 40, 0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 0.9rem 1.3rem;
+            margin: 1rem 0 1.3rem;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2), 0 6px 12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .current-track {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .track-icon {
+            font-size: 1.6rem;
+            color: #f5c542;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        .track-details {
+            flex: 1;
+        }
+
+        .track-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #fef9e8;
+            text-shadow: 0 1px 1px black;
+        }
+
+        .track-artist {
+            font-size: 0.75rem;
+            color: #cfddee;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .time-elapsed {
+            font-family: monospace;
+            font-weight: 600;
+            background: #1e1f26;
+            padding: 0.3rem 0.9rem;
+            border-radius: 2rem;
+            color: #b9fbc0;
+            font-size: 0.85rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.8rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .ctrl-btn {
+            background: radial-gradient(circle at 30% 20%, #eff2f9, #c4cad9);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #2c2f3a;
+            cursor: pointer;
+            transition: 0.1s linear;
+            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.25), -6px -6px 12px rgba(255, 255, 255, 0.7), inset 1px 1px 0 rgba(255,255,255,0.8), inset -2px -2px 0 rgba(0,0,0,0.05);
+            border: none;
+        }
+
+        .ctrl-btn:active {
+            transform: scale(0.96);
+            box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -2px -2px 4px rgba(255,255,255,0.6);
+        }
+
+        .play-pause {
+            background: radial-gradient(circle at 35% 30%, #f5f7fc, #bdc3d4);
+            width: 85px;
+            height: 85px;
+            font-size: 2.5rem;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            background: rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 60px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            backdrop-filter: blur(2px);
+        }
+
+        input[type="range"] {
+            width: 140px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #3a3f4e;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #eef2ff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 1px 4px black;
+        }
+
+        .chat-button {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 2rem;
+            padding: 0.9rem 1.2rem;
+            margin: 1.2rem 0 0.5rem 0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        .chat-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+        }
+        .chat-button a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+        }
+        .chat-button.offline {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .chat-button.offline:hover {
+            transform: none;
+        }
+
+        /* CHAT POPUP */
+        .chat-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            max-width: 90vw;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 10001;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            flex-direction: column;
+            max-height: 85vh;
+        }
+        .chat-popup.active {
+            display: flex;
+            animation: fadeInUp 0.3s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        .chat-header {
+            background: #075E54;
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .chat-header .chat-title {
+            margin: 0;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            background: #ECE5DD;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 300px;
+            max-height: 50vh;
+        }
+        .chat-message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            word-break: break-word;
+        }
+        .chat-message.received {
+            background: white;
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+        }
+        .chat-message.sent {
+            background: #DCF8C6;
+            align-self: flex-end;
+            border-top-right-radius: 4px;
+        }
+        .chat-message-username {
+            font-weight: 700;
+            font-size: 0.7rem;
+            margin-bottom: 0.2rem;
+            color: #075E54;
+        }
+        .chat-message-time {
+            font-size: 0.6rem;
+            color: #999;
+            margin-top: 0.2rem;
+            text-align: right;
+        }
+        .chat-system {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #666;
+            margin: 0.3rem 0;
+        }
+        .chat-input-area {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            background: #f0f0f0;
+            gap: 10px;
+            border-top: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+        .chat-input-area input, .chat-input-area textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .chat-input-area textarea {
+            resize: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .chat-input-area button {
+            background: #075E54;
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .chat-status {
+            text-align: center;
+            font-size: 0.65rem;
+            padding: 8px;
+            background: #f0f0f0;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+        .chat-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+        }
+        .chat-overlay.active {
+            display: block;
+        }
+        .credit {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 1.5rem;
+            color: #2e3b4e;
+            opacity: 0.8;
+        }
+        @keyframes pulseLive {
+            0% { opacity: 0.8; box-shadow: 0 0 0 0 rgba(227, 59, 59, 0.4);}
+            70% { opacity: 1; box-shadow: 0 0 0 6px rgba(227,59,59,0);}
+            100% { opacity: 0.8;}
+        }
+        .live-badge:not(.offline) {
+            animation: pulseLive 1.2s infinite;
+        }
+        @media (max-width: 550px) {
+            .radio-container { padding: 1.2rem; }
+            .ctrl-btn { width: 55px; height: 55px; font-size: 1.5rem; }
+            .play-pause { width: 70px; height: 70px; font-size: 2rem; }
+            .station-name { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="radio-container" id="radioContainer">
+    <div class="radio-header">
+        <div class="station-name">
+            <i class="fas fa-broadcast-tower"></i> 
+            <span>VOM RADYO</span>
+        </div>
+        <div class="live-badge" id="liveBadge">CANLI</div>
+    </div>
+    <div class="song-info-panel">
+        <div class="current-track">
+            <div class="track-icon"><i class="fas fa-music"></i></div>
+            <div class="track-details">
+                <div class="track-title" id="trackTitle">VOM Canlı Yayın</div>
+                <div class="track-artist" id="trackArtist">Pop · Rock · Kültür Sanat</div>
+            </div>
+            <div class="time-elapsed" id="timeDisplay">00:00</div>
+        </div>
+    </div>
+    <div class="controls">
+        <div class="ctrl-btn" id="playBtn"><i class="fas fa-play"></i></div>
+        <div class="ctrl-btn play-pause" id="mainPlayPause"><i class="fas fa-play" id="playPauseIcon"></i></div>
+        <div class="ctrl-btn" id="stopBtn"><i class="fas fa-stop"></i></div>
+    </div>
+    <div class="volume-control">
+        <i class="fas fa-volume-down"></i>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+        <i class="fas fa-volume-up"></i>
+    </div>
+    <div class="chat-button" id="chatButtonSide">
+        <a href="#" id="chatLinkSide"><i class="fab fa-whatsapp"></i> Canlı Sohbet</a>
+    </div>
+    <div class="credit">
+        <i class="fas fa-headphones"></i> 7/24 canlı yayın · <span id="streamStatusText">Başlatmak için oynat</span>
+    </div>
+</div>
+
+<!-- CHAT POPUP -->
+<div class="chat-overlay" id="chatOverlay"></div>
+<div class="chat-popup" id="chatPopup">
+    <div class="chat-header">
+        <div class="chat-title"><i class="fab fa-whatsapp"></i> VOM Canlı Sohbet</div>
+        <button class="chat-close" id="chatCloseBtn">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="chat-system">💬 Yayın devam ederken sohbet aktif olur.</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chatUsername" placeholder="👤 Kullanıcı adınız">
+        <textarea id="chatInput" placeholder="💬 Mesajınızı yazın (Enter gönder)" rows="1"></textarea>
+        <button id="chatSendBtn"><i class="fas fa-paper-plane"></i> Gönder</button>
+    </div>
+    <div class="chat-status" id="chatStatus">Sohbet sadece canlı yayında açıktır.</div>
+</div>
+
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+    import { getDatabase, ref, push, onChildAdded, remove, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
+        authDomain: "vom-yayin.firebaseapp.com",
+        projectId: "vom-yayin",
+        storageBucket: "vom-yayin.firebasestorage.app",
+        messagingSenderId: "93785669208",
+        appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d",
+        databaseURL: "https://vom-yayin-default-rtdb.europe-west1.firebasedatabase.app/"
+    };
+    const app = initializeApp(firebaseConfig);
+    const rtdb = getDatabase(app);
+    const messagesRef = ref(rtdb, 'messages');
+
+    // ---------- RADYO (CANLI YAYIN) ----------
+    https://added-density-congratulations-partially.trycloudflare.com
+    const audio = new Audio();
+    audio.preload = "metadata";
+    audio.crossOrigin = "anonymous";
+
+    const playBtn = document.getElementById('playBtn');
+    const mainPlayPause = document.getElementById('mainPlayPause');
+    const stopBtn = document.getElementById('stopBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const liveBadge = document.getElementById('liveBadge');
+    const trackTitleSpan = document.getElementById('trackTitle');
+    const trackArtistSpan = document.getElementById('trackArtist');
+    const timeDisplaySpan = document.getElementById('timeDisplay');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const streamStatusSpan = document.getElementById('streamStatusText');
+    const radioContainer = document.getElementById('radioContainer');
+    const chatButton = document.getElementById('chatButtonSide');
+
+    let isPlaying = false;
+    let isLiveActive = true;      // yayın akışı canlı mı?
+    let errorTimeout = null;
+    let timeInterval = null;
+    let trackInterval = null;
+
+    const dummyTracks = [
+        { title: "Blinding Lights", artist: "The Weeknd" },
+        { title: "Flowers", artist: "Miley Cyrus" },
+        { title: "Cruel Summer", artist: "Taylor Swift" },
+        { title: "Yalnız Kalsın", artist: "Sertab Erener" },
+        { title: "Levitating", artist: "Dua Lipa" },
+        { title: "Bir Derdim Var", artist: "mor ve ötesi" },
+        { title: "VOM Özel Mix", artist: "DJ VOM" }
+    ];
+
+    function updateRandomTrack() {
+        if (!isLiveActive) {
+            trackTitleSpan.innerText = "Yayın kesildi";
+            trackArtistSpan.innerText = "Bağlantı bekleniyor...";
+            return;
+        }
+        const randomIndex = Math.floor(Math.random() * dummyTracks.length);
+        const track = dummyTracks[randomIndex];
+        trackTitleSpan.innerText = track.title;
+        trackArtistSpan.innerText = track.artist;
+    }
+
+    function startTimeUpdater() {
+        if (timeInterval) clearInterval(timeInterval);
+        timeInterval = setInterval(() => {
+            if (audio && !isNaN(audio.duration) && isFinite(audio.duration) && audio.duration > 0 && isLiveActive && isPlaying) {
+                const current = audio.currentTime || 0;
+                const minutes = Math.floor(current / 60);
+                const seconds = Math.floor(current % 60);
+                timeDisplaySpan.innerText = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+            } else if (isPlaying && isLiveActive && audio.readyState >= 1) {
+                const current = audio.currentTime || 0;
+                const minutes = Math.floor(current / 60);
+                const seconds = Math.floor(current % 60);
+                timeDisplaySpan.innerText = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+            } else {
+                timeDisplaySpan.innerText = (!isLiveActive) ? "--:--" : "00:00";
+            }
+        }, 500);
+    }
+
+    function setLiveStatus(live) {
+        isLiveActive = live;
+        if (live) {
+            liveBadge.innerText = "CANLI";
+            liveBadge.classList.remove("offline");
+            streamStatusSpan.innerText = "🔴 Canlı yayın";
+            radioContainer.classList.remove("offline-mode");
+            chatButton.classList.remove("offline");
+            if (trackInterval) clearInterval(trackInterval);
+            trackInterval = setInterval(() => {
+                if (isLiveActive && isPlaying) updateRandomTrack();
+            }, 9000);
+            if (isPlaying) updateRandomTrack();
+            const statusDiv = document.getElementById('chatStatus');
+            if (statusDiv) statusDiv.innerText = "💬 Sohbet aktif, yayın devam ediyor!";
+        } else {
+            liveBadge.innerText = "YAYIN YOK";
+            liveBadge.classList.add("offline");
+            streamStatusSpan.innerText = "⛔ Yayın kapalı";
+            radioContainer.classList.add("offline-mode");
+            chatButton.classList.add("offline");
+            trackTitleSpan.innerText = "Bağlantı yok";
+            trackArtistSpan.innerText = "Radyo yayını bekleniyor";
+            timeDisplaySpan.innerText = "--:--";
+            if (trackInterval) clearInterval(trackInterval);
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                playPauseIcon.className = "fas fa-play";
+            }
+            const statusDiv = document.getElementById('chatStatus');
+            if (statusDiv) statusDiv.innerText = "Sohbet sadece canlı yayında açıktır.";
+            // Chat popup'ı kapat
+            const popup = document.getElementById('chatPopup');
+            const overlay = document.getElementById('chatOverlay');
+            if (popup) popup.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            // Tüm mesajları temizle
+            remove(messagesRef).catch(e => console.warn);
+            const msgContainer = document.getElementById('chatMessages');
+            if (msgContainer) {
+                msgContainer.innerHTML = '<div class="chat-system">📻 Yayın şu anda kapalı. Sohbet sadece yayın sırasında açıktır.</div>';
+            }
+        }
+    }
+
+    function handleStreamError() {
+        if (isLiveActive) setLiveStatus(false);
+    }
+
+    function initAudioEvents() {
+        audio.addEventListener('error', () => handleStreamError());
+        audio.addEventListener('stalled', () => {
+            if (errorTimeout) clearTimeout(errorTimeout);
+            errorTimeout = setTimeout(() => {
+                if (audio.readyState < 2) handleStreamError();
+            }, 3000);
+        });
+        audio.addEventListener('canplay', () => {
+            if (errorTimeout) clearTimeout(errorTimeout);
+            if (!isLiveActive) setLiveStatus(true);
+            audio.volume = parseFloat(volumeSlider.value);
+            if (isPlaying) audio.play().catch(e => handleStreamError());
+        });
+        audio.addEventListener('playing', () => {
+            if (!isLiveActive) setLiveStatus(true);
+        });
+    }
+
+    function playRadio() {
+        if (!isLiveActive) {
+            setLiveStatus(true);
+            audio.src = STREAM_URL;
+            audio.load();
+            audio.play().then(() => {
+                isPlaying = true;
+                playPauseIcon.className = "fas fa-pause";
+                startTimeUpdater();
+                if (trackInterval) clearInterval(trackInterval);
+                trackInterval = setInterval(() => {
+                    if (isLiveActive && isPlaying) updateRandomTrack();
+                }, 9000);
+                updateRandomTrack();
+            }).catch(() => handleStreamError());
+            return;
+        }
+        if (!audio.src || audio.src !== STREAM_URL) {
+            audio.src = STREAM_URL;
+            audio.load();
+        }
+        audio.play().then(() => {
+            isPlaying = true;
+            playPauseIcon.className = "fas fa-pause";
+            startTimeUpdater();
+            if (!trackInterval) {
+                trackInterval = setInterval(() => {
+                    if (isLiveActive && isPlaying) updateRandomTrack();
+                }, 9000);
+            }
+            updateRandomTrack();
+        }).catch(() => handleStreamError());
+    }
+
+    function pauseRadio() {
+        audio.pause();
+        isPlaying = false;
+        playPauseIcon.className = "fas fa-play";
+    }
+
+    function stopRadio() {
+        audio.pause();
+        audio.currentTime = 0;
+        isPlaying = false;
+        playPauseIcon.className = "fas fa-play";
+        timeDisplaySpan.innerText = "00:00";
+    }
+
+    const finalPlayHandler = () => {
+        if (isPlaying) pauseRadio();
+        else playRadio();
+    };
+    playBtn.onclick = finalPlayHandler;
+    mainPlayPause.onclick = finalPlayHandler;
+    stopBtn.onclick = () => { if (isPlaying) stopRadio(); else { audio.pause(); audio.currentTime = 0; timeDisplaySpan.innerText = "00:00"; } };
+    volumeSlider.addEventListener('input', (e) => { audio.volume = parseFloat(e.target.value); });
+
+    audio.src = STREAM_URL;
+    audio.load();
+    initAudioEvents();
+    startTimeUpdater();
+    audio.volume = volumeSlider.value;
+    setLiveStatus(true);
+    isPlaying = false;
+    playPauseIcon.className = "fas fa-play";
+    trackTitleSpan.innerText = "VOM Canlı Yayın";
+    trackArtistSpan.innerText = "Hazır, Başlatmak için Oynat";
+    timeDisplaySpan.innerText = "00:00";
+    streamStatusSpan.innerText = "⏸ Hazır (Başlat)";
+
+    // ---------- CHAT (POPUP) ----------
+    const chatPopup = document.getElementById('chatPopup');
+    const chatOverlay = document.getElementById('chatOverlay');
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
+    const chatButtonSide = document.getElementById('chatButtonSide');
+    const chatUsername = document.getElementById('chatUsername');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    const chatMessagesDiv = document.getElementById('chatMessages');
+
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+
+    // Yayın açıkken popup açma
+    chatButtonSide?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (isLiveActive) {
+            chatPopup.classList.add('active');
+            chatOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            alert("Sohbet sadece canlı yayında açıktır.");
+        }
+    });
+    chatCloseBtn?.addEventListener('click', () => {
+        chatPopup.classList.remove('active');
+        chatOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    chatOverlay?.addEventListener('click', () => {
+        chatPopup.classList.remove('active');
+        chatOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    function sendChatMessage() {
+        if (!isLiveActive) {
+            alert("Sohbet sadece canlı yayında açıktır.");
+            return;
+        }
+        const username = chatUsername?.value.trim();
+        const message = chatInput?.value.trim();
+        if (!message) return;
+        const finalUsername = (username && username !== '') ? username : 'Anonim';
+        push(messagesRef, { username: finalUsername, message: message, timestamp: serverTimestamp() })
+            .then(() => { if (chatInput) chatInput.value = ''; })
+            .catch(e => alert('Mesaj gönderilemedi: ' + e.message));
+    }
+
+    window.deleteChatMessage = function(messageId) {
+        const pwd = prompt("Admin şifresi:");
+        if (pwd === "vomadmin2026") {
+            remove(ref(rtdb, `messages/${messageId}`)).catch(e => alert("Silinemedi"));
+        } else if (pwd !== null) alert("Şifre yanlış!");
+    };
+
+    // Firebase mesaj dinleme (sadece yayın açıkken göster)
+    onChildAdded(messagesRef, (snapshot) => {
+        if (!isLiveActive) return;
+        if (!chatMessagesDiv) return;
+        const data = snapshot.val();
+        const currentUser = chatUsername?.value.trim() || '';
+        const isSelf = (data.username === currentUser);
+        let timeStr = '';
+        if (data.timestamp) {
+            const date = new Date(data.timestamp);
+            timeStr = date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        }
+        const div = document.createElement('div');
+        div.className = isSelf ? 'chat-message sent' : 'chat-message received';
+        if (isSelf) {
+            div.innerHTML = `${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
+        } else {
+            div.innerHTML = `<div class="chat-message-username">${escapeHtml(data.username)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
+        }
+        const isAdmin = currentUser === 'admin';
+        if (isAdmin) {
+            div.innerHTML += `<button onclick="window.deleteChatMessage('${snapshot.key}')" style="margin-left:8px; background:#e33b3b; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; color:white;">🗑️</button>`;
+        }
+        chatMessagesDiv.appendChild(div);
+        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+    });
+
+    chatSendBtn?.addEventListener('click', sendChatMessage);
+    chatInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendChatMessage();
+        }
+    });
+
+    // Yayın kapandığında mesajları temizle (setLiveStatus zaten yapıyor)
+    // Ekstra periyodik kontrol
+    setInterval(() => {
+        if (!isLiveActive && chatPopup.classList.contains('active')) {
+            chatPopup.classList.remove('active');
+            chatOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }, 1000);
+</script>
+</body>
+</html>
