@@ -116,9 +116,21 @@
         
         #header{background:white;border-radius:16px;padding:0.8rem 1rem;margin-bottom:1rem;display:flex;flex-direction:column;gap:0.8rem;box-shadow:0 1px 3px rgba(0,0,0,0.05);border:1px solid #e5e9f0}
         @media (min-width:480px){#header{flex-direction:row;justify-content:space-between;align-items:center;padding:1rem 1.5rem}}
-        #header h1 {margin:0; line-height:1;}
+        #header h1 {margin:0; line-height:1; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
         #header h1 a{font-size:2.2rem;font-weight:900;text-decoration:none;background:linear-gradient(135deg,#1a2a3a,#2c3e66);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em;}
         body.dark-mode #header h1 a{background:linear-gradient(135deg,#e2e8f0,#94a3b8);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .issue-number {
+            font-size:0.8rem;
+            font-weight:500;
+            background:#eef2f6;
+            padding:0.2rem 0.6rem;
+            border-radius:30px;
+            color:#2c5f8a;
+        }
+        body.dark-mode .issue-number {
+            background:#334155;
+            color:#94a3b8;
+        }
         
         .links ul{display:flex;flex-wrap:wrap;gap:1rem;list-style:none;justify-content:center;align-items:center}
         .links a{text-decoration:none;color:#4a5568;font-weight:500;font-size:0.9rem;transition:0.2s;cursor:pointer}
@@ -128,6 +140,11 @@
         .sidebar-card h3{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
         .editor-note{background:#fef9e6;border-left:4px solid #f5b042;padding:0.8rem;border-radius:12px;margin-top:0.5rem}
         .editor-note p{font-size:0.85rem;color:#4a5568;margin-bottom:0.5rem}
+        .editor-date {
+            margin-top:6px;
+            font-size:0.7rem;
+            color:#888;
+        }
         
         .search-box-side{background:white;border-radius:20px;padding:1rem;margin-bottom:1.2rem;border:1px solid #eef2f6;box-shadow:0 2px 8px rgba(0,0,0,0.03)}
         .search-input-group{display:flex;gap:0.5rem;align-items:center}
@@ -197,7 +214,6 @@
         .full-post-content{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid #eef2f6}
         .full-post-content.show{display:block}
         
-        /* Eski Yazılar link stili */
         .old-posts-link {
             margin-top: 1rem;
             padding-top: 0.5rem;
@@ -260,7 +276,7 @@
                 <p><strong>🎙️ Vom Blog'a hoş geldiniz,</strong></p>
                 <p>Vom Blog ayda bir kez, dijitalin o "mükemmel" formülünü bozup sanatın ham, düzensiz ve bağımsız gerçeğini masaya yatırdığımız bir alan. Yazarlarımız kendi gerçekliklerini kurgularken, biz dijitalleşen dünyada sanatın nereye savrulduğunu yalnızca izlemekle yetinmiyor, bu savrulmanın kendisini anlamaya çalışıyoruz.</p>
                 <p>Dosya kapağını araladık, sayfaları açtık. Sıradaki kaos çok yakında; hazırlıklı olun. Biz yazmaya başladık.</p>
-                <p style="margin-top:6px;"><i class="fas fa-calendar-alt"></i> Mart 2026 - Gürhan Yücel.</p>
+                <div class="editor-date"><i class="fas fa-calendar-alt"></i> <span id="editorDateText">Mart 2026</span> - Gürhan Yücel.</div>
             </div>
         </div>
         <div class="sidebar-card">
@@ -283,7 +299,10 @@
 
     <div id="main">
         <header id="header">
-            <h1><a href="#" id="resetHomeLink">VOMblog.</a></h1>
+            <h1>
+                <a href="#" id="resetHomeLink">VOMblog.</a>
+                <span class="issue-number">Sayı 1</span>
+            </h1>
             <nav class="links">
                 <ul>
                     <li><a href="#" id="resetHomeLinkBtn">Ana Sayfa</a></li>
@@ -302,7 +321,7 @@
                         <p>Kadın ve aşk</p>
                     </div>
                     <div class="meta">
-                        <time class="post-date" datetime="2026-03-20">20 Mart 2026</time>
+                        <time class="post-date">20 Mart 2026</time>
                         <a href="#" class="author"><span class="name">Ferzen Soydemir</span><img src="images/ferzen.png" alt="avatar"></a>
                     </div>
                 </header>
@@ -333,7 +352,7 @@
                         <p>Vizörden</p>
                     </div>
                     <div class="meta">
-                        <time class="post-date" datetime="2025-03-15">15 Mart 2025</time>
+                        <time class="post-date">15 Mart 2025</time>
                         <a href="#" class="author"><span class="name">Oğuzcan Durutaş</span><img src="images/oguzcan.png" alt="avatar"></a>
                     </div>
                 </header>
@@ -364,7 +383,7 @@
                         <p>İki Şehir Bir Kadın</p>
                     </div>
                     <div class="meta">
-                        <time class="post-date" datetime="2025-03-10">10 Mart 2025</time>
+                        <time class="post-date">10 Mart 2025</time>
                         <a href="#" class="author"><span class="name">Fatma Altun</span><img src="images/fatma.png" alt="avatar"></a>
                     </div>
                 </header>
@@ -395,7 +414,7 @@
                         <p>Amerika Notları</p>
                     </div>
                     <div class="meta">
-                        <time class="post-date" datetime="2025-03-05">5 Mart 2025</time>
+                        <time class="post-date">5 Mart 2025</time>
                         <a href="#" class="author"><span class="name">Nilüfer Gürler</span><img src="images/nil.png" alt="avatar"></a>
                     </div>
                 </header>
@@ -426,7 +445,7 @@
                         <p>Özlemce</p>
                     </div>
                     <div class="meta">
-                        <time class="post-date" datetime="2025-02-28">28 Şubat 2025</time>
+                        <time class="post-date">28 Şubat 2025</time>
                         <a href="#" class="author"><span class="name">Özlem Tüm</span><img src="images/ozlem.png" alt="avatar"></a>
                     </div>
                 </header>
@@ -457,7 +476,7 @@
                         <p>Kesitler</p>
                     </div>
                     <div class="meta">
-                        <time class="post-date" datetime="2025-02-20">20 Şubat 2025</time>
+                        <time class="post-date">20 Şubat 2025</time>
                         <a href="#" class="author"><span class="name">Münire Özgencan</span><img src="images/münire.png" alt="avatar"></a>
                     </div>
                 </header>
@@ -488,7 +507,7 @@
                         <p>Sesler Yüzler Sokaklar</p>
                     </div>
                     <div class="meta">
-                        <time class="post-date" datetime="2025-02-10">10 Şubat 2025</time>
+                        <time class="post-date">10 Şubat 2025</time>
                         <a href="#" class="author"><span class="name">Fuat Durutaş</span><img src="images/fuat.png" alt="avatar"></a>
                     </div>
                 </header>
@@ -534,36 +553,36 @@
 </div>
 
 <script>
-    // 1. DİNAMİK TARİHLER
-    function updateDates() {
-        document.querySelectorAll('.post-date').forEach(function(el) {
-            var originalDate = el.getAttribute('datetime');
-            if (originalDate) {
-                var date = new Date(originalDate);
-                if (!isNaN(date.getTime())) {
-                    var now = new Date();
-                    var diffTime = now - date;
-                    var diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                    
-                    if (diffDays === 0) {
-                        el.innerText = 'Bugün';
-                    } else if (diffDays === 1) {
-                        el.innerText = 'Dün';
-                    } else if (diffDays > 1 && diffDays < 8) {
-                        el.innerText = diffDays + ' gün önce';
-                    } else {
-                        var day = date.getDate();
-                        var month = date.toLocaleString('tr-TR', { month: 'long' });
-                        var year = date.getFullYear();
-                        el.innerText = day + ' ' + month + ' ' + year;
-                    }
-                }
-            }
-        });
+    // TÜM TARİHLERİ BUGÜNÜN TARİHİ YAP (POST'LARIN TARİHLERİ)
+    function setAllDatesToToday() {
+        var tarihler = document.querySelectorAll('.post-date');
+        var bugun = new Date();
+        var gun = bugun.getDate();
+        var ay = bugun.toLocaleString('tr-TR', { month: 'long' });
+        var yil = bugun.getFullYear();
+        var bugunTarih = gun + ' ' + ay + ' ' + yil;
+        
+        for(var i = 0; i < tarihler.length; i++) {
+            tarihler[i].innerText = bugunTarih;
+        }
     }
-    updateDates();
     
-    // 2. GOOGLE ARAMA
+    // EDITÖRDEN YAZISININ TARİHİNİ GÜNCELLE
+    function updateEditorDate() {
+        var editorDateSpan = document.getElementById('editorDateText');
+        if(editorDateSpan) {
+            var bugun = new Date();
+            var ay = bugun.toLocaleString('tr-TR', { month: 'long' });
+            var yil = bugun.getFullYear();
+            editorDateSpan.innerText = ay + ' ' + yil;
+        }
+    }
+    
+    // Sayfa yüklendiğinde çalıştır
+    setAllDatesToToday();
+    updateEditorDate();
+    
+    // GOOGLE ARAMA
     var searchInput = document.getElementById('searchInputSide');
     var searchBtn = document.getElementById('searchBtnSide');
     
@@ -585,7 +604,7 @@
     if(homeLink) homeLink.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     if(homeBtn) homeBtn.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     
-    // 3. GECE MODU
+    // GECE MODU
     function initDarkMode() {
         var isDark = localStorage.getItem('darkMode') === 'true';
         var toggle = document.getElementById('darkModeToggle');
@@ -604,7 +623,7 @@
     }
     initDarkMode();
     
-    // 4. READ MORE
+    // READ MORE
     var readBtns = document.querySelectorAll('.read-more-btn');
     for(var i = 0; i < readBtns.length; i++) {
         readBtns[i].addEventListener('click', function(e) {
@@ -623,7 +642,7 @@
         });
     }
     
-    // 5. VİDEO MODAL (iframe hatası düzeltildi)
+    // VİDEO MODAL
     var modal = document.getElementById('videoModal');
     var iframe = document.getElementById('youtubeIframeSide');
     var openVideo = document.getElementById('openVideoBtnSide');
@@ -653,7 +672,7 @@
         });
     }
     
-    // 6. İLETİŞİM
+    // İLETİŞİM
     var contactLink = document.getElementById('contactNavLink');
     if(contactLink) {
         contactLink.addEventListener('click', function(e) {
@@ -663,7 +682,7 @@
         });
     }
     
-    // 7. YORUMLAR (şifre: vomadmin2026)
+    // YORUMLAR
     var toggleBtns = document.querySelectorAll('.comment-toggle');
     for(var j = 0; j < toggleBtns.length; j++) {
         toggleBtns[j].addEventListener('click', function(e) {
@@ -761,7 +780,6 @@
         titleLinks[t].addEventListener('click', function(e) { e.preventDefault(); });
     }
     
-    // Eski Yazılar linkleri için (şimdilik boş, istersen link ekleyebilirsin)
     var oldLinks = document.querySelectorAll('.old-posts-link a');
     for(var o = 0; o < oldLinks.length; o++) {
         oldLinks[o].addEventListener('click', function(e) {
