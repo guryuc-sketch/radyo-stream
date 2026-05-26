@@ -492,7 +492,7 @@
     const rtdb = getDatabase(app);
     const messagesRef = ref(rtdb, 'messages');
 
-    // ========== DOĞRUDAN TUNNEL ADRESİ (ÇALIŞIYOR) ==========
+    // ========== TAMAMEN DÜZELTİLMİŞ ADRESLER ==========
     const STREAM_URL = "https://b04dbb2e-e2b3-4ea1-8d6a-4aa82a410028.cfargotunnel.com/vomyayin";
     const METADATA_URL = "https://b04dbb2e-e2b3-4ea1-8d6a-4aa82a410028.cfargotunnel.com/status-json.xsl";
     
@@ -520,7 +520,6 @@
     let reconnectAttempt = 0;
     let reconnectTimeout = null;
 
-    // ========== METADATA (TUNNEL ADRESİ İLE) ==========
     async function fetchMetadata() {
         try {
             const response = await fetch(METADATA_URL);
@@ -721,7 +720,6 @@
     };
     volumeSlider.addEventListener('input', (e) => { audio.volume = parseFloat(e.target.value); });
 
-    // Başlangıç ayarları
     initAudioEvents();
     startTimeUpdater();
     audio.volume = volumeSlider.value;
@@ -733,7 +731,6 @@
     timeDisplaySpan.innerText = "00:00";
     streamStatusSpan.innerText = "⏸ Hazır (Başlat)";
 
-    // ========== CHAT ==========
     const chatPopup = document.getElementById('chatPopup');
     const chatOverlay = document.getElementById('chatOverlay');
     const chatCloseBtn = document.getElementById('chatCloseBtn');
