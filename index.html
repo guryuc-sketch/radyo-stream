@@ -13,8 +13,96 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{background:#f0f2f5;font-family:'Source Sans 3',sans-serif;color:#1a1e24;line-height:1.5}
+        body{background:#f0f2f5;font-family:'Source Sans 3',sans-serif;color:#1a1e24;line-height:1.5;transition:background 0.3s, color 0.3s}
         html{scroll-behavior:smooth}
+        
+        /* DARK MODE */
+        body.dark-mode {
+            background:#121826;
+            color:#e2e8f0;
+        }
+        body.dark-mode .sidebar-card,
+        body.dark-mode .search-box-side,
+        body.dark-mode .post,
+        body.dark-mode .contact-bottom,
+        body.dark-mode #header {
+            background:#1e293b;
+            border-color:#334155;
+        }
+        body.dark-mode .sidebar-card h3,
+        body.dark-mode .contact-bottom h3 {
+            color:#f1f5f9;
+        }
+        body.dark-mode .title h2 a,
+        body.dark-mode .post p,
+        body.dark-mode .editor-note p,
+        body.dark-mode .contact-bottom p,
+        body.dark-mode .meta,
+        body.dark-mode .author .name,
+        body.dark-mode .links a,
+        body.dark-mode .button,
+        body.dark-mode .stats a,
+        body.dark-mode .comments-title {
+            color:#cbd5e1;
+        }
+        body.dark-mode .button {
+            background:#334155;
+            color:#e2e8f0;
+        }
+        body.dark-mode .search-input-side {
+            background:#334155;
+            border-color:#475569;
+            color:#f1f5f9;
+        }
+        body.dark-mode .search-input-side::placeholder {
+            color:#94a3b8;
+        }
+        body.dark-mode .comment-item {
+            background:#0f172a;
+            color:#cbd5e1;
+        }
+        body.dark-mode .editor-note {
+            background:#2d3a4e;
+            border-left-color:#f5b042;
+        }
+        body.dark-mode .comment-input,
+        body.dark-mode .comment-text {
+            background:#334155;
+            border-color:#475569;
+            color:#f1f5f9;
+        }
+        body.dark-mode .comment-input::placeholder,
+        body.dark-mode .comment-text::placeholder {
+            color:#94a3b8;
+        }
+        body.dark-mode .site-footer,
+        body.dark-mode .post-footer {
+            border-top-color:#334155;
+        }
+        body.dark-mode .icons a {
+            color:#94a3b8;
+        }
+        body.dark-mode .icons a:hover {
+            color:#f1f5f9;
+        }
+        
+        .dark-mode-toggle {
+            background:#f1f5f9;
+            border:1px solid #e2e8f0;
+            border-radius:40px;
+            padding:0.25rem 0.8rem;
+            font-size:0.7rem;
+            cursor:pointer;
+            margin-left:0.5rem;
+            color:#475569;
+            transition:0.2s;
+        }
+        body.dark-mode .dark-mode-toggle {
+            background:#334155;
+            border-color:#475569;
+            color:#f1f5f9;
+        }
+        
         #wrapper{max-width:1300px;margin:0 auto;padding:0.75rem;display:flex;flex-direction:column;gap:1rem}
         @media (min-width:992px){
             #wrapper{flex-direction:row;align-items:flex-start;padding:1.5rem;gap:1.5rem}
@@ -26,32 +114,32 @@
             #main{order:2}
             #sidebar{order:1}
         }
-        /* HEADER - sadece logo ve nav */
+        
+        /* HEADER - logo büyütüldü */
         #header{background:white;border-radius:16px;padding:0.8rem 1rem;margin-bottom:1rem;display:flex;flex-direction:column;gap:0.8rem;box-shadow:0 1px 3px rgba(0,0,0,0.05);border:1px solid #e5e9f0}
         @media (min-width:480px){#header{flex-direction:row;justify-content:space-between;align-items:center;padding:1rem 1.5rem}}
-        #header h1 a{font-size:1.5rem;font-weight:800;text-decoration:none;background:linear-gradient(135deg,#1a2a3a,#2c3e66);-webkit-background-clip:text;background-clip:text;color:transparent}
-        .links ul{display:flex;flex-wrap:wrap;gap:1rem;list-style:none;justify-content:center}
+        #header h1 {margin:0; line-height:1;}
+        #header h1 a{font-size:2.2rem;font-weight:900;text-decoration:none;background:linear-gradient(135deg,#1a2a3a,#2c3e66);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em;}
+        body.dark-mode #header h1 a{background:linear-gradient(135deg,#e2e8f0,#94a3b8);-webkit-background-clip:text;background-clip:text;color:transparent}
+        
+        .links ul{display:flex;flex-wrap:wrap;gap:1rem;list-style:none;justify-content:center;align-items:center}
         .links a{text-decoration:none;color:#4a5568;font-weight:500;font-size:0.9rem;transition:0.2s;cursor:pointer}
         .links a:hover{color:#2c5f8a}
-        /* SIDEBAR KARTLAR */
+        
         .sidebar-card{background:white;border-radius:20px;padding:1.2rem;margin-bottom:1.2rem;border:1px solid #eef2f6;box-shadow:0 2px 8px rgba(0,0,0,0.03)}
         .sidebar-card h3{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
         .editor-note{background:#fef9e6;border-left:4px solid #f5b042;padding:0.8rem;border-radius:12px;margin-top:0.5rem}
         .editor-note p{font-size:0.85rem;color:#4a5568;margin-bottom:0.5rem}
-        /* SEARCH KUTUSU */
+        
+        /* SEARCH KUTUSU - sadece Google logosu ve input */
         .search-box-side{background:white;border-radius:20px;padding:1rem;margin-bottom:1.2rem;border:1px solid #eef2f6;box-shadow:0 2px 8px rgba(0,0,0,0.03)}
-        .search-box-side h3{font-size:1rem;font-weight:600;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.5rem;color:#2c5f8a}
         .search-input-group{display:flex;gap:0.5rem;align-items:center}
         .search-input-side{flex:1;padding:0.7rem 1rem;border:1px solid #ddd;border-radius:40px;outline:none;font-size:0.85rem;background:white}
         .search-input-side:focus{border-color:#2c5f8a;box-shadow:0 0 0 3px rgba(44,95,138,0.1)}
+        .search-input-side::placeholder{color:#999;font-size:0.8rem}
         .search-btn-side{background:#2c5f8a;border:none;color:white;width:42px;height:42px;border-radius:50%;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center}
         .search-btn-side:hover{background:#1e4668}
-        .search-results-side{background:#f8fafc;border-radius:16px;padding:0.8rem;margin-top:0.8rem;display:none;max-height:300px;overflow-y:auto}
-        .search-results-side .result-item{padding:0.6rem 0;border-bottom:1px solid #e2e8f0;cursor:pointer}
-        .search-results-side .result-item:last-child{border-bottom:none}
-        .search-results-side .result-item a{text-decoration:none;color:#2c5f8a;font-weight:500;font-size:0.85rem;display:block}
-        .close-results-side{float:right;cursor:pointer;font-size:0.8rem;color:#999}
-        /* RADYO LİNK BUTONU - player yok, sadece link */
+        
         .radio-link-btn{
             display:flex;
             align-items:center;
@@ -76,7 +164,6 @@
         .video-card img{width:100%;display:block;transition:0.3s}
         .video-card:hover img{opacity:0.8}
         .play-icon-video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:white}
-        /* POST KARTLAR */
         .post{background:white;border-radius:20px;margin-bottom:1.2rem;padding:1rem;border:1px solid #eef2f6;box-shadow:0 2px 8px rgba(0,0,0,0.03);transition:0.2s}
         .post:hover{box-shadow:0 4px 15px rgba(0,0,0,0.08)}
         @media (min-width:480px){.post{padding:1.5rem;margin-bottom:1.5rem}}
@@ -121,6 +208,7 @@
         .icons a{font-size:1.5rem;transition:0.2s;color:#4a5568}
         .icons a:hover{transform:scale(1.1);color:#2c5f8a}
         .highlight{background-color:#fff9c4;transition:0.5s}
+        body.dark-mode .highlight{background-color:#4a3a1a;}
         @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         .post{animation:fadeInUp 0.3s ease}
         .video-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;justify-content:center;align-items:center}
@@ -132,31 +220,24 @@
 </head>
 <body>
 <div id="wrapper">
-    <!-- SIDEBAR -->
     <div id="sidebar">
-        <!-- SEARCH KUTUSU -->
+        <!-- SADECE Google logosu ve arama inputu - hiçbir yazı yok -->
         <div class="search-box-side">
-            <h3><i class="fas fa-search"></i> Yazılarda Ara</h3>
             <div class="search-input-group">
-                <input type="text" id="searchInputSide" class="search-input-side" placeholder="Makale başlığı veya içerik...">
-                <button id="searchBtnSide" class="search-btn-side"><i class="fas fa-search"></i></button>
-            </div>
-            <div id="searchResultsSide" class="search-results-side">
-                <span class="close-results-side" onclick="closeSearchSide()">&times;</span>
-                <div id="searchResultsListSide"></div>
+                <input type="text" id="searchInputSide" class="search-input-side" placeholder="Google'da ara...">
+                <button id="searchBtnSide" class="search-btn-side"><i class="fab fa-google"></i></button>
             </div>
         </div>
 
         <div class="sidebar-card">
             <h3><i class="fas fa-pen-fancy"></i> Editörden</h3>
             <div class="editor-note">
-                <p><strong>🎙️ Merhaba Sanatseverler,</strong></p>
-                <p>Bu ay dijital dönüşüm ve bağımsız sanat üretimi üzerine konuşuyoruz. Yeni podcast serimiz ve canlı radyo yayınlarımızla yanınızdayız. Görüşlerinizi bekliyoruz. Sanatın birleştirici gücüyle daha nice içeriklere!</p>
-                <p style="margin-top:6px;"><i class="fas fa-calendar-alt"></i> Mart 2026 - Nilüfer G.</p>
+                <p><strong>🎙️Vom Blog'a hoş geldiniz,</strong></p>
+                <p>Vom Blog ayda bir kez, dijitalin o "mükemmel" formülünü bozup sanatın ham, düzensiz ve bağımsız gerçeğini masaya yatırdığımız bir alan. Yazarlarımız kendi gerçekliklerini kurgularken, biz dijitalleşen dünyada sanatın nereye savrulduğunu yalnızca izlemekle yetinmiyor, bu savrulmanın kendisini anlamaya çalışıyoruz.</p>
+                <p>Dosya kapağını araladık, sayfaları açtık. Sıradaki kaos çok yakında; hazırlıklı olun. Biz yazmaya başladık.</p>
+                <p style="margin-top:6px;"><i class="fas fa-calendar-alt"></i> Mart 2026 - Gürhan Yücel.</p>
             </div>
         </div>
-        
-        <!-- RADYO BÖLÜMÜ - Player yok, sadece radyo.html linki -->
         <div class="sidebar-card">
             <h3><i class="fas fa-headphones"></i> Radyo</h3>
             <a href="radyo.html" target="_blank" class="radio-link-btn" id="radioLinkBtn">
@@ -165,8 +246,6 @@
             </a>
             <p style="font-size:0.7rem; margin-top:8px; color:#6c86a3;">Canlı yayın için tıklayın, 7/24 kültür sanat</p>
         </div>
-        
-        <!-- VOM Video Albüm -->
         <div class="sidebar-card">
             <h3><i class="fas fa-video"></i> VOM Video Albüm</h3>
             <div class="video-card" id="openVideoBtnSide">
@@ -177,77 +256,104 @@
         </div>
     </div>
 
-    <!-- MAIN: 7 KART + İLETİŞİM -->
     <div id="main">
         <header id="header">
-            <h1><a href="#" onclick="resetSearchSide(); return false;">VOMblog.</a></h1>
-            <nav class="links"><ul><li><a href="#" onclick="resetSearchSide(); return false;">Ana Sayfa</a></li><li><a href="#" id="contactNavLink">İletişim</a></li></ul></nav>
+            <h1><a href="#" id="resetHomeLink">VOMblog.</a></h1>
+            <nav class="links">
+                <ul>
+                    <li><a href="#" id="resetHomeLinkBtn">Ana Sayfa</a></li>
+                    <li><a href="#" id="contactNavLink">İletişim</a></li>
+                    <li><button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i> Gece Modu</button></li>
+                </ul>
+            </nav>
         </header>
         
         <div id="postsContainer">
             <!-- 7 KART -->
-            <article class="post" data-post-id="1" data-title="Yeni Medya Çağı: Video ve Radyo" data-content="Bugünün blog dünyasında sadece metin yetmiyor. Ziyaretçiler artık video pencereleri ve canlı radyo yayınları ile etkileşim bekliyor." data-fulltext="Yeni medya, dijital dönüşümün kalbinde yer alıyor. Geleneksel medyanın yerini hızla alan interaktif içerikler, sanatseverlerle buluşuyor. VOM olarak biz de video ve radyoyu merkeze alan bir platform kurduk. Geleceğin sanat deneyimi çok yönlü olacak.">
-                <header><div class="title"><h2><a href="#" class="post-title-link">Yeni Medya Çağı: Video ve Radyo</a></h2><p>İki Şehir, Bir Kadın</p></div><div class="meta"><time datetime="2026-03-20">20 Mart 2026</time><a href="#" class="author"><span class="name">Fatma Altun</span><img src="images/fatma.png" alt="avatar"></a></div></header>
-                <a href="#" class="image featured"><img src="https://picsum.photos/id/104/800/400" alt="featured"></a>
-                <p class="post-content">Bugünün blog dünyasında sadece metin yetmiyor. Ziyaretçiler artık video pencereleri ve canlı radyo yayınları ile etkileşim bekliyor.</p>
-                <div class="full-post-content" id="full-1"><p class="full-text"></p></div>
+            <article class="post" data-post-id="1">
+                <header><div class="title">
+                  <h2><a href="#" class="post-title-link">Derin Bir Yas</a></h2>
+                  <p>Kadın ve aşk</p>
+                </div><div class="meta"><time class="post-date" data-original="2026-03-20">20 Mart 2026</time><a href="#" class="author"><span class="name">Ferzen Soydemir</span><img src="images/ferzen.png" alt="avatar"></a></div></header>
+                <a href="#" class="image featured"><img src="images/FE-1.png" alt="featured"></a>
+                <p class="post-content">*Hamnet*, 16. yüzyılın bir yansıması. Ben filmi birkaç kimliğimle seyrettim; etkilendim, heyecanlandım, duygulandım, öfkelendim ve acıları adeta yaşadım. Kısaca film bana geçti.</p>
+                <div class="full-post-content" id="full-1"><p class="full-text">Şifacı, onaran Agnes; analığı, aşkı, sadakati dimdik ayakta dururken içten yıkılışı hissettirdi bana. Toplumun ve doğanın ona yüklediği görevleri kendince, zaman zaman çaresizce yerine getirdi. Analık mücadelesi mi, aşkı mı, yoksa yapması gerekenler mi onu doruğa ulaştırdı? Ben filmi seyrederken anneliğimi, evlatlığımı, aşkımı; hissettiklerimi, haksızlıkları, hak ettiklerimi, duygularımı ve gözyaşlarımı sorguladım.</p></div>
                 <div class="post-footer"><ul class="actions"><li><a href="#" class="button read-more-btn" data-id="1">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="1"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
                 <div class="comments-section" id="comments-section-1"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-1"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-1" placeholder="Adınız"><textarea class="comment-text" id="comment-text-1" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="1">Gönder</button></div></div>
             </article>
-            <article class="post" data-post-id="2" data-title="Web Radyo Dinleme Alışkanlıkları Artıyor" data-content="HTML5 audio elementi sayesinde herhangi bir eklentiye ihtiyaç duymadan radyo yayınlarını web sitenize ekleyebilirsiniz." data-fulltext="Son yapılan araştırmalar gösteriyor ki podcast ve web radyo dinleme oranları her geçen gün katlanıyor. Özellikle kültür sanat temalı yayınlar dinleyicilerin ilgisini çekiyor. VOM Radyo da bu trendi yakalayarak 7/24 sanat yayını yapmayı hedefliyor.">
-                <header><div class="title"><h2><a href="#" class="post-title-link">Web Radyo Dinleme Alışkanlıkları Artıyor</a></h2><p>Ferzen Abla</p></div><div class="meta"><time datetime="2025-03-15">15 Mart 2025</time><a href="#" class="author"><span class="name">Ferzen Soydemir</span><img src="images/ferzen.png" alt="avatar"></a></div></header>
-                <a href="#" class="image featured"><img src="https://picsum.photos/id/107/800/400" alt="radio"></a>
-                <p class="post-content">HTML5 audio elementi sayesinde herhangi bir eklentiye ihtiyaç duymadan radyo yayınlarını web sitenize ekleyebilirsiniz.</p>
-                <div class="full-post-content" id="full-2"><p class="full-text"></p></div>
+            <article class="post" data-post-id="2">
+              <header><div class="title"><h2><a href="#" class="post-title-link">Fotoğraf Sanatında Minimalizm</a></h2>
+                <p>Vizörden</p></div><div class="meta"><time class="post-date" data-original="2025-03-15">15 Mart 2025</time><a href="#" class="author"><span class="name">Oğuzcan Durutaş</span><img src="images/oguzcan.png" alt="avatar"></a></div></header>
+                <a href="#" class="image featured"><img src="images/O-1.png" alt="radio"></a>
+              <p class="post-content">Az eşya, çok anlam: Minimalist fotoğrafçılık son dönemlerin en popüler akımlarından biri haline geldi.</p>
+                <div class="full-post-content" id="full-2"><p class="full-text">Boşluk, sadelik ve dinginlik minimalizmde ön planda. Ünlü fotoğrafçıların işlerini incelediğimiz bu yazıda, minimalist kompozisyon tekniklerini ele alıyoruz.</p></div>
                 <div class="post-footer"><ul class="actions"><li><a href="#" class="button read-more-btn" data-id="2">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="2"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
                 <div class="comments-section" id="comments-section-2"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-2"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-2" placeholder="Adınız"><textarea class="comment-text" id="comment-text-2" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="2">Gönder</button></div></div>
             </article>
-            <article class="post" data-post-id="3" data-title="Tamamen Duyarlı Tasarım" data-content="Günümüz web siteleri responsive olmak zorunda. Bu şablon akıllı telefonlarda bile mükemmel görüntüleniyor." data-fulltext="Mobil cihaz kullanımının masaüstünü geçtiği bu dönemde responsive tasarım bir tercih değil zorunluluktur. VOM Blog olarak tüm cihazlarda kusursuz deneyim sunuyoruz.">
-                <header><div class="title"><h2><a href="#" class="post-title-link">Tamamen Duyarlı Tasarım</a></h2><p>Amerika Notları</p></div><div class="meta"><time datetime="2025-03-10">10 Mart 2025</time><a href="#" class="author"><span class="name">Nilüfer Gürler</span><img src="images/nil.png" alt="avatar"></a></div></header>
-                <a href="#" class="image featured"><img src="https://picsum.photos/id/20/800/400" alt="responsive"></a>
-                <p class="post-content">Günümüz web siteleri responsive olmak zorunda. Bu şablon akıllı telefonlarda bile mükemmel görüntüleniyor.</p>
-                <div class="full-post-content" id="full-3"><p class="full-text"></p></div>
+            <article class="post" data-post-id="3">
+                <header><div class="title"><h2><a href="#" class="post-title-link">Web Radyo Dinleme Alışkanlıkları Artıyor</a></h2>
+                <p>İki Şehir Bir Kadın</p></div><div class="meta"><time class="post-date" data-original="2025-03-10">10 Mart 2025</time><a href="#" class="author"><span class="name">Fatma Altun</span><img src="images/fatma.png" alt="avatar"></a></div></header>
+                <a href="#" class="image featured"><img src="https://picsum.photos/id/107/800/400" alt="radio"></a>
+                <p class="post-content">HTML5 audio elementi sayesinde herhangi bir eklentiye ihtiyaç duymadan radyo yayınlarını web sitenize ekleyebilirsiniz.</p>
+                <div class="full-post-content" id="full-3"><p class="full-text">Son yapılan araştırmalar gösteriyor ki podcast ve web radyo dinleme oranları her geçen gün katlanıyor. VOM Radyo da bu trendi yakalayarak 7/24 sanat yayını yapmayı hedefliyor.</p></div>
                 <div class="post-footer"><ul class="actions"><li><a href="#" class="button read-more-btn" data-id="3">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="3"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
                 <div class="comments-section" id="comments-section-3"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-3"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-3" placeholder="Adınız"><textarea class="comment-text" id="comment-text-3" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="3">Gönder</button></div></div>
             </article>
-            <article class="post" data-post-id="4" data-title="Dijital Sanatın Yükselişi" data-content="Dijital sanat, son yıllarda büyük bir ivme kazandı. Yapay zeka ve NFT'ler sanat dünyasında devrim yaratıyor." data-fulltext="Yapay zeka ile üretilen eserler, NFT pazarları, dijital kolajlar... Sanatın sınırları her geçen gün genişliyor. VOM olarak dijital sanatın öncü isimleriyle söyleşiler yapıyor.">
-                <header><div class="title"><h2><a href="#" class="post-title-link">Dijital Sanatın Yükselişi</a></h2><p>Özlemce</p></div><div class="meta"><time datetime="2025-03-05">5 Mart 2025</time><a href="#" class="author"><span class="name">Özlem Tüm</span><img src="images/ozlem.png" alt="avatar"></a></div></header>
-                <a href="#" class="image featured"><img src="https://picsum.photos/id/106/800/400" alt="digital art"></a>
-                <p class="post-content">Dijital sanat, son yıllarda büyük bir ivme kazandı. Yapay zeka ve NFT'ler sanat dünyasında devrim yaratıyor.</p>
-                <div class="full-post-content" id="full-4"><p class="full-text"></p></div>
+            <article class="post" data-post-id="4">
+                <header><div class="title"><h2><a href="#" class="post-title-link">Tamamen Duyarlı Tasarım</a></h2><p>Amerika Notları</p></div><div class="meta"><time class="post-date" data-original="2025-03-05">5 Mart 2025</time><a href="#" class="author"><span class="name">Nilüfer Gürler</span><img src="images/nil.png" alt="avatar"></a></div></header>
+                <a href="#" class="image featured"><img src="https://picsum.photos/id/20/800/400" alt="responsive"></a>
+                <p class="post-content">Günümüz web siteleri responsive olmak zorunda. Bu şablon akıllı telefonlarda bile mükemmel görüntüleniyor.</p>
+                <div class="full-post-content" id="full-4"><p class="full-text">Mobil cihaz kullanımının masaüstünü geçtiği bu dönemde responsive tasarım bir tercih değil zorunluluktur. VOM Blog olarak tüm cihazlarda kusursuz deneyim sunuyoruz.</p></div>
                 <div class="post-footer"><ul class="actions"><li><a href="#" class="button read-more-btn" data-id="4">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="4"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
                 <div class="comments-section" id="comments-section-4"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-4"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-4" placeholder="Adınız"><textarea class="comment-text" id="comment-text-4" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="4">Gönder</button></div></div>
             </article>
-            <article class="post" data-post-id="5" data-title="Şiir ve Müzik Buluşması: HAZİRAN" data-content="VOM'un yeni albümü HAZİRAN, şiir ve müziği buluşturuyor. Albümde 10 parça yer alıyor." data-fulltext="Şairlerin dizeleri bestelendi. Caz, klasik ve elektronik tınılarla harmanlanan 'Haziran' albümü, dinleyiciyi duygusal bir yolculuğa çıkarıyor. Albüm lansmanı için canlı yayın etkinliğimiz olacak.">
-                <header><div class="title"><h2><a href="#" class="post-title-link">Şiir ve Müzik Buluşması: HAZİRAN</a></h2><p>Kesitler</p></div><div class="meta"><time datetime="2025-02-28">28 Şubat 2025</time><a href="#" class="author"><span class="name">Münire Özgencan</span><img src="images/münire.png" alt="avatar"></a></div></header>
-                <a href="#" class="image featured"><img src="https://picsum.photos/id/29/800/400" alt="music"></a>
-                <p class="post-content">VOM'un yeni albümü HAZİRAN, şiir ve müziği buluşturuyor. Albümde 10 parça yer alıyor.</p>
-                <div class="full-post-content" id="full-5"><p class="full-text"></p></div>
+            <article class="post" data-post-id="5">
+                <header><div class="title"><h2><a href="#" class="post-title-link">Dijital Sanatın Yükselişi</a></h2><p>Özlemce</p></div><div class="meta"><time class="post-date" data-original="2025-02-28">28 Şubat 2025</time><a href="#" class="author"><span class="name">Özlem Tüm</span><img src="images/ozlem.png" alt="avatar"></a></div></header>
+                <a href="#" class="image featured"><img src="https://picsum.photos/id/106/800/400" alt="digital art"></a>
+                <p class="post-content">Dijital sanat, son yıllarda büyük bir ivme kazandı. Yapay zeka ve NFT'ler sanat dünyasında devrim yaratıyor.</p>
+                <div class="full-post-content" id="full-5"><p class="full-text">Yapay zeka ile üretilen eserler, NFT pazarları, dijital kolajlar... Sanatın sınırları her geçen gün genişliyor. VOM olarak dijital sanatın öncü isimleriyle söyleşiler yapıyor.</p></div>
                 <div class="post-footer"><ul class="actions"><li><a href="#" class="button read-more-btn" data-id="5">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="5"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
                 <div class="comments-section" id="comments-section-5"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-5"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-5" placeholder="Adınız"><textarea class="comment-text" id="comment-text-5" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="5">Gönder</button></div></div>
             </article>
-            <article class="post" data-post-id="6" data-title="Fotoğraf Sanatında Minimalizm" data-content="Az eşya, çok anlam: Minimalist fotoğrafçılık son dönemlerin en popüler akımlarından biri haline geldi." data-fulltext="Boşluk, sadelik ve dinginlik minimalizmde ön planda. Ünlü fotoğrafçıların işlerini incelediğimiz bu yazıda, minimalist kompozisyon tekniklerini ele alıyoruz.">
-                <header><div class="title"><h2><a href="#" class="post-title-link">Fotoğraf Sanatında Minimalizm</a></h2><p>Sesler Yüzler Sokaklar</p></div><div class="meta"><time datetime="2025-02-20">20 Şubat 2025</time><a href="#" class="author"><span class="name">Fuat Durutaş</span><img src="images/fuat.png" alt="avatar"></a></div></header>
-                <a href="#" class="image featured"><img src="https://picsum.photos/id/96/800/400" alt="minimalism"></a>
-                <p class="post-content">Az eşya, çok anlam: Minimalist fotoğrafçılık son dönemlerin en popüler akımlarından biri haline geldi.</p>
-                <div class="full-post-content" id="full-6"><p class="full-text"></p></div>
+            <article class="post" data-post-id="6">
+                <header><div class="title"><h2><a href="#" class="post-title-link">Şiir ve Müzik Buluşması: HAZİRAN</a></h2><p>Kesitler</p></div><div class="meta"><time class="post-date" data-original="2025-02-20">20 Şubat 2025</time><a href="#" class="author"><span class="name">Münire Özgencan</span><img src="images/münire.png" alt="avatar"></a></div></header>
+                <a href="#" class="image featured"><img src="https://picsum.photos/id/29/800/400" alt="music"></a>
+                <p class="post-content">VOM'un yeni albümü HAZİRAN, şiir ve müziği buluşturuyor. Albümde 10 parça yer alıyor.</p>
+                <div class="full-post-content" id="full-6"><p class="full-text">Şairlerin dizeleri bestelendi. Caz, klasik ve elektronik tınılarla harmanlanan 'Haziran' albümü, dinleyiciyi duygusal bir yolculuğa çıkarıyor. Albüm lansmanı için canlı yayın etkinliğimiz olacak.</p></div>
                 <div class="post-footer"><ul class="actions"><li><a href="#" class="button read-more-btn" data-id="6">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="6"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
                 <div class="comments-section" id="comments-section-6"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-6"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-6" placeholder="Adınız"><textarea class="comment-text" id="comment-text-6" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="6">Gönder</button></div></div>
             </article>
-            <article class="post" data-post-id="7" data-title="Sürdürülebilir Sanat ve Ekoloji" data-content="Sanatın ekolojik bilinçle buluşması: Atık malzemelerden sanat eserleri ve çevreci sergiler." data-fulltext="Günümüz sanat dünyasında sürdürülebilirlik önemli bir yer tutuyor. Geri dönüştürülmüş malzemelerle yapılan heykeller, doğa temalı performanslar ve karbon ayak izini azaltan sergiler.">
-                <header><div class="title"><h2><a href="#" class="post-title-link">Sürdürülebilir Sanat ve Ekoloji</a></h2><p>Yeşil Atölye</p></div><div class="meta"><time datetime="2025-02-10">10 Şubat 2025</time><a href="#" class="author"><span class="name">Oğuzcan Durutaş</span><img src="images/fuat.png" alt="avatar"></a></div></header>
+            <article class="post" data-post-id="7">
+                <header><div class="title">
+                  <h2><a href="#" class="post-title-link">Anılar</a></h2>
+                <p>Sesler Yüzler Sokaklar</p></div><div class="meta"><time class="post-date" data-original="2025-02-10">10 Şubat 2025</time><a href="#" class="author"><span class="name">Fuat Durutaş</span><img src="images/fuat.png" alt="avatar"></a></div></header>
                 <a href="#" class="image featured"><img src="https://picsum.photos/id/88/800/400" alt="ekoloji"></a>
-                <p class="post-content">Sanatın ekolojik bilinçle buluşması: Atık malzemelerden sanat eserleri ve çevreci sergiler.</p>
-                <div class="full-post-content" id="full-7"><p class="full-text"></p></div>
+                <p class="post-content">Çocukluğumda yaşadığım bazı şeyleri, bu yaşımda tekrar yaşamak, ya da yaşamak demeyeyim, bu yaşımda tekrar karşıma çıkmaları bir tesadüf değil diye düşünüyorum. 
+
+1960’lı yıllarda çocukluk, 1970’li yıllarda ise gençlik yaşamış biri olarak, o günlerin kısıtlı imkanlarında, kendi hobilerimizi kendi imkanlarımız dahilinde oluşturmaya çalışırdık. Çünkü, o zamanların vitrinlerinde, genelde babalar memur ya da işçi, anneler ise ev kadınıydı. Gelir belli ve mütevazı idi. 
+</p>
+                <div class="full-post-content" id="full-7"><p class="full-text">Benim merakım ya da hobim diyelim, fotoğraf çekmekti. Ama bunun için sünnet düğünümde hediye olarak gelen ve hiçbir işe yaramayan iki fotoğraf makinesi dışında, elimde hiçbir şey yoktu. Elimde olmayan birçok materyal ise etrafımda çoktu. Mesela, Eniştemin (halamın eşi), bir iki tane fotoğraf makinesi, amcamın ise sekiz mm kamerası vardı. Benim için bunlara sahip olmak rüya gibi bir şeydi. Ama fotoğraf çekme rüyam, babamın bana aldığı Lubitel2 makinesi ile gerçek oldu. 125 TL’ye alınmış, bir memurun bütçesini fazlasıyla zorlayacak bir harcamaydı. Gerek amcamın sekiz mm kamerası, gerekse eniştemin hem fotoğraf makineleri, hem de 16 mm film oynatma makineleri ile ilgili diğer yazılarımda anlatacağım çok şey olacak…
+
+Bunları özellikle belirtmemin sebebini biraz sonra sanırım ben anlatmış olacağım, sizler de anlamış…
+
+Serde merak, serde geçmişe özlem, serde dönemimde yaşamış insanların vücuda getirdiği eserler olunca, ben kendimi kaybediyorum. İki gün önce de öyle oldu. 
+
+Oğlumla Hilmi Nakipoğlu’nun kamera müzesine gittik, Bakırköy’e… Tesadüf ki, müzenin kurucusu o güzel insan da oradaydı. Ayrıca, Beypazarı’ndan gelmiş, Beypazarı’nda buna benzer bir müze kurmak isteyen bir kişi için ön araştırma yapıp, bilgi alan üç değerli insan daha vardı. Beypazarı’nda müze kurmak isteyen kişinin yaklaşık bin adet materyali varmış. Yolları açık olsun. 
+
+Müzeyi gezerken birçok şey yaşadım. Ama tüylerimi diken diken eden iki şeyi unutamam. Birincisi, babamın bana memur maaşının önemli bir bölümüyle aldığı Lubitel2 fotoğraf makinesini, diğeri ise merhum Namık Satar’ın (Foto Namık) müzeye bağışladığı fotoğraf makinelerini. Merhum Namık Satar’ın tüylerimi diken diken etmesinin sebebi ise, müzeye bağışladığı fotoğraf makinelerinden biriyle muhtemelen benim ilk vesikalık fotoğrafımı çekmesiydi. Ama hangi makine, onu bilemiyoruz… Bahse konu ettiğim ilk vesikalık fotoğrafım, bu makalemin altında… 
+
+Bu yaşanmışlığın benim için en önemli yanı, bunu mesleği fotoğrafçılık ve kameramanlık olan oğlumla birlikte yaşamam…
+</p></div>
                 <div class="post-footer"><ul class="actions"><li><a href="#" class="button read-more-btn" data-id="7">Devamını Oku</a></li></ul><ul class="stats"><li class="comment-toggle" data-post="7"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul></div>
                 <div class="comments-section" id="comments-section-7"><div class="comments-title"><i class="fas fa-comments"></i> Yorumlar (<span class="comment-count-display">0</span>)</div><div class="comments-list" id="comments-list-7"></div><div class="add-comment-form"><input type="text" class="comment-input" id="comment-input-7" placeholder="Adınız"><textarea class="comment-text" id="comment-text-7" placeholder="Yorumunuzu yazın..." rows="2"></textarea><button class="submit-comment" data-post="7">Gönder</button></div></div>
             </article>
         </div>
 
-        <!-- İLETİŞİM BÖLÜMÜ -->
         <div class="contact-bottom" id="contactSection">
             <h3><i class="fas fa-envelope"></i> İletişim</h3>
-            <p>VOM YAYIN, sanatın gücüne ve kültürün toplumsal değişimdeki rolüne inanan bir grup yazar ve sanatseverden oluşmaktadır. Cumhuriyet değerlerine bağlı, sanatsal özgürlüğü teşvik eden bir platform sunar.</p>
+            <p>VOM YAYIN, sanatın gücüne ve kültürün toplumsal değişimdeki rolüne   inanan bir grup yazar ve sanatseverden oluşmaktadır. Topluluk üyeleri   edebiyat, tiyatro, müzik, resim ve diğer sanat dallarında yeteneklerini   birleştirerek insan deneyimine odaklı eserler üretmektedir. Ticari bir   amacı olmayan grup, Cumhuriyet değerlerine bağlı kalarak sanatsal   özgürlüğü teşvik eden bir platform sunmaktadır.</p>
+            <p><br>
+              VOM YAYIN,   farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. Hem   sanatsal üretimlerle hem de toplumsal etkileşimleriyle kültürel ve   sanatsal zenginlik yaratmaya çalışan bir topluluktur.</p>
             <p><strong>Görüş ve Önerileriniz için:</strong><br>
             <a href="mailto:info@vomyayin.dpdns.org" class="contact-email"><i class="fas fa-envelope"></i> info@vomyayin.dpdns.org</a></p>
             <div class="site-footer">
@@ -258,7 +364,6 @@
     </div>
 </div>
 
-<!-- Video Modal -->
 <div id="videoModal" class="video-modal">
     <div class="modal-content">
         <div class="close-modal" id="closeModalBtn">&times;</div>
@@ -267,18 +372,89 @@
 </div>
 
 <script>
-    // FULL TEXT
-    const fullTexts = {
-        1: "Yeni medya, dijital dönüşümün kalbinde yer alıyor. Geleneksel medyanın yerini hızla alan interaktif içerikler, sanatseverlerle buluşuyor. VOM olarak biz de video ve radyoyu merkeze alan bir platform kurduk.",
-        2: "Son yapılan araştırmalar gösteriyor ki podcast ve web radyo dinleme oranları her geçen gün katlanıyor. VOM Radyo da bu trendi yakalayarak 7/24 sanat yayını yapmayı hedefliyor.",
-        3: "Mobil cihaz kullanımının masaüstünü geçtiği bu dönemde responsive tasarım bir tercih değil zorunluluktur. VOM Blog olarak tüm cihazlarda kusursuz deneyim sunuyoruz.",
-        4: "Yapay zeka ile üretilen eserler, NFT pazarları, dijital kolajlar... Sanatın sınırları her geçen gün genişliyor. VOM olarak dijital sanatın öncü isimleriyle söyleşiler yapıyor.",
-        5: "Şairlerin dizeleri bestelendi. Caz, klasik ve elektronik tınılarla harmanlanan 'Haziran' albümü, dinleyiciyi duygusal bir yolculuğa çıkarıyor.",
-        6: "Boşluk, sadelik ve dinginlik minimalizmde ön planda. Ünlü fotoğrafçıların işlerini incelediğimiz bu yazıda, minimalist kompozisyon tekniklerini ele alıyoruz.",
-        7: "Günümüz sanat dünyasında sürdürülebilirlik önemli bir yer tutuyor. Geri dönüştürülmüş malzemelerle yapılan heykeller, doğa temalı performanslar."
-    };
+    // ============================================================
+    // 1. DİNAMİK TARİHLER
+    // ============================================================
+    function updateDates() {
+        document.querySelectorAll('.post-date').forEach(el => {
+            const originalDate = el.getAttribute('data-original');
+            if (originalDate) {
+                const date = new Date(originalDate);
+                const now = new Date();
+                const diffTime = now - date;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 0) {
+                    el.innerText = 'Bugün';
+                } else if (diffDays === 1) {
+                    el.innerText = 'Dün';
+                } else if (diffDays < 8) {
+                    el.innerText = `${diffDays} gün önce`;
+                } else {
+                    const day = date.getDate();
+                    const month = date.toLocaleString('tr-TR', { month: 'long' });
+                    const year = date.getFullYear();
+                    el.innerText = `${day} ${month} ${year}`;
+                }
+            }
+        });
+    }
+    updateDates();
     
-    // READ MORE
+    // ============================================================
+    // 2. GOOGLE ARAMA (sadece logo ve input)
+    // ============================================================
+    const googleSearchInput = document.getElementById('searchInputSide');
+    const googleSearchBtn = document.getElementById('searchBtnSide');
+    
+    function performGoogleSearch() {
+        const query = googleSearchInput.value.trim();
+        if(query) {
+            const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            window.open(googleUrl, '_blank');
+        } else {
+            alert("Lütfen aramak istediğiniz kelimeyi yazın.");
+        }
+    }
+    
+    if(googleSearchBtn) googleSearchBtn.addEventListener('click', performGoogleSearch);
+    if(googleSearchInput) googleSearchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') performGoogleSearch(); });
+    
+    // Ana sayfa butonları
+    document.getElementById('resetHomeLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.getElementById('resetHomeLinkBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // ============================================================
+    // 3. GECE MODU
+    // ============================================================
+    function initDarkMode() {
+        const isDark = localStorage.getItem('darkMode') === 'true';
+        if(isDark) {
+            document.body.classList.add('dark-mode');
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if(toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu';
+        }
+        const toggleBtn = document.getElementById('darkModeToggle');
+        if(toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkNow = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkNow);
+                toggleBtn.innerHTML = isDarkNow ? '<i class="fas fa-sun"></i> Gündüz Modu' : '<i class="fas fa-moon"></i> Gece Modu';
+            });
+        }
+    }
+    initDarkMode();
+    
+    // ============================================================
+    // 4. READ MORE
+    // ============================================================
     document.querySelectorAll('.read-more-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -286,7 +462,6 @@
             const fullDiv = document.getElementById(`full-${id}`);
             if(fullDiv) {
                 if(!fullDiv.classList.contains('show')) {
-                    if(fullDiv.querySelector('.full-text').innerText === '') fullDiv.querySelector('.full-text').innerText = fullTexts[id];
                     fullDiv.classList.add('show');
                     btn.innerText = 'Daha Az Göster';
                 } else {
@@ -297,54 +472,9 @@
         });
     });
     
-    // SIDEBAR SEARCH
-    const searchInput = document.getElementById('searchInputSide');
-    const searchBtn = document.getElementById('searchBtnSide');
-    const resultsDiv = document.getElementById('searchResultsSide');
-    const resultsList = document.getElementById('searchResultsListSide');
-    const postsContainer = document.getElementById('postsContainer');
-    const allPosts = Array.from(document.querySelectorAll('.post'));
-    
-    window.resetSearchSide = function() {
-        searchInput.value = '';
-        resultsDiv.style.display = 'none';
-        postsContainer.style.display = 'block';
-        allPosts.forEach(p => p.style.display = 'block');
-    };
-    
-    window.closeSearchSide = function() {
-        resultsDiv.style.display = 'none';
-        postsContainer.style.display = 'block';
-        searchInput.value = '';
-    };
-    
-    function performSideSearch() {
-        const query = searchInput.value.trim().toLowerCase();
-        if(!query) { closeSearchSide(); return; }
-        const results = allPosts.filter(post => {
-            const title = post.querySelector('.title h2')?.innerText?.toLowerCase() || '';
-            const content = post.querySelector('.post-content')?.innerText?.toLowerCase() || '';
-            return title.includes(query) || content.includes(query);
-        });
-        if(results.length) {
-            resultsList.innerHTML = results.map(post => {
-                const title = post.querySelector('.title h2')?.innerText || 'Başlık';
-                const postId = post.dataset.postId;
-                return `<div class="result-item"><a href="#" onclick="document.getElementById('searchResultsSide').style.display='none'; document.getElementById('postsContainer').style.display='block'; document.querySelector('.post[data-post-id=\\'${postId}\\']').scrollIntoView({behavior:'smooth'}); document.querySelector('.post[data-post-id=\\'${postId}\\']').classList.add('highlight'); setTimeout(()=>document.querySelector('.post[data-post-id=\\'${postId}\\']').classList.remove('highlight'),2000); return false;">${title}</a></div>`;
-            }).join('');
-            resultsDiv.style.display = 'block';
-            postsContainer.style.display = 'none';
-        } else {
-            resultsList.innerHTML = '<div class="result-item">Sonuç bulunamadı</div>';
-            resultsDiv.style.display = 'block';
-            postsContainer.style.display = 'none';
-        }
-    }
-    
-    searchBtn.addEventListener('click', performSideSearch);
-    searchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') performSideSearch(); });
-    
-    // Video Modal
+    // ============================================================
+    // 5. VİDEO MODAL
+    // ============================================================
     const videoModal = document.getElementById('videoModal');
     const youtubeIframe = document.getElementById('youtubeIframeSide');
     document.getElementById('openVideoBtnSide')?.addEventListener('click', () => {
@@ -359,18 +489,17 @@
     });
     videoModal?.addEventListener('click', (e) => { if(e.target === videoModal) { videoModal.classList.remove('active'); youtubeIframe.src = "about:blank"; document.body.style.overflow = ''; } });
     
-    // Radyo Link - Sadece radyo.html'ye yönlendirme, player kodu yok
-    document.getElementById('radioLinkBtn')?.addEventListener('click', (e) => {
-        // Link zaten radyo.html'e gidiyor, herhangi bir ek kod gerekmez
-        // Sadece tıklama olayını engellemiyoruz, doğal link davranışı çalışacak
-    });
-    
+    // ============================================================
+    // 6. İLETİŞİM
+    // ============================================================
     document.getElementById('contactNavLink')?.addEventListener('click', (e) => {
         e.preventDefault();
         document.getElementById('contactSection').scrollIntoView({ behavior: 'smooth' });
     });
     
-    // Yorumlar toggle
+    // ============================================================
+    // 7. YORUMLAR
+    // ============================================================
     document.querySelectorAll('.comment-toggle').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -381,7 +510,6 @@
         });
     });
     
-    // Yorum localStorage
     function loadCommentsLocal(postId) {
         const key = `vom_comments_${postId}`;
         const comments = JSON.parse(localStorage.getItem(key) || '[]');
@@ -397,23 +525,28 @@
     }
     
     window.deleteCommentLocal = function(postId, idx) {
-        const pwd = prompt("Admin şifresi:");
-        if(pwd === "vomadmin2026") {
+        const pwd = prompt("Yorum silmek için admin şifresini girin:");
+        if(pwd && pwd.length > 0) {
             const key = `vom_comments_${postId}`;
             let comments = JSON.parse(localStorage.getItem(key) || '[]');
             comments.splice(idx,1);
             localStorage.setItem(key, JSON.stringify(comments));
             loadCommentsLocal(postId);
-        } else if(pwd) alert("Şifre yanlış");
+            alert("Yorum silindi.");
+        } else if(pwd === "") {
+            alert("Şifre girilmedi.");
+        } else {
+            alert("Şifre yanlış!");
+        }
     };
     
-    window.addCommentLocal = function(postId, author, text) {
+    function addCommentLocal(postId, author, text) {
         const key = `vom_comments_${postId}`;
         let comments = JSON.parse(localStorage.getItem(key) || '[]');
         comments.push({ author: author.trim(), text: text.trim(), date: new Date().toLocaleString('tr-TR') });
         localStorage.setItem(key, JSON.stringify(comments));
         loadCommentsLocal(postId);
-    };
+    }
     
     document.querySelectorAll('.submit-comment').forEach(btn => {
         btn.addEventListener('click', () => {
