@@ -492,9 +492,9 @@
     const rtdb = getDatabase(app);
     const messagesRef = ref(rtdb, 'messages');
 
-    // ========== KALICI ADRESLER ==========
-    const STREAM_URL = "https://radyo.vomyayin.dpdns.org/vomyayin";
-    const METADATA_URL = "https://radyo.vomyayin.dpdns.org/status-json.xsl";
+    // ========== DOĞRUDAN TUNNEL ADRESİ (ÇALIŞIYOR) ==========
+    const STREAM_URL = "https://b04dbb2e-e2b3-4ea1-8d6a-4aa82a410028.cfargotunnel.com/vomyayin";
+    const METADATA_URL = "https://b04dbb2e-e2b3-4ea1-8d6a-4aa82a410028.cfargotunnel.com/status-json.xsl";
     
     const audio = new Audio();
     audio.preload = "metadata";
@@ -520,7 +520,7 @@
     let reconnectAttempt = 0;
     let reconnectTimeout = null;
 
-    // ========== METADATA (KALICI ADRES İLE) ==========
+    // ========== METADATA (TUNNEL ADRESİ İLE) ==========
     async function fetchMetadata() {
         try {
             const response = await fetch(METADATA_URL);
@@ -528,7 +528,6 @@
             
             let source = data.icestats?.source;
             
-            // Birden fazla mount varsa /vomyayin olanı bul
             if (Array.isArray(source)) {
                 source = source.find(s => s.listenurl?.includes('/vomyayin')) || source[0];
             }
