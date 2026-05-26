@@ -174,10 +174,22 @@
             background:linear-gradient(135deg,#2c3e66,#1e2a3a);
         }
         .radio-link-btn span{display:flex;align-items:center;gap:0.6rem;}
-        .video-card{cursor:pointer;background:#000;border-radius:16px;overflow:hidden;position:relative;margin:0.8rem 0}
-        .video-card img{width:100%;display:block;transition:0.3s}
-        .video-card:hover img{opacity:0.8}
+        
+        /* Video kart - yeni sekmede açılacak */
+        .video-card-link {
+            display:block;
+            text-decoration:none;
+            position:relative;
+            background:#000;
+            border-radius:16px;
+            overflow:hidden;
+            margin:0.8rem 0;
+            cursor:pointer;
+        }
+        .video-card-link img{width:100%;display:block;transition:0.3s}
+        .video-card-link:hover img{opacity:0.8}
         .play-icon-video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:white}
+        
         .post{background:white;border-radius:20px;margin-bottom:1.2rem;padding:1rem;border:1px solid #eef2f6;box-shadow:0 2px 8px rgba(0,0,0,0.03);transition:0.2s}
         .post:hover{box-shadow:0 4px 15px rgba(0,0,0,0.08)}
         @media (min-width:480px){.post{padding:1.5rem;margin-bottom:1.5rem}}
@@ -253,11 +265,6 @@
         body.dark-mode .highlight{background-color:#4a3a1a;}
         @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         .post{animation:fadeInUp 0.3s ease}
-        .video-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;justify-content:center;align-items:center}
-        .video-modal.active{display:flex}
-        .modal-content{position:relative;width:95%;max-width:800px}
-        .modal-content iframe{width:100%;aspect-ratio:16/9;border-radius:16px;border:none}
-        .close-modal{position:absolute;top:-40px;right:0;color:white;font-size:2rem;cursor:pointer}
     </style>
 </head>
 <body>
@@ -288,13 +295,13 @@
             <p style="font-size:0.7rem; margin-top:8px; color:#6c86a3;">Canlı yayın için tıklayın, 7/24 kültür sanat</p>
         </div>
         <div class="sidebar-card">
-    <h3><i class="fas fa-video"></i> VOM Albüm</h3>
-    <a href="https://www.youtube.com/watch?v=3VGJkfQ9FPA" target="_blank" class="video-card" style="display:block; text-decoration:none;">
-        <img src="https://img.youtube.com/vi/3VGJkfQ9FPA/maxresdefault.jpg" alt="video kapak" onerror="this.src='https://img.youtube.com/vi/3VGJkfQ9FPA/hqdefault.jpg'">
-        <div class="play-icon-video"><i class="fas fa-play"></i></div>
-    </a>
-    <p style="font-size:0.7rem; text-align:center;">"Haziran" Albüm Tanıtımı - İzlemek için tıkla</p>
-</div>
+            <h3><i class="fas fa-video"></i> VOM Albüm</h3>
+            <a href="https://www.youtube.com/watch?v=3VGJkfQ9FPA" target="_blank" rel="noopener noreferrer" class="video-card-link">
+                <img src="https://img.youtube.com/vi/3VGJkfQ9FPA/maxresdefault.jpg" alt="video kapak" onerror="this.src='https://img.youtube.com/vi/3VGJkfQ9FPA/hqdefault.jpg'">
+                <div class="play-icon-video"><i class="fas fa-play"></i></div>
+            </a>
+            <p style="font-size:0.7rem; text-align:center;">"Haziran" Albüm Tanıtımı - İzlemek için tıkla</p>
+        </div>
     </div>
 
     <div id="main">
@@ -563,13 +570,6 @@ Bu yaşanmışlığın benim için en önemli yanı, bunu mesleği fotoğrafçı
     </div>
 </div>
 
-<div id="videoModal" class="video-modal">
-    <div class="modal-content">
-        <div class="close-modal" id="closeModalBtn">&times;</div>
-        <iframe id="youtubeIframeSide" src="about:blank" style="width:100%; aspect-ratio:16/9; border-radius:16px; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-</div>
-
 <script>
     // TÜM TARİHLERİ BUGÜNÜN TARİHİ YAP (POST'LARIN TARİHLERİ)
     function setAllDatesToToday() {
@@ -656,36 +656,6 @@ Bu yaşanmışlığın benim için en önemli yanı, bunu mesleği fotoğrafçı
                     fullDiv.classList.remove('show');
                     this.innerText = 'Devamını Oku';
                 }
-            }
-        });
-    }
-    
-    // VİDEO MODAL
-    var modal = document.getElementById('videoModal');
-    var iframe = document.getElementById('youtubeIframeSide');
-    var openVideo = document.getElementById('openVideoBtnSide');
-    var closeModal = document.getElementById('closeModalBtn');
-    
-    if(openVideo) {
-        openVideo.addEventListener('click', function() {
-            if(modal) modal.classList.add('active');
-            if(iframe) iframe.src = "https://www.youtube.com/embed/3VGJkfQ9FPA?autoplay=1&rel=0";
-            document.body.style.overflow = 'hidden';
-        });
-    }
-    if(closeModal) {
-        closeModal.addEventListener('click', function() {
-            if(modal) modal.classList.remove('active');
-            if(iframe) iframe.src = "about:blank";
-            document.body.style.overflow = '';
-        });
-    }
-    if(modal) {
-        modal.addEventListener('click', function(e) {
-            if(e.target === modal) {
-                modal.classList.remove('active');
-                if(iframe) iframe.src = "about:blank";
-                document.body.style.overflow = '';
             }
         });
     }
