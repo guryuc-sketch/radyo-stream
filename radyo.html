@@ -627,25 +627,68 @@
     
     // DÜZELTİLMİŞ fetchMetadata - ARTIK DOĞRU URL KULLANIYOR
     async function fetchMetadata() {
-        try {
-            const response = await fetch(STATUS_URL);
-            const data = await response.json();
-            let source = data.icestats?.source;
-            if (Array.isArray(source)) {
-                source = source[0];
+    try {
+        const response = await fetch(STATUS_URL);
+        const data = await response.json();
+        
+        let currentTitle = null;
+        let currentArtist = null;
+        
+        // 1. Önce playlist'ten şarkı bilgisini al
+        if (data.icestats?.source?.playlist?.trackList) {
+            const trackList = data.icestats.source.playlist.trackList;
+            if (Array.isArray(trackList) && trackList.length > 0) {
+                const lastTrack = trackList[trackList.length - 1];
+                if (lastTrack?.title) {
+                    const parts = lastTrack.title.split(" - ");
+                    if (parts.length >= 2) {
+                        currentArtist = parts[0];
+                        currentTitle = parts.slice(1).join(" - ");
+                    } else {
+                        currentTitle = lastTrack.title;
+                        currentArtist = "VOM RADYO";
+                    }
+                }
             }
-            if (source && (source.title || source.artist)) {
-                let titleRaw = source.title || "VOM Canlı Yayın";
-                let artistRaw = source.artist || "VOM RADYO";
-                updateMarqueeText(`${titleRaw} - ${artistRaw}`);
-                if(subArtistSpan) subArtistSpan.innerText = artistRaw + " · Canlı Performans";
-            } else {
-                setDummyTrack();
-            }
-        } catch(e) {
-            setDummyTrack();
         }
+        
+        // 2. Eğer playlist'te yoksa, x_icy_title veya title dene
+        if (!currentTitle) {
+            const source = data.icestats?.source;
+            if (source?.metadata?.["x_icy_title"]) {
+                const icyTitle = source.metadata["x_icy_title"];
+                const parts = icyTitle.split(" - ");
+                if (parts.length >= 2) {
+                    currentArtist = parts[0];
+                    currentTitle = parts.slice(1).join(" - ");
+                } else {
+                    currentTitle = icyTitle;
+                }
+            } else if (source?.title && source.title !== "null") {
+                const parts = source.title.split(" - ");
+                if (parts.length >= 2) {
+                    currentArtist = parts[0];
+                    currentTitle = parts.slice(1).join(" - ");
+                } else {
+                    currentTitle = source.title;
+                }
+            }
+        }
+        
+        // 3. Göster
+        if (currentTitle) {
+            const displayText = currentArtist ? `${currentArtist} - ${currentTitle}` : currentTitle;
+            updateMarqueeText(displayText);
+            if(subArtistSpan) subArtistSpan.innerText = currentArtist || "VOM RADYO";
+            console.log("🎵 Şarkı:", displayText);
+        } else {
+            console.log("⏳ Şarkı bilgisi bekleniyor...");
+        }
+        
+    } catch(e) {
+        console.log("❌ Metadata hatası:", e);
     }
+}
     
     function setDummyTrack() {
         const dummyList = [
