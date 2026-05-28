@@ -7,21 +7,20 @@
     <meta name="description" content="VOM Radyo - kesintisiz müzik ve kültür sanat yayını.">
     <meta name="keywords" content="radyo player, radyo, web radio, vomradyo, sohbet, chat, vom radyo">
     <meta name="author" content="VOM YAYIN">
+    <meta http-equiv="Cache-Control" content="max-age=31536000, public">
     
-    <!-- Preconnect ve Preload -->
+    <!-- Sadece kritik preconnect'ler (4'ten fazla önerilmez) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://www.gstatic.com">
-    <link rel="preconnect" href="https://vom-yayin-default-rtdb.europe-west1.firebasedatabase.app">
     
-    <!-- Fontlar ertelendi (render-blocking yok) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+    <!-- Fontlar ertelendi (render-blocking yok) - 400,600,700 sadece -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap&subset=latin" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap&subset=latin" rel="stylesheet"></noscript>
     
-    <!-- Fontawesome ertelendi -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
+    <!-- Fontawesome 6.5.2 (kararlı sürüm - glyph hatası düzeldi) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -358,6 +357,9 @@
         }
         .chat-overlay.active { display: block; }
         
+        /* Ana landmark */
+        main { display: block; }
+        
         @media (max-width: 550px) {
             .radio-container { padding: 1.2rem; }
             .ctrl-btn { width: 55px; height: 55px; font-size: 1.5rem; }
@@ -370,71 +372,71 @@
     </style>
 </head>
 <body>
-<div class="radio-container" id="radioContainer">
-    <div class="radio-header">
-        <div class="station-name"><i class="fas fa-broadcast-tower"></i> <span>VOM RADYO</span></div>
-        <div class="live-badge" id="liveBadge">CANLI</div>
-    </div>
-    <div class="song-info-panel">
-        <div class="current-track">
-            <div class="visualizer-row">
-                <div class="equalizer" id="eqVisualizer" aria-label="Ses görselleştirici">
-                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+    <main class="radio-container" id="radioContainer">
+        <div class="radio-header">
+            <div class="station-name"><i class="fas fa-broadcast-tower" aria-hidden="true"></i> <span>VOM RADYO</span></div>
+            <div class="live-badge" id="liveBadge">CANLI</div>
+        </div>
+        <div class="song-info-panel">
+            <div class="current-track">
+                <div class="visualizer-row">
+                    <div class="equalizer" id="eqVisualizer" aria-label="Ses görselleştirici">
+                        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                    </div>
+                    <div class="listener-count" id="listenerCount" aria-label="Dinleyici sayısı">
+                        <i class="fas fa-headphones" aria-hidden="true"></i> <span id="listenerNumber">0</span>
+                    </div>
+                    <div class="time-digital" id="liveDigitalClock" aria-label="Saat">00:00:00</div>
                 </div>
-                <div class="listener-count" id="listenerCount" aria-label="Dinleyici sayısı">
-                    <i class="fas fa-headphones"></i> <span id="listenerNumber">0</span>
+                <div class="track-marquee">
+                    <div class="marquee-content" id="marqueeTrack">
+                        <span><i class="fas fa-music" aria-hidden="true"></i> VOM Canlı Yayın</span>
+                        <span><i class="fas fa-music" aria-hidden="true"></i> VOM Canlı Yayın</span>
+                    </div>
                 </div>
-                <div class="time-digital" id="liveDigitalClock" aria-label="Saat">00:00:00</div>
-            </div>
-            <div class="track-marquee">
-                <div class="marquee-content" id="marqueeTrack">
-                    <span><i class="fas fa-music"></i> VOM Canlı Yayın</span>
-                    <span><i class="fas fa-music"></i> VOM Canlı Yayın</span>
+                <div class="track-artist-line" id="artistSubline">
+                    <span><i class="fas fa-headphones" aria-hidden="true"></i> <span id="subArtistText">Pop · Rock · Kültür Sanat</span></span>
+                    <span><i class="fas fa-waveform" aria-hidden="true"></i> Dijital Stereo</span>
                 </div>
-            </div>
-            <div class="track-artist-line" id="artistSubline">
-                <span><i class="fas fa-headphones"></i> <span id="subArtistText">Pop · Rock · Kültür Sanat</span></span>
-                <span><i class="fas fa-waveform"></i> Dijital Stereo</span>
             </div>
         </div>
-    </div>
-    <div class="controls">
-        <button class="ctrl-btn" id="playBtn" aria-label="Oynat"><i class="fas fa-play"></i></button>
-        <button class="ctrl-btn play-pause" id="mainPlayPause" aria-label="Oynat/Durdur"><i class="fas fa-play" id="playPauseIcon"></i></button>
-        <button class="ctrl-btn" id="stopBtn" aria-label="Durdur"><i class="fas fa-stop"></i></button>
-    </div>
-    <div class="volume-control">
-        <i class="fas fa-volume-down"></i>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7" aria-label="Ses seviyesi">
-        <i class="fas fa-volume-up"></i>
-    </div>
-    <div class="chat-button" id="chatButtonSide">
-        <a href="#" id="chatLinkSide"><i class="fab fa-whatsapp"></i> Canlı Sohbet</a>
-    </div>
-    <div class="credit">
-        <i class="fas fa-headphones"></i> 7/24 canlı yayın · <span id="streamStatusText">Başlatmak için oynat</span>
-    </div>
-</div>
+        <div class="controls">
+            <button class="ctrl-btn" id="playBtn" aria-label="Oynat"><i class="fas fa-play" aria-hidden="true"></i></button>
+            <button class="ctrl-btn play-pause" id="mainPlayPause" aria-label="Oynat/Durdur"><i class="fas fa-play" id="playPauseIcon" aria-hidden="true"></i></button>
+            <button class="ctrl-btn" id="stopBtn" aria-label="Durdur"><i class="fas fa-stop" aria-hidden="true"></i></button>
+        </div>
+        <div class="volume-control">
+            <i class="fas fa-volume-down" aria-hidden="true"></i>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7" aria-label="Ses seviyesi">
+            <i class="fas fa-volume-up" aria-hidden="true"></i>
+        </div>
+        <div class="chat-button" id="chatButtonSide">
+            <a href="#" id="chatLinkSide"><i class="fab fa-whatsapp" aria-hidden="true"></i> Canlı Sohbet</a>
+        </div>
+        <div class="credit">
+            <i class="fas fa-headphones" aria-hidden="true"></i> 7/24 canlı yayın · <span id="streamStatusText">Başlatmak için oynat</span>
+        </div>
+    </main>
 
-<div class="chat-overlay" id="chatOverlay"></div>
-<div class="chat-popup" id="chatPopup">
-    <div class="chat-header">
-        <div class="chat-title"><i class="fab fa-whatsapp"></i> VOM Canlı Sohbet</div>
-        <button class="chat-close" id="chatCloseBtn" aria-label="Kapat">&times;</button>
+    <div class="chat-overlay" id="chatOverlay"></div>
+    <div class="chat-popup" id="chatPopup" role="dialog" aria-label="Sohbet penceresi">
+        <div class="chat-header">
+            <div class="chat-title"><i class="fab fa-whatsapp" aria-hidden="true"></i> VOM Canlı Sohbet</div>
+            <button class="chat-close" id="chatCloseBtn" aria-label="Kapat">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-system">💬 Yayın devam ederken sohbet aktif olur.</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatUsername" placeholder="👤 Kullanıcı adınız" aria-label="Kullanıcı adı">
+            <textarea id="chatInput" placeholder="💬 Mesajınızı yazın (Enter gönder)" rows="1" aria-label="Mesaj"></textarea>
+            <button id="chatSendBtn" aria-label="Gönder"><i class="fas fa-paper-plane" aria-hidden="true"></i> Gönder</button>
+        </div>
+        <div class="chat-status" id="chatStatus">Sohbet sadece canlı yayında açıktır.</div>
     </div>
-    <div class="chat-messages" id="chatMessages">
-        <div class="chat-system">💬 Yayın devam ederken sohbet aktif olur.</div>
-    </div>
-    <div class="chat-input-area">
-        <input type="text" id="chatUsername" placeholder="👤 Kullanıcı adınız" aria-label="Kullanıcı adı">
-        <textarea id="chatInput" placeholder="💬 Mesajınızı yazın (Enter gönder)" rows="1" aria-label="Mesaj"></textarea>
-        <button id="chatSendBtn" aria-label="Gönder"><i class="fas fa-paper-plane"></i> Gönder</button>
-    </div>
-    <div class="chat-status" id="chatStatus">Sohbet sadece canlı yayında açıktır.</div>
-</div>
 
 <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
@@ -566,7 +568,7 @@
                 const displayText = currentArtist ? `${currentArtist} - ${currentTitle}` : currentTitle;
                 const cleanText = displayText.substring(0, 60);
                 const escapeHtml = (str) => str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
-                marqueeSpan.innerHTML = `<span><i class="fas fa-music"></i> ${escapeHtml(cleanText)}</span><span><i class="fas fa-music"></i> ${escapeHtml(cleanText)}</span>`;
+                marqueeSpan.innerHTML = `<span><i class="fas fa-music" aria-hidden="true"></i> ${escapeHtml(cleanText)}</span><span><i class="fas fa-music" aria-hidden="true"></i> ${escapeHtml(cleanText)}</span>`;
                 if(subArtistSpan) subArtistSpan.innerText = currentArtist || "VOM RADYO";
             }
         } catch(e) {}
@@ -584,7 +586,8 @@
             liveBadge.innerText = "CANLI";
             liveBadge.classList.remove("offline");
             streamStatusSpan.innerText = "🔴 Canlı yayın";
-            document.getElementById('chatButtonSide')?.classList.remove("offline");
+            const chatBtn = document.getElementById('chatButtonSide');
+            if(chatBtn) chatBtn.classList.remove("offline");
             if (isPlaying) {
                 startMetadataUpdater();
                 startListenerUpdater();
@@ -598,7 +601,8 @@
             liveBadge.innerText = "YAYIN YOK";
             liveBadge.classList.add("offline");
             streamStatusSpan.innerText = "⛔ Yayın kapalı";
-            document.getElementById('chatButtonSide')?.classList.add("offline");
+            const chatBtn = document.getElementById('chatButtonSide');
+            if(chatBtn) chatBtn.classList.add("offline");
             if (listenerInterval) clearInterval(listenerInterval);
             if (listenerNumberSpan) listenerNumberSpan.innerText = "0";
             const chatMessagesDiv = document.getElementById('chatMessages');
