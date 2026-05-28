@@ -10,16 +10,13 @@
     <link rel="canonical" href="https://vomyayin.dpdns.org/">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
-    <!-- Sadece kritik preconnect'ler -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-    <!-- Fontlar ertelendi (render-blocking yok) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap&subset=latin" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap&subset=latin" rel="stylesheet"></noscript>
     
-    <!-- Fontawesome 6.5.2 -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
     
@@ -309,7 +306,7 @@
         }
         .chat-message.received { background: white; align-self: flex-start; border-top-left-radius: 4px; }
         .chat-message.sent { background: #DCF8C6; align-self: flex-end; border-top-right-radius: 4px; }
-        .chat-message-username { font-weight: 700; font-size: 0.7rem; color: #075E54; }
+        .chat-message-username { font-weight: 700; font-size: 0.7rem; color: #075E54; margin-bottom: 2px; }
         .chat-message-time { font-size: 0.6rem; color: #999; margin-top: 0.2rem; text-align: right; }
         .chat-system { text-align: center; font-size: 0.7rem; color: #666; margin: 0.3rem 0; }
         .chat-input-area {
@@ -683,7 +680,7 @@
     setLiveStatus(true);
     initEqualizer();
     
-    // CHAT
+    // CHAT - DÜZELTİLDİ: Herkes herkesin mesajını görecek
     const chatPopup = document.getElementById('chatPopup');
     const chatOverlay = document.getElementById('chatOverlay');
     const chatCloseBtn = document.getElementById('chatCloseBtn');
@@ -729,24 +726,33 @@
         else if (pwd !== null) alert("Şifre yanlış!");
     };
     
+    // DÜZELTİLDİ: Herkes her mesajı görecek, admin her mesajı silebilecek
     onChildAdded(messagesRef, (snapshot) => {
         if (!isLiveActive || !chatMessagesDiv) return;
         const data = snapshot.val();
         if (!data?.message) return;
+        
         const currentUser = chatUsername?.value.trim() || '';
-        const isSelf = (data.username === currentUser);
+        const messageSender = data.username || 'Anonim';
+        const isSelf = (messageSender === currentUser);
         const timeStr = data.timestamp ? new Date(data.timestamp).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '';
+        
         const div = document.createElement('div');
         div.className = isSelf ? 'chat-message sent' : 'chat-message received';
+        
         if (isSelf) {
+            // Kendi mesajım: ismim görünmez (WhatsApp tarzı)
             div.innerHTML = `${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
         } else {
-            div.innerHTML = `<div class="chat-message-username">${escapeHtml(data.username)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
+            // Başkasının mesajı: ismi görünür
+            div.innerHTML = `<div class="chat-message-username">${escapeHtml(messageSender)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
         }
-        const isAdmin = currentUser === 'admin';
-        if (isAdmin) {
+        
+        // Admin (kullanıcı adı 'admin' olan) her mesajı silebilir
+        if (currentUser === 'admin') {
             div.innerHTML += `<button onclick="window.deleteChatMessage('${snapshot.key}')" style="margin-left:8px; background:#e33b3b; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; color:white; font-size:10px;" aria-label="Sil">🗑</button>`;
         }
+        
         chatMessagesDiv.appendChild(div);
         chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
         while (chatMessagesDiv.children.length > 100) chatMessagesDiv.removeChild(chatMessagesDiv.firstChild);
