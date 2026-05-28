@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <title>VOM | Radyo Player - Canlı Sohbet</title>
     <meta name="description" content="VOM Radyo - kesintisiz müzik ve kültür sanat yayını.">
     <meta name="keywords" content="radyo player, radyo, web radio, vomradyo, sohbet, chat, vom radyo">
     <meta name="author" content="VOM YAYIN">
-    <meta http-equiv="Cache-Control" content="max-age=31536000, public">
     
-    <!-- Sadece kritik preconnect'ler (4'ten fazla önerilmez) -->
+    <!-- Sadece kritik preconnect'ler -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-    <!-- Fontlar ertelendi (render-blocking yok) - 400,600,700 sadece -->
+    <!-- Fontlar ertelendi (render-blocking yok) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap&subset=latin" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap&subset=latin" rel="stylesheet"></noscript>
     
-    <!-- Fontawesome 6.5.2 (kararlı sürüm - glyph hatası düzeldi) -->
+    <!-- Fontawesome 6.5.2 -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
     
@@ -357,7 +356,6 @@
         }
         .chat-overlay.active { display: block; }
         
-        /* Ana landmark */
         main { display: block; }
         
         @media (max-width: 550px) {
@@ -380,16 +378,16 @@
         <div class="song-info-panel">
             <div class="current-track">
                 <div class="visualizer-row">
-                    <div class="equalizer" id="eqVisualizer" aria-label="Ses görselleştirici">
+                    <div class="equalizer" id="eqVisualizer">
                         <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                         <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                         <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                         <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                     </div>
-                    <div class="listener-count" id="listenerCount" aria-label="Dinleyici sayısı">
+                    <div class="listener-count" id="listenerCount">
                         <i class="fas fa-headphones" aria-hidden="true"></i> <span id="listenerNumber">0</span>
                     </div>
-                    <div class="time-digital" id="liveDigitalClock" aria-label="Saat">00:00:00</div>
+                    <div class="time-digital" id="liveDigitalClock">00:00:00</div>
                 </div>
                 <div class="track-marquee">
                     <div class="marquee-content" id="marqueeTrack">
