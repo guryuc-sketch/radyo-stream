@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, viewport-fit=cover">
     <title>VOM | Kültür Sanat Blogu - Dijital Sanat, Müzik ve Radyo</title>
     <meta name="description" content="VOM Kültür Sanat Blogu: Yeni medya, dijital sanat, web radyo, şiir-müzik buluşmaları, fotoğraf sanatı ve kültürel içerikler.">
     <meta name="keywords" content="kültür sanat blogu, dijital sanat, web radyo, şiir, müzik, fotoğraf sanatı, VOM, sanat blogu, radyo dinle, edebiyat, sinema, minimalist fotoğraf, Türk sanatçılar">
@@ -243,7 +243,7 @@
             color: #2e3b4e;
         }
         
-        /* Chat Popup */
+        /* Chat Popup - iPhone için düzeltmeler */
         .chat-popup {
             display: none;
             position: fixed;
@@ -261,6 +261,18 @@
             flex-direction: column;
             max-height: 85vh;
         }
+        /* iPhone için ekran boyutunda sabit kalması için */
+        @media (max-width: 768px) {
+            .chat-popup {
+                width: 95vw;
+                max-width: 95vw;
+                max-height: 90vh;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                position: fixed;
+            }
+        }
         .chat-popup.active { display: flex; animation: fadeInUp 0.3s ease; }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translate(-50%, -40%); }
@@ -273,6 +285,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-shrink: 0;
         }
         .chat-title { display: flex; align-items: center; gap: 8px; font-weight: 600; }
         .chat-close {
@@ -296,6 +309,7 @@
             gap: 8px;
             min-height: 300px;
             max-height: 50vh;
+            -webkit-overflow-scrolling: touch;
         }
         .chat-message {
             max-width: 80%;
@@ -316,14 +330,22 @@
             background: #f0f0f0;
             gap: 10px;
             border-top: 1px solid #ddd;
+            flex-shrink: 0;
         }
         .chat-input-area input, .chat-input-area textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 25px;
-            font-size: 0.9rem;
+            font-size: 16px;
             outline: none;
+            font-family: inherit;
+        }
+        /* iPhone zoom sorununu çözmek için */
+        @media (max-width: 768px) {
+            .chat-input-area input, .chat-input-area textarea {
+                font-size: 16px;
+            }
         }
         .chat-input-area textarea { resize: none; font-family: inherit; }
         .chat-input-area button {
@@ -342,6 +364,7 @@
             background: #f0f0f0;
             color: #666;
             border-top: 1px solid #e0e0e0;
+            flex-shrink: 0;
         }
         .chat-overlay {
             display: none;
@@ -573,7 +596,8 @@
     
     function startMetadataUpdater() {
         if (metadataInterval) clearInterval(metadataInterval);
-        metadataInterval = setInterval(() => { if (isPlaying && isLiveActive) fetchMetadata(); }, 10000);
+        // 10 saniyeden 5 saniyeye düşürüldü (şarkı adı daha hızlı güncellenir)
+        metadataInterval = setInterval(() => { if (isPlaying && isLiveActive) fetchMetadata(); }, 5000);
         fetchMetadata();
     }
     
@@ -680,7 +704,7 @@
     setLiveStatus(true);
     initEqualizer();
     
-    // CHAT - DÜZELTİLDİ: Herkes herkesin mesajını görecek
+    // CHAT - DÜZELTİLDİ: Herkesin ismi görünecek, iPhone zoom sorunu çözüldü
     const chatPopup = document.getElementById('chatPopup');
     const chatOverlay = document.getElementById('chatOverlay');
     const chatCloseBtn = document.getElementById('chatCloseBtn');
@@ -726,7 +750,7 @@
         else if (pwd !== null) alert("Şifre yanlış!");
     };
     
-    // DÜZELTİLDİ: Herkes her mesajı görecek, admin her mesajı silebilecek
+    // DÜZELTİLDİ: HERKESİN İSMİ GÖRÜNECEK (WhatsApp tarzı kaldırıldı)
     onChildAdded(messagesRef, (snapshot) => {
         if (!isLiveActive || !chatMessagesDiv) return;
         const data = snapshot.val();
@@ -740,13 +764,8 @@
         const div = document.createElement('div');
         div.className = isSelf ? 'chat-message sent' : 'chat-message received';
         
-        if (isSelf) {
-            // Kendi mesajım: ismim görünmez (WhatsApp tarzı)
-            div.innerHTML = `${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
-        } else {
-            // Başkasının mesajı: ismi görünür
-            div.innerHTML = `<div class="chat-message-username">${escapeHtml(messageSender)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
-        }
+        // HER MESAJDA KULLANICI ADI GÖSTERİLİR (kendi mesajında da)
+        div.innerHTML = `<div class="chat-message-username">${escapeHtml(messageSender)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
         
         // Admin (kullanıcı adı 'admin' olan) her mesajı silebilir
         if (currentUser === 'admin') {
