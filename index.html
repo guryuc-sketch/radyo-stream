@@ -8,7 +8,12 @@
     <meta name="keywords" content="kültür sanat blogu, dijital sanat, web radyo, şiir, müzik, fotoğraf sanatı, VOM, sanat blogu, radyo dinle, edebiyat, sinema, minimalist fotoğraf, Türk sanatçılar">
     <meta name="author" content="VOM YAYIN">
     <link rel="canonical" href="https://vomyayin.dpdns.org/">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+   
+	<!-- FAVICON -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
     
     <!-- Kritik preconnect'ler -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +39,9 @@
         body.dark-mode .button{background:#334155}
         body.dark-mode .search-input-side{background:#334155;border-color:#475569;color:#f1f5f9}
         body.dark-mode .comment-item{background:#0f172a}
-        body.dark-mode .editor-note{background:#2d3a4e;border-left-color:#f5b042}
+        body.dark-mode .editor-note{background:#2d3a4e;border-left-color:#f5b042;color:#e2e8f0}
+        body.dark-mode .editor-note p{color:#cbd5e1}
+		body.dark-mode #header h1 a{color:#f1f5f9;background:none}
         
         #wrapper{max-width:1300px;margin:0 auto;padding:0.75rem;display:flex;flex-direction:column;gap:1rem}
         @media (min-width:992px){
@@ -48,7 +55,7 @@
         @media (min-width:480px){#header{flex-direction:row;justify-content:space-between;align-items:center;padding:1rem 1.5rem}}
         #header h1 a{font-size:2rem;font-weight:900;text-decoration:none;background:linear-gradient(135deg,#1a2a3a,#2c3e66);background-clip:text;color:transparent}
         
-        .issue-number{font-size:0.8rem;font-weight:500;background:#eef2f6;padding:0.2rem 0.6rem;border-radius:30px;color:#2c5f8a}
+        .issue-number{font-size:0.8rem;font-weight:500;background:#eef2f6;padding:0.2rem 0.6rem;border-radius:30px;color:#2c5f8a;margin-left:12px}
         .links ul{display:flex;flex-wrap:wrap;gap:1rem;list-style:none;align-items:center}
         .links a{text-decoration:none;color:#4a5568;font-weight:500;font-size:0.9rem;cursor:pointer}
         .links a:hover{color:#2c5f8a}
@@ -120,6 +127,13 @@
         
         @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         .post{animation:fadeInUp 0.3s ease}
+		        /* Cep telefonu için iletişim metni */
+        @media (max-width: 550px) {
+            .contact-bottom p {
+                font-size: 0.7rem;
+                line-height: 1.4;
+            }
+        }
     </style>
 </head>
 <body>
