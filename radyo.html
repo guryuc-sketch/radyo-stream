@@ -9,7 +9,7 @@
     <meta name="author" content="VOM YAYIN">
     <link rel="canonical" href="https://vomyayin.dpdns.org/">
     
-	<!-- FAVICON -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -558,51 +558,77 @@
     setInterval(updateDigitalClock, 200);
     updateDigitalClock();
     
+    // DÜZELTİLMİŞ fetchMetadata - Playlist ve title'dan okuyor, 2 saniyede güncelleniyor
     async function fetchMetadata() {
         try {
             const response = await fetch(STATUS_URL);
             const data = await response.json();
-            let currentTitle = null, currentArtist = null;
             
+            let currentTitle = null;
+            let currentArtist = null;
+            
+            // 1. Önce playlist'ten al (en güvenilir kaynak)
             if (data.icestats?.source?.playlist?.trackList) {
                 const trackList = data.icestats.source.playlist.trackList;
                 if (Array.isArray(trackList) && trackList.length > 0) {
                     const lastTrack = trackList[trackList.length - 1];
-                    if (lastTrack?.title) {
+                    if (lastTrack?.title && lastTrack.title !== "null") {
                         const parts = lastTrack.title.split(" - ");
                         if (parts.length >= 2) {
-                            currentArtist = parts[0];
-                            currentTitle = parts.slice(1).join(" - ");
+                            currentArtist = parts[0].trim();
+                            currentTitle = parts.slice(1).join(" - ").trim();
                         } else {
-                            currentTitle = lastTrack.title;
+                            currentTitle = lastTrack.title.trim();
                         }
                     }
                 }
             }
-            if (!currentTitle && data.icestats?.source?.title && data.icestats.source.title !== "null") {
-                const parts = data.icestats.source.title.split(" - ");
-                if (parts.length >= 2) {
-                    currentArtist = parts[0];
-                    currentTitle = parts.slice(1).join(" - ");
-                } else {
-                    currentTitle = data.icestats.source.title;
+            
+            // 2. x_icy_title'dan al (playlist yoksa veya boşsa)
+            if (!currentTitle && data.icestats?.source?.metadata?.["x_icy_title"]) {
+                const icyTitle = data.icestats.source.metadata["x_icy_title"];
+                if (icyTitle && icyTitle !== "null") {
+                    const parts = icyTitle.split(" - ");
+                    if (parts.length >= 2) {
+                        currentArtist = parts[0].trim();
+                        currentTitle = parts.slice(1).join(" - ").trim();
+                    } else {
+                        currentTitle = icyTitle.trim();
+                    }
                 }
             }
             
-            if (currentTitle) {
+            // 3. title'dan al (son çare)
+            if (!currentTitle && data.icestats?.source?.title && data.icestats.source.title !== "null") {
+                const parts = data.icestats.source.title.split(" - ");
+                if (parts.length >= 2) {
+                    currentArtist = parts[0].trim();
+                    currentTitle = parts.slice(1).join(" - ").trim();
+                } else {
+                    currentTitle = data.icestats.source.title.trim();
+                }
+            }
+            
+            // 4. Kayan yazıyı güncelle
+            if (currentTitle && currentTitle !== "") {
                 const displayText = currentArtist ? `${currentArtist} - ${currentTitle}` : currentTitle;
                 const cleanText = displayText.substring(0, 60);
                 const escapeHtml = (str) => str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
                 marqueeSpan.innerHTML = `<span><i class="fas fa-music" aria-hidden="true"></i> ${escapeHtml(cleanText)}</span><span><i class="fas fa-music" aria-hidden="true"></i> ${escapeHtml(cleanText)}</span>`;
                 if(subArtistSpan) subArtistSpan.innerText = currentArtist || "VOM RADYO";
+                console.log("🎵 Şarkı:", displayText);
+            } else {
+                console.log("⏳ Şarkı bilgisi bekleniyor...");
             }
-        } catch(e) {}
+        } catch(e) {
+            console.log("❌ Metadata hatası:", e);
+        }
     }
     
     function startMetadataUpdater() {
         if (metadataInterval) clearInterval(metadataInterval);
-        // 10 saniyeden 5 saniyeye düşürüldü (şarkı adı daha hızlı güncellenir)
-        metadataInterval = setInterval(() => { if (isPlaying && isLiveActive) fetchMetadata(); }, 5000);
+        // 2 saniyede bir güncelle (anında gösterim için)
+        metadataInterval = setInterval(() => { if (isPlaying && isLiveActive) fetchMetadata(); }, 2000);
         fetchMetadata();
     }
     
@@ -709,7 +735,7 @@
     setLiveStatus(true);
     initEqualizer();
     
-    // CHAT - DÜZELTİLDİ: Herkesin ismi görünecek, iPhone zoom sorunu çözüldü
+    // CHAT - HERKESİN İSMİ GÖRÜNÜYOR
     const chatPopup = document.getElementById('chatPopup');
     const chatOverlay = document.getElementById('chatOverlay');
     const chatCloseBtn = document.getElementById('chatCloseBtn');
@@ -755,7 +781,7 @@
         else if (pwd !== null) alert("Şifre yanlış!");
     };
     
-    // DÜZELTİLDİ: HERKESİN İSMİ GÖRÜNECEK (WhatsApp tarzı kaldırıldı)
+    // HER MESAJDA KULLANICI ADI GÖSTERİLİR
     onChildAdded(messagesRef, (snapshot) => {
         if (!isLiveActive || !chatMessagesDiv) return;
         const data = snapshot.val();
@@ -769,10 +795,10 @@
         const div = document.createElement('div');
         div.className = isSelf ? 'chat-message sent' : 'chat-message received';
         
-        // HER MESAJDA KULLANICI ADI GÖSTERİLİR (kendi mesajında da)
+        // HER MESAJDA KULLANICI ADI GÖSTERİLİR
         div.innerHTML = `<div class="chat-message-username">${escapeHtml(messageSender)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
         
-        // Admin (kullanıcı adı 'admin' olan) her mesajı silebilir
+        // Admin silme butonu
         if (currentUser === 'admin') {
             div.innerHTML += `<button onclick="window.deleteChatMessage('${snapshot.key}')" style="margin-left:8px; background:#e33b3b; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; color:white; font-size:10px;" aria-label="Sil">🗑</button>`;
         }
