@@ -499,6 +499,7 @@
     const liveDigitalClock = document.getElementById('liveDigitalClock');
     const listenerNumberSpan = document.getElementById('listenerNumber');
     const chatButtonSide = document.getElementById('chatButtonSide');
+    const chatMessagesDiv = document.getElementById('chatMessages');
     
     let isPlaying = false;
     let isLiveActive = false;
@@ -628,41 +629,63 @@
         if (isLiveActive) fetchMetadata();
     }
     
-    // Yayın durumunu kontrol et
+    // Yayın durumunu kontrol et (Chat silme garantili)
     async function checkStreamStatus() {
         try {
             const response = await fetch(STATUS_URL);
             const data = await response.json();
-            const source = data.icestats?.source;
-            const hasSource = source && (source.listeners !== undefined || source.title !== null || source.playlist?.trackList?.length > 0);
             
+            // 1. Yayın varlığını güvenilir şekilde tespit et
+            const source = data.icestats?.source;
+            let hasSource = false;
+            
+            if (source) {
+                if (source.listeners !== undefined || source.title !== null || source.playlist?.trackList?.length > 0) {
+                    hasSource = true;
+                }
+                if (!hasSource && source.server_type === "audio/mpeg") {
+                    hasSource = true;
+                }
+            }
+            
+            // 2. Yayın VAR ise
             if (hasSource) {
-                // Yayın VAR - KIRMIZI + CANLI
                 if (!isLiveActive) {
                     isLiveActive = true;
                     liveBadge.classList.remove("offline");
                     liveBadge.innerText = "CANLI";
                     streamStatusSpan.innerText = "Yayın hazır, başlatmak için Play";
                     if (chatButtonSide) chatButtonSide.classList.remove("offline");
-                    document.getElementById('chatStatus').innerText = "💬 Sohbet aktif, yayın devam ediyor!";
+                    const chatStatusDiv = document.getElementById('chatStatus');
+                    if (chatStatusDiv) chatStatusDiv.innerText = "💬 Sohbet aktif, yayın devam ediyor!";
                 }
-            } else {
-                // Yayın YOK - GRİ + YAYIN YOK
+            } 
+            // 3. Yayın YOK ise
+            else {
                 if (isLiveActive || isPlaying) {
                     if (isPlaying) {
                         audio.pause();
                         isPlaying = false;
                         playPauseIcon.className = "fas fa-play";
                     }
+                    
                     isLiveActive = false;
                     liveBadge.classList.add("offline");
                     liveBadge.innerText = "YAYIN YOK";
                     streamStatusSpan.innerText = "Yayın kapalı";
                     if (chatButtonSide) chatButtonSide.classList.add("offline");
-                    document.getElementById('chatStatus').innerText = "Yayın aktif değil, sohbet kapalı.";
+                    const chatStatusDiv = document.getElementById('chatStatus');
+                    if (chatStatusDiv) chatStatusDiv.innerText = "Yayın aktif değil, sohbet kapalı.";
                     
-                    // TÜM CHAT MESAJLARINI SİL
-                    remove(messagesRef).catch(() => {});
+                    // --- TÜM CHAT MESAJLARINI SİL (Kesin çözüm) ---
+                    remove(messagesRef)
+                        .then(() => {
+                            console.log("Yayın bitti, Firebase mesajları başarıyla temizlendi.");
+                            if (chatMessagesDiv) {
+                                chatMessagesDiv.innerHTML = '<div class="chat-system">💬 Yayın başlayınca sohbet aktif olur.</div>';
+                            }
+                        })
+                        .catch(err => console.error("Chat temizlenemedi:", err));
                     
                     if (metadataInterval) clearInterval(metadataInterval);
                     if (listenerInterval) clearInterval(listenerInterval);
@@ -676,7 +699,7 @@
                 }
             }
         } catch(e) {
-            // Bağlantı sorunu - GRİ + BAĞLANTI YOK
+            console.error("checkStreamStatus hatası (Bağlantı sorunu):", e);
             if (isLiveActive || isPlaying) {
                 if (isPlaying) {
                     audio.pause();
@@ -688,7 +711,10 @@
                 liveBadge.innerText = "BAĞLANTI YOK";
                 streamStatusSpan.innerText = "Sunucuya bağlanılamıyor";
                 if (chatButtonSide) chatButtonSide.classList.add("offline");
-                document.getElementById('chatStatus').innerText = "Sunucu bağlantısı yok.";
+                const chatStatusDiv = document.getElementById('chatStatus');
+                if (chatStatusDiv) chatStatusDiv.innerText = "Sunucu bağlantısı yok.";
+                
+                remove(messagesRef).catch(() => {});
             }
         }
     }
@@ -791,7 +817,6 @@
     const chatUsername = document.getElementById('chatUsername');
     const chatInput = document.getElementById('chatInput');
     const chatSendBtn = document.getElementById('chatSendBtn');
-    const chatMessagesDiv = document.getElementById('chatMessages');
     
     const escapeHtmlChat = (str) => { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); };
     
