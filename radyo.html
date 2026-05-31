@@ -400,7 +400,7 @@
     <main class="radio-container" id="radioContainer">
         <div class="radio-header">
             <div class="station-name"><i class="fas fa-broadcast-tower" aria-hidden="true"></i> <span>VOM RADYO</span></div>
-            <div class="live-badge" id="liveBadge">CANLI</div>
+            <div class="live-badge" id="liveBadge">YAYIN YOK</div>
         </div>
         <div class="song-info-panel">
             <div class="current-track">
@@ -418,12 +418,12 @@
                 </div>
                 <div class="track-marquee">
                     <div class="marquee-content" id="marqueeTrack">
-                        <span><i class="fas fa-music" aria-hidden="true"></i> VOM Canlı Yayın</span>
-                        <span><i class="fas fa-music" aria-hidden="true"></i> VOM Canlı Yayın</span>
+                        <span><i class="fas fa-music" aria-hidden="true"></i> Yayın Bekleniyor</span>
+                        <span><i class="fas fa-music" aria-hidden="true"></i> Yayın Bekleniyor</span>
                     </div>
                 </div>
                 <div class="track-artist-line" id="artistSubline">
-                    <span><i class="fas fa-headphones" aria-hidden="true"></i> <span id="subArtistText">Pop · Rock · Kültür Sanat</span></span>
+                    <span><i class="fas fa-headphones" aria-hidden="true"></i> <span id="subArtistText">VOM RADYO</span></span>
                     <span><i class="fas fa-waveform" aria-hidden="true"></i> Dijital Stereo</span>
                 </div>
             </div>
@@ -438,11 +438,11 @@
             <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7" aria-label="Ses seviyesi">
             <i class="fas fa-volume-up" aria-hidden="true"></i>
         </div>
-        <div class="chat-button" id="chatButtonSide">
+        <div class="chat-button offline" id="chatButtonSide">
             <a href="#" id="chatLinkSide"><i class="fab fa-whatsapp" aria-hidden="true"></i> Canlı Sohbet</a>
         </div>
         <div class="credit">
-            <i class="fas fa-headphones" aria-hidden="true"></i> 7/24 canlı yayın · <span id="streamStatusText">Başlatmak için oynat</span>
+            <i class="fas fa-headphones" aria-hidden="true"></i> <span id="streamStatusText">Yayın bekleniyor</span>
         </div>
     </main>
 
@@ -453,14 +453,14 @@
             <button class="chat-close" id="chatCloseBtn" aria-label="Kapat">&times;</button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="chat-system">💬 Yayın devam ederken sohbet aktif olur.</div>
+            <div class="chat-system">💬 Yayın başlayınca sohbet aktif olur.</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="chatUsername" placeholder="👤 Kullanıcı adınız" aria-label="Kullanıcı adı">
             <textarea id="chatInput" placeholder="💬 Mesajınızı yazın (Enter gönder)" rows="1" aria-label="Mesaj"></textarea>
             <button id="chatSendBtn" aria-label="Gönder"><i class="fas fa-paper-plane" aria-hidden="true"></i> Gönder</button>
         </div>
-        <div class="chat-status" id="chatStatus">Sohbet sadece canlı yayında açıktır.</div>
+        <div class="chat-status" id="chatStatus">Yayın aktif değil, sohbet kapalı.</div>
     </div>
 
 <script type="module">
@@ -498,17 +498,20 @@
     const subArtistSpan = document.getElementById('subArtistText');
     const liveDigitalClock = document.getElementById('liveDigitalClock');
     const listenerNumberSpan = document.getElementById('listenerNumber');
+    const chatButtonSide = document.getElementById('chatButtonSide');
     
     let isPlaying = false;
-    let isLiveActive = true;
+    let isLiveActive = false;
     let metadataInterval = null;
     let listenerInterval = null;
     let eqAnimationId = null;
     let eqBars = [];
     let reconnectAttempt = 0;
     let reconnectTimeout = null;
+    let statusCheckInterval = null;
 
     async function fetchListenerCount() {
+        if (!isLiveActive) return;
         try {
             const response = await fetch(STATUS_URL);
             const data = await response.json();
@@ -528,7 +531,7 @@
     function startListenerUpdater() {
         if (listenerInterval) clearInterval(listenerInterval);
         listenerInterval = setInterval(() => { if (isPlaying && isLiveActive) fetchListenerCount(); }, 15000);
-        fetchListenerCount();
+        if (isLiveActive) fetchListenerCount();
     }
     
     function initEqualizer() {
@@ -558,8 +561,8 @@
     setInterval(updateDigitalClock, 200);
     updateDigitalClock();
     
-    // DÜZELTİLMİŞ fetchMetadata - Playlist ve title'dan okuyor, 2 saniyede güncelleniyor
     async function fetchMetadata() {
+        if (!isLiveActive) return;
         try {
             const response = await fetch(STATUS_URL);
             const data = await response.json();
@@ -567,7 +570,6 @@
             let currentTitle = null;
             let currentArtist = null;
             
-            // 1. Önce playlist'ten al (en güvenilir kaynak)
             if (data.icestats?.source?.playlist?.trackList) {
                 const trackList = data.icestats.source.playlist.trackList;
                 if (Array.isArray(trackList) && trackList.length > 0) {
@@ -584,7 +586,6 @@
                 }
             }
             
-            // 2. x_icy_title'dan al (playlist yoksa veya boşsa)
             if (!currentTitle && data.icestats?.source?.metadata?.["x_icy_title"]) {
                 const icyTitle = data.icestats.source.metadata["x_icy_title"];
                 if (icyTitle && icyTitle !== "null") {
@@ -598,7 +599,6 @@
                 }
             }
             
-            // 3. title'dan al (son çare)
             if (!currentTitle && data.icestats?.source?.title && data.icestats.source.title !== "null") {
                 const parts = data.icestats.source.title.split(" - ");
                 if (parts.length >= 2) {
@@ -609,7 +609,6 @@
                 }
             }
             
-            // 4. Kayan yazıyı güncelle
             if (currentTitle && currentTitle !== "") {
                 const displayText = currentArtist ? `${currentArtist} - ${currentTitle}` : currentTitle;
                 const cleanText = displayText.substring(0, 60);
@@ -617,8 +616,6 @@
                 marqueeSpan.innerHTML = `<span><i class="fas fa-music" aria-hidden="true"></i> ${escapeHtml(cleanText)}</span><span><i class="fas fa-music" aria-hidden="true"></i> ${escapeHtml(cleanText)}</span>`;
                 if(subArtistSpan) subArtistSpan.innerText = currentArtist || "VOM RADYO";
                 console.log("🎵 Şarkı:", displayText);
-            } else {
-                console.log("⏳ Şarkı bilgisi bekleniyor...");
             }
         } catch(e) {
             console.log("❌ Metadata hatası:", e);
@@ -627,46 +624,72 @@
     
     function startMetadataUpdater() {
         if (metadataInterval) clearInterval(metadataInterval);
-        // 2 saniyede bir güncelle (anında gösterim için)
         metadataInterval = setInterval(() => { if (isPlaying && isLiveActive) fetchMetadata(); }, 2000);
-        fetchMetadata();
+        if (isLiveActive) fetchMetadata();
     }
     
-    function setLiveStatus(live) {
-        isLiveActive = live;
-        if (live) {
-            liveBadge.innerText = "CANLI";
-            liveBadge.classList.remove("offline");
-            streamStatusSpan.innerText = "🔴 Canlı yayın";
-            const chatBtn = document.getElementById('chatButtonSide');
-            if(chatBtn) chatBtn.classList.remove("offline");
-            if (isPlaying) {
-                startMetadataUpdater();
-                startListenerUpdater();
+    // Yayın durumunu kontrol et
+    async function checkStreamStatus() {
+        try {
+            const response = await fetch(STATUS_URL);
+            const data = await response.json();
+            const source = data.icestats?.source;
+            const hasSource = source && (source.listeners !== undefined || source.title !== null || source.playlist?.trackList?.length > 0);
+            
+            if (hasSource) {
+                // Yayın VAR - KIRMIZI + CANLI
+                if (!isLiveActive) {
+                    isLiveActive = true;
+                    liveBadge.classList.remove("offline");
+                    liveBadge.innerText = "CANLI";
+                    streamStatusSpan.innerText = "Yayın hazır, başlatmak için Play";
+                    if (chatButtonSide) chatButtonSide.classList.remove("offline");
+                    document.getElementById('chatStatus').innerText = "💬 Sohbet aktif, yayın devam ediyor!";
+                }
+            } else {
+                // Yayın YOK - GRİ + YAYIN YOK
+                if (isLiveActive || isPlaying) {
+                    if (isPlaying) {
+                        audio.pause();
+                        isPlaying = false;
+                        playPauseIcon.className = "fas fa-play";
+                    }
+                    isLiveActive = false;
+                    liveBadge.classList.add("offline");
+                    liveBadge.innerText = "YAYIN YOK";
+                    streamStatusSpan.innerText = "Yayın kapalı";
+                    if (chatButtonSide) chatButtonSide.classList.add("offline");
+                    document.getElementById('chatStatus').innerText = "Yayın aktif değil, sohbet kapalı.";
+                    
+                    // TÜM CHAT MESAJLARINI SİL
+                    remove(messagesRef).catch(() => {});
+                    
+                    if (metadataInterval) clearInterval(metadataInterval);
+                    if (listenerInterval) clearInterval(listenerInterval);
+                    if (eqAnimationId) cancelAnimationFrame(eqAnimationId);
+                    eqAnimationId = null;
+                    if (eqBars.length) eqBars.forEach(bar => bar.style.height = '6px');
+                    if (listenerNumberSpan) listenerNumberSpan.innerText = "0";
+                    
+                    marqueeSpan.innerHTML = `<span><i class="fas fa-music"></i> Yayın Bekleniyor</span><span><i class="fas fa-music"></i> Yayın Bekleniyor</span>`;
+                    if(subArtistSpan) subArtistSpan.innerText = "VOM RADYO";
+                }
             }
-            const statusDiv = document.getElementById('chatStatus');
-            if (statusDiv) statusDiv.innerText = "💬 Sohbet aktif, yayın devam ediyor!";
-            if(!eqAnimationId) initEqualizer();
-            reconnectAttempt = 0;
-        } else {
-            remove(messagesRef).catch(() => {});
-            liveBadge.innerText = "YAYIN YOK";
-            liveBadge.classList.add("offline");
-            streamStatusSpan.innerText = "⛔ Yayın kapalı";
-            const chatBtn = document.getElementById('chatButtonSide');
-            if(chatBtn) chatBtn.classList.add("offline");
-            if (listenerInterval) clearInterval(listenerInterval);
-            if (listenerNumberSpan) listenerNumberSpan.innerText = "0";
-            const chatMessagesDiv = document.getElementById('chatMessages');
-            if(chatMessagesDiv) chatMessagesDiv.innerHTML = '<div class="chat-system">💬 Yayın devam ederken sohbet aktif olur.</div>';
-            const popup = document.getElementById('chatPopup');
-            const overlay = document.getElementById('chatOverlay');
-            if (popup) popup.classList.remove('active');
-            if (overlay) overlay.classList.remove('active');
-            document.body.style.overflow = '';
-            if (eqAnimationId) cancelAnimationFrame(eqAnimationId);
-            eqAnimationId = null;
-            if(eqBars.length) eqBars.forEach(bar => bar.style.height = '6px');
+        } catch(e) {
+            // Bağlantı sorunu - GRİ + BAĞLANTI YOK
+            if (isLiveActive || isPlaying) {
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    playPauseIcon.className = "fas fa-play";
+                }
+                isLiveActive = false;
+                liveBadge.classList.add("offline");
+                liveBadge.innerText = "BAĞLANTI YOK";
+                streamStatusSpan.innerText = "Sunucuya bağlanılamıyor";
+                if (chatButtonSide) chatButtonSide.classList.add("offline");
+                document.getElementById('chatStatus').innerText = "Sunucu bağlantısı yok.";
+            }
         }
     }
     
@@ -674,7 +697,11 @@
         if (!isPlaying) return;
         if (reconnectTimeout) clearTimeout(reconnectTimeout);
         reconnectAttempt++;
-        if (reconnectAttempt > 3) { setLiveStatus(false); reconnectAttempt = 0; return; }
+        if (reconnectAttempt > 3) { 
+            if (chatButtonSide) chatButtonSide.classList.add("offline");
+            reconnectAttempt = 0; 
+            return; 
+        }
         streamStatusSpan.innerText = `🔄 Yeniden bağlanıyor (${reconnectAttempt}/3)...`;
         setTimeout(() => { if (isPlaying) { audio.load(); audio.play().catch(() => {}); } }, 2000);
     }
@@ -682,26 +709,45 @@
     function initAudioEvents() {
         audio.addEventListener('error', () => { if (isPlaying && isLiveActive) attemptReconnect(); });
         audio.addEventListener('stalled', () => { if (isPlaying && isLiveActive && audio.readyState < 2) attemptReconnect(); });
-        audio.addEventListener('canplay', () => { if (!isLiveActive) setLiveStatus(true); audio.volume = parseFloat(volumeSlider.value); });
-        audio.addEventListener('playing', () => { if (!isLiveActive) setLiveStatus(true); startMetadataUpdater(); startListenerUpdater(); if(!eqAnimationId) initEqualizer(); reconnectAttempt = 0; });
-        audio.addEventListener('pause', () => { if (metadataInterval) clearInterval(metadataInterval); if (listenerInterval) clearInterval(listenerInterval); if(eqAnimationId) cancelAnimationFrame(eqAnimationId); eqAnimationId = null; if(eqBars.length) eqBars.forEach(bar => bar.style.height = '6px'); });
+        audio.addEventListener('canplay', () => { audio.volume = parseFloat(volumeSlider.value); });
+        audio.addEventListener('playing', () => { 
+            startMetadataUpdater(); 
+            startListenerUpdater(); 
+            if(!eqAnimationId) initEqualizer(); 
+            reconnectAttempt = 0;
+            streamStatusSpan.innerText = "🔴 Canlı yayın";
+        });
+        audio.addEventListener('pause', () => { 
+            if (metadataInterval) clearInterval(metadataInterval); 
+            if (listenerInterval) clearInterval(listenerInterval); 
+            if(eqAnimationId) cancelAnimationFrame(eqAnimationId); 
+            eqAnimationId = null; 
+            if(eqBars.length) eqBars.forEach(bar => bar.style.height = '6px'); 
+        });
     }
     
     function playRadio() {
-        if (!isLiveActive) setLiveStatus(true);
+        if (!isLiveActive) {
+            alert("📻 Yayın şu anda aktif değil. Lütfen daha sonra tekrar deneyin.");
+            return;
+        }
         audio.play().then(() => {
             isPlaying = true;
             playPauseIcon.className = "fas fa-pause";
             initEqualizer();
             startListenerUpdater();
-        }).catch(() => { setLiveStatus(false); alert("Yayın bağlantısı kurulamadı."); });
+            startMetadataUpdater();
+        }).catch((err) => { 
+            console.error("Play hatası:", err);
+            alert("Yayın bağlantısı kurulamadı. Lütfen daha sonra tekrar deneyin."); 
+        });
     }
     
     function pauseRadio() {
         audio.pause();
         isPlaying = false;
         playPauseIcon.className = "fas fa-play";
-        streamStatusSpan.innerText = "⏸ Durduruldu";
+        streamStatusSpan.innerText = "Durduruldu";
         if (metadataInterval) clearInterval(metadataInterval);
         if (listenerInterval) clearInterval(listenerInterval);
         if(eqAnimationId) cancelAnimationFrame(eqAnimationId);
@@ -715,7 +761,7 @@
         audio.currentTime = 0;
         isPlaying = false;
         playPauseIcon.className = "fas fa-play";
-        streamStatusSpan.innerText = "⏹ Durduruldu";
+        streamStatusSpan.innerText = "Durduruldu";
         if (metadataInterval) clearInterval(metadataInterval);
         if (listenerInterval) clearInterval(listenerInterval);
         if(eqAnimationId) cancelAnimationFrame(eqAnimationId);
@@ -727,25 +773,27 @@
     const togglePlay = () => { isPlaying ? pauseRadio() : playRadio(); };
     playBtn.onclick = togglePlay;
     mainPlayPause.onclick = togglePlay;
-    stopBtn.onclick = () => { if (isPlaying) stopRadio(); else { audio.pause(); audio.currentTime = 0; streamStatusSpan.innerText = "⏹ Durduruldu"; if(eqAnimationId) cancelAnimationFrame(eqAnimationId); if(eqBars.length) eqBars.forEach(b => b.style.height='6px'); if(listenerNumberSpan) listenerNumberSpan.innerText = "0";} };
+    stopBtn.onclick = () => { if (isPlaying) stopRadio(); else { audio.pause(); audio.currentTime = 0; streamStatusSpan.innerText = "Durduruldu"; if(eqAnimationId) cancelAnimationFrame(eqAnimationId); if(eqBars.length) eqBars.forEach(b => b.style.height='6px'); if(listenerNumberSpan) listenerNumberSpan.innerText = "0";} };
     volumeSlider.addEventListener('input', (e) => { audio.volume = parseFloat(e.target.value); });
     
     initAudioEvents();
     audio.volume = volumeSlider.value;
-    setLiveStatus(true);
     initEqualizer();
     
-    // CHAT - HERKESİN İSMİ GÖRÜNÜYOR
+    // Yayın durumunu kontrol et
+    checkStreamStatus();
+    statusCheckInterval = setInterval(checkStreamStatus, 30000);
+    
+    // CHAT
     const chatPopup = document.getElementById('chatPopup');
     const chatOverlay = document.getElementById('chatOverlay');
     const chatCloseBtn = document.getElementById('chatCloseBtn');
-    const chatButtonSide = document.getElementById('chatButtonSide');
     const chatUsername = document.getElementById('chatUsername');
     const chatInput = document.getElementById('chatInput');
     const chatSendBtn = document.getElementById('chatSendBtn');
     const chatMessagesDiv = document.getElementById('chatMessages');
     
-    const escapeHtml = (str) => { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); };
+    const escapeHtmlChat = (str) => { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); };
     
     chatButtonSide?.addEventListener('click', (e) => {
         e.preventDefault();
@@ -753,7 +801,9 @@
             chatPopup.classList.add('active');
             chatOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-        } else { alert("Sohbet sadece canlı yayında açıktır."); }
+        } else { 
+            alert("Sohbet sadece canlı yayında açıktır."); 
+        }
     });
     chatCloseBtn?.addEventListener('click', () => {
         chatPopup.classList.remove('active');
@@ -767,7 +817,10 @@
     });
     
     function sendChatMessage() {
-        if (!isLiveActive) { alert("Sohbet sadece canlı yayında açıktır."); return; }
+        if (!isLiveActive) { 
+            alert("Sohbet sadece canlı yayında açıktır."); 
+            return; 
+        }
         const username = chatUsername?.value.trim();
         const message = chatInput?.value.trim();
         if (!message) return;
@@ -781,7 +834,6 @@
         else if (pwd !== null) alert("Şifre yanlış!");
     };
     
-    // HER MESAJDA KULLANICI ADI GÖSTERİLİR
     onChildAdded(messagesRef, (snapshot) => {
         if (!isLiveActive || !chatMessagesDiv) return;
         const data = snapshot.val();
@@ -795,10 +847,8 @@
         const div = document.createElement('div');
         div.className = isSelf ? 'chat-message sent' : 'chat-message received';
         
-        // HER MESAJDA KULLANICI ADI GÖSTERİLİR
-        div.innerHTML = `<div class="chat-message-username">${escapeHtml(messageSender)}</div>${escapeHtml(data.message)}<div class="chat-message-time">${timeStr}</div>`;
+        div.innerHTML = `<div class="chat-message-username">${escapeHtmlChat(messageSender)}</div>${escapeHtmlChat(data.message)}<div class="chat-message-time">${timeStr}</div>`;
         
-        // Admin silme butonu
         if (currentUser === 'admin') {
             div.innerHTML += `<button onclick="window.deleteChatMessage('${snapshot.key}')" style="margin-left:8px; background:#e33b3b; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; color:white; font-size:10px;" aria-label="Sil">🗑</button>`;
         }
