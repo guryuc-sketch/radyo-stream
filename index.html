@@ -9,22 +9,18 @@
     <meta name="author" content="VOM YAYIN">
     <link rel="canonical" href="https://vomyayin.dpdns.org/">
    
-    <!-- FAVICON -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
     
-    <!-- Fontlar -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
 
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
@@ -115,9 +111,8 @@
         .comments-section{margin-top:1rem;padding-top:0.8rem;border-top:1px solid #eef2f6;display:none}
         .comments-title{font-size:0.85rem;font-weight:600;color:#475569;margin-bottom:0.5rem}
         .comments-list{max-height:300px;overflow-y:auto;margin-bottom:0.8rem}
-        .comment-item{background:#f8fafc;padding:0.6rem;border-radius:12px;margin-bottom:0.5rem;font-size:0.75rem;position:relative}
-        .delete-comment{position:absolute;right:8px;top:8px;background:#e33b3b;color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:0.7rem;cursor:pointer;display:none}
-        .comment-item:hover .delete-comment{display:inline-block}
+        .comment-item{background:#f8fafc;padding:0.6rem 2rem 0.6rem 0.6rem;border-radius:12px;margin-bottom:0.5rem;font-size:0.75rem;position:relative}
+        .delete-comment{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#e33b3b;color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:0.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
         .add-comment-form{display:flex;flex-direction:column;gap:0.5rem}
         .comment-input,.comment-text{padding:0.5rem 0.8rem;border:1px solid #e2e8f0;border-radius:30px;font-size:0.8rem;outline:none}
         .comment-text{border-radius:16px;resize:vertical}
@@ -142,18 +137,6 @@
         @media (max-width: 550px) {
             .contact-bottom p {font-size: 0.7rem;line-height: 1.4;}
         }
-        
-        .admin-btn {
-            background: #2c5f8a;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.7rem;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .admin-btn:hover { opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -200,11 +183,7 @@ Dosya kapağını araladık, sayfaları açtık. Sıradaki kaos çok yakında; h
 
     <div id="main">
         <header id="header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <h1><a href="#" id="resetHomeLink">VOMblog.</a><span class="issue-number">Sayı 1</span></h1>
-                <button id="adminLoginBtn" class="admin-btn"><i class="fas fa-user-shield"></i> Admin Giriş</button>
-                <button id="adminLogoutBtn" class="admin-btn" style="display:none; background:#555;"><i class="fas fa-sign-out-alt"></i> Çıkış</button>
-            </div>
+            <h1><a href="#" id="resetHomeLink">VOMblog.</a><span class="issue-number">Sayı 1</span></h1>
             <nav class="links">
                 <ul>
                     <li><a href="#" id="resetHomeLinkBtn">Ana Sayfa</a></li>
@@ -546,7 +525,7 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
 </main>
 
 <script>
-// ============ FIREBASE KONFIGURASYON ============
+// FIREBASE KONFIG
 const firebaseConfig = {
     apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
     authDomain: "vom-yayin.firebaseapp.com",
@@ -559,9 +538,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const auth = firebase.auth();
-
-let currentUser = null;
 
 function escapeHtml(str) {
     if (!str) return '';
@@ -575,9 +551,7 @@ function escapeHtml(str) {
 
 function formatDate(date) {
     if (!date) return '';
-    let d;
-    if (date.toDate) d = date.toDate();
-    else d = new Date(date);
+    let d = date.toDate ? date.toDate() : new Date(date);
     return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
 }
 
@@ -588,42 +562,44 @@ function loadComments(postId) {
         const countDisplay = document.querySelector('#comments-section-' + postId + ' .comment-count-display');
         const toggleCount = document.querySelector('.comment-toggle[data-post="' + postId + '"] .comment-count');
         if (!listDiv) return;
+        
         const comments = [];
         snapshot.forEach(function(doc) { comments.push({ id: doc.id, ...doc.data() }); });
+        
         if (comments.length === 0) {
             listDiv.innerHTML = '<div style="padding:0.5rem; text-align:center; color:#888;">Henüz yorum yok. İlk yorumu sen yap!</div>';
         } else {
             let html = '';
             comments.forEach(function(comment) {
-                html += '<div class="comment-item" data-comment-id="' + comment.id + '">';
+                html += '<div class="comment-item">';
                 html += '<strong>' + escapeHtml(comment.author) + '</strong>: ' + escapeHtml(comment.text);
                 if (comment.createdAt) html += '<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">' + formatDate(comment.createdAt) + '</div>';
-                if (currentUser) {
-                    html += '<button class="delete-comment" data-post="' + postId + '" data-comment-id="' + comment.id + '" style="display:inline-block;"><i class="fas fa-trash"></i></button>';
-                } else {
-                    html += '<button class="delete-comment" data-post="' + postId + '" data-comment-id="' + comment.id + '" style="display:none;"><i class="fas fa-trash"></i></button>';
-                }
+                html += '<button class="delete-comment" data-post="' + postId + '" data-id="' + comment.id + '"><i class="fas fa-trash"></i></button>';
                 html += '</div>';
             });
             listDiv.innerHTML = html;
-            if (currentUser) {
-                document.querySelectorAll('.delete-comment').forEach(function(btn) {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
+            
+            document.querySelectorAll('.delete-comment').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const pwd = prompt("Yorum silmek için şifre (vomadmin202):");
+                    if (pwd === "vomadmin202") {
                         const postIdVal = parseInt(this.dataset.post);
-                        const commentId = this.dataset.commentId;
-                        if (confirm("Bu yorumu silmek istediğinize emin misiniz?")) {
-                            db.collection('comments').doc('post_' + postIdVal).collection('allComments').doc(commentId).delete()
-                                .then(function() { alert("Yorum silindi."); })
-                                .catch(function(err) { alert("Silme hatası: " + err.message); });
-                        }
-                    });
+                        const commentId = this.dataset.id;
+                        db.collection('comments').doc('post_' + postIdVal).collection('allComments').doc(commentId).delete()
+                            .then(function() { alert("Yorum silindi."); })
+                            .catch(function(err) { alert("Silme hatası: " + err.message); });
+                    } else if (pwd !== null) {
+                        alert("Şifre yanlış!");
+                    }
                 });
-            }
+            });
         }
         if (countDisplay) countDisplay.innerText = comments.length;
         if (toggleCount) toggleCount.innerText = comments.length;
-    }, function(error) { console.error("Yorum yükleme hatası:", error); });
+    }, function(error) {
+        console.error("Yorum yükleme hatası:", error);
+    });
 }
 
 function addComment(postId, author, text) {
@@ -636,6 +612,7 @@ function addComment(postId, author, text) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Tarihler
     const bugun = new Date();
     const ay = bugun.toLocaleString('tr-TR', { month: 'long' });
     const yil = bugun.getFullYear();
@@ -644,36 +621,10 @@ document.addEventListener('DOMContentLoaded', function() {
         el.innerText = bugun.getDate() + ' ' + ay + ' ' + yil;
     });
     
-    const adminLoginBtn = document.getElementById('adminLoginBtn');
-    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+    // Tüm yorumları yükle
+    for (let i = 1; i <= 10; i++) loadComments(i);
     
-    auth.onAuthStateChanged(function(user) {
-        currentUser = user;
-        if (user) {
-            adminLoginBtn.style.display = 'none';
-            adminLogoutBtn.style.display = 'inline-block';
-            for (let i = 1; i <= 10; i++) loadComments(i);
-        } else {
-            adminLoginBtn.style.display = 'inline-block';
-            adminLogoutBtn.style.display = 'none';
-            for (let i = 1; i <= 10; i++) loadComments(i);
-        }
-    });
-    
-    adminLoginBtn.addEventListener('click', function() {
-        const email = prompt("Admin email (admin@vom.com):");
-        const password = prompt("Admin şifre (vomadmin202):");
-        if (email && password) {
-            auth.signInWithEmailAndPassword(email, password)
-                .then(function() { alert("Giriş başarılı! Artık yorumları silebilirsiniz."); location.reload(); })
-                .catch(function(err) { alert("Giriş başarısız: " + err.message); });
-        }
-    });
-    
-    adminLogoutBtn.addEventListener('click', function() {
-        auth.signOut().then(function() { alert("Çıkış yapıldı."); location.reload(); });
-    });
-    
+    // Devamını Oku
     document.querySelectorAll('.read-more-btn').forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -686,6 +637,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Yorum formlarını göster/gizle
     document.querySelectorAll('.comment-toggle').forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
             e.preventDefault();
@@ -695,6 +647,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Yorum gönderme
     document.querySelectorAll('.submit-comment').forEach(function(btn) {
         btn.addEventListener('click', function() {
             const pid = parseInt(this.dataset.post);
@@ -702,14 +655,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const textInput = document.getElementById('comment-text-' + pid);
             const author = nameInput ? nameInput.value.trim() : "Ziyaretçi";
             const text = textInput ? textInput.value.trim() : "";
-            if (text === "") { alert("Lütfen bir yorum yazın."); return; }
+            if (text === "") {
+                alert("Lütfen bir yorum yazın.");
+                return;
+            }
             addComment(pid, author, text).then(function() {
                 if (nameInput) nameInput.value = "";
                 if (textInput) textInput.value = "";
-            }).catch(function(err) { alert("Yorum eklenirken hata: " + err.message); });
+            }).catch(function(err) {
+                alert("Yorum eklenirken hata: " + err.message);
+            });
         });
     });
     
+    // Gece modu
     const isDark = localStorage.getItem('darkMode') === 'true';
     const toggle = document.getElementById('darkModeToggle');
     if (isDark) { document.body.classList.add('dark-mode'); toggle.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu'; }
@@ -722,17 +681,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Ana sayfa
     document.getElementById('resetHomeLink')?.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     document.getElementById('resetHomeLinkBtn')?.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     
+    // İletişim
     document.getElementById('contactNavLink')?.addEventListener('click', function(e) { e.preventDefault(); document.getElementById('contactSection')?.scrollIntoView({ behavior: 'smooth' }); });
     
+    // Arama
     const searchInput = document.getElementById('searchInputSide');
     const searchBtn = document.getElementById('searchBtnSide');
     function doSearch() { const q = searchInput.value.trim(); if(q) window.open('https://www.google.com/search?q=' + encodeURIComponent(q), '_blank'); else alert("Arama kelimesi yazın."); }
     if(searchBtn) searchBtn.addEventListener('click', doSearch);
     if(searchInput) searchInput.addEventListener('keypress', function(e) { if(e.key === 'Enter') doSearch(); });
     
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     window.closeLightbox = function() { lightbox.classList.remove('show'); document.body.style.overflow = ''; };
@@ -745,6 +708,7 @@ document.addEventListener('DOMContentLoaded', function() {
     lightbox?.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && lightbox?.classList.contains('show')) closeLightbox(); });
     
+    // Eski yazılar
     document.querySelectorAll('.old-posts-link a').forEach(function(link) { link.addEventListener('click', function(e) { e.preventDefault(); alert("Arşiv sayfası yakında eklenecek."); }); });
 });
 </script>
