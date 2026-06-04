@@ -42,7 +42,6 @@
         body.dark-mode .editor-note{background:#2d3a4e;border-left-color:#f5b042;color:#e2e8f0}
         body.dark-mode .editor-note p{color:#cbd5e1}
 		body.dark-mode #header h1 a{color:#f1f5f9;background:none}
-        /* Gece modunda yazar isimleri beyaz olacak */
         body.dark-mode .author .name{color:#ffffff !important; font-weight:600}
         body.dark-mode .meta a.author{color:#ffffff !important}
         
@@ -68,7 +67,6 @@
         .sidebar-card,.search-box-side{background:white;border-radius:20px;padding:1.2rem;margin-bottom:1.2rem;border:1px solid #eef2f6}
         .sidebar-card h3{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
         
-        /* Editör resim stili */
         .editor-image{margin-bottom:1rem;border-radius:16px;overflow:hidden}
         .editor-image img{width:100%;height:auto;display:block}
         
@@ -76,7 +74,6 @@
         .editor-note p{font-size:0.85rem;color:#4a5568;margin-bottom:0.5rem}
         .editor-date{font-size:0.7rem;color:#888}
         
-        /* Lightbox (Resim büyütme) stili */
         .lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;cursor:pointer;justify-content:center;align-items:center}
         .lightbox img{max-width:90%;max-height:90%;object-fit:contain;border-radius:8px}
         .lightbox.show{display:flex}
@@ -150,10 +147,10 @@
     </style>
 </head>
 <body>
-<!-- Lightbox Modal - src özelliği kaldırıldı, dinamik olarak JS ile atanacak -->
+<!-- Lightbox Modal -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" alt="Büyütülmüş görsel">
+    <img id="lightbox-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23333'/%3E%3Ctext x='400' y='300' text-anchor='middle' fill='%23fff' font-size='24'%3EVOM Lightbox%3C/text%3E%3C/svg%3E" alt="Büyütülmüş görsel">
 </div>
 
 <main>
@@ -167,7 +164,6 @@
         </div>
         <div class="sidebar-card">
             <h3><i class="fas fa-pen-fancy"></i> Editörden</h3>
-            <!-- Editör yazısının üstüne eklenen resim -->
             <div class="editor-image">
                 <img src="https://picsum.photos/id/42/600/300" alt="Editör" width="600" height="300" loading="lazy" style="border-radius:12px; width:100%; height:auto;">
             </div>
@@ -264,12 +260,17 @@ Agnes'in sessiz çığlığı, modern dünyanın gürültüsü içinde kendi ses
             <!-- POST 3 -->
             <article class="post" data-post-id="3">
                 <header>
-                    <div class="title"><h2><a href="#" class="post-title-link">Web Radyo Dinleme Alışkanlıkları Artıyor</a></h2><p>İki Şehir Bir Kadın</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Fatma Altun</span><img src="images/fatma.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/2.jpg'"></a></div>
+                    <div class="title"><h2><a href="#" class="post-title-link">İki Şehrin Kıyısından<br>
+                  </a></h2><p>İki Şehir Bir Kadın</p></div>
+                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Fatma Altun</span><img src="images/fatma-1.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/2.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/107/800/400"><img src="https://picsum.photos/id/107/800/400" alt="radyo" width="800" height="400" loading="lazy"></a>
-                <p>HTML5 audio elementi sayesinde herhangi bir eklentiye ihtiyaç duymadan radyo yayınlarını web sitenize ekleyebilirsiniz.</p>
-                <div class="full-post-content" id="full-3"><p class="full-text">Son yapılan araştırmalar gösteriyor ki podcast ve web radyo dinleme oranları her geçen gün katlanıyor.</p></div>
+                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/107/800/400"><img src="images/fatma-resim_1.png" alt="radyo" width="800" height="450" loading="lazy"></a>
+                <p>“Kıyısına vardığımda sessizliğindeki gürültüyle irkildim önce. Sonra huzur buldum ve kendime geldim. Biraz soğuk, biraz ıslak, biraz da dertliydi havası. Köpürmelerinden belliydi, derdinden kıvranıyor gibiydi. Bana anlatacakları vardı. Anlatsa rahatlayacaktı belli ki. Anlar mıydım bilmiyordum, o da bilmiyordu. Bildiği tek şey anlatmak istediğiydi. Sessizce anlatmak, bölünmeden, sesini kısmadan, sözlerini kısaltmadan anlatmak istiyordu. İçinde sakladığı her ne varsa, kıyılarına vurmak istiyordu. Onun asıl derdi, anlatacak birilerini bulamayışı olabilir miydi? Kesin öyleydi… Anlatamamaktı onun tek derdi. Anlaşılmak değildi beklediği, sorgulanmadan, yargılanmadan, özgürce anlatabilmekti isteği. Kıyısına her gelen, içini döküyordu ona. ‘Sen de bir şeyler anlatmak ister misin?’ diyen hiç kimse olmamıştı bugüne kadar. Ta ki ben kıyısına varıncaya kadar. Yani bana kadar…” 
+				<br><br>	
+                Onu ilk gördüğünde anlamıştı. Kumsalında… Çıplak ayak izlerini ardında bırakarak huzuruna vardığında. Orada öylece durup sustuğunda fark etmişti. Beklediği dinleyicinin geldiğini hissetmişti. Ne anlatacağını biliyordu, nasıl anlatacağını da. Aradığı şey, kime anlatacağıydı ki ona da kavuşmuştu artık. .</p>
+                <div class="full-post-content" id="full-3"><p class="full-text">Karşılaştıklarında başladı bu hikâye. O sustu, öbürü dinledi sessizliğinde kendisini. O kükredi, öbürü yine sustu. Susmaktı gizli eşlikçileri ama o da çok fazla dayanamadı, geri çekildi. İçinde ne var ne yok yükledi köpüklü dalgalarına ve yolladı kıyılarına. Serdi ayaklarının altına. Anlatabilecek miydi bilmiyordu, anlaşılacak mıydı onu da bilmiyordu. Öteki de anlar mıydı bilinmiyordu. Henüz devam ediyordu dinlemeleri. Ama bildiği bir şey vardı. Ona anlatırken daha önceleri derdini, onun anlamasını hiç beklememişti. Sadece onu dinlesin istemişti. İşte sırf bu yüzden bile, onu dinlemeliymiş gibi hissediyordu şimdi. O içini döksün, ne istiyorsa anlatsın istiyordu. Gün gelir de bir gün, ondan daha fazlasını isterse, işte o zaman düşünecekti ötesini. Ne gelirmiş elinden dinlemekten başka? Ne de olsa her halükârda bakarlardı birlikte bir çaresine. Pek sık iletişimde oldukları söylenemez ancak bir konuda çok iyi anlaştıkları aşikârdı. Anlatmak onun, anlayamamak bizim derdimizdi ve biz dertlerimizde buluştuk onunla diye düşünüyordu. “Bir konuda birbirimizi çok iyi anlıyoruz artık... Anlaşılmak değil, sadece anlatmak istiyoruz. Ve ben de onun bana anlatmalarını seviyorum... Anlasam da anlamasam da bir sürü hikâye birikiyor aramızda. Biz fark etmeden hem de. Her buluştuğumuzda ondan bir şeyler dahil oluyor benim hayatıma. Ve benden de ona...” diyordu yaşadıklarından bahsederken.
+<br><br>
+Ve devam ediyordu… “Biz birbirimize bir şeyleri anlatıyorken, kendimizi anlıyoruz aslında. Kendi dilimizde susarken bile anlaşabiliyoruz onunla. Anlasak da anlamasak da önemli değil, anlaşıyoruz bu konuda. Önemli olan anlatabilmek, bir arada olabilmek… Ona yakılmış türküler eşlik ediyor bazen buluşmalarımıza. Bazen de sadece sessizlik ya da onun kıyıya olan sevdasının sesi. Kimi zaman da benim hayallerim… Ne hikâyeler birikiyor bilseniz ne hikâyeler, bu buluşmalarımızda... Kumsalda yakılan ateş etrafında bazen, bazen de bir dağın başında anlatılıyor. Bazen de ondan uzaklarda otururken anlatılası hikâyelerden oluveriyorlar… Karadeniz'den artan, bize kalan hikâyeler… Pek sık bir arada olamıyoruz onunla. Onun gidemediği, benim istesem de onu götüremediğim yerler var. Ama her zaman ona ulaşabilme ihtimalim de var. Ve yaşananlar… Bütün hikâyede aslında her zaman o var. Hayat… Çünkü iki ayrı şehirde de anlatılsa, kıyısında hep o var…“ diyordu bir söyleşisinde. Şimdi söyleyecek bütün sözlerini biriktirmeye, biriktirdiklerini demlemeye, demlediklerini anlatmadan önce bir süre daha bekletmeye ihtiyacı vardı ve bütün bunlar için de yeniden ona… Her şeyin başladığı o yere giderken, her şeyin bittiği bu yerden, hiçbir şey götürmeyecekti yanında. Sadece yazacaklarıyla çıkacaktı yola…</p></div>
                 <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="3">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="3"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
@@ -289,12 +290,32 @@ Agnes'in sessiz çığlığı, modern dünyanın gürültüsü içinde kendi ses
             <!-- POST 4 -->
             <article class="post" data-post-id="4">
                 <header>
-                    <div class="title"><h2><a href="#" class="post-title-link">Tamamen Duyarlı Tasarım</a></h2><p>Begümün Gözünden</p></div>
+                    <div class="title">
+                      <h2><a href="#" class="post-title-link">Adana&rsquo;yı  Yaşarken Ben</a></h2>
+                  <p>Begümün Gözünden Dlinden</p></div>
                     <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Begüm Özüer</span><img src="images/begum.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/3.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/20/800/400"><img src="https://picsum.photos/id/20/800/400" alt="responsive" width="800" height="400" loading="lazy"></a>
-                <p>Günümüz web siteleri responsive olmak zorunda. Bu şablon akıllı telefonlarda bile mükemmel görüntüleniyor.</p>
-                <div class="full-post-content" id="full-4"><p class="full-text">Mobil cihaz kullanımının masaüstünü geçtiği bu dönemde responsive tasarım bir tercih değil zorunluluktur.</p></div>
+                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/20/800/400"><img src="images/BEG-1.png" alt="responsive" width="800" height="450" loading="lazy"></a>
+                <p>Nebil Özgentürk, Adana için diyor ki herkes Adana’yı insanların yolda adam dövdüğü, kestiği, belinde tabanca ile dolaştığı bir şehir sanır ama Adana Festival, sanat , bereketli topraklar, bereketli edebiyat şehridir 
+<br><br>
+Evet gerçekten öyleymiş ben tam 2 sene Adana’da yaşadım sıcağına rağmen, sıcak derken havasının ve insanın sıcaklığı ile.
+<br><br>
+İstanbul dışında başka yerde yaşayamam diyen ben 2 sene sonra Adana’ dan dönerken ağlamadım ama çok üzgün döndüm.
+.</p>
+                <div class="full-post-content" id="full-4"><p class="full-text">Taşındığımız ilk gün alt komşunun bize meyve ve yemek getirmesi sonrasında da hep bahçeden topladığı her şeyi bizimle paylaşması, eşim hastalandığında komşumun, eşinin, başka bir komşunun  yardımcının bizi hastaneye götürme yarışı ve ayrılırken komşumun ağlayarak bizi uğurlaması.
+<br><br>
+Anlatılmaz yaşanır dedikleri bu.
+<br><br>
+Adana’da hiç gitmediğim kadar konsere gittim, tiyatroya gittim portakal festivali zamanı müzeler ve tabii ki portakal çiçeği kokan sokaklar ve gerçekten portakal çiçeği kokuyor 
+<br><br>
+İçinize çeke çeke yürüyün yollarda, her yer düz, Atatürk parkımız muhteşem bir park, dut zamanı yürüyüş yaparken yenen dutlar.
+<br><br>
+Sonrası Adana’ da deniz olur mu? tabii ki olur Karataş günleri, Zuhal abla, Suat abi ile deniz kenarı gün batımı zamanları, Yumurtalık bomboş sahil şezlong şemsiye parasız, sahiller herkese açık. 
+<br><br>
+Ve İstanbul dan turlar ile gidebileceğiniz şehirler 2 saat mesafede bu sayede Gaziantep, Şanlıurfa Mersin, Tarsus ve İskenderun gördük 
+<br><br>
+İşte böyle şimdilik bu kadar Adana’yı ve çevresini anlatmaya devam…
+</p></div>
                 <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="4">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="4"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
@@ -314,12 +335,15 @@ Agnes'in sessiz çığlığı, modern dünyanın gürültüsü içinde kendi ses
             <!-- POST 5 -->
             <article class="post" data-post-id="5">
                 <header>
-                    <div class="title"><h2><a href="#" class="post-title-link">Dijital Sanatın Yükselişi</a></h2><p>Vizörden</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Oğuzcan Durutaş</span><img src="images/oguzcan.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/2.jpg'"></a></div>
+                    <div class="title"><h2><a href="#" class="post-title-link">Dostluk Sınır Tanımaz</a></h2>
+                      <p>Aynı Yöne Bakanlar<br>
+                    </p>
+                    </div>
+                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Elif Biçerr</span><img src="images/elif.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/4.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/106/800/400"><img src="https://picsum.photos/id/106/800/400" alt="dijital sanat" width="800" height="400" loading="lazy"></a>
-                <p>Dijital sanat, son yıllarda büyük bir ivme kazandı. Yapay zeka ve NFT'ler sanat dünyasında devrim yaratıyor.</p>
-                <div class="full-post-content" id="full-5"><p class="full-text">Yapay zeka ile üretilen eserler, NFT pazarları, dijital kolajlar... Sanatın sınırları her geçen gün genişliyor.</p></div>
+                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/29/800/400"><img src="images/ELF_1.png" alt="müzik" width="800" height="450" loading="lazy"></a>
+              <p>Sınır kişinin kendisine ait alanı korumasını sağlayan kurallar bütünüdür. Öyle insanlar gelir ki hayatınıza tam da olmasını istediğiniz anda dokunuverir ruhunuza, kimi ise tam tersi fark etmeden araya inmiş görünmez perde gibidir, net değil, belirsiz, endişe verici. Sınır koyarsınız istemsizce. Oysa yüreğinize huzur veren, en zor anınızda tüy gibi hafiflemenize destek olan, yıllarca görmeseniz bile sizi bir tek sözü ile sarmalayan insanlar vardır onlara sıkıca sarılın.</p>
+                <div class="full-post-content" id="full-5"><p class="full-text">Dost sormaz, hisseder, sorgulamaz, kabuldedir. Varlığı ile yukarıya taşır, bilirsin ki seninle aynı frekanstadır. Salaş bir çay ocağında içilen kahvede, çayda, bölüşülen simitte seninle olmanın keyfine varır. Anlatabilirsin ne var ne yoksa, belki hatalı, yanlış düşüncelerdesindir sana yol gösteren olur, görmek istemediklerinde cesaret verir haydi der. Mutlulukların onun da mutluluğu olur, onda var bende neden olmasın düşüncesi aklından bile geçmez eminsindir, yüzünün gülümsemesi ona da ayna olur, kendini görürsün bir an, içini sıcacık duygular kaplar. Hayır demeyi bilmez dostlar çünkü onlar engel tanımaz,elbet bir çözümle yanınızdadır.Yaş aldıkça kıymeti daha iyi anlaşılan, sınırı olmayan dostluklara...</p></div>
                 <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="5">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="5"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
@@ -339,12 +363,26 @@ Agnes'in sessiz çığlığı, modern dünyanın gürültüsü içinde kendi ses
             <!-- POST 6 -->
             <article class="post" data-post-id="6">
                 <header>
-                    <div class="title"><h2><a href="#" class="post-title-link">Şiir ve Müzik Buluşması: HAZİRAN</a></h2><p>Amerika Notları</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Nilüfer Gürler</span><img src="images/nil.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/4.jpg'"></a></div>
+                    <div class="title"><h2><a href="#" class="post-title-link">Anılar</a></h2><p>Sesler Yüzler Sokaklar</p></div>
+                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Fuat Durutaş</span><img src="images/fuat.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/3.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/29/800/400"><img src="https://picsum.photos/id/29/800/400" alt="müzik" width="800" height="400" loading="lazy"></a>
-                <p>VOM'un yeni albümü HAZİRAN, şiir ve müziği buluşturuyor. Albümde 10 parça yer alıyor.</p>
-                <div class="full-post-content" id="full-6"><p class="full-text">Şairlerin dizeleri bestelendi. Caz, klasik ve elektronik tınılarla harmanlanan 'Haziran' albümü, dinleyiciyi duygusal bir yolculuğa çıkarıyor.</p></div>
+                <a href="#" class="image featured clickable-img" data-img="images/FU-1.png"><img src="images/FU-1.png" alt="anılar" width="800" height="450" loading="lazy"></a>
+                <p>Çocukluğumda yaşadığım bazı şeyleri, bu yaşımda tekrar yaşamak, ya da yaşamak demeyeyim, bu yaşımda tekrar karşıma çıkmaları bir tesadüf değil diye düşünüyorum. 
+<br><br>
+1960’lı yıllarda çocukluk, 1970’li yıllarda ise gençlik yaşamış biri olarak, o günlerin kısıtlı imkanlarında, kendi hobilerimizi kendi imkanlarımız dahilinde oluşturmaya çalışırdık. Çünkü, o zamanların vitrinlerinde, genelde babalar memur ya da işçi, anneler ise ev kadınıydı. Gelir belli ve mütevazı idi. 
+</p>
+                <div class="full-post-content" id="full-6"><p class="full-text">Benim merakım ya da hobim diyelim, fotoğraf çekmekti. Ama bunun için sünnet düğünümde hediye olarak gelen ve hiçbir işe yaramayan iki fotoğraf makinesi dışında, elimde hiçbir şey yoktu. Elimde olmayan birçok materyal ise etrafımda çoktu. Mesela, Eniştemin (halamın eşi), bir iki tane fotoğraf makinesi, amcamın ise sekiz mm kamerası vardı. Benim için bunlara sahip olmak rüya gibi bir şeydi. Ama fotoğraf çekme rüyam, babamın bana aldığı Lubitel2 makinesi ile gerçek oldu. 125 TL’ye alınmış, bir memurun bütçesini fazlasıyla zorlayacak bir harcamaydı. Gerek amcamın sekiz mm kamerası, gerekse eniştemin hem fotoğraf makineleri, hem de 16 mm film oynatma makineleri ile ilgili diğer yazılarımda anlatacağım çok şey olacak…
+<br><br>
+Bunları özellikle belirtmemin sebebini biraz sonra sanırım ben anlatmış olacağım, sizler de anlamış…
+<br><br>
+Serde merak, serde geçmişe özlem, serde dönemimde yaşamış insanların vücuda getirdiği eserler olunca, ben kendimi kaybediyorum. İki gün önce de öyle oldu. 
+<br><br>
+Oğlumla Hilmi Nakipoğlu’nun kamera müzesine gittik, Bakırköy’e… Tesadüf ki, müzenin kurucusu o güzel insan da oradaydı. Ayrıca, Beypazarı’ndan gelmiş, Beypazarı’nda buna benzer bir müze kurmak isteyen bir kişi için ön araştırma yapıp, bilgi alan üç değerli insan daha vardı. Beypazarı’nda müze kurmak isteyen kişinin yaklaşık bin adet materyali varmış. Yolları açık olsun. 
+<br><br>
+Müzeyi gezerken birçok şey yaşadım. Ama tüylerimi diken diken eden iki şeyi unutamam. Birincisi, babamın bana memur maaşının önemli bir bölümüyle aldığı Lubitel2 fotoğraf makinesini, diğeri ise merhum Namık Satar’ın (Foto Namık) müzeye bağışladığı fotoğraf makinelerini. Merhum Namık Satar’ın tüylerimi diken diken etmesinin sebebi ise, müzeye bağışladığı fotoğraf makinelerinden biriyle muhtemelen benim ilk vesikalık fotoğrafımı çekmesiydi. Ama hangi makine, onu bilemiyoruz… Bahse konu ettiğim ilk vesikalık fotoğrafım, bu makalemin altında… 
+<br><br>
+Bu yaşanmışlığın benim için en önemli yanı, bunu mesleği fotoğrafçılık ve kameramanlık olan oğlumla birlikte yaşamam…
+</p></div>
                 <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="6">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="6"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
@@ -364,26 +402,20 @@ Agnes'in sessiz çığlığı, modern dünyanın gürültüsü içinde kendi ses
             <!-- POST 7 -->
             <article class="post" data-post-id="7">
                 <header>
-                    <div class="title"><h2><a href="#" class="post-title-link">Anılar</a></h2><p>Sesler Yüzler Sokaklar</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Fuat Durutaş</span><img src="images/fuat.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/3.jpg'"></a></div>
+                    <div class="title">
+                      <h2><a href="#" class="post-title-link">Her Şey</a> Benzer Miydi?</h2>
+                  <p>Kelimelerin Tınısı</p></div>
+                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Özlem Tüm</span><img src="images/ozlem.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/5.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="images/FU-1.png"><img src="images/FU-1.png" alt="anılar" width="800" height="450" loading="lazy"></a>
-                <p>Çocukluğumda yaşadığım bazı şeyleri, bu yaşımda tekrar yaşamak, ya da yaşamak demeyeyim, bu yaşımda tekrar karşıma çıkmaları bir tesadüf değil diye düşünüyorum. 
+                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/104/800/400"><img src="images/oz-1.png" alt="sinema" width="800" height="450" loading="lazy"></a>
+                <p>
+Hepimiz için zaman hızlı akıyordu. Yaşanılanlar tarifsizdi. Yaşadığımız şehir, kendine uzaklaşmıştı. Şehrin davranışı benzersizdi. Mevsim kendi etrafında dans ederken zamanı başı boş bırakmıştı.
+Koca şehir, herkes aynıydı..</p>
+                <div class="full-post-content" id="full-7"><p class="full-text">Koca şehir, hiçbir şey aynı değildi.
+Yabancılaşmak, uzaklaşmanın kardeşi gibi; el ele  duvardan atlıyordu. 
+Biz birkaç dost, yabancılaşan zamana inat ediyorduk. Benzersiz sohbetlerimizle en sevdiğimiz kahve fincanlarımız ile   kahvelerimizi yudumluyorduk. 
 <br><br>
-1960’lı yıllarda çocukluk, 1970’li yıllarda ise gençlik yaşamış biri olarak, o günlerin kısıtlı imkanlarında, kendi hobilerimizi kendi imkanlarımız dahilinde oluşturmaya çalışırdık. Çünkü, o zamanların vitrinlerinde, genelde babalar memur ya da işçi, anneler ise ev kadınıydı. Gelir belli ve mütevazı idi. 
-</p>
-                <div class="full-post-content" id="full-7"><p class="full-text">Benim merakım ya da hobim diyelim, fotoğraf çekmekti. Ama bunun için sünnet düğünümde hediye olarak gelen ve hiçbir işe yaramayan iki fotoğraf makinesi dışında, elimde hiçbir şey yoktu. Elimde olmayan birçok materyal ise etrafımda çoktu. Mesela, Eniştemin (halamın eşi), bir iki tane fotoğraf makinesi, amcamın ise sekiz mm kamerası vardı. Benim için bunlara sahip olmak rüya gibi bir şeydi. Ama fotoğraf çekme rüyam, babamın bana aldığı Lubitel2 makinesi ile gerçek oldu. 125 TL’ye alınmış, bir memurun bütçesini fazlasıyla zorlayacak bir harcamaydı. Gerek amcamın sekiz mm kamerası, gerekse eniştemin hem fotoğraf makineleri, hem de 16 mm film oynatma makineleri ile ilgili diğer yazılarımda anlatacağım çok şey olacak…
-<br><br>
-Bunları özellikle belirtmemin sebebini biraz sonra sanırım ben anlatmış olacağım, sizler de anlamış…
-<br><br>
-Serde merak, serde geçmişe özlem, serde dönemimde yaşamış insanların vücuda getirdiği eserler olunca, ben kendimi kaybediyorum. İki gün önce de öyle oldu. 
-<br><br>
-Oğlumla Hilmi Nakipoğlu’nun kamera müzesine gittik, Bakırköy’e… Tesadüf ki, müzenin kurucusu o güzel insan da oradaydı. Ayrıca, Beypazarı’ndan gelmiş, Beypazarı’nda buna benzer bir müze kurmak isteyen bir kişi için ön araştırma yapıp, bilgi alan üç değerli insan daha vardı. Beypazarı’nda müze kurmak isteyen kişinin yaklaşık bin adet materyali varmış. Yolları açık olsun. 
-<br><br>
-Müzeyi gezerken birçok şey yaşadım. Ama tüylerimi diken diken eden iki şeyi unutamam. Birincisi, babamın bana memur maaşının önemli bir bölümüyle aldığı Lubitel2 fotoğraf makinesini, diğeri ise merhum Namık Satar’ın (Foto Namık) müzeye bağışladığı fotoğraf makinelerini. Merhum Namık Satar’ın tüylerimi diken diken etmesinin sebebi ise, müzeye bağışladığı fotoğraf makinelerinden biriyle muhtemelen benim ilk vesikalık fotoğrafımı çekmesiydi. Ama hangi makine, onu bilemiyoruz… Bahse konu ettiğim ilk vesikalık fotoğrafım, bu makalemin altında… 
-<br><br>
-Bu yaşanmışlığın benim için en önemli yanı, bunu mesleği fotoğrafçılık ve kameramanlık olan oğlumla birlikte yaşamam…
-</p></div>
+Değişen her şeye inat, değişmeyen değerlerimizle burada ve birlikteyiz.</p></div>
                 <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="7">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="7"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
@@ -403,12 +435,14 @@ Bu yaşanmışlığın benim için en önemli yanı, bunu mesleği fotoğrafçı
             <!-- POST 8 -->
             <article class="post" data-post-id="8">
                 <header>
-                    <div class="title"><h2><a href="#" class="post-title-link">Sonsuzluk ve Bir Gün</a></h2><p>Özlemce</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Özlem Tüm</span><img src="images/ozlem.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/5.jpg'"></a></div>
+                    <div class="title"><h2><a href="#" class="post-title-link">Yolun Sonu, Yolun Başı</a></h2><p>Zamanın Ruhu</p></div>
+                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Dr. Funda Çar</span><img src="images/funda.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/6.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="https://picsum.photos/id/104/800/400"><img src="https://picsum.photos/id/104/800/400" alt="sinema" width="800" height="400" loading="lazy"></a>
-                <p>Sinema, zamanı durdurma sanatıdır. Theo Angelopoulos'un "Sonsuzluk ve Bir Gün" filmi, bunu başaran ender başyapıtlardan biridir.</p>
-                <div class="full-post-content" id="full-8"><p class="full-text">Angelopoulos'un uzun planları, sisli limanları ve yavaş akan suretleri, izleyiciyi adeta bir rüya alemine sürükler.</p></div>
+                <a href="#" class="image featured clickable-img" data-img="images/FUN-1.png"><img src="images/FUN-1.png" alt="sanat tarihi" width="1408" height="768" loading="lazy"></a>
+              <p>Başlangıçlar bana umudu, sevgiyi ve cesareti çağrıştırır. Bizi heyecanlandıran, enerjimizi tetikleyen dönemlerdir. Bazen o heyecan ve niyet bize ivme kazandırır, olmayacakları oldurur. İnsan ilişkilerinde ya da iş projelerinde bu heyecan dalgası bizi içine çeker. Ama her başlangıç hayrımıza değildir ve o heyecanın mum gibi söndüğü durumlar da hepimizin başına gelmiştir.</p>
+                <div class="full-post-content" id="full-8"><p class="full-text">Akdenizli olmamız nedeniyle bizim toprakların insanları başlangıçlar konusunda çok heyecanlıdır. Ancak bu heyecan genellikle geçicidir. Öğrenciler sene başında okula büyük bir özlemle başlar ama ilk yazılılardan sonra o enerji yavaş yavaş azalır. Yeni bir çalışan çok motivedir fakat bir ay sonra o heves küçülmeye başlar. Sadece proje üreten ama biri bittiğinde hemen diğerine geçen, sürekli bir arayış içinde olan insanlar da vardır. Keşke üzerinde yaşayan canlılara ve insanlığa katkısı olan, devamlılığı bulunan başlangıçlar ve yenilenmeler olsa.
+<br><br>
+Doğayı düşündüğümde, her bitiş bir diğerine yol açar ve hayat verir. Doğa hep döngülerden doğar, gelişir ve dönüşür. Dünya var olduğundan beri hayat hep başlamış, bitmiş ama yaşam her zaman var olmuştur. Bitiş noktası, aslında yaşamın başlangıç noktasıdır. Bu yüzden hiçbir bitiş yolun sonu veya bir kayıp gibi gelmemeli. Okul bittiyse sonraki yaşamınız, bir proje bittiyse yeni işlerin alanı açılıyor demektir. Hayatınızdan biri çıktıysa, bu da ilişkilerin tamamladığı bir döngüdür. Masallar da belki bu yüzden "bir varmış, bir yokmuş" diye başlar.</p></div>
                 <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="8">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="8"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
@@ -428,14 +462,17 @@ Bu yaşanmışlığın benim için en önemli yanı, bunu mesleği fotoğrafçı
             <!-- POST 9 -->
             <article class="post" data-post-id="9">
                 <header>
-                    <div class="title"><h2><a href="#" class="post-title-link">Yolun Sonu, Yolun Başı</a></h2><p>Zamanın Ruhu</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Dr. Funda Çar</span><img src="images/funda.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/6.jpg'"></a></div>
+                    <div class="title">
+                      <h2><a href="#" class="post-title-link">Yok Daha Neler!</a></h2>
+                  <p>ce</p></div>
+                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Hatice Sarıkaya</span><img src="images/hatice.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/7.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="images/FUN-1.png"><img src="images/FUN-1.png" alt="sanat tarihi" width="1408" height="768" loading="lazy"></a>
-              <p>Başlangıçlar bana umudu, sevgiyi ve cesareti çağrıştırır. Bizi heyecanlandıran, enerjimizi tetikleyen dönemlerdir. Bazen o heyecan ve niyet bize ivme kazandırır, olmayacakları oldurur. İnsan ilişkilerinde ya da iş projelerinde bu heyecan dalgası bizi içine çeker. Ama her başlangıç hayrımıza değildir ve o heyecanın mum gibi söndüğü durumlar da hepimizin başına gelmiştir.</p>
-                <div class="full-post-content" id="full-9"><p class="full-text">Akdenizli olmamız nedeniyle bizim toprakların insanları başlangıçlar konusunda çok heyecanlıdır. Ancak bu heyecan genellikle geçicidir. Öğrenciler sene başında okula büyük bir özlemle başlar ama ilk yazılılardan sonra o enerji yavaş yavaş azalır. Yeni bir çalışan çok motivedir fakat bir ay sonra o heves küçülmeye başlar. Sadece proje üreten ama biri bittiğinde hemen diğerine geçen, sürekli bir arayış içinde olan insanlar da vardır. Keşke üzerinde yaşayan canlılara ve insanlığa katkısı olan, devamlılığı bulunan başlangıçlar ve yenilenmeler olsa.
+                <a href="#" class="image featured clickable-img" data-img="images/HAT-1.png"><img src="images/HAT-1.png" alt="hikaye" width="800" height="450" loading="lazy"></a>
+              <p>Hayatımızın her alanında var olan bir davranış mı desem bir  ifade şekli mi desem bilemedim; herkesin, hepimizin bir şekilde kullandığı bir  yöntem. Beyazı var, pembesi var, büyük olanı var, küçük olanı var, &ldquo;zararsız&rdquo;  olanı var, patolojik olanı var. kanıtlanabileni var, kanıtlanamayanı var.  kanıtlansa da üstü örtüleni var ki en çok ona maruz kalıyoruz sanırım. Yapmayan  yok; &ldquo;ben asla yapmadım&rdquo; diyen varsa emin olun gerçek değil. Gerçek değilse  nedir elbette YALAN.</p>
+<div class="full-post-content" id="full-9"><p class="full-text">Ortalama bir insan günde bir ile dört, 60 yaşına kadar ortalama 87600 yalan söylüyormuş. Bu bilgi doğru mu bilmiyorum, ben google’ın yalancısıyım 😊 Gerçek çıplaktır; çirkin görünebilir, acıtabilir, nettir, süslenmesine gerek yoktur, olduğu gibidir. Yalan ise süslenir, detaylandırılır, hikayeleştirilir. Eğlencelidir, heyecanlandırır. Katman katmandır, sonu gelmez. En çok kime yalan söylüyoruz dersiniz; elbette en yakınlarımıza, en sevdiklerimize, en çok birlikte zaman geçirdiğimiz insanlara. En büyük yalan da size yalan üstüne yalan söyleyen kişinin yalanı ortaya çıktığında “seni üzmemek için yalan söyledim” demesidir. O sadece yalanı ortaya çıktığı için üzülüyordur ve büyük olasılıkla yalanlar söylemeye devam edecektir. “Yalancının mumu yatsıya kadar yanar” diye bir atasözümüz var ya, o da yalan. Günlerce, aylarca, yıllarca süren yalanlar var. örnek mi; etrafınıza bir bakın ya da haberlere bir göz atın.
 <br><br>
-Doğayı düşündüğümde, her bitiş bir diğerine yol açar ve hayat verir. Doğa hep döngülerden doğar, gelişir ve dönüşür. Dünya var olduğundan beri hayat hep başlamış, bitmiş ama yaşam her zaman var olmuştur. Bitiş noktası, aslında yaşamın başlangıç noktasıdır. Bu yüzden hiçbir bitiş yolun sonu veya bir kayıp gibi gelmemeli. Okul bittiyse sonraki yaşamınız, bir proje bittiyse yeni işlerin alanı açılıyor demektir. Hayatınızdan biri çıktıysa, bu da ilişkilerin tamamladığı bir döngüdür. Masallar da belki bu yüzden "bir varmış, bir yokmuş" diye başlar.</p></div>
+Yalanı çok iyi anlatan iki eğlenceli film önermek isterim: biri, Younger, aldatılan, evliliği sona eren 40 yaşında bir kadının yaşı konusunda “küçük” bir yalan söyleyerek kariyerine tekrar başlamasını anlatan güzel bir hikaye. İkincisi, Ricky Gervais’in oynadığı 2009 yapımı Yalanın İcadı.
+</p></div>
                 <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="9">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="9"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
@@ -456,17 +493,17 @@ Doğayı düşündüğümde, her bitiş bir diğerine yol açar ve hayat verir. 
             <article class="post" data-post-id="10">
                 <header>
                     <div class="title">
-                      <h2><a href="#" class="post-title-link">Yok Daha Neler!</a></h2>
-                  <p>ce</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Hatice Sarıkaya</span><img src="images/hatice.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/7.jpg'"></a></div>
+                      <h2><a href="#" class="post-title-link">Gözlerini Kapa</a></h2>
+                  <p>Münirenin Kaleminden</p></div>
+                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Münire Özgencan</span><img src="images/münire.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/4.jpg'"></a></div>
                 </header>
-                <a href="#" class="image featured clickable-img" data-img="images/HAT-1.png"><img src="images/HAT-1.png" alt="hikaye" width="800" height="450" loading="lazy"></a>
-              <p>Hayatımızın her alanında var olan bir davranış mı desem bir  ifade şekli mi desem bilemedim; herkesin, hepimizin bir şekilde kullandığı bir  yöntem. Beyazı var, pembesi var, büyük olanı var, küçük olanı var, &ldquo;zararsız&rdquo;  olanı var, patolojik olanı var. kanıtlanabileni var, kanıtlanamayanı var.  kanıtlansa da üstü örtüleni var ki en çok ona maruz kalıyoruz sanırım. Yapmayan  yok; &ldquo;ben asla yapmadım&rdquo; diyen varsa emin olun gerçek değil. Gerçek değilse  nedir elbette YALAN.</p>
-<div class="full-post-content" id="full-10"><p class="full-text">Ortalama bir insan günde bir ile dört, 60 yaşına kadar ortalama 87600 yalan söylüyormuş. Bu bilgi doğru mu bilmiyorum, ben google’ın yalancısıyım 😊 Gerçek çıplaktır; çirkin görünebilir, acıtabilir, nettir, süslenmesine gerek yoktur, olduğu gibidir. Yalan ise süslenir, detaylandırılır, hikayeleştirilir. Eğlencelidir, heyecanlandırır. Katman katmandır, sonu gelmez. En çok kime yalan söylüyoruz dersiniz; elbette en yakınlarımıza, en sevdiklerimize, en çok birlikte zaman geçirdiğimiz insanlara. En büyük yalan da size yalan üstüne yalan söyleyen kişinin yalanı ortaya çıktığında “seni üzmemek için yalan söyledim” demesidir. O sadece yalanı ortaya çıktığı için üzülüyordur ve büyük olasılıkla yalanlar söylemeye devam edecektir. “Yalancının mumu yatsıya kadar yanar” diye bir atasözümüz var ya, o da yalan. Günlerce, aylarca, yıllarca süren yalanlar var. örnek mi; etrafınıza bir bakın ya da haberlere bir göz atın.
-<br><br>
-Yalanı çok iyi anlatan iki eğlenceli film önermek isterim: biri, Younger, aldatılan, evliliği sona eren 40 yaşında bir kadının yaşı konusunda “küçük” bir yalan söyleyerek kariyerine tekrar başlamasını anlatan güzel bir hikaye. İkincisi, Ricky Gervais’in oynadığı 2009 yapımı Yalanın İcadı.
-</p></div>
-                <div class="post-footer">
+                <a href="#" class="image featured clickable-img" data-img="images/M-1.png"><img src="images/M-1.png" alt="türkü" width="800" height="450" loading="lazy"></a>
+              <p>Laleli’den dünyaya giden bir tramvaydayız. Gri bir aralık sabahı. Hava soğuk. Çok soğuk hem de. Genç bir çift biniyor duraktan. Kızın mavi beresine sığmayan kıvırcık, kızıl saçlarından düşen bukleler yüzünü gizliyor. Karşısındaki genç adamla konuşuyor. Elindeki kar küresini görüyorum. Çok severim kar kürelerini. Tramvay Çemberlitaş’tan Sultanahmet’e doğru ilerlerken kar atıştırmaya başlıyor. Bir çocuk neşesi dolduruyor tramvayı. “Kar yağıyor, kar yağıyor!” </p>
+                <div class="full-post-content" id="full-10"><p class="full-text">Sonra senin sesini duyuyorum, “Bir bakmışsın kış geçmiş, kapa gözünü. Ve hayal et. Hep gitmek istediğimiz şehirdeyiz seninle. Çiçekçiler, çalgıcılar var Pont-neuf  köprüsünün üzerinde. Neşeli bir şarkı çalıyor. Yaşlı bir çift sanki hiç kimse yokmuş gibi dans ediyor. Elimden tutup çekiyorsun beni kendine aniden. Benimle dans eder misiniz güzel bayan” diyorsun. İtiraz edemeden kendimi senin kollarında buluyorum. Mis gibi leylak kokuyor her yer. Mutluyuz. Aşk gibi bir şey oluyor o sıcak yaz akşamı. Bir bakmışsın kış geçmiş. Gözlerimi açıyorum. Tramvay Sirkeci’ye yaklaşıyor. Kar hızını arttırıyor.
+					<br><br>
+					Not: Cemal Süreya’nın Üvercinka şiirinin, Laleli’den dünyaya giden bir tramvaydayız dizesinden ilhamla yazılmıştır.
+			  </p></div>
+              <div class="post-footer">
                     <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="10">Devamını Oku</a></li></ul>
                     <ul class="stats"><li class="comment-toggle" data-post="10"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
                 </div>
@@ -477,36 +514,6 @@ Yalanı çok iyi anlatan iki eğlenceli film önermek isterim: biri, Younger, al
                         <input type="text" class="comment-input" id="comment-input-10" placeholder="Adınız">
                         <textarea class="comment-text" id="comment-text-10" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="10">Gönder</button>
-                    </div>
-                </div>
-                <div class="old-posts-link"><a href="#"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
-            </article>
-
-            <!-- POST 11 -->
-            <article class="post" data-post-id="11">
-                <header>
-                    <div class="title">
-                      <h2><a href="#" class="post-title-link">Gözlerini Kapa</a></h2>
-                  <p>Münirenin Kaleminden</p></div>
-                    <div class="meta"><span class="post-date"></span><a href="#" class="author"><span class="name">Münire Özgencan</span><img src="images/münire.png" alt="avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/4.jpg'"></a></div>
-                </header>
-                <a href="#" class="image featured clickable-img" data-img="images/M-1.png"><img src="images/M-1.png" alt="türkü" width="800" height="450" loading="lazy"></a>
-              <p>Laleli’den dünyaya giden bir tramvaydayız. Gri bir aralık sabahı. Hava soğuk. Çok soğuk hem de. Genç bir çift biniyor duraktan. Kızın mavi beresine sığmayan kıvırcık, kızıl saçlarından düşen bukleler yüzünü gizliyor. Karşısındaki genç adamla konuşuyor. Elindeki kar küresini görüyorum. Çok severim kar kürelerini. Tramvay Çemberlitaş’tan Sultanahmet’e doğru ilerlerken kar atıştırmaya başlıyor. Bir çocuk neşesi dolduruyor tramvayı. “Kar yağıyor, kar yağıyor!” </p>
-                <div class="full-post-content" id="full-11"><p class="full-text">Sonra senin sesini duyuyorum, “Bir bakmışsın kış geçmiş, kapa gözünü. Ve hayal et. Hep gitmek istediğimiz şehirdeyiz seninle. Çiçekçiler, çalgıcılar var Pont-neuf  köprüsünün üzerinde. Neşeli bir şarkı çalıyor. Yaşlı bir çift sanki hiç kimse yokmuş gibi dans ediyor. Elimden tutup çekiyorsun beni kendine aniden. Benimle dans eder misiniz güzel bayan” diyorsun. İtiraz edemeden kendimi senin kollarında buluyorum. Mis gibi leylak kokuyor her yer. Mutluyuz. Aşk gibi bir şey oluyor o sıcak yaz akşamı. Bir bakmışsın kış geçmiş. Gözlerimi açıyorum. Tramvay Sirkeci’ye yaklaşıyor. Kar hızını arttırıyor.
-					<br><br>
-					Not: Cemal Süreya’nın Üvercinka şiirinin, Laleli’den dünyaya giden bir tramvaydayız dizesinden ilhamla yazılmıştır.
-			  </p></div>
-              <div class="post-footer">
-                    <ul class="actions"><li><a href="#" class="button read-more-btn" data-id="11">Devamını Oku</a></li></ul>
-                    <ul class="stats"><li class="comment-toggle" data-post="11"><a href="#"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
-                </div>
-                <div class="comments-section" id="comments-section-11">
-                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
-                    <div class="comments-list" id="comments-list-11"></div>
-                    <div class="add-comment-form">
-                        <input type="text" class="comment-input" id="comment-input-11" placeholder="Adınız">
-                        <textarea class="comment-text" id="comment-text-11" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
-                        <button class="submit-comment" data-post="11">Gönder</button>
                     </div>
                 </div>
                 <div class="old-posts-link"><a href="#"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
@@ -531,7 +538,6 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
 
 <script>
 (function() {
-    // ----- LIGHTBOX (RESİM BÜYÜTME) -----
     var lightbox = document.getElementById('lightbox');
     var lightboxImg = document.getElementById('lightbox-img');
     
@@ -547,7 +553,6 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
         document.body.style.overflow = '';
     }
     
-    // Tüm clickable-img sınıfına sahip resimleri seç
     document.querySelectorAll('.clickable-img').forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -558,14 +563,12 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
         });
     });
     
-    // ESC ile kapatma
     document.addEventListener('keydown', function(e) {
         if(e.key === 'Escape' && lightbox.classList.contains('show')) {
             closeLightbox();
         }
     });
     
-    // Tarihleri bugüne ayarla
     function setAllDatesToToday() {
         var bugun = new Date();
         var gun = bugun.getDate();
@@ -588,7 +591,6 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
     setAllDatesToToday();
     updateEditorDate();
     
-    // Google Arama
     var searchInput = document.getElementById('searchInputSide');
     var searchBtn = document.getElementById('searchBtnSide');
     function doSearch() {
@@ -599,13 +601,11 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
     if(searchBtn) searchBtn.addEventListener('click', doSearch);
     if(searchInput) searchInput.addEventListener('keypress', function(e) { if(e.key === 'Enter') doSearch(); });
     
-    // Ana sayfa
     var homeLink = document.getElementById('resetHomeLink');
     var homeBtn = document.getElementById('resetHomeLinkBtn');
     if(homeLink) homeLink.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     if(homeBtn) homeBtn.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     
-    // Dark Mode
     function initDarkMode() {
         var isDark = localStorage.getItem('darkMode') === 'true';
         var toggle = document.getElementById('darkModeToggle');
@@ -624,7 +624,6 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
     }
     initDarkMode();
     
-    // Read More
     document.querySelectorAll('.read-more-btn').forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -637,7 +636,6 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
         });
     });
     
-    // İletişim
     var contactLink = document.getElementById('contactNavLink');
     if(contactLink) {
         contactLink.addEventListener('click', function(e) {
@@ -647,7 +645,6 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
         });
     }
     
-    // Yorum Toggle
     document.querySelectorAll('.comment-toggle').forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
             e.preventDefault();
@@ -728,10 +725,8 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
         });
     });
     
-    // Tüm yorumları yükle
-    for(var p = 1; p <= 11; p++) loadComments(p);
+    for(var p = 1; p <= 10; p++) loadComments(p);
     
-    // Eski yazılar
     document.querySelectorAll('.old-posts-link a').forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
