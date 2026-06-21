@@ -533,203 +533,237 @@ VOM YAYIN, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. 
 </main>
 
 <script>
-// FIREBASE KONFIG
-const firebaseConfig = {
-    apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
-    authDomain: "vom-yayin.firebaseapp.com",
-    databaseURL: "https://vom-yayin-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "vom-yayin",
-    storageBucket: "vom-yayin.firebasestorage.app",
-    messagingSenderId: "93785669208",
-    appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d"
-};
+    // 1. FIREBASE CONFIGURASYONU
+    const firebaseConfig = {
+        apiKey: "AIzaSyAoO66hL3gSstCAsZ_O1v6S3wH9CisP6nE",
+        authDomain: "vom-yayin.firebaseapp.com",
+        projectId: "vom-yayin",
+        storageBucket: "vom-yayin.appspot.com",
+        messagingSenderId: "193785669208",
+        appId: "1:193785669208:web:ecccf7c03aa3ad6117d42d"
+    };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
-}
-
-function formatDate(date) {
-    if (!date) return '';
-    let d = date.toDate ? date.toDate() : new Date(date);
-    return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
-}
-
-function loadComments(postId) {
-    const commentsRef = db.collection('comments').doc('post_' + postId).collection('allComments');
-    commentsRef.orderBy('createdAt', 'desc').onSnapshot(function(snapshot) {
-        const listDiv = document.getElementById('comments-list-' + postId);
-        const countDisplay = document.querySelector('#comments-section-' + postId + ' .comment-count-display');
-        const toggleCount = document.querySelector('.comment-toggle[data-post="' + postId + '"] .comment-count');
-        if (!listDiv) return;
-        
-        const comments = [];
-        snapshot.forEach(function(doc) { comments.push({ id: doc.id, ...doc.data() }); });
-        
-        if (comments.length === 0) {
-            listDiv.innerHTML = '<div style="padding:0.5rem; text-align:center; color:#888;">Henüz yorum yok. İlk yorumu sen yap!</div>';
-        } else {
-            let html = '';
-            comments.forEach(function(comment) {
-                html += '<div class="comment-item">';
-                html += '<strong>' + escapeHtml(comment.author) + '</strong>: ' + escapeHtml(comment.text);
-                if (comment.createdAt) html += '<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">' + formatDate(comment.createdAt) + '</div>';
-                html += '<button class="delete-btn" data-post="' + postId + '" data-id="' + comment.id + '"><i class="fas fa-trash"></i></button>';
-                html += '</div>';
-            });
-            listDiv.innerHTML = html;
-            
-            document.querySelectorAll('.delete-btn').forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const pwd = prompt("Yorum silmek için şifreyi girin:");
-                    if (pwd === "vomadmin202") {
-                        const postIdVal = parseInt(this.dataset.post);
-                        const commentId = this.dataset.id;
-                        db.collection('comments').doc('post_' + postIdVal).collection('allComments').doc(commentId).delete()
-                            .then(function() { alert("Yorum silindi."); })
-                            .catch(function(err) { alert("Silme hatası: " + err.message); });
-                    } else if (pwd !== null) {
-                        alert("Şifre yanlış!");
-                    }
-                });
-            });
-        }
-        if (countDisplay) countDisplay.innerText = comments.length;
-        if (toggleCount) toggleCount.innerText = comments.length;
-    }, function(error) {
-        console.error("Yorum yükleme hatası:", error);
-
-       
-        const errCountDisplay = document.querySelector('#comments-section-' + postId + ' .comment-count-display');
-        const errToggleCount = document.querySelector('.comment-toggle[data-post="' + postId + '"] .comment-count');
-        
-        // Bot engellense bile sayfada etkileşim (yorum) olduğunu görsün:
-        const varsayilanYorumlar = { 1: 9, 2: 6, 3: 4, 4: 7, 5: 3, 6: 8, 7: 2, 8: 5, 9: 11, 10: 4 };
-        const botunGorecegiSayi = varsayilanYorumlar[postId] || 5;
-
-        if (errCountDisplay) errCountDisplay.innerText = botunGorecegiSayi;
-        if (errToggleCount) errToggleCount.innerText = botunGorecegiSayi;
-    }); // <--- onSnapshot burada düzgünce kapanıyor
-} // <--- loadComments fonksiyonu burada bitiyor
-
-function addComment(postId, author, text) {
-    const commentsRef = db.collection('comments').doc('post_' + postId).collection('allComments');
-    return commentsRef.add({
-        author: author || "Ziyaretçi",
-        text: text,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Tarihler
-    const bugun = new Date();
-    const ay = bugun.toLocaleString('tr-TR', { month: 'long' });
-    const yil = bugun.getFullYear();
-    document.getElementById('editorDateText').innerText = ay + ' ' + yil;
-    document.querySelectorAll('.post-date').forEach(function(el) {
-        el.innerText = bugun.getDate() + ' ' + ay + ' ' + yil;
-    });
-    
-    // Tüm yorumları yükle
-    for (let i = 1; i <= 10; i++) loadComments(i);
-    
-    // Devamını Oku
-    document.querySelectorAll('.read-more-btn').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const id = this.dataset.id;
-            const fullDiv = document.getElementById('full-' + id);
-            if (fullDiv) {
-                fullDiv.classList.toggle('show');
-                this.innerText = fullDiv.classList.contains('show') ? 'Daha Az Göster' : 'Devamını Oku';
-            }
-        });
-    });
-    
-    // Yorum formlarını göster/gizle
-    document.querySelectorAll('.comment-toggle').forEach(function(toggle) {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            const pid = this.dataset.post;
-            const sec = document.getElementById('comments-section-' + pid);
-            if (sec) sec.style.display = sec.style.display === 'block' ? 'none' : 'block';
-        });
-    });
-    
-    // Yorum gönderme
-    document.querySelectorAll('.submit-comment').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            const pid = parseInt(this.dataset.post);
-            const nameInput = document.getElementById('comment-name-' + pid);
-            const textInput = document.getElementById('comment-text-' + pid);
-            const author = nameInput ? nameInput.value.trim() : "Ziyaretçi";
-            const text = textInput ? textInput.value.trim() : "";
-            if (text === "") {
-                alert("Lütfen bir yorum yazın.");
-                return;
-            }
-            addComment(pid, author, text).then(function() {
-                if (nameInput) nameInput.value = "";
-                if (textInput) textInput.value = "";
-            }).catch(function(err) {
-                alert("Yorum eklenirken hata: " + err.message);
-            });
-        });
-    });
-    
-    // Gece modu
-    const isDark = localStorage.getItem('darkMode') === 'true';
-    const toggle = document.getElementById('darkModeToggle');
-    if (isDark) { document.body.classList.add('dark-mode'); toggle.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu'; }
-    if (toggle) {
-        toggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            const nowDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', nowDark);
-            toggle.innerHTML = nowDark ? '<i class="fas fa-sun"></i> Gündüz Modu' : '<i class="fas fa-moon"></i> Gece Modu';
+    // Güvenlik Yardımcı Fonksiyonları
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
         });
     }
-    
-    // Ana sayfa
-   document.getElementById('resetHomeLink')?.addEventListener('click', function(e) { window.location.href = 'index.html'; });
-document.getElementById('resetHomeLinkBtn')?.addEventListener('click', function(e) { window.location.href = 'index.html'; });
-    
-    // İletişim
-    document.getElementById('contactNavLink')?.addEventListener('click', function(e) { e.preventDefault(); document.getElementById('contactSection')?.scrollIntoView({ behavior: 'smooth' }); });
-    
-    // Arama
-    const searchInput = document.getElementById('searchInputSide');
-    const searchBtn = document.getElementById('searchBtnSide');
-    function doSearch() { const q = searchInput.value.trim(); if(q) window.open('https://www.google.com/search?q=' + encodeURIComponent(q), '_blank'); else alert("Arama kelimesi yazın."); }
-    if(searchBtn) searchBtn.addEventListener('click', doSearch);
-    if(searchInput) searchInput.addEventListener('keypress', function(e) { if(e.key === 'Enter') doSearch(); });
-    
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    window.closeLightbox = function() { lightbox.classList.remove('show'); document.body.style.overflow = ''; };
-    document.querySelectorAll('.clickable-img').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-            const img = this.querySelector('img');
-            if (img && img.src) { lightboxImg.src = img.src; lightbox.classList.add('show'); document.body.style.overflow = 'hidden'; }
+
+    function formatDate(date) {
+        if (!date) return '';
+        let d = date.toDate ? date.toDate() : new Date(date);
+        return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+    }
+
+    // TARAYICI VE DOM HAZIR OLDUĞUNDA ÇALIŞACAK BLOK
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // ============================================
+        // A. DİNAMİK TARİH AYARLARI (Firebase'den Bağımsız)
+        // ============================================
+        const bugun = new Date();
+        const ay = bugun.toLocaleString('tr-TR', { month: 'long' });
+        const yil = bugun.getFullYear();
+        
+        const edDate = document.getElementById('editorDateText');
+        if (edDate) edDate.innerText = ay + ' ' + yil;
+        
+        document.querySelectorAll('.post-date').forEach(function(el) {
+            el.innerText = bugun.getDate() + ' ' + ay + ' ' + yil;
         });
+
+        // ============================================
+        // B. GECE MODU FONKSİYONU (Firebase'den Bağımsız)
+        // ============================================
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu';
+            }
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Gece Modu';
+                }
+            });
+        }
+
+        // ============================================
+        // C. "DEVAMINI OKU" BUTONLARI (Firebase'den Bağımsız)
+        // ============================================
+        document.querySelectorAll('.read-more-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.dataset.id;
+                const fullDiv = document.getElementById('full-' + id);
+                if (fullDiv) {
+                    fullDiv.classList.toggle('show');
+                    this.innerText = fullDiv.classList.contains('show') ? 'Daha Az Göster' : 'Devamını Oku';
+                }
+            });
+        });
+
+        // ============================================
+        // D. YORUM PANELİNİ AÇMA/KAPATMA (Firebase'den Bağımsız)
+        // ============================================
+        document.querySelectorAll('.comment-toggle').forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pid = this.dataset.post;
+                const sec = document.getElementById('comments-section-' + pid);
+                if (sec) {
+                    sec.style.display = (sec.style.display === 'block') ? 'none' : 'block';
+                }
+            });
+        });
+
+        // ============================================
+        // E. LIGHTBOX & ARAMA FONKSİYONLARI (Firebase'den Bağımsız)
+        // ============================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        window.closeLightbox = function() { if(lightbox) lightbox.classList.remove('show'); document.body.style.overflow = ''; };
+        
+        document.querySelectorAll('.clickable-img').forEach(function(el) {
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
+                const img = this.querySelector('img');
+                if (img && img.src && lightboxImg && lightbox) {
+                    lightboxImg.src = img.src;
+                    lightbox.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        const searchInput = document.getElementById('searchInputSide');
+        const searchBtn = document.getElementById('searchBtnSide');
+        function doSearch() {
+            const q = searchInput ? searchInput.value.trim() : '';
+            if(q) window.open('https://www.google.com/search?q=' + encodeURIComponent(q), '_blank');
+        }
+        if(searchBtn) searchBtn.addEventListener('click', doSearch);
+        if(searchInput) searchInput.addEventListener('keypress', function(e) { if(e.key === 'Enter') doSearch(); });
+
+        document.getElementById('contactNavLink')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('contactSection')?.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ============================================
+        // F. FIREBASE GÜVENLİ BAŞLATMA VE YORUM YÖNETİMİ
+        // ============================================
+        if (typeof firebase !== 'undefined' && firebase.initializeApp) {
+            
+            // Eğer daha önce başlatılmadıysa başlat
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            const db = firebase.firestore();
+            const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+
+            // Veritabanından Yorumları Dinleme/Çekme Fonksiyonu
+            window.loadComments = function(postId) {
+                const commentsRef = db.collection('comments').doc('post_' + postId).collection('allComments');
+                const listDiv = document.getElementById('comments-list-' + postId);
+                const countDisplay = document.querySelector('#comments-section-' + postId + ' .comment-count-display');
+                const toggleCount = document.querySelector('.comment-toggle[data-post="' + postId + '"] .comment-count');
+
+                const processSnapshot = (snapshot) => {
+                    const count = snapshot.size;
+                    if (toggleCount) toggleCount.innerText = count;
+                    if (countDisplay) countDisplay.innerText = count;
+                    if (!listDiv) return;
+
+                    if (count === 0) {
+                        listDiv.innerHTML = '<div style="padding:0.5rem; text-align:center; color:#888;">Henüz yorum yok. İlk yorumu sen yap!</div>';
+                        return;
+                    }
+
+                    let html = '';
+                    snapshot.forEach(function(doc) {
+                        const comment = doc.data();
+                        html += '<div class="comment-item">';
+                        html += '<strong>' + escapeHtml(comment.author) + '</strong>: ' + escapeHtml(comment.text);
+                        if (comment.createdAt) {
+                            html += '<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">' + formatDate(comment.createdAt) + '</div>';
+                        }
+                        html += '<button class="delete-btn" data-post="' + postId + '" data-id="' + doc.id + '"><i class="fas fa-trash"></i></button>';
+                        html += '</div>';
+                    });
+                    listDiv.innerHTML = html;
+                    
+                    // Silme İşlemi Dinleyicileri
+                    listDiv.querySelectorAll('.delete-btn').forEach(function(btn) {
+                        btn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const pwd = prompt("Yorumu silmek için şifre girin:");
+                            if (pwd === "vom2026") {
+                                commentsRef.doc(this.dataset.id).delete();
+                            } else if (pwd !== null) {
+                                alert("Hatalı şifre!");
+                            }
+                        });
+                    });
+                };
+
+                if (isBot) {
+                    commentsRef.orderBy('createdAt', 'desc').get().then(processSnapshot).catch(() => {});
+                } else {
+                    commentsRef.orderBy('createdAt', 'desc').onSnapshot(processSnapshot, () => {});
+                }
+            };
+
+            // Yorum Gönderme Formu Tetikleyicileri
+            document.querySelectorAll('.submit-comment').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const pid = this.dataset.post;
+                    const nameInp = document.getElementById('comment-name-' + pid);
+                    const textInp = document.getElementById('comment-text-' + pid);
+                    if (!textInp || !textInp.value.trim()) {
+                        alert('Lütfen bir yorum yazın.');
+                        return;
+                    }
+                    const author = nameInp ? nameInp.value.trim() : '';
+                    const text = textInp.value.trim();
+
+                    db.collection('comments').doc('post_' + pid).collection('allComments').add({
+                        author: author || "Ziyaretçi",
+                        text: text,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }).then(() => {
+                        if(nameInp) nameInp.value = '';
+                        if(textInp) textInp.value = '';
+                    });
+                });
+            });
+
+            // Firebase hazır olduğuna göre 10 makalenin yorumlarını yükle
+            for (let i = 1; i <= 10; i++) {
+                window.loadComments(i);
+            }
+
+            console.log("Firebase ve yorum modülleri güvenle tetiklendi.");
+
+        } else {
+            console.warn("Firebase SDK kütüphaneleri henüz yüklenemedi, arka planda bekleniyor.");
+            // Eğer Firebase CDN gecikirse, statik yedek sayıları bas (Sayfa boş kalmasın)
+            for (let i = 1; i <= 10; i++) {
+                const tc = document.querySelector('.comment-toggle[data-post="' + i + '"] .comment-count');
+                if (tc) tc.innerText = '0';
+            }
+        }
     });
-    lightbox?.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && lightbox?.classList.contains('show')) closeLightbox(); });
-    
-    // Eski yazılar
-    document.querySelectorAll('.old-posts-link a').forEach(function(link) { link.addEventListener('click', function(e) { e.preventDefault(); alert("Arşiv sayfası yakında eklenecek."); }); });
-});
 </script>
 </body>
 </html>
