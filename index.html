@@ -6,9 +6,9 @@
     <title>VOM | Kültür Sanat Blogu - Dijital Sanat, Müzik ve Radyo</title>
     <meta name="description" content="VOM Kültür Sanat Blogu: Yeni medya, dijital sanat, web radyo, şiir-müzik buluşmaları, fotoğraf sanatı ve kültürel içerikler.">
     <meta name="keywords" content="kültür sanat blogu, dijital sanat, web radyo, şiir, müzik, fotoğraf sanatı, VOM, sanat blogu, radyo dinle, edebiyat, sinema, minimalist fotoğraf, Türk sanatçılar">
-    <meta name="author" content="VOM YAYIN">
 	<meta name="googlebot" content="index, follow">
     <meta name="robots" content="index, follow">
+    <meta name="author" content="VOM YAYIN">
     <link rel="canonical" href="https://vomyayin.dpdns.org/">
    
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -18,11 +18,16 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts - Ön yükleme + Asenkron -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+
+<!-- Font Awesome - Ön yükleme + Asenkron -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
     
-    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js" defer></script>
 
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
