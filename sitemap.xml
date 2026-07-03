@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
-  <!-- Ana Sayfa (Sayı 2) -->
+  <!-- Ana Sayfa (Sayı 2 - En Güncel) -->
   <url>
-    <loc>https://vom-blog.pages.dev/</loc>
+    <loc>https://vom-blog.com/</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- Eski Yazılar (Sayı 1) -->
   <url>
-    <loc>https://vom-blog.pages.dev/index1.html</loc>
+    <loc>https://vom-blog.com/index1.html</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -19,7 +19,7 @@
 
   <!-- Radyo Sayfası -->
   <url>
-    <loc>https://vom-blog.pages.dev/radyo.html</loc>
+    <loc>https://vom-blog.com/radyo.html</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
