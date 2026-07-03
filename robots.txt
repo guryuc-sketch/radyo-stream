@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vom-blog.pages.dev/sitemap.xml
+Sitemap: https://vom-blog.com/sitemap.xml
