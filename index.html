@@ -7,14 +7,12 @@
     <meta name="description" content="VOM-VOMITARIUM Kültür Sanat Blogu. Dijital sanat, web radyo, özgün yazılar, edebiyat, sinema, fotoğrafçılık ve güncel kültürel içerikler.">
     <meta name="keywords" content="VOM blog, VOM yayın, VOM kültür sanat, yazar yazıları, dijital sanat, web radyo, edebiyat blogu, sanat dergisi, kültür sanat haberleri, güncel yazarlar">
     <meta name="googlebot" content="index, follow">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="VOM YAYIN">
     <meta name="theme-color" content="#1a2a3a">
-    <meta name="language" content="Turkish">
-    <meta http-equiv="content-language" content="tr">
     <link rel="canonical" href="https://vom-blog.com/">
 
-    <!-- Open Graph -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vom-blog.com/">
     <meta property="og:title" content="VOM-VOMITARIUM Kültür Sanat Blogu">
@@ -140,7 +138,7 @@
         .dark-mode-toggle{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:40px;padding:0.25rem 0.8rem;font-size:0.7rem;cursor:pointer;color:#475569}
         
         .sidebar-card,.search-box-side{background:white;border-radius:20px;padding:1.2rem;margin-bottom:1.2rem;border:1px solid #eef2f6}
-        .sidebar-card h3{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
+        .sidebar-card h2{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
         
         .editor-image{margin-bottom:1rem;border-radius:16px;overflow:hidden}
         .editor-image img{width:100%;height:auto;display:block}
@@ -173,9 +171,6 @@
         @media (min-width:768px){.post{padding:2rem;margin-bottom:2rem}}
         .post header{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem}
         @media (min-width:480px){.post header{flex-direction:row;justify-content:space-between;align-items:flex-start}}
-        .title h1{font-size:1.3rem;font-weight:700;margin:0}
-        @media (min-width:768px){.title h1{font-size:1.8rem}}
-        .title h1 a{text-decoration:none;color:#1e293b}
         .title h2{font-size:1.3rem;font-weight:700;margin:0}
         @media (min-width:768px){.title h2{font-size:1.8rem}}
         .title h2 a{text-decoration:none;color:#1e293b}
@@ -207,7 +202,7 @@
         .full-post-content.show{display:block}
         
         .contact-bottom{background:white;border-radius:20px;padding:1.2rem;margin-top:1rem;border:1px solid #eef2f6}
-        .contact-bottom h3{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
+        .contact-bottom h2{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
         .contact-email{display:inline-block;background:#f1f5f9;padding:0.5rem 1rem;border-radius:30px;text-decoration:none;color:#2c5f8a;font-weight:600;font-size:0.8rem}
         .site-footer{text-align:center;padding:1rem 0;font-size:0.7rem;color:#6c86a3;border-top:1px solid #eef2f6;margin-top:1rem}
         .icons{display:flex;justify-content:center;gap:1.5rem;margin-bottom:0.8rem}
@@ -354,33 +349,6 @@
         .contact-form .success-message.show {
             display: block;
         }
-
-        .related-posts {
-            margin-top: 1rem;
-            padding-top: 0.5rem;
-            border-top: 1px dashed #e2e8f0;
-        }
-        .related-posts p {
-            font-size: 0.75rem;
-            color: #6c7a91;
-            margin: 0;
-        }
-        .related-posts a {
-            color: #2c5f8a;
-            text-decoration: none;
-        }
-        .related-posts a:hover {
-            text-decoration: underline;
-        }
-        body.dark-mode .related-posts {
-            border-top-color: #334155;
-        }
-        body.dark-mode .related-posts p {
-            color: #94a3b8;
-        }
-        body.dark-mode .related-posts a {
-            color: #60a5fa;
-        }
     </style>
 </head>
 <body>
@@ -400,7 +368,7 @@
             </div>
         </div>
         <div class="sidebar-card">
-            <h3><i class="fas fa-pen-fancy"></i> Editörden</h3>
+            <h2><i class="fas fa-pen-fancy"></i> Editörden</h2>
             <div class="editor-image">
                 <img src="https://vom-blog.com/images/editor-2.png" alt="Editör" width="600" height="300" loading="lazy" style="border-radius:12px; width:100%; height:auto;">
             </div>
@@ -417,15 +385,15 @@ Bu sayıda ortak bir tema ararsanız, onu başlıklarda değil satır aralarınd
             </div>
         </div>
         <div class="sidebar-card">
-            <h3><i class="fas fa-headphones"></i> Radyo</h3>
+            <h2><i class="fas fa-headphones"></i> Radyo</h2>
             <a href="radyo.html" target="_blank" class="radio-link-btn"><span><i class="fas fa-play-circle"></i> VOM Radyo'yu Aç</span><i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="sidebar-card">
-            <h3><i class="fas fa-comments"></i> Sohbet</h3>
+            <h2><i class="fas fa-comments"></i> Sohbet</h2>
             <a href="sohbet.html" target="_blank" class="radio-link-btn"><span><i class="fas fa-comment-dots"></i> VOM Sohbeti Aç</span><i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="sidebar-card">
-            <h3><i class="fas fa-video"></i> VOM Albüm</h3>
+            <h2><i class="fas fa-video"></i> VOM Albüm</h2>
             <a href="https://www.youtube.com/watch?v=3VGJkfQ9FPA" target="_blank" rel="noopener noreferrer" class="video-card-link">
                 <img src="https://img.youtube.com/vi/3VGJkfQ9FPA/maxresdefault.jpg" alt="video kapak" width="400" height="225" loading="lazy" onerror="this.src='https://img.youtube.com/vi/3VGJkfQ9FPA/hqdefault.jpg'">
                 <div class="play-icon-video"><i class="fas fa-play"></i></div>
@@ -482,7 +450,7 @@ Bu sayıda ortak bir tema ararsanız, onu başlıklarda değil satır aralarınd
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-11" class="post-title-link">Siret</a></h1>
+                        <h2 itemprop="headline"><a href="#post-11" class="post-title-link">Siret</a></h2>
                         <p itemprop="description">Kadın ve Aşk</p>
                     </div>
                     <div class="meta">
@@ -517,9 +485,6 @@ Suret'in karşıtı Siret; "Dış görünüşten, maddiyattan ve geçici olandan
                         <textarea class="comment-text" id="comment-text-11" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="11">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-12">Bir başka İstanbul</a> | <a href="#post-13">Dönüş</a> | <a href="#post-15">Bakışık Halde Olabilmek</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -560,7 +525,7 @@ Suret'in karşıtı Siret; "Dış görünüşten, maddiyattan ve geçici olandan
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-12" class="post-title-link">Bir başka İstanbul</a></h1>
+                        <h2 itemprop="headline"><a href="#post-12" class="post-title-link">Bir başka İstanbul</a></h2>
                         <p itemprop="description">Tarihsel dokusuyla Zeyrek</p>
                     </div>
                     <div class="meta">
@@ -586,9 +551,6 @@ Suret'in karşıtı Siret; "Dış görünüşten, maddiyattan ve geçici olandan
                         <textarea class="comment-text" id="comment-text-12" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="12">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-11">Siret</a> | <a href="#post-13">Dönüş</a> | <a href="#post-16">Yitip Gidenler</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -629,7 +591,7 @@ Suret'in karşıtı Siret; "Dış görünüşten, maddiyattan ve geçici olandan
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-13" class="post-title-link">Dönüş </a>(Bir Şehir Hikayesi)<br></h1>
+                        <h2 itemprop="headline"><a href="#post-13" class="post-title-link">Dönüş </a>(Bir Şehir Hikayesi)<br></h2>
                         <p itemprop="description">İki Şehir Bir Kadın</p>
                     </div>
                     <div class="meta">
@@ -661,9 +623,6 @@ Dağları denize paralel, iklimi sert, insanları da iklimiyle paralel sertlikte
                         <textarea class="comment-text" id="comment-text-13" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="13">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-11">Siret</a> | <a href="#post-12">Bir başka İstanbul</a> | <a href="#post-15">Bakışık Halde Olabilmek</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -704,7 +663,7 @@ Dağları denize paralel, iklimi sert, insanları da iklimiyle paralel sertlikte
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-14" class="post-title-link">Adana&rsquo;yı Yaşarken</a></h1>
+                        <h2 itemprop="headline"><a href="#post-14" class="post-title-link">Adana&rsquo;yı Yaşarken</a></h2>
                         <p itemprop="description">Begümün Gözünden Dilinden</p>
                     </div>
                     <div class="meta">
@@ -747,9 +706,6 @@ Tabii ki bu kadar değil ama sayfamızı aşmayalım…. Anlatmaya devam…</p><
                         <button class="submit-comment" data-post="14">Gönder</button>
                     </div>
                 </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-11">Siret</a> | <a href="#post-16">Yitip Gidenler</a> | <a href="#post-17">Bulutlarla Sohbet</a></p>
-                </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
 
@@ -789,7 +745,7 @@ Tabii ki bu kadar değil ama sayfamızı aşmayalım…. Anlatmaya devam…</p><
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-15" class="post-title-link">Bakışık Halde Olabilmek</a></h1>
+                        <h2 itemprop="headline"><a href="#post-15" class="post-title-link">Bakışık Halde Olabilmek</a></h2>
                         <p itemprop="description">Aynı Yöne Bakanlar</p>
                     </div>
                     <div class="meta">
@@ -822,9 +778,6 @@ Sanata ve sanata hayat verenlere saygıyla...</p></div>
                         <textarea class="comment-text" id="comment-text-15" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="15">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-11">Siret</a> | <a href="#post-13">Dönüş</a> | <a href="#post-18">Bellek</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -865,7 +818,7 @@ Sanata ve sanata hayat verenlere saygıyla...</p></div>
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-16" class="post-title-link">Yitip Gidenler</a></h1>
+                        <h2 itemprop="headline"><a href="#post-16" class="post-title-link">Yitip Gidenler</a></h2>
                         <p itemprop="description">Sesler Yüzler Sokaklar</p>
                     </div>
                     <div class="meta">
@@ -919,9 +872,6 @@ Ben de mesleğimi seviyor ve tüm mali müşavir meslektaşlarıma sevgi ve sayg
                         <button class="submit-comment" data-post="16">Gönder</button>
                     </div>
                 </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-12">Bir başka İstanbul</a> | <a href="#post-14">Adana'yı Yaşarken</a> | <a href="#post-18">Bellek</a></p>
-                </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
 
@@ -961,7 +911,7 @@ Ben de mesleğimi seviyor ve tüm mali müşavir meslektaşlarıma sevgi ve sayg
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-17" class="post-title-link">Bulutlarla Sohbet</a></h1>
+                        <h2 itemprop="headline"><a href="#post-17" class="post-title-link">Bulutlarla Sohbet</a></h2>
                         <p itemprop="description">Kelimelerin Tınısı</p>
                     </div>
                     <div class="meta">
@@ -1003,9 +953,6 @@ Her daim konuşabilir, anlaşılabilir; sabaha göz kırpar...</p></div>
                         <button class="submit-comment" data-post="17">Gönder</button>
                     </div>
                 </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-14">Adana'yı Yaşarken</a> | <a href="#post-18">Bellek</a> | <a href="#post-20">Tertemiz</a></p>
-                </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
 
@@ -1045,7 +992,7 @@ Her daim konuşabilir, anlaşılabilir; sabaha göz kırpar...</p></div>
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-18" class="post-title-link">Bellek: Bireyden Topluma Yaşamın İzleri</a></h1>
+                        <h2 itemprop="headline"><a href="#post-18" class="post-title-link">Bellek: Bireyden Topluma Yaşamın İzleri</a></h2>
                         <p itemprop="description">Zamanın Ruhu</p>
                     </div>
                     <div class="meta">
@@ -1087,9 +1034,6 @@ Ortak belleğin, sosyal kimlikleri şekillendirmedeki rolünü tekrar hatırlata
                         <button class="submit-comment" data-post="18">Gönder</button>
                     </div>
                 </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-15">Bakışık Halde Olabilmek</a> | <a href="#post-16">Yitip Gidenler</a> | <a href="#post-17">Bulutlarla Sohbet</a></p>
-                </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
 
@@ -1129,7 +1073,7 @@ Ortak belleğin, sosyal kimlikleri şekillendirmedeki rolünü tekrar hatırlata
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-19" class="post-title-link">Seçi-yorum</a></h1>
+                        <h2 itemprop="headline"><a href="#post-19" class="post-title-link">Seçi-yorum</a></h2>
                         <p itemprop="description">ce</p>
                     </div>
                     <div class="meta">
@@ -1161,9 +1105,6 @@ Diyeceğim o ki dilerim seçimleriniz, pişmanlıklarınız olmasın. Ailenize d
                         <textarea class="comment-text" id="comment-text-19" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="19">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-11">Siret</a> | <a href="#post-13">Dönüş</a> | <a href="#post-21">Düşüşün Anatomisi</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -1204,7 +1145,7 @@ Diyeceğim o ki dilerim seçimleriniz, pişmanlıklarınız olmasın. Ailenize d
                 </script>
                 <header>
                     <div class="title">
-                        <h1 itemprop="headline"><a href="#post-20" class="post-title-link">Tertemiz</a></h1>
+                        <h2 itemprop="headline"><a href="#post-20" class="post-title-link">Tertemiz</a></h2>
                         <p itemprop="description">Münirenin Kaleminden</p>
                     </div>
                     <div class="meta">
@@ -1236,9 +1177,6 @@ Mavi leğen nelerin kirini yıkamadı ki. Dayımın sarhoş kusmuklu gömleğini
                         <textarea class="comment-text" id="comment-text-20" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="20">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-17">Bulutlarla Sohbet</a> | <a href="#post-21">Düşüşün Anatomisi</a> | <a href="#post-22">Aşkın Matematiği</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -1279,7 +1217,7 @@ Mavi leğen nelerin kirini yıkamadı ki. Dayımın sarhoş kusmuklu gömleğini
                 </script>
                 <header>
                   <div class="title">
-                    <h1 itemprop="headline"><a href="#post-21" class="post-title-link">Düşüşün Anatomisi</a></h1>
+                    <h2 itemprop="headline"><a href="#post-21" class="post-title-link">Düşüşün Anatomisi</a></h2>
                       <p itemprop="description">Zülay'dan</p>
                     </div>
                     <div class="meta">
@@ -1311,9 +1249,6 @@ Sonunda fark edilir ki asıl hikâye koparılan erikte değil, toprağa değen o
                         <textarea class="comment-text" id="comment-text-21" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="21">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-19">Seçi-yorum</a> | <a href="#post-20">Tertemiz</a> | <a href="#post-23">Zaman Neden Tersine Akar?</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -1354,7 +1289,7 @@ Sonunda fark edilir ki asıl hikâye koparılan erikte değil, toprağa değen o
                 </script>
                 <header>
                   <div class="title">
-                    <h1 itemprop="headline"><a href="#post-22" class="post-title-link">Aşkın Matematiği</a></h1>
+                    <h2 itemprop="headline"><a href="#post-22" class="post-title-link">Aşkın Matematiği</a></h2>
                       <p itemprop="description">Paralaks </p>
                     </div>
                     <div class="meta">
@@ -1388,9 +1323,6 @@ Sonunda fark edilir ki asıl hikâye koparılan erikte değil, toprağa değen o
                         <textarea class="comment-text" id="comment-text-22" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
                         <button class="submit-comment" data-post="22">Gönder</button>
                     </div>
-                </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-20">Tertemiz</a> | <a href="#post-21">Düşüşün Anatomisi</a> | <a href="#post-23">Zaman Neden Tersine Akar?</a></p>
                 </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
@@ -1431,7 +1363,7 @@ Sonunda fark edilir ki asıl hikâye koparılan erikte değil, toprağa değen o
                 </script>
                 <header>
                   <div class="title">
-                    <h1 itemprop="headline"><a href="#post-23" class="post-title-link">Zaman Neden Tersine Akar?</a></h1>
+                    <h2 itemprop="headline"><a href="#post-23" class="post-title-link">Zaman Neden Tersine Akar?</a></h2>
                       <p itemprop="description">Görme Biçimleri</p>
                     </div>
                     <div class="meta">
@@ -1475,9 +1407,6 @@ Varoluşçular ise geleneksel felsefenin aksine varoluşun özden önce geldiği
                         <button class="submit-comment" data-post="23">Gönder</button>
                     </div>
                 </div>
-                <div class="related-posts">
-                    <p><i class="fas fa-link"></i> <a href="#post-21">Düşüşün Anatomisi</a> | <a href="#post-22">Aşkın Matematiği</a> | <a href="#post-11">Siret</a></p>
-                </div>
                 <div class="old-posts-link"><a href="index1.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
             </article>
 
@@ -1485,7 +1414,7 @@ Varoluşçular ise geleneksel felsefenin aksine varoluşun özden önce geldiği
 
         <!-- ===== İLETİŞİM BÖLÜMÜ ===== -->
         <div class="contact-bottom" id="contactSection">
-            <h3>VOM VOMITORIUM</h3>
+            <h2>VOM VOMITORIUM</h2>
             <p>Sanatın gücüne ve kültürün toplumsal değişimdeki rolüne inanan bir grup yazar ve sanatseverden oluşmaktadır. Topluluk üyeleri edebiyat, tiyatro, müzik, resim ve diğer sanat dallarında yeteneklerini birleştirerek insan deneyimine odaklı eserler üretmektedir. Ticari bir amacı olmayan grup, Cumhuriyet değerlerine bağlı kalarak sanatsal özgürlüğü teşvik eden bir platform sunmaktadır.
             <br><br>
             VOM VOMITORIUM, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. Hem sanatsal üretimlerle hem de toplumsal etkileşimleriyle kültürel ve sanatsal zenginlik yaratmaya çalışan bir topluluktur.
