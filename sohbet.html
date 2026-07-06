@@ -189,8 +189,8 @@
         .admin-btn.kapali-btn:hover { background: #b02a2a; }
         .admin-panel .admin-bilgi { font-size: 0.6rem; color: #94a3b8; }
 
-        /* Başlangıçta her iki alanı da gizle (Flicker/Göz kırpmayı önlemek için) */
-        #kapaliEkran, #aktifAlan { display: none; }
+        /* Sayfa ilk açıldığında durum netleşene kadar her şeyi gizle */
+        #kapaliEkran, #aktifAlan { display: none !important; }
 
         .kapali-ekran {
             flex: 1;
@@ -534,7 +534,7 @@
 
     <script>
         // ============================================
-        // FIREBASE KONFIGÜRASYON
+        // AYARLAR VE DEĞİŞKENLER
         // ============================================
         const firebaseConfig = {
             apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
@@ -547,413 +547,117 @@
 
         let db;
         let mesajDinleme = null;
-        let kullaniciAdi = '';
-        let seciliMesajlar = new Set();
-        let adminAcik = false;
+        let adminAcik = localStorage.getItem('vomAdminYetkisi') === 'true';
         let sohbetAktif = false;
         const ADMIN_PASSWORD = "vom2026";
-        const KOLEKSIYON_ADI = "sohbet";
-        const DURUM_DOKUMAN = "sohbet_durumu";
 
         // ============================================
-        // ADMIN DURUMUNU localStorage'dan KONTROL ET
+        // SİSTEMİ BAŞLAT
         // ============================================
-        adminAcik = localStorage.getItem('vomAdminYetkisi') === 'true';
+        function firebaseBaslat() {
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
 
-        // ============================================
-        // SAAT GÖSTERİCİ
-        // ============================================
-        function saatGuncelle() {
-            const now = new Date();
-            const s = String(now.getHours()).padStart(2, '0');
-            const d = String(now.getMinutes()).padStart(2, '0');
-            const saatGoster = document.getElementById('saatGoster');
-            if (saatGoster) {
-                saatGoster.textContent = s + ':' + d;
-            }
-        }
-        setInterval(saatGuncelle, 1000);
-        saatGuncelle();
-
-        // ============================================
-        // ADMIN PANELİNİ GÖSTER/GİZLE
-        // ============================================
-        function adminPaneliGoster() {
-            const panel = document.getElementById('adminPanel');
-            const btn = document.getElementById('adminAcBtn');
-            if (adminAcik) {
-                panel.classList.add('show');
-                btn.classList.add('acik');
-                document.querySelectorAll('.chat-message').forEach(msg => {
-                    msg.style.cursor = 'pointer';
-                    msg.addEventListener('click', mesajTikla);
-                });
-            } else {
-                panel.classList.remove('show');
-                btn.classList.remove('acik');
-                document.querySelectorAll('.chat-message').forEach(msg => {
-                    msg.style.cursor = 'default';
-                    msg.removeEventListener('click', mesajTikla);
-                });
-            }
-        }
-
-        // ============================================
-        // SOHBET DURUMUNU FIRESTORE'A KAYDET
-        // ============================================
-        async function sohbetDurumuKaydet(aktif) {
-            if (!db) return;
-            try {
-                await db.collection('ayarlar').doc(DURUM_DOKUMAN).set({
-                    aktif: aktif,
-                    guncelleme: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                console.log('✅ Sohbet durumu kaydedildi:', aktif);
-            } catch (error) {
-                console.error('❌ Durum kaydedilemedi:', error);
-            }
-        }
-
-        async function sohbetDurumuOku() {
-            if (!db) return false;
-            try {
-                const doc = await db.collection('ayarlar').doc(DURUM_DOKUMAN).get();
+            // 1. ADIM: Sadece Firebase'deki gerçek durumu dinle
+            db.collection('ayarlar').doc('sohbet_durumu').onSnapshot((doc) => {
                 if (doc.exists) {
-                    const data = doc.data();
-                    console.log('📖 Sohbet durumu okundu:', data.aktif);
-                    return data.aktif === true;
+                    const veri = doc.data();
+                    console.log("🔥 Güncel Sohbet Durumu:", veri.aktif);
+                    durumuEkranaUygula(veri.aktif);
+                } else {
+                    durumuEkranaUygula(false);
                 }
-                return false;
-            } catch (error) {
-                console.error('❌ Durum okunamadı:', error);
-                return false;
-            }
+            });
         }
 
         // ============================================
-        // SOHBET DURUMU GÜNCELLE
+        // EKRAN YÖNETİMİ
         // ============================================
-        async function sohbetDurumuGuncelle(aktif) {
+        function durumuEkranaUygula(aktif) {
             sohbetAktif = aktif;
-            
-            // LocalStorage'a kaydet (hızlı erişim için)
-            localStorage.setItem('vomSohbetSonDurum', aktif);
-            await sohbetDurumuKaydet(aktif);
-
             const badge = document.getElementById('durumBadge');
-            const kapaliEkran = document.getElementById('kapaliEkran');
-            const aktifAlan = document.getElementById('aktifAlan');
+            const kapali = document.getElementById('kapaliEkran');
+            const acik = document.getElementById('aktifAlan');
 
-            if (aktif) {
+            if (aktif === true) {
                 badge.className = 'durum-badge acik';
                 badge.innerHTML = '<i class="fas fa-circle"></i> CANLI';
-                kapaliEkran.style.display = 'none';
-                aktifAlan.style.display = 'flex';
-                if (db) sohbetiBaslat();
+                kapali.style.setProperty('display', 'none', 'important');
+                acik.style.setProperty('display', 'flex', 'important');
+                sohbetiBaslat();
             } else {
                 badge.className = 'durum-badge kapali';
                 badge.innerHTML = '<i class="fas fa-lock"></i> KAPALI';
-                kapaliEkran.style.display = 'flex';
-                aktifAlan.style.display = 'none';
-                if (mesajDinleme) {
-                    mesajDinleme();
-                    mesajDinleme = null;
-                }
+                kapali.style.setProperty('display', 'flex', 'important');
+                acik.style.setProperty('display', 'none', 'important');
+                if (mesajDinleme) { mesajDinleme(); mesajDinleme = null; }
             }
         }
 
         // ============================================
-        // FIREBASE BAŞLAT
+        // ADMIN İŞLEMLERİ (Panel Görünümü)
         // ============================================
-        function firebaseBaslat() {
-            try {
-                if (typeof firebase === 'undefined') {
-                    console.error('Firebase SDK yüklenmedi!');
-                    setTimeout(firebaseBaslat, 2000);
-                    return;
-                }
-
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(firebaseConfig);
-                    console.log('✅ Firebase initialized');
-                }
-
-                db = firebase.firestore();
-                console.log('✅ Firestore bağlantısı kuruldu');
-
-                // ÖNCE LocalStorage'dan hızlı göster
-                const localDurum = localStorage.getItem('vomSohbetSonDurum');
-                if (localDurum !== null) {
-                    const aktif = localDurum === 'true';
-                    // Hızlı gösterim için doğrudan uygula (Firestore beklemez)
-                    sohbetAktif = aktif;
-                    const badge = document.getElementById('durumBadge');
-                    const kapaliEkran = document.getElementById('kapaliEkran');
-                    const aktifAlan = document.getElementById('aktifAlan');
-                    
-                    if (aktif) {
-                        badge.className = 'durum-badge acik';
-                        badge.innerHTML = '<i class="fas fa-circle"></i> CANLI';
-                        kapaliEkran.style.display = 'none';
-                        aktifAlan.style.display = 'flex';
-                        if (db) sohbetiBaslat();
-                    } else {
-                        badge.className = 'durum-badge kapali';
-                        badge.innerHTML = '<i class="fas fa-lock"></i> KAPALI';
-                        kapaliEkran.style.display = 'flex';
-                        aktifAlan.style.display = 'none';
-                    }
-                    console.log('⚡ Hızlı başlatma:', aktif ? 'CANLI' : 'KAPALI', '(LocalStorage)');
-                }
-
-                // FIRESTORE'DAN DURUMU OKU (GÜNCELLE)
-                sohbetDurumuOku().then(aktif => {
-                    console.log('📖 Firestore\'dan okundu:', aktif);
-                    sohbetDurumuGuncelle(aktif);
-                });
-
-                // AYARLAR KOLEKSİYONUNU DİNLE (CANLI GÜNCELLEME İÇİN)
-                db.collection('ayarlar').doc(DURUM_DOKUMAN).onSnapshot((doc) => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        if (data.aktif !== undefined && data.aktif !== sohbetAktif) {
-                            console.log('🔄 Durum değişti (Firestore):', data.aktif);
-                            sohbetDurumuGuncelle(data.aktif);
-                        }
-                    }
-                }, (error) => {
-                    console.error('Durum dinleme hatası:', error);
-                });
-
-                db.collection(KOLEKSIYON_ADI).limit(1).get()
-                    .then(() => {
-                        console.log('✅ Firestore okuma izni var');
-                    })
-                    .catch((err) => {
-                        console.error('❌ Firestore okuma hatası:', err);
-                    });
-
-            } catch (error) {
-                console.error('❌ Firebase başlatma hatası:', error);
-                setTimeout(firebaseBaslat, 3000);
-            }
+        function adminPaneliGoster() {
+            const panel = document.getElementById('adminPanel');
+            if (adminAcik) panel.classList.add('show');
+            else panel.classList.remove('show');
         }
 
-        // ============================================
-        // SOHBET BAŞLAT
-        // ============================================
-        function sohbetiBaslat() {
-            if (!sohbetAktif || !db) return;
-
-            const mesajlarDiv = document.getElementById('chatMessages');
-            const isimInput = document.getElementById('chatUsername');
-            const mesajInput = document.getElementById('chatInput');
-            const gonderBtn = document.getElementById('chatSendBtn');
-            const kullaniciSayisiSpan = document.getElementById('kullanici-sayisi');
-
-            kullaniciAdi = localStorage.getItem('sohbet-kullanici') || '';
-            isimInput.value = kullaniciAdi;
-
-            function autoResize(textarea) {
-                textarea.style.height = 'auto';
-                textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
-            }
-
-            mesajInput.addEventListener('input', function() {
-                autoResize(this);
-            });
-
-            isimInput.addEventListener('change', function() {
-                const yeniAd = this.value.trim();
-                kullaniciAdi = yeniAd;
-                if (yeniAd) {
-                    localStorage.setItem('sohbet-kullanici', yeniAd);
-                } else {
-                    localStorage.removeItem('sohbet-kullanici');
-                }
-            });
-
-            if (mesajDinleme) {
-                mesajDinleme();
-                mesajDinleme = null;
-            }
-
-            const mesajlarQuery = db.collection(KOLEKSIYON_ADI).orderBy('zaman', 'asc');
-
-            mesajDinleme = mesajlarQuery.onSnapshot((snapshot) => {
-                const kullanicilar = new Set();
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.kullanici) kullanicilar.add(data.kullanici);
-                });
-                kullaniciSayisiSpan.textContent = kullanicilar.size;
-
-                mesajlarDiv.innerHTML = '';
-                if (snapshot.empty) {
-                    mesajlarDiv.innerHTML = `
-                        <div class="bos-mesaj">
-                            <i class="fas fa-comment"></i>
-                            <div>💬 Henüz mesaj yok.</div>
-                            <div style="font-size:0.75rem; margin-top:4px; color:#b0c0d0;">İlk yorumu sen yap!</div>
-                        </div>
-                    `;
-                    return;
-                }
-
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const isBen = data.kullanici === kullaniciAdi && kullaniciAdi !== '';
-                    const mesajElemani = document.createElement('div');
-                    mesajElemani.className = `chat-message ${isBen ? 'sent' : 'received'}`;
-                    mesajElemani.dataset.msgId = doc.id;
-
-                    const usernameSpan = document.createElement('div');
-                    usernameSpan.className = 'username';
-                    usernameSpan.innerHTML = `<i class="fas fa-user-circle"></i> ${escapeHtml(data.kullanici || 'Anonim')}`;
-
-                    const metinSpan = document.createElement('div');
-                    metinSpan.className = 'mesaj-metni';
-                    metinSpan.textContent = data.metin;
-
-                    const zamanSpan = document.createElement('div');
-                    zamanSpan.className = 'time';
-                    if (data.zaman) {
-                        const d = data.zaman.toDate ? data.zaman.toDate() : new Date(data.zaman);
-                        zamanSpan.textContent = d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-                    }
-
-                    mesajElemani.appendChild(usernameSpan);
-                    mesajElemani.appendChild(metinSpan);
-                    mesajElemani.appendChild(zamanSpan);
-                    mesajlarDiv.appendChild(mesajElemani);
-
-                    if (adminAcik) {
-                        mesajElemani.style.cursor = 'pointer';
-                        mesajElemani.addEventListener('click', mesajTikla);
-                    }
-                });
-
-                mesajlarDiv.scrollTop = mesajlarDiv.scrollHeight;
-
-                if (seciliMesajlar.size > 0) {
-                    document.querySelectorAll('.chat-message').forEach(msg => {
-                        if (seciliMesajlar.has(msg.dataset.msgId)) {
-                            msg.classList.add('secilmis');
-                        }
-                    });
-                }
-            }, (error) => {
-                console.error('Mesaj dinleme hatası:', error);
-            });
-
-            function escapeHtml(str) {
-                if (!str) return '';
-                return str.replace(/[&<>"]/g, function(m) {
-                    if (m === '&') return '&amp;';
-                    if (m === '<') return '&lt;';
-                    if (m === '>') return '&gt;';
-                    if (m === '"') return '&quot;';
-                    return m;
-                });
-            }
-
-            async function mesajGonder() {
-                if (!sohbetAktif) {
-                    alert('Sohbet şu anda kapalı!');
-                    return;
-                }
-                const metin = mesajInput.value.trim();
-                if (!metin) {
-                    mesajInput.focus();
-                    return;
-                }
-
-                const isim = isimInput.value.trim() || 'Anonim';
-                if (isimInput.value.trim()) {
-                    kullaniciAdi = isim;
-                    localStorage.setItem('sohbet-kullanici', isim);
-                }
-
-                try {
-                    await db.collection(KOLEKSIYON_ADI).add({
-                        kullanici: isim,
-                        metin: metin,
-                        zaman: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                    console.log('✅ Mesaj gönderildi');
-                    mesajInput.value = '';
-                    mesajInput.style.height = 'auto';
-                    mesajInput.focus();
-                } catch (error) {
-                    console.error('❌ Mesaj gönderme hatası:', error);
-                    alert('⚠️ Mesaj gönderilemedi!');
-                }
-            }
-
-            gonderBtn.removeEventListener('click', mesajGonder);
-            gonderBtn.addEventListener('click', mesajGonder);
-
-            mesajInput.removeEventListener('keydown', handleEnter);
-            mesajInput.addEventListener('keydown', handleEnter);
-
-            function handleEnter(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    mesajGonder();
-                }
-            }
-
-            console.log('💬 Sohbet başlatıldı.');
-        }
-
-        // ============================================
-        // ADMIN PANELİ AÇ/KAPA
-        // ============================================
-        document.getElementById('adminAcBtn').addEventListener('click', function() {
+        document.getElementById('adminAcBtn').onclick = () => {
             if (!adminAcik) {
-                const sifre = prompt('Admin panelini açmak için şifre girin:');
+                const sifre = prompt("Admin Paneli Şifresi:");
                 if (sifre === ADMIN_PASSWORD) {
                     adminAcik = true;
                     localStorage.setItem('vomAdminYetkisi', 'true');
                     adminPaneliGoster();
                 } else if (sifre !== null) {
-                    alert('❌ Hatalı şifre!');
+                    alert("❌ Şifre Yanlış!");
                 }
             } else {
                 adminAcik = false;
                 localStorage.removeItem('vomAdminYetkisi');
                 adminPaneliGoster();
             }
-        });
-
-        // ===== SOHBET AÇ =====
-        document.getElementById('sohbetAcBtn').addEventListener('click', async function() {
-            if (!adminAcik) return;
-            const sifre = prompt('Sohbeti açmak için şifre girin:');
-            if (sifre === ADMIN_PASSWORD) {
-                await sohbetDurumuGuncelle(true);
-                alert('✅ Sohbet açıldı!');
-            } else if (sifre !== null) {
-                alert('❌ Hatalı şifre!');
-            }
-        });
-
-        // ===== SOHBET KAPAT =====
-        document.getElementById('sohbetKapatBtn').addEventListener('click', async function() {
-            if (!adminAcik) return;
-            const sifre = prompt('Sohbeti kapatmak için şifre girin:');
-            if (sifre === ADMIN_PASSWORD) {
-                await sohbetDurumuGuncelle(false);
-                alert('✅ Sohbet kapatıldı!');
-            } else if (sifre !== null) {
-                alert('❌ Hatalı şifre!');
-            }
-        });
+        };
 
         // ============================================
-        // MESAJ SEÇME / SİLME
+        // SOHBETİ AÇ/KAPAT BUTONLARI (Gerçek Kayıt)
         // ============================================
+        document.getElementById('sohbetAcBtn').onclick = async () => {
+            if (!adminAcik) {
+                alert('Önce admin panelini açın!');
+                return;
+            }
+            const sifre = prompt("Sohbeti başlatmak için şifre:");
+            if (sifre === ADMIN_PASSWORD) {
+                await db.collection('ayarlar').doc('sohbet_durumu').set({ aktif: true });
+                alert("✅ Sohbet AÇILDI!");
+            } else if (sifre !== null) {
+                alert("❌ Şifre Yanlış!");
+            }
+        };
+
+        document.getElementById('sohbetKapatBtn').onclick = async () => {
+            if (!adminAcik) {
+                alert('Önce admin panelini açın!');
+                return;
+            }
+            const sifre = prompt("Sohbeti kapatmak için şifre:");
+            if (sifre === ADMIN_PASSWORD) {
+                await db.collection('ayarlar').doc('sohbet_durumu').set({ aktif: false });
+                alert("✅ Sohbet KAPATILDI!");
+            } else if (sifre !== null) {
+                alert("❌ Şifre Yanlış!");
+            }
+        };
+
+        // ============================================
+        // MESAJ SEÇME / SİLME (Admin Paneli Açıkken)
+        // ============================================
+        let seciliMesajlar = new Set();
+
         function mesajTikla(e) {
+            if (!adminAcik) return;
             const msg = e.currentTarget;
             const msgId = msg.dataset.msgId;
             if (!msgId) return;
@@ -990,7 +694,7 @@
                 const batch = db.batch();
                 let silinecek = 0;
                 seciliMesajlar.forEach(msgId => {
-                    const docRef = db.collection(KOLEKSIYON_ADI).doc(msgId);
+                    const docRef = db.collection('sohbet').doc(msgId);
                     batch.delete(docRef);
                     silinecek++;
                 });
@@ -1008,7 +712,7 @@
         document.getElementById('temizleBtn').addEventListener('click', function() {
             if (!adminAcik) return;
             if (confirm('TÜM mesajlar silinecek. Emin misiniz?')) {
-                db.collection(KOLEKSIYON_ADI).get().then((snapshot) => {
+                db.collection('sohbet').get().then((snapshot) => {
                     const batch = db.batch();
                     snapshot.forEach((doc) => {
                         batch.delete(doc.ref);
@@ -1025,10 +729,120 @@
         });
 
         // ============================================
-        // BAŞLAT - SAYFA YÜKLENDİĞİNDE
+        // MESAJLAŞMA SİSTEMİ
         // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('📱 Sayfa yüklendi, Firebase başlatılıyor...');
+        function sohbetiBaslat() {
+            if (mesajDinleme) return;
+            const kullaniciAdi = document.getElementById('chatUsername');
+
+            mesajDinleme = db.collection('sohbet').orderBy('zaman', 'asc').onSnapshot(snap => {
+                const list = document.getElementById('chatMessages');
+                const kullaniciSayisiSpan = document.getElementById('kullanici-sayisi');
+                const kullanicilar = new Set();
+
+                list.innerHTML = '';
+                if (snap.empty) {
+                    list.innerHTML = `
+                        <div class="bos-mesaj">
+                            <i class="fas fa-comment"></i>
+                            <div>💬 Henüz mesaj yok.</div>
+                            <div style="font-size:0.75rem; margin-top:4px; color:#b0c0d0;">İlk yorumu sen yap!</div>
+                        </div>
+                    `;
+                    kullaniciSayisiSpan.innerText = '0';
+                    return;
+                }
+
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    if (data.kullanici) kullanicilar.add(data.kullanici);
+                    const isBen = data.kullanici === kullaniciAdi.value && kullaniciAdi.value !== '';
+                    const div = document.createElement('div');
+                    div.className = `chat-message ${isBen ? 'sent' : 'received'}`;
+                    div.dataset.msgId = doc.id;
+                    div.innerHTML = `
+                        <div class="username"><i class="fas fa-user-circle"></i> ${escapeHtml(data.kullanici || 'Anonim')}</div>
+                        <div class="mesaj-metni">${escapeHtml(data.metin)}</div>
+                        <div class="time">${data.zaman ? new Date(data.zaman.toDate()).toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'}) : ''}</div>
+                    `;
+                    list.appendChild(div);
+
+                    if (adminAcik) {
+                        div.style.cursor = 'pointer';
+                        div.addEventListener('click', mesajTikla);
+                    }
+                });
+
+                kullaniciSayisiSpan.innerText = kullanicilar.size;
+                list.scrollTop = list.scrollHeight;
+            });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>"]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                if (m === '"') return '&quot;';
+                return m;
+            });
+        }
+
+        // ============================================
+        // MESAJ GÖNDER
+        // ============================================
+        document.getElementById('chatSendBtn').onclick = async () => {
+            const metin = document.getElementById('chatInput').value.trim();
+            const ad = document.getElementById('chatUsername').value.trim() || 'Anonim';
+            if (!metin) return;
+            if (!sohbetAktif) {
+                alert('Sohbet şu anda kapalı!');
+                return;
+            }
+            if (document.getElementById('chatUsername').value.trim()) {
+                localStorage.setItem('sohbet-kullanici', document.getElementById('chatUsername').value.trim());
+            }
+            try {
+                await db.collection('sohbet').add({
+                    kullanici: ad,
+                    metin: metin,
+                    zaman: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                document.getElementById('chatInput').value = '';
+                document.getElementById('chatInput').style.height = 'auto';
+            } catch (error) {
+                console.error('Mesaj gönderme hatası:', error);
+                alert('⚠️ Mesaj gönderilemedi!');
+            }
+        };
+
+        document.getElementById('chatInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('chatSendBtn').click();
+            }
+        });
+
+        // Textarea otomatik yükseklik
+        document.getElementById('chatInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+        });
+
+        // ============================================
+        // SAAT VE BAŞLATICI
+        // ============================================
+        setInterval(() => {
+            const d = new Date();
+            document.getElementById('saatGoster').innerText = d.getHours().toString().padStart(2,'0') + ":" + d.getMinutes().toString().padStart(2,'0');
+        }, 1000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('sohbet-kullanici');
+            if (savedName) {
+                document.getElementById('chatUsername').value = savedName;
+            }
             adminPaneliGoster();
             firebaseBaslat();
         });
