@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
-  <!-- Ana Sayfa (Sayı 2 - En Güncel) -->
+  <!-- ======================== -->
+  <!-- ANA SAYFA (Sayı 2)      -->
+  <!-- ======================== -->
   <url>
     <loc>https://vom-blog.com/</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Eski Yazılar (Sayı 1) -->
+  <!-- ======================== -->
+  <!-- ESKİ YAZILAR (Sayı 1)   -->
+  <!-- ======================== -->
   <url>
     <loc>https://vom-blog.com/index1.html</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Radyo Sayfası -->
+  <!-- ======================== -->
+  <!-- RADYO SAYFASI           -->
+  <!-- ======================== -->
   <url>
     <loc>https://vom-blog.com/radyo.html</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ======================== -->
+  <!-- SOHBET SAYFASI          -->
+  <!-- ======================== -->
+  <url>
+    <loc>https://vom-blog.com/sohbet.html</loc>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
