@@ -47,15 +47,16 @@
             border-bottom: 2px solid rgba(0,0,0,0.08);
             flex-shrink: 0;
         }
-        .chat-header .title {
+        .chat-header .title h1 {
+            font-size: 1.3rem;
+            margin: 0;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            font-size: 1.3rem;
             font-weight: 700;
             color: #1a1e24;
         }
-        .chat-header .title i { color: #2c5f8a; font-size: 1.4rem; }
+        .chat-header .title h1 i { color: #2c5f8a; font-size: 1.4rem; }
         .chat-header .title .durum-badge {
             font-size: 0.6rem;
             font-weight: 700;
@@ -205,9 +206,10 @@
             font-size: 3rem;
             color: #cbd5e1;
         }
-        .kapali-ekran h3 {
+        .kapali-ekran h2 {
             color: #475569;
             font-size: 1.2rem;
+            margin: 0;
         }
         .kapali-ekran p {
             color: #94a3b8;
@@ -397,7 +399,7 @@
         @media (max-width: 600px) {
             body { padding: 0.6rem; }
             .chat-container { padding: 1rem; min-height: 90vh; max-height: 96vh; border-radius: 18px; }
-            .chat-header .title { font-size: 1rem; }
+            .chat-header .title h1 { font-size: 1rem; }
             .chat-header .title .durum-badge { font-size: 0.5rem; padding: 0.1rem 0.5rem; }
             .chat-header .meta { font-size: 0.65rem; gap: 0.4rem; }
             .chat-header .meta .kisi-sayisi { padding: 0.15rem 0.6rem; font-size: 0.65rem; }
@@ -409,7 +411,7 @@
             .admin-btn { font-size: 0.6rem; padding: 0.2rem 0.7rem; }
             .kapali-ekran { padding: 1.5rem; min-height: 200px; }
             .kapali-ekran i { font-size: 2.5rem; }
-            .kapali-ekran h3 { font-size: 1rem; }
+            .kapali-ekran h2 { font-size: 1rem; }
             .kapali-ekran p { font-size: 0.8rem; }
             .chat-panel { padding: 0.6rem; margin: 0.4rem 0; border-radius: 12px; }
             .chat-message { font-size: 0.8rem; padding: 6px 12px; max-width: 92%; }
@@ -424,7 +426,7 @@
         }
         @media (max-width: 420px) {
             .chat-container { padding: 0.7rem; border-radius: 14px; min-height: 94vh; }
-            .chat-header .title { font-size: 0.85rem; }
+            .chat-header .title h1 { font-size: 0.85rem; }
             .chat-header .title .durum-badge { font-size: 0.45rem; padding: 0.1rem 0.4rem; }
             .saat-gosterge { font-size: 0.6rem; padding: 0.15rem 0.5rem; }
             .saat-gosterge .zaman { font-size: 0.65rem; min-width: 30px; }
@@ -434,7 +436,7 @@
             #chatSendBtn { padding: 8px 14px; font-size: 0.75rem; }
             .kapali-ekran { padding: 1rem; min-height: 150px; }
             .kapali-ekran i { font-size: 2rem; }
-            .kapali-ekran h3 { font-size: 0.9rem; }
+            .kapali-ekran h2 { font-size: 0.9rem; }
             .kapali-ekran p { font-size: 0.75rem; }
             .chat-panel { padding: 0.4rem; margin: 0.3rem 0; }
             .chat-message { font-size: 0.75rem; padding: 5px 10px; max-width: 95%; }
@@ -449,32 +451,32 @@
 
     <div class="chat-container">
         <header class="chat-header">
-    <div class="title">
-        <h1 style="font-size:1.3rem; margin:0; display:flex; align-items:center; gap:0.6rem;">
-            <i class="fas fa-comment"></i>
-            <span>VOM Sohbet</span>
-            <span class="durum-badge kapali" id="durumBadge">
-                <i class="fas fa-lock"></i> KAPALI
-            </span>
-        </h1>
-    </div>
-    <div class="meta">
-        <span class="saat-gosterge">
-            <i class="fas fa-clock"></i>
-            <span class="zaman" id="saatGoster">--:--</span>
-        </span>
-        <span class="kisi-sayisi">
-            <i class="fas fa-users"></i>
-            <span id="kullanici-sayisi">0</span>
-        </span>
-        <button class="admin-btn-header" id="adminAcBtn">
-            <i class="fas fa-cog"></i>
-        </button>
-        <a href="https://vom-blog.com" class="ana-sayfa-link">
-            <i class="fas fa-home"></i>
-        </a>
-    </div>
-</header>
+            <div class="title">
+                <h1>
+                    <i class="fas fa-comment"></i>
+                    <span>VOM Sohbet</span>
+                    <span class="durum-badge kapali" id="durumBadge">
+                        <i class="fas fa-lock"></i> KAPALI
+                    </span>
+                </h1>
+            </div>
+            <div class="meta">
+                <span class="saat-gosterge">
+                    <i class="fas fa-clock"></i>
+                    <span class="zaman" id="saatGoster">--:--</span>
+                </span>
+                <span class="kisi-sayisi">
+                    <i class="fas fa-users"></i>
+                    <span id="kullanici-sayisi">0</span>
+                </span>
+                <button class="admin-btn-header" id="adminAcBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <a href="https://vom-blog.com" class="ana-sayfa-link">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+        </header>
 
         <div class="admin-panel" id="adminPanel">
             <span class="admin-label"><i class="fas fa-shield-alt"></i> YÖNETİM</span>
@@ -489,7 +491,7 @@
         <!-- ===== KAPALI EKRANI ===== -->
         <div class="kapali-ekran" id="kapaliEkran">
             <i class="fas fa-lock"></i>
-            <h3>🔒 Sohbet Şu Anda Kapalı</h3>
+            <h2>🔒 Sohbet Şu Anda Kapalı</h2>
             <p>Sohbet odası şu anda aktif değil. Lütfen daha sonra tekrar deneyin.</p>
             <div class="admin-bilgi"><i class="fas fa-cog"></i> Yönetici tarafından açılacaktır.</div>
         </div>
