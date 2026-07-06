@@ -9,8 +9,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -83,7 +86,7 @@
             align-items: center;
             gap: 0.8rem;
             font-size: 0.75rem;
-            color: #6c7a91;
+            color: #475569;
         }
         .chat-header .meta .kisi-sayisi {
             background: rgba(0,0,0,0.06);
@@ -142,7 +145,7 @@
         }
         .admin-btn-header:hover { background: #2c5f8a; transform: scale(1.02); }
         .admin-btn-header.acik { background: #2c5f8a; }
-        
+
         .admin-panel {
             display: none;
             background: #f8fafc;
@@ -186,7 +189,6 @@
         .admin-btn.kapali-btn:hover { background: #b02a2a; }
         .admin-panel .admin-bilgi { font-size: 0.6rem; color: #94a3b8; }
 
-        /* ===== KAPALI EKRANI ===== */
         .kapali-ekran {
             flex: 1;
             display: flex;
@@ -207,12 +209,12 @@
             color: #cbd5e1;
         }
         .kapali-ekran h2 {
-            color: #475569;
+            color: #1e293b;
             font-size: 1.2rem;
             margin: 0;
         }
         .kapali-ekran p {
-            color: #94a3b8;
+            color: #475569;
             font-size: 0.9rem;
             max-width: 300px;
         }
@@ -306,7 +308,7 @@
         #chatMessages::-webkit-scrollbar { width: 4px; }
         #chatMessages::-webkit-scrollbar-track { background: #f0f2f5; border-radius: 10px; }
         #chatMessages::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        
+
         .username-row {
             display: flex;
             align-items: center;
@@ -343,7 +345,7 @@
         }
         #chatUsername:focus { border-color: #2c5f8a; }
         #chatUsername::placeholder { color: #b0c0d0; }
-        
+
         .chat-input-area {
             display: flex;
             flex-direction: column;
@@ -448,8 +450,7 @@
     </style>
 </head>
 <body>
-
-    <div class="chat-container">
+    <main class="chat-container">
         <header class="chat-header">
             <div class="title">
                 <h1>
@@ -469,10 +470,10 @@
                     <i class="fas fa-users"></i>
                     <span id="kullanici-sayisi">0</span>
                 </span>
-                <button class="admin-btn-header" id="adminAcBtn">
+                <button class="admin-btn-header" id="adminAcBtn" aria-label="Admin panelini aç">
                     <i class="fas fa-cog"></i>
                 </button>
-                <a href="https://vom-blog.com" class="ana-sayfa-link">
+                <a href="https://vom-blog.com" class="ana-sayfa-link" aria-label="Ana sayfaya dön">
                     <i class="fas fa-home"></i>
                 </a>
             </div>
@@ -480,11 +481,11 @@
 
         <div class="admin-panel" id="adminPanel">
             <span class="admin-label"><i class="fas fa-shield-alt"></i> YÖNETİM</span>
-            <button class="admin-btn acik-btn" id="sohbetAcBtn"><i class="fas fa-play"></i> AÇ</button>
-            <button class="admin-btn kapali-btn" id="sohbetKapatBtn"><i class="fas fa-stop"></i> KAPAT</button>
-            <button class="admin-btn sec" id="secTumunuBtn"><i class="fas fa-check-double"></i> Tümünü Seç</button>
-            <button class="admin-btn" id="silSecilenBtn"><i class="fas fa-trash"></i> Seçilenleri Sil</button>
-            <button class="admin-btn" id="temizleBtn" style="background:#b02a2a;"><i class="fas fa-eraser"></i> Tümünü Sil</button>
+            <button class="admin-btn acik-btn" id="sohbetAcBtn" aria-label="Sohbeti aç"><i class="fas fa-play"></i> AÇ</button>
+            <button class="admin-btn kapali-btn" id="sohbetKapatBtn" aria-label="Sohbeti kapat"><i class="fas fa-stop"></i> KAPAT</button>
+            <button class="admin-btn sec" id="secTumunuBtn" aria-label="Tüm mesajları seç"><i class="fas fa-check-double"></i> Tümünü Seç</button>
+            <button class="admin-btn" id="silSecilenBtn" aria-label="Seçilen mesajları sil"><i class="fas fa-trash"></i> Seçilenleri Sil</button>
+            <button class="admin-btn" id="temizleBtn" style="background:#b02a2a;" aria-label="Tüm mesajları sil"><i class="fas fa-eraser"></i> Tümünü Sil</button>
             <span class="admin-bilgi"><i class="fas fa-info-circle"></i> Mesajlara tıklayarak seçin</span>
         </div>
 
@@ -517,12 +518,12 @@
                 <div class="input-wrapper">
                     <textarea id="chatInput" placeholder="Mesajınızı yazın..." rows="1"></textarea>
                 </div>
-                <button id="chatSendBtn">
+                <button id="chatSendBtn" aria-label="Mesaj gönder">
                     <i class="fas fa-paper-plane"></i> Gönder
                 </button>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- FIREBASE SDK'lar -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -548,7 +549,8 @@
         let adminAcik = false;
         let sohbetAktif = false;
         const ADMIN_PASSWORD = "vom2026";
-        const KOLEKSIYON_ADI = "sohbet"; // FIREBASE KOLEKSİYON ADI
+        const KOLEKSIYON_ADI = "sohbet";
+        const DURUM_DOKUMAN = "sohbet_durumu";
 
         // ============================================
         // SAAT GÖSTERİCİ
@@ -566,44 +568,44 @@
         saatGuncelle();
 
         // ============================================
-        // FIREBASE BAŞLAT
+        // SOHBET DURUMUNU FIRESTORE'A KAYDET
         // ============================================
-        function firebaseBaslat() {
+        async function sohbetDurumuKaydet(aktif) {
+            if (!db) return;
             try {
-                if (typeof firebase === 'undefined') {
-                    console.error('Firebase SDK yüklenmedi!');
-                    setTimeout(firebaseBaslat, 2000);
-                    return;
-                }
-
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(firebaseConfig);
-                    console.log('✅ Firebase initialized');
-                }
-                
-                db = firebase.firestore();
-                console.log('✅ Firestore bağlantısı kuruldu');
-
-                db.collection(KOLEKSIYON_ADI).limit(1).get()
-                    .then(() => {
-                        console.log('✅ Firestore okuma izni var');
-                        if (sohbetAktif) sohbetiBaslat();
-                    })
-                    .catch((err) => {
-                        console.error('❌ Firestore okuma hatası:', err);
-                    });
-
+                await db.collection('ayarlar').doc(DURUM_DOKUMAN).set({
+                    aktif: aktif,
+                    guncelleme: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                console.log('✅ Sohbet durumu kaydedildi:', aktif);
             } catch (error) {
-                console.error('❌ Firebase başlatma hatası:', error);
-                setTimeout(firebaseBaslat, 3000);
+                console.error('❌ Durum kaydedilemedi:', error);
+            }
+        }
+
+        async function sohbetDurumuOku() {
+            if (!db) return false;
+            try {
+                const doc = await db.collection('ayarlar').doc(DURUM_DOKUMAN).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    console.log('📖 Sohbet durumu okundu:', data.aktif);
+                    return data.aktif === true;
+                }
+                return false;
+            } catch (error) {
+                console.error('❌ Durum okunamadı:', error);
+                return false;
             }
         }
 
         // ============================================
         // SOHBET DURUMU GÜNCELLE
         // ============================================
-        function sohbetDurumuGuncelle(aktif) {
+        async function sohbetDurumuGuncelle(aktif) {
             sohbetAktif = aktif;
+            await sohbetDurumuKaydet(aktif);
+
             const badge = document.getElementById('durumBadge');
             const kapaliEkran = document.getElementById('kapaliEkran');
             const aktifAlan = document.getElementById('aktifAlan');
@@ -623,6 +625,44 @@
                     mesajDinleme();
                     mesajDinleme = null;
                 }
+            }
+        }
+
+        // ============================================
+        // FIREBASE BAŞLAT
+        // ============================================
+        function firebaseBaslat() {
+            try {
+                if (typeof firebase === 'undefined') {
+                    console.error('Firebase SDK yüklenmedi!');
+                    setTimeout(firebaseBaslat, 2000);
+                    return;
+                }
+
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                    console.log('✅ Firebase initialized');
+                }
+
+                db = firebase.firestore();
+                console.log('✅ Firestore bağlantısı kuruldu');
+
+                // ÖNCE DURUMU OKU, SONRA SOHBETİ BAŞLAT
+                sohbetDurumuOku().then(aktif => {
+                    sohbetDurumuGuncelle(aktif);
+                });
+
+                db.collection(KOLEKSIYON_ADI).limit(1).get()
+                    .then(() => {
+                        console.log('✅ Firestore okuma izni var');
+                    })
+                    .catch((err) => {
+                        console.error('❌ Firestore okuma hatası:', err);
+                    });
+
+            } catch (error) {
+                console.error('❌ Firebase başlatma hatası:', error);
+                setTimeout(firebaseBaslat, 3000);
             }
         }
 
@@ -830,11 +870,11 @@
         });
 
         // ===== SOHBET AÇ =====
-        document.getElementById('sohbetAcBtn').addEventListener('click', function() {
+        document.getElementById('sohbetAcBtn').addEventListener('click', async function() {
             if (!adminAcik) return;
             const sifre = prompt('Sohbeti açmak için şifre girin:');
             if (sifre === ADMIN_PASSWORD) {
-                sohbetDurumuGuncelle(true);
+                await sohbetDurumuGuncelle(true);
                 alert('✅ Sohbet açıldı!');
             } else if (sifre !== null) {
                 alert('❌ Hatalı şifre!');
@@ -842,11 +882,11 @@
         });
 
         // ===== SOHBET KAPAT =====
-        document.getElementById('sohbetKapatBtn').addEventListener('click', function() {
+        document.getElementById('sohbetKapatBtn').addEventListener('click', async function() {
             if (!adminAcik) return;
             const sifre = prompt('Sohbeti kapatmak için şifre girin:');
             if (sifre === ADMIN_PASSWORD) {
-                sohbetDurumuGuncelle(false);
+                await sohbetDurumuGuncelle(false);
                 alert('✅ Sohbet kapatıldı!');
             } else if (sifre !== null) {
                 alert('❌ Hatalı şifre!');
@@ -928,14 +968,12 @@
         });
 
         // ============================================
-        // BAŞLAT - VARSAYILAN KAPALI
+        // BAŞLAT
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📱 Sayfa yüklendi, Firebase başlatılıyor...');
-            sohbetDurumuGuncelle(false); // Varsayılan KAPALI
             firebaseBaslat();
         });
     </script>
-
 </body>
 </html>
