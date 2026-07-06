@@ -553,6 +553,11 @@
         const DURUM_DOKUMAN = "sohbet_durumu";
 
         // ============================================
+        // ADMIN DURUMUNU localStorage'dan KONTROL ET
+        // ============================================
+        adminAcik = localStorage.getItem('vomAdminYetkisi') === 'true';
+
+        // ============================================
         // SAAT GÖSTERİCİ
         // ============================================
         function saatGuncelle() {
@@ -566,6 +571,29 @@
         }
         setInterval(saatGuncelle, 1000);
         saatGuncelle();
+
+        // ============================================
+        // ADMIN PANELİNİ GÖSTER/GİZLE
+        // ============================================
+        function adminPaneliGoster() {
+            const panel = document.getElementById('adminPanel');
+            const btn = document.getElementById('adminAcBtn');
+            if (adminAcik) {
+                panel.classList.add('show');
+                btn.classList.add('acik');
+                document.querySelectorAll('.chat-message').forEach(msg => {
+                    msg.style.cursor = 'pointer';
+                    msg.addEventListener('click', mesajTikla);
+                });
+            } else {
+                panel.classList.remove('show');
+                btn.classList.remove('acik');
+                document.querySelectorAll('.chat-message').forEach(msg => {
+                    msg.style.cursor = 'default';
+                    msg.removeEventListener('click', mesajTikla);
+                });
+            }
+        }
 
         // ============================================
         // SOHBET DURUMUNU FIRESTORE'A KAYDET
@@ -647,9 +675,22 @@
                 db = firebase.firestore();
                 console.log('✅ Firestore bağlantısı kuruldu');
 
-                // ÖNCE DURUMU OKU, SONRA SOHBETİ BAŞLAT
+                // DURUMU OKU
                 sohbetDurumuOku().then(aktif => {
                     sohbetDurumuGuncelle(aktif);
+                });
+
+                // AYARLAR KOLEKSİYONUNU DİNLE (CANLI GÜNCELLEME İÇİN)
+                db.collection('ayarlar').doc(DURUM_DOKUMAN).onSnapshot((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.aktif !== undefined && data.aktif !== sohbetAktif) {
+                            console.log('🔄 Durum değişti:', data.aktif);
+                            sohbetDurumuGuncelle(data.aktif);
+                        }
+                    }
+                }, (error) => {
+                    console.error('Durum dinleme hatası:', error);
                 });
 
                 db.collection(KOLEKSIYON_ADI).limit(1).get()
@@ -834,38 +875,22 @@
         }
 
         // ============================================
-        // ADMIN PANELİ
+        // ADMIN PANELİ AÇ/KAPA
         // ============================================
         document.getElementById('adminAcBtn').addEventListener('click', function() {
             if (!adminAcik) {
                 const sifre = prompt('Admin panelini açmak için şifre girin:');
                 if (sifre === ADMIN_PASSWORD) {
                     adminAcik = true;
-                    document.getElementById('adminPanel').classList.add('show');
-                    this.classList.add('acik');
-                    this.innerHTML = '<i class="fas fa-cog"></i>';
-                    if (sohbetAktif) {
-                        document.querySelectorAll('.chat-message').forEach(msg => {
-                            msg.style.cursor = 'pointer';
-                            msg.addEventListener('click', mesajTikla);
-                        });
-                    }
+                    localStorage.setItem('vomAdminYetkisi', 'true');
+                    adminPaneliGoster();
                 } else if (sifre !== null) {
                     alert('❌ Hatalı şifre!');
                 }
             } else {
                 adminAcik = false;
-                document.getElementById('adminPanel').classList.remove('show');
-                this.classList.remove('acik');
-                this.innerHTML = '<i class="fas fa-cog"></i>';
-                seciliMesajlar.clear();
-                document.querySelectorAll('.chat-message.secilmis').forEach(el => {
-                    el.classList.remove('secilmis');
-                });
-                document.querySelectorAll('.chat-message').forEach(msg => {
-                    msg.style.cursor = 'default';
-                    msg.removeEventListener('click', mesajTikla);
-                });
+                localStorage.removeItem('vomAdminYetkisi');
+                adminPaneliGoster();
             }
         });
 
@@ -968,10 +993,12 @@
         });
 
         // ============================================
-        // BAŞLAT
+        // BAŞLAT - SAYFA YÜKLENDİĞİNDE
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📱 Sayfa yüklendi, Firebase başlatılıyor...');
+            // Admin panelini localStorage'a göre göster
+            adminPaneliGoster();
             firebaseBaslat();
         });
     </script>
