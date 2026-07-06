@@ -189,6 +189,9 @@
         .admin-btn.kapali-btn:hover { background: #b02a2a; }
         .admin-panel .admin-bilgi { font-size: 0.6rem; color: #94a3b8; }
 
+        /* Başlangıçta her iki alanı da gizle (Flicker/Göz kırpmayı önlemek için) */
+        #kapaliEkran, #aktifAlan { display: none; }
+
         .kapali-ekran {
             flex: 1;
             display: flex;
@@ -558,26 +561,6 @@
         adminAcik = localStorage.getItem('vomAdminYetkisi') === 'true';
 
         // ============================================
-        // SAYFA YÜKLENİR YÜKLENMEZ SON DURUMU GÖSTER (HIZ İÇİN)
-        // ============================================
-        const sonBilinenDurum = localStorage.getItem('vomSohbetSonDurum') === 'true';
-
-        // DOMContentLoaded beklenmeden hemen uygula
-        if (sonBilinenDurum) {
-            const badge = document.getElementById('durumBadge');
-            const kapaliEkran = document.getElementById('kapaliEkran');
-            const aktifAlan = document.getElementById('aktifAlan');
-            
-            if (badge && kapaliEkran && aktifAlan) {
-                badge.className = 'durum-badge acik';
-                badge.innerHTML = '<i class="fas fa-circle"></i> CANLI';
-                kapaliEkran.style.display = 'none';
-                aktifAlan.style.display = 'flex';
-                console.log('⚡ Hızlı başlatma: CANLI (LocalStorage)');
-            }
-        }
-
-        // ============================================
         // SAAT GÖSTERİCİ
         // ============================================
         function saatGuncelle() {
@@ -652,6 +635,8 @@
         // ============================================
         async function sohbetDurumuGuncelle(aktif) {
             sohbetAktif = aktif;
+            
+            // LocalStorage'a kaydet (hızlı erişim için)
             localStorage.setItem('vomSohbetSonDurum', aktif);
             await sohbetDurumuKaydet(aktif);
 
@@ -695,6 +680,31 @@
 
                 db = firebase.firestore();
                 console.log('✅ Firestore bağlantısı kuruldu');
+
+                // ÖNCE LocalStorage'dan hızlı göster
+                const localDurum = localStorage.getItem('vomSohbetSonDurum');
+                if (localDurum !== null) {
+                    const aktif = localDurum === 'true';
+                    // Hızlı gösterim için doğrudan uygula (Firestore beklemez)
+                    sohbetAktif = aktif;
+                    const badge = document.getElementById('durumBadge');
+                    const kapaliEkran = document.getElementById('kapaliEkran');
+                    const aktifAlan = document.getElementById('aktifAlan');
+                    
+                    if (aktif) {
+                        badge.className = 'durum-badge acik';
+                        badge.innerHTML = '<i class="fas fa-circle"></i> CANLI';
+                        kapaliEkran.style.display = 'none';
+                        aktifAlan.style.display = 'flex';
+                        if (db) sohbetiBaslat();
+                    } else {
+                        badge.className = 'durum-badge kapali';
+                        badge.innerHTML = '<i class="fas fa-lock"></i> KAPALI';
+                        kapaliEkran.style.display = 'flex';
+                        aktifAlan.style.display = 'none';
+                    }
+                    console.log('⚡ Hızlı başlatma:', aktif ? 'CANLI' : 'KAPALI', '(LocalStorage)');
+                }
 
                 // FIRESTORE'DAN DURUMU OKU (GÜNCELLE)
                 sohbetDurumuOku().then(aktif => {
