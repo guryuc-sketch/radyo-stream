@@ -1,4 +1,13 @@
+# VOM-VOMITORIUM Robots.txt
 User-agent: *
 Allow: /
 
+# Arama motorlarının taramasını istemediğin özel bir klasör varsa buraya ekleyebilirsin
+# Disallow: /admin/
+
+# Görsel aramaları için botlara izin ver
+User-agent: Googlebot-Image
+Allow: /images/
+
+# Site Haritası Konumu
 Sitemap: https://vom-blog.com/sitemap.xml
