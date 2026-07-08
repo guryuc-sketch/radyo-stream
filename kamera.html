@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Başlığı (Zenginleştirildi) -->
+    <title>VOM Canlı Kamera | Sanat Stüdyosu ve Görüntülü Sohbet</title>
+    <meta name="description" content="VOM-VOMITORIUM canlı yayın. Atölye çalışmaları, sanatçı buluşmaları ve yaratıcı süreçleri anlık izleyin.">
+    <link rel="canonical" href="https://vom-blog.com/kamera.html">
+
+    <!-- FAVICONLAR -->
+    <link rel="icon" type="image/png" sizes="16x16" href="https://vom-blog.com/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://vom-blog.com/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://vom-blog.com/apple-touch-icon.png">
+    <link rel="shortcut icon" href="https://vom-blog.com/favicon.ico">
+
+    <script src="https://meet.jit.si/external_api.js"></script>
+
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; background-color: #000; overflow: hidden; }
+        #jitsi-container { height: 100vh; width: 100vw; z-index: 1; }
+
+        /* SEO Başlığını Gizleme (Ekranda yer kaplamaz, Google okur) */
+        .seo-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .custom-logo-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.4); 
+            padding: 10px 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-logo-panel img { width: 80px; height: auto; display: block; }
+        
+        @media (max-width: 480px) {
+            .custom-logo-panel { top: 10px; left: 10px; padding: 5px 10px; }
+            .custom-logo-panel img { width: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Başlık artık BODY içinde ama görünmez (SEO için kritik) -->
+    <header class="seo-only">
+        <h1>VOM - VOMITARIUM GÖRÜNTÜLÜ SOHBET VE CANLI KAMERA</h1>
+    </header>
+
+    <div class="custom-logo-panel">
+        <img src="https://vom-blog.com/apple-touch-icon.png" alt="VOM Logo">
+    </div>
+
+    <div id="jitsi-container"></div>
+
+    <script>
+        const domain = 'meet.jit.si';
+        const options = {
+            roomName: 'VOM_Kulturel_Sohbet_Zq99xVom_2024', 
+            width: '100%',
+            height: '100%',
+            parentNode: document.querySelector('#jitsi-container'),
+            configOverwrite: {
+                resolution: 720,
+                constraints: {
+                    video: {
+                        height: { ideal: 720, max: 720, min: 480 },
+                        width: { ideal: 1280, max: 1280, min: 640 }
+                    }
+                },
+                videoQuality: { preferredCodec: 'H264' },
+                enableLobby: true,              
+                disableDeepLinking: true,       
+                requireDisplayName: true,       
+                startWithVideoMuted: true,
+                startWithAudioMuted: false,
+                defaultLanguage: 'tr',
+                prejoinPageEnabled: true
+            },
+            interfaceConfigOverwrite: {
+                APP_NAME: 'VOM Görüntülü Sohbet',
+                SHOW_JITSI_WATERMARK: false,
+                SHOW_BRAND_WATERMARK: false,
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'hangup', 'chat', 'raisehand', 
+                    'tileview', 'fullscreen', 'videobackgroundblur', 'security'
+                ]
+            }
+        };
+
+        const api = new JitsiMeetExternalAPI(domain, options);
+
+        api.on('participantRoleChanged', function(event) {
+            if (event.role === 'moderator') {
+                api.executeCommand('lobby', { enable: true });
+                api.executeCommand('toggleLobby', true);
+            }
+        });
+
+        api.on('videoConferenceLeft', () => {
+            window.location.href = "https://vom-blog.com";
+        });
+    </script>
+</body>
+</html>
