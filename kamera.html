@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- SEO Başlığı (Zenginleştirildi) -->
+    <!-- SEO Başlığı -->
     <title>VOM Canlı Kamera | Sanat Stüdyosu ve Görüntülü Sohbet</title>
     <meta name="description" content="VOM-VOMITORIUM canlı yayın. Atölye çalışmaları, sanatçı buluşmaları ve yaratıcı süreçleri anlık izleyin.">
     <link rel="canonical" href="https://vom-blog.com/kamera.html">
@@ -21,7 +21,7 @@
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; background-color: #000; overflow: hidden; }
         #jitsi-container { height: 100vh; width: 100vw; z-index: 1; }
 
-        /* SEO Başlığını Gizleme (Ekranda yer kaplamaz, Google okur) */
+        /* SEO Başlığını Gizleme */
         .seo-only {
             position: absolute;
             width: 1px;
@@ -33,38 +33,50 @@
             border: 0;
         }
 
+        /* LOGO PANELİ - Jitsi Yazısını Kapatacak Şekilde Düzeltildi */
         .custom-logo-panel {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 9999;
+            top: 0;   /* Köşeye sıfırla */
+            left: 0;  /* Köşeye sıfırla */
+            z-index: 99999 !important;
             pointer-events: none;
-            background: rgba(0, 0, 0, 0.4); 
-            padding: 10px 15px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            
+            /* Arka plan daha koyu yapıldı ki arkadaki Jitsi logosu görünmesin */
+            background: rgba(0, 0, 0, 0.7); 
+            padding: 15px 25px;
+            border-bottom-right-radius: 25px; /* Şık kavis */
+            
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
         }
 
-        .custom-logo-panel img { width: 80px; height: auto; display: block; }
+        /* Logo boyutu büyütüldü */
+        .custom-logo-panel img { 
+            width: 150px; 
+            height: auto; 
+            display: block; 
+        }
         
+        /* Mobil Cihazlar İçin Logo Boyutu */
         @media (max-width: 480px) {
-            .custom-logo-panel { top: 10px; left: 10px; padding: 5px 10px; }
-            .custom-logo-panel img { width: 60px; }
+            .custom-logo-panel { padding: 10px 15px; }
+            .custom-logo-panel img { width: 110px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Başlık artık BODY içinde ama görünmez (SEO için kritik) -->
     <header class="seo-only">
         <h1>VOM - VOMITARIUM GÖRÜNTÜLÜ SOHBET VE CANLI KAMERA</h1>
     </header>
 
+    <!-- Logonuz Artık Daha Büyük ve Köşeyi Tam Kapatıyor -->
     <div class="custom-logo-panel">
         <img src="https://vom-blog.com/apple-touch-icon.png" alt="VOM Logo">
     </div>
@@ -99,6 +111,7 @@
                 APP_NAME: 'VOM Görüntülü Sohbet',
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_BRAND_WATERMARK: false,
+                HIDE_DEEP_LINKING_LOGO: true,
                 TOOLBAR_BUTTONS: [
                     'microphone', 'camera', 'hangup', 'chat', 'raisehand', 
                     'tileview', 'fullscreen', 'videobackgroundblur', 'security'
@@ -108,6 +121,7 @@
 
         const api = new JitsiMeetExternalAPI(domain, options);
 
+        // Moderatör girişi yapıldığında lobi (onay) sistemini çalıştırır
         api.on('participantRoleChanged', function(event) {
             if (event.role === 'moderator') {
                 api.executeCommand('lobby', { enable: true });
@@ -115,6 +129,7 @@
             }
         });
 
+        // Sohbetten çıkınca ana sayfaya dön
         api.on('videoConferenceLeft', () => {
             window.location.href = "https://vom-blog.com";
         });
