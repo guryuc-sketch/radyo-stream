@@ -5,93 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VOM Canlı Yayın</title>
     
-    <!-- FAVICONLAR -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://vom-blog.com/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://vom-blog.com/apple-touch-icon.png">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { height: 100%; width: 100%; background-color: #000; overflow: hidden; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body, html { height: 100%; width: 100%; background-color: #000; overflow: hidden; font-family: -apple-system, system-ui, sans-serif; }
         
-        #mirotalk-frame { border: none; width: 100%; height: 100vh; display: block; }
+        #mirotalk-frame { border: none; width: 100%; height: 100vh; height: 100dvh; display: block; position: relative; z-index: 1; }
 
-        /* VOM LOGO VE CANLI YAYIN PANELİ */
         .vom-header {
-            position: fixed;
-            top: 0; left: 0;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 10px 22px;
-            border-bottom-right-radius: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.8);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            pointer-events: none; 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            position: fixed; top: 0; left: 0; z-index: 9999;
+            background: rgba(0, 0, 0, 0.85); padding: 10px 22px;
+            border-bottom-right-radius: 25px; display: flex; align-items: center; gap: 15px; 
+            box-shadow: 0 4px 30px rgba(0,0,0,0.8); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
+            pointer-events: none; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
-
         .vom-header img { width: 100px; height: auto; display: block; }
+        .live-tag { color: #ff0000; font-weight: 700; font-size: 13px; letter-spacing: 1.5px; display: flex; align-items: center; gap: 10px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px; text-transform: uppercase; }
+        .dot { width: 10px; height: 10px; background-color: #ff0000; border-radius: 50%; display: inline-block; animation: blink 1.2s infinite; box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+        @keyframes blink { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 
-        .live-tag {
-            color: #ff0000;
-            font-weight: 700;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            padding-left: 15px;
-            text-transform: uppercase;
+        /* iPhone Yardımcı Butonu - Hemen Görünür */
+        #iphone-fix-btn {
+            display: none; position: fixed; bottom: 40%; left: 50%; transform: translateX(-50%);
+            z-index: 10000; background: #ff0000; color: white; padding: 18px 30px;
+            border-radius: 50px; font-weight: bold; text-decoration: none; box-shadow: 0 10px 30px rgba(255,0,0,0.6);
+            animation: bounce 2s infinite; text-align: center; font-size: 16px;
         }
+        @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -15px); } }
 
-        .dot {
-            width: 10px; height: 10px;
-            background-color: #ff0000;
-            border-radius: 50%;
-            display: inline-block;
-            animation: blink 1.2s infinite;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
-        }
+        /* Yükleme Ekranı */
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9998; transition: opacity 0.5s; }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #ff0000; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        @keyframes blink {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.2; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @media (max-width: 480px) {
-            .vom-header { padding: 8px 12px; gap: 10px; }
-            .vom-header img { width: 70px; }
-            .live-tag { font-size: 10px; padding-left: 10px; }
-            .dot { width: 8px; height: 8px; }
-        }
+        @media (max-width: 480px) { .vom-header img { width: 70px; } .live-tag { font-size: 10px; } }
     </style>
 </head>
 <body>
 
-    <div class="vom-header">
-        <img src="https://vom-blog.com/apple-touch-icon.png" alt="VOM">
-        <div class="live-tag">
-            <span class="dot"></span> CANLI YAYIN
-        </div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p style="color:white; margin-top:15px; font-size:12px; letter-spacing:2px;">VOM SİSTEMİ YÜKLENİYOR...</p>
     </div>
 
-    <!-- Yeni Oda İsmi ile MiroTalk SFU -->
+    <!-- iPhone Kullanıcıları için KURTARMA BUTONU -->
+    <a href="https://sfu.mirotalk.com/join?room=VOM_Kultur_Sanat_Sohbeti_2026_Vomitorium" id="iphone-fix-btn">IPHONE: BURAYA BASARAK BAĞLANIN</a>
+
+    <div class="vom-header">
+        <img src="https://vom-blog.com/apple-touch-icon.png" alt="VOM">
+        <div class="live-tag"><span class="dot"></span> CANLI YAYIN</div>
+    </div>
+
     <iframe 
         id="mirotalk-frame" 
         src="https://sfu.mirotalk.com/join?room=VOM_Kultur_Sanat_Sohbeti_2026_Vomitorium" 
-        allow="camera; microphone; display-capture; fullscreen; speaker; autoplay"
-        allowfullscreen
-    ></iframe>
+        allow="camera; microphone; display-capture; fullscreen; autoplay"
+        allowfullscreen>
+    </iframe>
 
     <script>
-        window.addEventListener('message', (event) => {
-            if (event.data === 'leave' || event.data === 'mirotalk-leave') {
+        const frame = document.getElementById('mirotalk-frame');
+        const overlay = document.getElementById('loadingOverlay');
+        const fixBtn = document.getElementById('iphone-fix-btn');
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        // --- İSTEDİĞİN DEĞİŞİKLİK ---
+        if (isIOS) {
+            // iPhone ise bekleme, direkt kurtarma butonunu göster ve yükleme ekranını kaldır
+            fixBtn.style.display = 'block';
+            overlay.style.display = 'none';
+        }
+
+        // Bilgisayarlar için frame yüklendiğinde loading'i kaldır
+        frame.onload = function() {
+            if (!isIOS) {
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 1000);
+            }
+        };
+
+        // Çıkış mesajı
+        window.addEventListener('message', (e) => {
+            if (e.data === 'leave' || e.data === 'mirotalk-leave') {
                 window.location.href = "https://vom-blog.com";
             }
         });
