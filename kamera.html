@@ -26,7 +26,7 @@
         .dot { width: 10px; height: 10px; background-color: #ff0000; border-radius: 50%; display: inline-block; animation: blink 1.2s infinite; box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
         @keyframes blink { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* iPhone Yardımcı Butonu - Hemen Görünür */
+        /* iPhone Yardımcı Butonu */
         #iphone-fix-btn {
             display: none; position: fixed; bottom: 40%; left: 50%; transform: translateX(-50%);
             z-index: 10000; background: #ff0000; color: white; padding: 18px 30px;
@@ -51,7 +51,7 @@
         <p style="color:white; margin-top:15px; font-size:12px; letter-spacing:2px;">VOM SİSTEMİ YÜKLENİYOR...</p>
     </div>
 
-    <!-- iPhone Kullanıcıları için KURTARMA BUTONU -->
+    <!-- iPhone Butonu -->
     <a href="https://sfu.mirotalk.com/join?room=VOM_Kultur_Sanat_Sohbeti_2026_Vomitorium" id="iphone-fix-btn">IPHONE: BURAYA BASARAK BAĞLANIN</a>
 
     <div class="vom-header">
@@ -59,6 +59,7 @@
         <div class="live-tag"><span class="dot"></span> CANLI YAYIN</div>
     </div>
 
+    <!-- iframe Başlangıç -->
     <iframe 
         id="mirotalk-frame" 
         src="https://sfu.mirotalk.com/join?room=VOM_Kultur_Sanat_Sohbeti_2026_Vomitorium" 
@@ -72,19 +73,27 @@
         const fixBtn = document.getElementById('iphone-fix-btn');
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-        // --- İSTEDİĞİN DEĞİŞİKLİK ---
+        // --- GÜVENLİK (SANDBOX) AYARI ---
+        // Sizin istediğiniz güvenlik kısıtlamalarını ekliyoruz
+        frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-modals allow-popups');
+
+        // iPhone Kontrolü
         if (isIOS) {
-            // iPhone ise bekleme, direkt kurtarma butonunu göster ve yükleme ekranını kaldır
             fixBtn.style.display = 'block';
             overlay.style.display = 'none';
         }
 
-        // Bilgisayarlar için frame yüklendiğinde loading'i kaldır
+        // Laptop Takılma Önleyici: 5 saniye sonra yükleme ekranını her durumda kapat
+        setTimeout(() => {
+            if (!isIOS) {
+                overlay.classList.add('hidden');
+            }
+        }, 5000);
+
+        // Frame yüklendiğinde (normal şartlarda) kapat
         frame.onload = function() {
             if (!isIOS) {
-                setTimeout(() => {
-                    overlay.classList.add('hidden');
-                }, 1000);
+                overlay.classList.add('hidden');
             }
         };
 
