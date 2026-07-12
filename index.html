@@ -98,8 +98,9 @@
     }
     </script>
 
-    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js" defer></script>
+    <!-- Firebase SDK'lar doğru şekilde yükleniyor -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js"></script>
 
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
@@ -1471,16 +1472,16 @@ function sendEmail() {
 </main>
 
 <script>
-    // 1. FIREBASE CONFIGURASYONU
-const firebaseConfig = {
-    apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
-    authDomain: "vom-yayin.firebaseapp.com",
-    databaseURL: "https://vom-yayin-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "vom-yayin",
-    storageBucket: "vom-yayin.firebasestorage.app",
-    messagingSenderId: "93785669208",
-    appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d"
-};
+    // FIREBASE CONFIGURASYONU
+    const firebaseConfig = {
+        apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
+        authDomain: "vom-yayin.firebaseapp.com",
+        databaseURL: "https://vom-yayin-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "vom-yayin",
+        storageBucket: "vom-yayin.firebasestorage.app",
+        messagingSenderId: "93785669208",
+        appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d"
+    };
 
     // Güvenlik Yardımcı Fonksiyonları
     function escapeHtml(str) {
@@ -1588,7 +1589,7 @@ const firebaseConfig = {
         });
 
         // ============================================
-        // FIREBASE YORUM SİSTEMİ
+        // FIREBASE YORUM SİSTEMİ - MEVCUT YORUMLAR KORUNUR
         // ============================================
         if (typeof firebase !== 'undefined' && firebase.initializeApp) {
             
@@ -1619,7 +1620,7 @@ const firebaseConfig = {
                     snapshot.forEach(function(doc) {
                         const comment = doc.data();
                         html += '<div class="comment-item">';
-                        html += '<strong>' + escapeHtml(comment.author) + '</strong>: ' + escapeHtml(comment.text);
+                        html += '<strong>' + escapeHtml(comment.author || 'Ziyaretçi') + '</strong>: ' + escapeHtml(comment.text || '');
                         if (comment.createdAt) {
                             html += '<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">' + formatDate(comment.createdAt) + '</div>';
                         }
@@ -1641,10 +1642,13 @@ const firebaseConfig = {
                     });
                 };
 
+                // Bot kontrolü - botlar için tek seferlik çekim, normal kullanıcılar için canlı dinleme
                 if (isBot) {
                     commentsRef.orderBy('createdAt', 'desc').get().then(processSnapshot).catch(() => {});
                 } else {
-                    commentsRef.orderBy('createdAt', 'desc').onSnapshot(processSnapshot, () => {});
+                    commentsRef.orderBy('createdAt', 'desc').onSnapshot(processSnapshot, (error) => {
+                        console.warn('Yorum dinleme hatası:', error);
+                    });
                 }
             };
 
@@ -1667,15 +1671,19 @@ const firebaseConfig = {
                     }).then(() => {
                         if(nameInp) nameInp.value = '';
                         if(textInp) textInp.value = '';
+                    }).catch((error) => {
+                        console.error('Yorum gönderme hatası:', error);
+                        alert('Yorum gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
                     });
                 });
             });
 
+            // Tüm post'lar için yorumları yükle (ID: 11-23)
             for (let i = 11; i <= 23; i++) {
                 window.loadComments(i);
             }
 
-            console.log("Firebase ve yorum modülleri güvenle tetiklendi.");
+            console.log("Firebase yorum sistemi başarıyla başlatıldı. Mevcut yorumlar korunuyor.");
 
         } else {
             console.warn("Firebase SDK kütüphaneleri henüz yüklenemedi.");
