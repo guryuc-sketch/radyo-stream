@@ -98,6 +98,10 @@
     }
     </script>
 
+    <!-- Firebase SDK'lar - type etiketi olmadan yükleniyor -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js"></script>
+
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:#f0f2f5;font-family:'Source Sans 3',system-ui,sans-serif;color:#1a1e24;line-height:1.5}
@@ -1441,11 +1445,8 @@ function sendEmail() {
 </div>
 </main>
 
-<script type="module">
-    // FIREBASE CONFIGURASYONU - ES Module olarak
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getFirestore, collection, doc, addDoc, getDocs, deleteDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
+<script>
+    // FIREBASE - Normal script olarak (type etiketi olmadan)
     const firebaseConfig = {
         apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
         authDomain: "vom-yayin.firebaseapp.com",
@@ -1456,26 +1457,123 @@ function sendEmail() {
         appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d"
     };
 
-    // Güvenlik Yardımcı Fonksiyonları
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    function formatDate(date) {
-        if (!date) return '';
-        let d = date.toDate ? date.toDate() : new Date(date);
-        return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
-    }
-
     // Firebase'i başlat
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    if (typeof firebase !== 'undefined') {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // Güvenlik Yardımcı Fonksiyonları
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function formatDate(date) {
+            if (!date) return '';
+            let d = date.toDate ? date.toDate() : new Date(date);
+            return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+        }
+
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+
+        window.loadComments = function(postId) {
+            const commentsRef = db.collection('comments').doc('post_' + postId).collection('allComments');
+            const listDiv = document.getElementById('comments-list-' + postId);
+            const countDisplay = document.querySelector('#comments-section-' + postId + ' .comment-count-display');
+            const toggleCount = document.querySelector('.comment-toggle[data-post="' + postId + '"] .comment-count');
+
+            const processSnapshot = (snapshot) => {
+                const count = snapshot.size;
+                if (toggleCount) toggleCount.innerText = count;
+                if (countDisplay) countDisplay.innerText = count;
+                if (!listDiv) return;
+
+                if (count === 0) {
+                    listDiv.innerHTML = '<div style="padding:0.5rem; text-align:center; color:#888;">Henüz yorum yok. İlk yorumu sen yap!</div>';
+                    return;
+                }
+
+                let html = '';
+                snapshot.forEach(function(doc) {
+                    const comment = doc.data();
+                    html += '<div class="comment-item">';
+                    html += '<strong>' + escapeHtml(comment.author || 'Ziyaretçi') + '</strong>: ' + escapeHtml(comment.text || '');
+                    if (comment.createdAt) {
+                        html += '<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">' + formatDate(comment.createdAt) + '</div>';
+                    }
+                    html += '<button class="delete-btn" data-post="' + postId + '" data-id="' + doc.id + '"><i class="fas fa-trash"></i></button>';
+                    html += '</div>';
+                });
+                listDiv.innerHTML = html;
+                
+                listDiv.querySelectorAll('.delete-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const pwd = prompt("Yorumu silmek için şifre girin:");
+                        if (pwd === "vom2026") {
+                            db.collection('comments').doc('post_' + postId).collection('allComments').doc(this.dataset.id).delete();
+                        } else if (pwd !== null) {
+                            alert("Hatalı şifre!");
+                        }
+                    });
+                });
+            };
+
+            if (isBot) {
+                commentsRef.orderBy('createdAt', 'desc').get().then(processSnapshot).catch(() => {});
+            } else {
+                commentsRef.orderBy('createdAt', 'desc').onSnapshot(processSnapshot, (error) => {
+                    console.warn('Yorum dinleme hatası:', error);
+                });
+            }
+        };
+
+        document.querySelectorAll('.submit-comment').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const pid = this.dataset.post;
+                const nameInp = document.getElementById('comment-name-' + pid);
+                const textInp = document.getElementById('comment-text-' + pid);
+                if (!textInp || !textInp.value.trim()) {
+                    alert('Lütfen bir yorum yazın.');
+                    return;
+                }
+                const author = nameInp ? nameInp.value.trim() : '';
+                const text = textInp.value.trim();
+
+                db.collection('comments').doc('post_' + pid).collection('allComments').add({
+                    author: author || "Ziyaretçi",
+                    text: text,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    if(nameInp) nameInp.value = '';
+                    if(textInp) textInp.value = '';
+                }).catch((error) => {
+                    console.error('Yorum gönderme hatası:', error);
+                    alert('Yorum gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                });
+            });
+        });
+
+        // Tüm post'lar için yorumları yükle (ID: 11-23)
+        for (let i = 11; i <= 23; i++) {
+            window.loadComments(i);
+        }
+
+        console.log("Firebase yorum sistemi başarıyla başlatıldı. Mevcut yorumlar korunuyor.");
+    } else {
+        console.warn("Firebase SDK henüz yüklenemedi.");
+        for (let i = 11; i <= 23; i++) {
+            const tc = document.querySelector('.comment-toggle[data-post="' + i + '"] .comment-count');
+            if (tc) tc.innerText = '0';
+        }
+    }
 
     // ============================================
     // GECE MODU
@@ -1562,97 +1660,6 @@ function sendEmail() {
         e.preventDefault();
         document.getElementById('contactSection')?.scrollIntoView({ behavior: 'smooth' });
     });
-
-    // ============================================
-    // FIREBASE YORUM SİSTEMİ - MEVCUT YORUMLAR KORUNUR
-    // ============================================
-    const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
-
-    window.loadComments = function(postId) {
-        const commentsRef = collection(db, 'comments', 'post_' + postId, 'allComments');
-        const listDiv = document.getElementById('comments-list-' + postId);
-        const countDisplay = document.querySelector('#comments-section-' + postId + ' .comment-count-display');
-        const toggleCount = document.querySelector('.comment-toggle[data-post="' + postId + '"] .comment-count');
-
-        const processSnapshot = (snapshot) => {
-            const count = snapshot.size;
-            if (toggleCount) toggleCount.innerText = count;
-            if (countDisplay) countDisplay.innerText = count;
-            if (!listDiv) return;
-
-            if (count === 0) {
-                listDiv.innerHTML = '<div style="padding:0.5rem; text-align:center; color:#888;">Henüz yorum yok. İlk yorumu sen yap!</div>';
-                return;
-            }
-
-            let html = '';
-            snapshot.forEach(function(doc) {
-                const comment = doc.data();
-                html += '<div class="comment-item">';
-                html += '<strong>' + escapeHtml(comment.author || 'Ziyaretçi') + '</strong>: ' + escapeHtml(comment.text || '');
-                if (comment.createdAt) {
-                    html += '<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">' + formatDate(comment.createdAt) + '</div>';
-                }
-                html += '<button class="delete-btn" data-post="' + postId + '" data-id="' + doc.id + '"><i class="fas fa-trash"></i></button>';
-                html += '</div>';
-            });
-            listDiv.innerHTML = html;
-            
-            listDiv.querySelectorAll('.delete-btn').forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const pwd = prompt("Yorumu silmek için şifre girin:");
-                    if (pwd === "vom2026") {
-                        deleteDoc(doc(db, 'comments', 'post_' + postId, 'allComments', this.dataset.id));
-                    } else if (pwd !== null) {
-                        alert("Hatalı şifre!");
-                    }
-                });
-            });
-        };
-
-        if (isBot) {
-            getDocs(query(commentsRef, orderBy('createdAt', 'desc'))).then(processSnapshot).catch(() => {});
-        } else {
-            onSnapshot(query(commentsRef, orderBy('createdAt', 'desc')), processSnapshot, (error) => {
-                console.warn('Yorum dinleme hatası:', error);
-            });
-        }
-    };
-
-    document.querySelectorAll('.submit-comment').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            const pid = this.dataset.post;
-            const nameInp = document.getElementById('comment-name-' + pid);
-            const textInp = document.getElementById('comment-text-' + pid);
-            if (!textInp || !textInp.value.trim()) {
-                alert('Lütfen bir yorum yazın.');
-                return;
-            }
-            const author = nameInp ? nameInp.value.trim() : '';
-            const text = textInp.value.trim();
-
-            const commentsRef = collection(db, 'comments', 'post_' + pid, 'allComments');
-            addDoc(commentsRef, {
-                author: author || "Ziyaretçi",
-                text: text,
-                createdAt: serverTimestamp()
-            }).then(() => {
-                if(nameInp) nameInp.value = '';
-                if(textInp) textInp.value = '';
-            }).catch((error) => {
-                console.error('Yorum gönderme hatası:', error);
-                alert('Yorum gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
-            });
-        });
-    });
-
-    // Tüm post'lar için yorumları yükle (ID: 11-23)
-    for (let i = 11; i <= 23; i++) {
-        window.loadComments(i);
-    }
-
-    console.log("Firebase yorum sistemi (ES Module) başarıyla başlatıldı. Mevcut yorumlar korunuyor.");
 </script>
 </body>
 </html>
