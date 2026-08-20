@@ -930,22 +930,31 @@
         document.body.style.overflow = '';
     });
     
-    function sendChatMessage() {
-        if (!isLiveActive) { 
-            alert("Sohbet sadece canlı yayında açıktır."); 
-            return; 
-        }
-        const username = chatUsername?.value.trim();
-        const message = chatInput?.value.trim();
-        if (!message) return;
-        const finalUsername = (username && username !== '') ? username.substring(0, 20) : 'Anonim';
-        push(messagesRef, { 
-            username: finalUsername, 
-            message: message.substring(0, 500), 
-            timestamp: Date.now(),
-            senderId: sessionId  // Gönderen kimliği
-        }).then(() => { if(chatInput) chatInput.value = ''; }).catch(() => {});
+function sendChatMessage() {
+    if (!isLiveActive) { 
+        alert("Sohbet sadece canlı yayında açıktır."); 
+        return; 
     }
+    const username = chatUsername?.value.trim();
+    const message = chatInput?.value.trim();
+    if (!message) return;
+    
+    // ✅ YENİ EKLENEN KISIM (isim engelleme)
+    const YASAKLI_ISIMLER = ["", "misafir", "guest", "anonim", "anonymous", "isimsiz"];
+    if (!username || YASAKLI_ISIMLER.includes(username.toLowerCase().trim())) {
+        alert("❌ Bu kullanıcı adı geçersiz! Lütfen geçerli bir isim girin.");
+        return; // Mesaj GÖNDERİLMEZ
+    }
+    // ✅ KONTROL BİTTİ
+    
+    const finalUsername = username.substring(0, 20);
+    push(messagesRef, { 
+        username: finalUsername, 
+        message: message.substring(0, 500), 
+        timestamp: Date.now(),
+        senderId: sessionId
+    }).then(() => { if(chatInput) chatInput.value = ''; }).catch(() => {});
+}
 
     // --- MESAJ GELDİĞİNDE OKUNDU İŞARETLE ---
     function markAllMessagesAsRead() {
