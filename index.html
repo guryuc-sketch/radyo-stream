@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title>VOM-VOMITORIUM Kültür Sanat Blogu | VOM-VOMITORIUM - Dijital Sanat, Edebiyat ve Radyo</title>
+    <meta name="description" content="VOM-VOMITORIUM Kültür Sanat Blogu. Dijital sanat, web radyo, özgün yazılar, edebiyat, sinema, fotoğrafçılık ve güncel kültürel içerikler.">
+    <meta name="keywords" content="VOM-VOMITORIUM blog, VOM-VOMITORIUM yayın, VOM-VOMITORIUM kültür sanat, yazar yazıları, dijital sanat, VOM-VOMITORIUM web radyo, edebiyat blogu, sanat dergisi, kültür sanat, güncel yazarlar">
+    <meta name="googlebot" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="VOM YAYIN">
+    <meta name="theme-color" content="#1a2a3a">
+    <link rel="canonical" href="https://vom-blog.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vom-blog.com/">
+    <meta property="og:title" content="VOM-VOMITARIUM Kültür Sanat Blogu">
+    <meta property="og:description" content="Dijital sanat, web radyo, özgün yazılar, edebiyat, sinema, fotoğrafçılık ve güncel kültürel içerikler.">
+    <meta property="og:image" content="https://vom-blog.com/images/editor-2.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:site_name" content="VOM-VOMITARIUM Kültür Sanat Blogu">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VOM-VOMITARIUM Kültür Sanat Blogu">
+    <meta name="twitter:description" content="Dijital sanat, web radyo, özgün yazılar, edebiyat, sinema, fotoğrafçılık ve güncel kültürel içerikler.">
+    <meta name="twitter:image" content="https://vom-blog.com/images/editor-2.png">
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="https://vom-blog.com/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://vom-blog.com/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://vom-blog.com/apple-touch-icon.png">
+    <link rel="shortcut icon" href="https://vom-blog.com/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "VOM-VOMITARIUM Kültür Sanat Blogu",
+        "description": "Dijital sanat, web radyo, özgün yazılar, edebiyat, sinema, fotoğrafçılık ve güncel kültürel içerikler.",
+        "url": "https://vom-blog.com/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "VOM YAYIN",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://vom-blog.com/favicon-32x32.png"
+            }
+        },
+        "inLanguage": "tr"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "VOM YAYIN",
+        "url": "https://vom-blog.com/",
+        "logo": "https://vom-blog.com/favicon-32x32.png",
+        "sameAs": [
+            "https://www.instagram.com/vom_oyun/"
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana Sayfa",
+                "item": "https://vom-blog.com/"
+            }
+        ]
+    }
+    </script>
+
+    <script data-cfasync="false" src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+    <script data-cfasync="false" src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#f0f2f5;font-family:'Source Sans 3',system-ui,sans-serif;color:#1a1e24;line-height:1.5}
+        html{scroll-behavior:smooth}
+        
+        body.dark-mode{background:#121826;color:#e2e8f0}
+        body.dark-mode .sidebar-card,body.dark-mode .search-box-side,body.dark-mode .post,body.dark-mode .contact-bottom,body.dark-mode #header{background:#1e293b;border-color:#334155}
+        body.dark-mode .title h2 a,body.dark-mode .post p,body.dark-mode .meta,body.dark-mode .button,body.dark-mode .stats a{color:#cbd5e1}
+        body.dark-mode .button{background:#334155}
+        body.dark-mode .search-input-side{background:#334155;border-color:#475569;color:#f1f5f9}
+        body.dark-mode .comment-item{background:#0f172a}
+        body.dark-mode .editor-note{background:#2d3a4e;border-left-color:#f5b042;color:#e2e8f0}
+        body.dark-mode .editor-note p{color:#cbd5e1}
+        body.dark-mode #header h1 a{color:#f1f5f9;background:none}
+        body.dark-mode .author .name{color:#ffffff !important; font-weight:600}
+        body.dark-mode .meta a.author{color:#ffffff !important}
+        
+        #wrapper{max-width:1300px;margin:0 auto;padding:0.75rem;display:flex;flex-direction:column;gap:1rem}
+        @media (min-width:992px){
+            #wrapper{flex-direction:row;align-items:flex-start;padding:1.5rem;gap:1.5rem}
+            #main{flex:2.2;min-width:0;order:2}
+            #sidebar{flex:1;min-width:280px;position:sticky;top:1rem;order:1}
+        }
+        @media (max-width:991px){#wrapper{flex-direction:column}#main{order:2}#sidebar{order:1}}
+        
+        #header{background:white;border-radius:16px;padding:0.8rem 1rem;margin-bottom:1rem;display:flex;flex-direction:column;gap:0.8rem;border:1px solid #e5e9f0}
+        @media (min-width:480px){#header{flex-direction:row;justify-content:space-between;align-items:center;padding:1rem 1.5rem}}
+        #header h1 a{font-size:2rem;font-weight:900;text-decoration:none;background:linear-gradient(135deg,#1a2a3a,#2c3e66);background-clip:text;color:transparent}
+        
+        .issue-number{font-size:0.8rem;font-weight:500;background:#eef2f6;padding:0.2rem 0.6rem;border-radius:30px;color:#2c5f8a;margin-left:12px}
+        .links ul{display:flex;flex-wrap:wrap;gap:1rem;list-style:none;align-items:center}
+        .links a{text-decoration:none;color:#4a5568;font-weight:500;font-size:0.9rem;cursor:pointer}
+        .links a:hover{color:#2c5f8a}
+        
+        .dark-mode-toggle{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:40px;padding:0.25rem 0.8rem;font-size:0.7rem;cursor:pointer;color:#475569}
+        
+        .sidebar-card,.search-box-side{background:white;border-radius:20px;padding:1.2rem;margin-bottom:1.2rem;border:1px solid #eef2f6}
+        .sidebar-card h2{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
+        
+        .editor-image{margin-bottom:1rem;border-radius:16px;overflow:hidden}
+        .editor-image img{width:100%;height:auto;display:block}
+        
+        .editor-note{background:#fef9e6;border-left:4px solid #f5b042;padding:0.8rem;border-radius:12px}
+        .editor-note p{font-size:0.85rem;color:#4a5568;margin-bottom:0.5rem}
+        .editor-date{font-size:0.7rem;color:#888}
+        
+        .lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;cursor:pointer;justify-content:center;align-items:center}
+        .lightbox img{max-width:90%;max-height:90%;object-fit:contain;border-radius:8px}
+        .lightbox.show{display:flex}
+        .lightbox-close{position:absolute;top:20px;right:35px;color:#fff;font-size:40px;font-weight:bold;cursor:pointer}
+        .clickable-img{cursor:pointer;transition:opacity 0.3s}
+        .clickable-img:hover{opacity:0.9}
+        
+        .search-input-group{display:flex;gap:0.5rem}
+        .search-input-side{flex:1;padding:0.7rem 1rem;border:1px solid #ddd;border-radius:40px;outline:none;font-size:0.85rem}
+        .search-input-side:focus{border-color:#2c5f8a}
+        .search-btn-side{background:#2c5f8a;border:none;color:white;width:42px;height:42px;border-radius:50%;cursor:pointer}
+        
+        .radio-link-btn{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#1e2a3a,#2c3e66);padding:1rem 1.2rem;border-radius:40px;text-decoration:none;color:white;margin:0.8rem 0;font-weight:600}
+        .radio-link-btn:hover{transform:translateY(-2px)}
+        .radio-link-btn span{display:flex;align-items:center;gap:0.6rem}
+        
+        .video-card-link{display:block;position:relative;background:#000;border-radius:16px;overflow:hidden;margin:0.8rem 0}
+        .video-card-link img{width:100%;display:block}
+        .play-icon-video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:white}
+        
+        .post{background:white;border-radius:20px;margin-bottom:1.2rem;padding:1rem;border:1px solid #eef2f6}
+        @media (min-width:768px){.post{padding:2rem;margin-bottom:2rem}}
+        .post header{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem}
+        @media (min-width:480px){.post header{flex-direction:row;justify-content:space-between;align-items:flex-start}}
+        .title h2{font-size:1.3rem;font-weight:700;margin:0}
+        @media (min-width:768px){.title h2{font-size:1.8rem}}
+        .title h2 a{text-decoration:none;color:#1e293b}
+        .meta{font-size:0.75rem;color:#6c7a91}
+        .author{display:flex;align-items:center;gap:0.5rem;text-decoration:none;color:#334155}
+        .author img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+        .image.featured{margin:0.8rem 0;border-radius:16px;overflow:hidden}
+        .image.featured img{width:100%;height:auto;display:block}
+        .post p{color:#2d3e50;margin:0.8rem 0;font-size:0.9rem}
+        
+        .post-footer{display:flex;flex-direction:column;gap:0.8rem;margin-top:1rem;padding-top:0.8rem;border-top:1px solid #edf2f7}
+        @media (min-width:480px){.post-footer{flex-direction:row;justify-content:space-between;align-items:center}}
+        .button{background:#f1f5f9;padding:0.5rem 1.2rem;border-radius:40px;text-decoration:none;font-weight:600;font-size:0.8rem;color:#1f2a44;display:inline-block;cursor:pointer;border:none}
+        .stats{display:flex;gap:1rem;list-style:none}
+        .stats a{text-decoration:none;color:#6b7a8a;font-size:0.85rem;cursor:pointer}
+        
+        .comments-section{margin-top:1rem;padding-top:0.8rem;border-top:1px solid #eef2f6;display:none}
+        .comments-title{font-size:0.85rem;font-weight:600;color:#475569;margin-bottom:0.5rem}
+        .comments-list{max-height:300px;overflow-y:auto;margin-bottom:0.8rem}
+        .comment-item{background:#f8fafc;padding:0.6rem 2rem 0.6rem 0.6rem;border-radius:12px;margin-bottom:0.5rem;font-size:0.75rem;position:relative}
+        .delete-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#e33b3b;color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:0.7rem;cursor:pointer;display:none;align-items:center;justify-content:center}
+        .comment-item:hover .delete-btn{display:flex}
+        .add-comment-form{display:flex;flex-direction:column;gap:0.5rem}
+        .comment-input,.comment-text{padding:0.5rem 0.8rem;border:1px solid #e2e8f0;border-radius:30px;font-size:0.8rem;outline:none}
+        .comment-text{border-radius:16px;resize:vertical}
+        .submit-comment{background:#2c5f8a;color:white;border:none;border-radius:30px;padding:0.5rem 1rem;font-size:0.75rem;font-weight:600;cursor:pointer}
+        
+        .full-post-content{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid #eef2f6}
+        .full-post-content.show{display:block}
+        
+        .contact-bottom{background:white;border-radius:20px;padding:1.2rem;margin-top:1rem;border:1px solid #eef2f6}
+        .contact-bottom h2{font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;color:#1e293b;border-left:4px solid #2c5f8a;padding-left:0.8rem}
+        .contact-email{display:inline-block;background:#f1f5f9;padding:0.5rem 1rem;border-radius:30px;text-decoration:none;color:#2c5f8a;font-weight:600;font-size:0.8rem}
+        .site-footer{text-align:center;padding:1rem 0;font-size:0.7rem;color:#6c86a3;border-top:1px solid #eef2f6;margin-top:1rem}
+        .icons{display:flex;justify-content:center;gap:1.5rem;margin-bottom:0.8rem}
+        .icons a{font-size:1.5rem;color:#4a5568}
+        
+        .old-posts-link{margin-top:1rem;padding-top:0.5rem;text-align:right;border-top:1px dashed #e2e8f0}
+        .old-posts-link a{font-size:0.75rem;color:#2c5f8a;text-decoration:none}
+        
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .post{animation:fadeInUp 0.3s ease}
+        
+        @media (max-width: 550px) {
+            .contact-bottom p {font-size: 0.7rem;line-height: 1.4;}
+        }
+
+        .contact-form {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1px solid #eef2f6;
+        }
+
+        body.dark-mode .contact-form {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1e293b;
+            margin-bottom: 0.4rem;
+        }
+
+        body.dark-mode .contact-form label {
+            color: #e2e8f0;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-family: 'Source Sans 3', system-ui, sans-serif;
+            background: white;
+            color: #1a1e24;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+
+        body.dark-mode .contact-form input,
+        body.dark-mode .contact-form textarea {
+            background: #0f172a;
+            border-color: #475569;
+            color: #f1f5f9;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #2c5f8a;
+            box-shadow: 0 0 0 3px rgba(44, 95, 138, 0.15);
+        }
+
+        body.dark-mode .contact-form input:focus,
+        body.dark-mode .contact-form textarea:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .contact-form .submit-btn {
+            background: linear-gradient(135deg, #2c5f8a, #1a3a5a);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .contact-form .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(44, 95, 138, 0.3);
+        }
+
+        .contact-form .submit-btn i {
+            font-size: 1.1rem;
+        }
+
+        body.dark-mode .contact-form .submit-btn {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+        }
+
+        body.dark-mode .contact-form .submit-btn:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .contact-form .form-note {
+            font-size: 0.8rem;
+            color: #6c7a91;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        body.dark-mode .contact-form .form-note {
+            color: #94a3b8;
+        }
+
+        .contact-form .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        body.dark-mode .contact-form .success-message {
+            background: #1a3a2a;
+            color: #8fdfa8;
+        }
+
+        .contact-form .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='600'%20viewBox='0%200%20800%20600'%3E%3Crect%20width='800'%20height='600'%20fill='%23333'/%3E%3C/svg%3E" alt="Büyütülmüş görsel">
+</div>
+
+<main>
+<div id="wrapper">
+   <div id="sidebar">
+    <div class="search-box-side">
+        <!-- Listenin Başladığı Yer -->
+        <div style="display:flex; flex-direction:column; gap:0.5rem; padding:0.2rem 0;">
+            
+            <!-- Başlık -->
+            <div style="font-weight:700; font-size:0.95rem; color:#1e293b; margin-bottom:0.3rem; border-left:4px solid #2c5f8a; padding-left:0.8rem;">
+                <i class="fas fa-calendar-alt" style="color:#2c5f8a; margin-right:0.5rem;"></i> 5 Eylül Cumartesi Yayın Akışı. 21.00
+            </div>
+
+            <!-- Sevim Yücel -->
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; padding:0.3rem 0; border-bottom:1px solid #eef2f6;">
+                <i class="fas fa-microphone-alt" style="color:#2c5f8a; width:18px; font-size:0.8rem;"></i>
+                <span><a href="https://vom-blog.com/radyo" target="_blank" onmouseover="this.style.color='red'" onmouseout="this.style.color='inherit'" style="text-decoration:none; color:inherit; transition: 0.3s;"><strong>Sevim Yücel</strong> – Radyonun Seyir Defteri</a></span>
+            </div>
+
+            <!-- Ferzen Soydemir -->
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; padding:0.3rem 0; border-bottom:1px solid #eef2f6;">
+                <i class="fas fa-microphone-alt" style="color:#2c5f8a; width:18px; font-size:0.8rem;"></i>
+                <span><a href="https://vom-blog.com/radyo" target="_blank" onmouseover="this.style.color='red'" onmouseout="this.style.color='inherit'" style="text-decoration:none; color:inherit; transition: 0.3s;"><strong>Ferzen Soydemir</strong> – Yıldızların Altında</a></span>
+            </div>
+
+            <!-- Funda Çar -->
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; padding:0.3rem 0; border-bottom:1px solid #eef2f6;">
+                <i class="fas fa-microphone-alt" style="color:#2c5f8a; width:18px; font-size:0.8rem;"></i>
+                <span><a href="https://vom-blog.com/radyo" target="_blank" onmouseover="this.style.color='red'" onmouseout="this.style.color='inherit'" style="text-decoration:none; color:inherit; transition: 0.3s;"><strong>Funda Çar</strong> – Zamanın Ruhu</a></span>
+            </div>
+
+            <!-- Nilüfer Gürler -->
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; padding:0.3rem 0; border-bottom:1px solid #eef2f6;">
+                <i class="fas fa-microphone-alt" style="color:#2c5f8a; width:18px; font-size:0.8rem;"></i>
+                <span><a href="https://vom-blog.com/radyo" target="_blank" onmouseover="this.style.color='red'" onmouseout="this.style.color='inherit'" style="text-decoration:none; color:inherit; transition: 0.3s;"><strong>Nilüfer Gürler</strong> – Amerika Notları</a></span>
+            </div>
+
+            <!-- Elif Biçer -->
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; padding:0.3rem 0; border-bottom:1px solid #eef2f6;">
+                <i class="fas fa-microphone-alt" style="color:#2c5f8a; width:18px; font-size:0.8rem;"></i>
+                <span><a href="https://vom-blog.com/radyo" target="_blank" onmouseover="this.style.color='red'" onmouseout="this.style.color='inherit'" style="text-decoration:none; color:inherit; transition: 0.3s;"><strong>Elif Biçer</strong> – Rüzgârın Şarkısı</a></span>
+            </div>
+
+            <!-- Ayhan Acı -->
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; padding:0.3rem 0;">
+                <i class="fas fa-microphone-alt" style="color:#2c5f8a; width:18px; font-size:0.8rem;"></i>
+                <span><a href="https://vom-blog.com/radyo" target="_blank" onmouseover="this.style.color='red'" onmouseout="this.style.color='inherit'" style="text-decoration:none; color:inherit; transition: 0.3s;"><strong>Ayhan Acı</strong> – Şarkının Hikayesi</a></span>
+            </div>
+             <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; padding:0.3rem 0;">
+                <i class="fas fa-microphone-alt" style="color:#2c5f8a; width:18px; font-size:0.8rem;"></i>
+                <span><a href="https://vom-blog.com/radyo" target="_blank" onmouseover="this.style.color='red'" onmouseout="this.style.color='inherit'" style="text-decoration:none; color:inherit; transition: 0.3s;"><strong>Fatma Altun</strong> – Kayıp Öyküler</a></span>
+            </div>
+        </div>
+    </div> 
+        <div class="sidebar-card">
+            <h2><i class="fas fa-pen-fancy"></i> Editörden</h2>
+            <div class="editor-image">
+                <img src="https://vom-blog.com/images/editor-4.png" alt="Editör" width="600" height="300" loading="lazy" style="border-radius:12px; width:100%; height:auto;">
+            </div>
+            <div class="editor-note">
+                <p><strong>🎙️ VOM Blog Sayı 4’e Hoş Geldiniz!,</strong></p>
+                <p>VOM Blog’un dördüncü sayısında, yine bir aradayız. Bu sayı, bir anlamda
+"hatırlamanın" ve "yolda olmanın" hikâyelerinden oluştu. Yazılar arasında
+ilerlerken, hem coğrafyalar hem de duygular arasında ince bir bağ kurulduğunu
+fark edeceksiniz.
+<br><br>
+Bu sayımızda, bir kentin tozlu ama samimi sokaklarında mola veriyor, artık
+unutulmaya yüz tutmuş "insan hikâyelerinin" peşine düşüyoruz. İstanbul’un tarihi
+surlarından Adana’nın sıcak sofralarına, Ayvalık’ın taş binalarındaki
+yaşanmışlıklardan çocukluk anılarının şıkırtılı misketlerine kadar uzanan geniş
+bir bellek yolculuğu sizi bekliyor
+                <br><br>
+                   Sadece dışarıdaki dünyayı değil, içerideki dünyayı da sorguluyoruz. Hayatın
+hızına karşı "aylaklığın" lüksünü, başkalarına gösterdiğimiz nezaketi neden
+kendimizden esirgediğimizi, dijital arşivlerimizin altında ezilen gerçek
+hislerimizi ve dürüstlüğün o çok katmanlı doğasını yeniden masaya yatırıyoruz.
+Kimi zaman sönen bir sobanın başında "şimdi"de kalmanın ağırlığını hissediyoruz.
+                    <br><br>
+                    Ayrıca, tarihin dehlizlerinde gizlenen sembollerin peşindeki o gizemli yolculuk,
+bu sayıda sizi daha derin sorularla baş başa bırakacak.
+                    <br><br>
+VOM Blog; sanatı, edebiyatı ve hayatı aceleye getirmeden okumak isteyenler için
+bağımsız bir durak olmaya devam ediyor. Her bir satırda bizden bir parça, her
+fotoğrafta tanıdık bir bakış bulmanız dileğiyle.					
+<br><br>					
+İyi okumalar.</p>
+                <div class="editor-date"><i class="fas fa-calendar-alt"></i> EYLÜL 2026 - VOM-VOMITARIUM</div>
+            </div>
+        </div>
+        <div class="sidebar-card">
+            <h2><i class="fas fa-headphones"></i> Radyo</h2>
+            <a href="radyo.html" target="_blank" class="radio-link-btn"><span><i class="fas fa-play-circle"></i> VOM Radyo'yu Aç</span><i class="fas fa-arrow-right"></i></a>
+        </div>
+       <div class="sidebar-card">
+    <h2><i class="fas fa-comments"></i> Sohbet</h2>
+    <a href="sohbet.html" target="_blank" class="radio-link-btn">
+        <span><i class="fas fa-comment-dots"></i> VOM Sohbeti Aç</span>
+        <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+<div class="sidebar-card">
+    <h2><i class="fas fa-video"></i> Kamera</h2>
+    <a href="kamera.html" target="_blank" class="radio-link-btn camera-btn">
+        <span><i class="fas fa-camera"></i> Kamerayı Aç ve Bağlan</span>
+        <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+   <div class="sidebar-card">
+    <h2><i class="fas fa-video"></i> VOM TANITIM</h2>
+    <a href="https://www.youtube.com/shorts/o2Fck4sYl4Y" target="_blank" rel="noopener noreferrer" class="video-card-link">
+        <img src="images/vom kapak.png" alt="VOM Tanıtım" width="400" height="225" loading="lazy">
+        <div class="play-icon-video"><i class="fas fa-play"></i></div>
+    </a>
+</div>
+    </div>
+
+    <div id="main">
+    <header id="header">
+        <h1>
+            <a href="#" id="resetHomeLink">VOMblog.</a>
+            <span style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+                VOM-VOMITORIUM: Dijital Sanat, Edebiyat ve Kültür Blogu
+            </span>
+            <span class="issue-number">Sayı 4</span>
+        </h1>
+            <nav class="links">
+                <ul>
+                    <li><a href="#" id="resetHomeLinkBtn">Ana Sayfa</a></li>
+                    <li><a href="#" id="contactNavLink">İletişim</a></li>
+                    <li><button class="dark-mode-toggle" id="darkModeToggle" aria-label="Gece Modu"><i class="fas fa-moon"></i> Gece Modu</button></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div id="postsContainer">
+            <!-- ============================================ -->
+            <!-- POST 38 - Siret (eski ID:24) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="38" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Siret",
+                    "description": "Kadın ve Aşk",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Ferzen Soydemir"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/FE-2.png",
+                    "url": "https://vom-blog.com/#post-38",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-38"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "aşk, ilişki, duygu, kadın, Ferzen Soydemir",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-38" class="post-title-link">Yalancı Dolma ve Yalanın Kısa Tarihi</a></h2>
+                        <p itemprop="description">Kadın ve Aşk</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-38" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Ferzen Soydemir</span>
+                            <img src="https://vom-blog.com/images/ferzen.png" alt="Ferzen Soydemir avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/1.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-38" class="image featured clickable-img" data-img="https://vom-blog.com/images/FE-4.png" itemprop="image"><img src="https://vom-blog.com/images/FE-4.png" alt="Kadın ve Aşk" width="800" height="450" fetchpriority="high"></a>
+                <p itemprop="articleBody">Hmm, yalan çok kötü bir şeydir. Size de ilk bu öğretilmedi mi? Bir müddet bu cümleyi çok duyarak büyüdüm. Ama bugün, doğruları konuşarak kendimizi dostça eleştirelim isterim. "Tamam tamam, bir daha yapmayacağım!" diyerek başladım yalanlarıma. Ama işler öyle düşündüğüm gibi yürümedi. İlginçtir; annemi gördüm babama yalan söylerken, babamı da anneme söylerken. Her ikisinin de bana söylediklerini geçiyorum. Ablam anneme, ağabeyim babama, akrabalar bize, biz de akrabalara söyledik; ufak da olsa, masum da olsa... 
+<br><br>
+Karşılıklı yalanlar gidip gelmeye başladı aramızda. Zaman geçtikçe yalanlar da törpülenerek hoş bir üslup kazandı. Kendi içinde yalanları bölümlere ayırdık: Beyaz yalanlar, pembe ve masum yalanlar... Zevahiri kurtarmak için siyasi, ticari, mecburi yalanlar gibi. Bazen yalan, kimilerinin gözlerinde hayranlık görmek gibi naif bir duygu için söylendi. Kimide yalan söylemedi ama doğruyu da dile getiremedi; çünkü araya dini yalanlar da girdi. Uzağa gitmeyelim, en büyük yalanları adeta idolleştirdiğimiz insanlardan dinlemedik mi?</p>
+                <div class="full-post-content" id="full-38"><p class="full-text">                
+Çok akıllı olmadığım için ben yalanlarımı unutuyorum. Düzeltmek için de daha çapraşık duruma getiriyorum, elim ayağıma dolanıyor. Demek ki neymiş? Yalan bile akıl, fikir, tecrübe istiyormuş. Şunu itiraf etmeliyim: Çok büyük yalanlarım yoktur ama gözümün içine baka baka bana alenen yalan söyleyenleri yerden yere vuruyorum. Ve bunu o yalan söylediği için değil, beni aptal yerine koyduğu için yapıyorum; biraz Ferzence...
+<br><br>
+Babam "Yalan, kötülüklerin anasıdır." derdi. Keşke analar da hiç yalan söylemeseymiş. Yalanın iyi yönleri de yok mu? Var vallahi! Onun sayesinde dostunu, düşmanını, iyiyi, kötüyü, karşındakinin aptal mı yoksa akıllı mı olup olmadığını hemen anlıyorsun. Bir iyi yanı da seni mutlu etmesidir. Yalan olduğunu bilirsin ama o yalan seni hoşnut eder. Yalanı söyleyeni de seviyorsundur çünkü. Ah, işte kopan birliktelikler, yıkılan yuvalar, sona eren aşklar, nefretler, ayrılıklar... Hep söylenen yalanların semeresidir. Yalanlar üzerine güzellemeler de yapıldı ya: "Yalanın olayım", "Ufak at da civcivler yesin", "Desteksiz atıyorsun, biraz doğru yalan söyle", "Yalancının mumu yatsıya kadar"...
+<br><br>    
+Yalanı mutfağa da soktuk: Yalancı dolma, yalancı tavukgöğsü, yalancı mantı, yalancı Çerkez tavuğu gibi... Peki, bunlar bizi yalan söylemekten geri koydu mu? Hayır. Mayamızda, hamurumuzda —üzgünüm ama— yalan var. Üzülmesinler diye, yanlış anlamasınlar diye, onu korumak için, ondan korktuğumdan diyerek yalanlarımızı masumlaştırıyoruz. O kadar içimize girmiş ki yalan... Güftekarlar şarkılarına, şairler şiirlerine, o şahane kocalar karılarına, esnaf müşterisine, devlet ricali ve siyasiler halkına tatlı tatlı yalanlar söylemişler. Ve olay, toplumun çürümesine gelip dayanmıştır; yalan, domine olmuştur.
+<br><br>
+Neler görmedim ki ben! Aşkından intihara teşebbüs edeni mi, sayfalarca inandırmak için mektup yazanı mı, şiirlerimi, hatta bestelerimi... Zaman, her şeyin üstüne çizgiler çekti; yalanlar tarihe karıştı. En çarpıcı olan ve beni en çok üzeni de "yalan dünya" deyişi olmuştur. Hadi beni bazı şeylere inandırın bakalım! Aslında hepimiz birer Pinokyo'yuz. Kendimden biliyorum, burnum gittikçe büyüyor yalanlarımdan...
+<br><br>
+Birilerini kıracak, üzecek kadar doğrucu da olmayın ama yalanlarınız az; doğruluk ve mutluluklarınız çok olsun.</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-38" class="button read-more-btn" data-id="38">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="38"><a href="#post-38"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-38">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-38"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-38" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-38" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="38">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 39 - Bir başka İstanbul (eski ID:25) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="39" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Bir başka İstanbul",
+                    "description": "Tarihsel dokusuyla Zeyrek",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Ahmet Sinan Sarıkaya"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/AH-2.png",
+                    "url": "https://vom-blog.com/#post-39",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-39"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "İstanbul, Zeyrek, tarih, kültür, Ahmet Sinan Sarıkaya",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-39" class="post-title-link">İstanbul’un farklı kimlikleri...</a></h2>
+                        <p itemprop="description">Bir Başka İstanbul</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-39" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Ahmet Sinan Sarıkaya</span>
+                            <img src="https://vom-blog.com/images/ahmet.png" alt="Ahmet Sinan Sarıkaya avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/1.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-39" class="image featured clickable-img" data-img="https://vom-blog.com/images/AH-4.png" itemprop="image"><img src="https://vom-blog.com/images/AH-4.png" alt="Bir başka İstanbul - Tarihsel dokusuyla Zeyrek" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Taşı toprağı altın denilen efsunlarıyla efsaneleriyle yaşayan ve yaşatılan yedi tepeli bir  şehirdir İstanbul... Farklı kültürlere sahip insanlar yüzyıllardır bu şehirde yaşamaya devam eder. İstanbul kazan ben kepçe misali en çokta suriçi bölgesini dolaşırım. İlginç yaşam öykülerini dinlediğim farklı coğrafyalardan gelen insanlar tanıdım. 
+                <br><br>
+             Anlatılanlar bazen eğlenceli bazen hüzünlü ama ortak olan her insanın bir hikayesinin varolmasıdır. Fotoğrafta görmüş olduğunuz Mehmet abiyi gözlerim fıldır fıldır fotoğraf çekmek için tarama yaparken Küçükpazar da tanıdım. Selam verdim bankta yanına oturdum.</p>
+                <div class="full-post-content" id="full-39"><p class="full-text">Sohbete başladık. Bana güncel konulardan, dünyaya olan gözlemlerinden bahsetti. Yaşanmışlıkları üzerine bazen coşkulu bazende hüzünlü bir ses tonuyla konuştu. Bilgi birikimi ve gözlemleri yerinde ilginç tespitleri vardı. Bir süre daha konuştuktan sonra yanından ayrıldım. Aradan iki hafta kadar zaman geçti. Eminönünde sırtını Büyük Çukur Han’a yaslayıp otururken kendisiyle karşılaştım. Yine derin bir sohbet başladık.
+                <br><br>
+                Bu arada ilk karşılaşmada ismini sordum söylememişti. Tekrar sordum ve bana “hepimiz hakkın varlık deryasıysak ve özümüz insansa ismim ha Mehmet olmuş ha Mustafa ne fark eder”, diyerek devam etti. Ara sıra gelir buraya otururum, şu radyoyu açar neşelenir tesbihimle hakkı yad ederim. İnsanları gözlemlerim, bak şunlara suratlar asık çıvıt çarşısı gibi. Kimse gülmüyor kimse konuşmuyor. 
+                <br><br>
+               İşte ben de onları öyle görünce radyomun sesini açar neşeme neşe katarım. Hiçbiri mutlu değil oysa hayat yaşamak için var. Dünya var olduğundan bu yana, bu telaş, öfke, dargınlık, suskunluk, küslük kime fayda sağlamış. Benim başıma gelenler pişmiş tavuğun başına gelmemiştir. Biliyorum, herkesin derdi kendine büyük ancak mutlu olmak varken soruyorum; gülmek çok mu zor?...  </p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-39" class="button read-more-btn" data-id="39">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="39"><a href="#post-39"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-39">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-39"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-39" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-39" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="39">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 40 - Dönüş (eski ID:26) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="40" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Dönüş",
+                    "description": "Bir Şehir Hikayesi - İki Şehir Bir Kadın",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Fatma Altun"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/fatma-resim_2.png",
+                    "url": "https://vom-blog.com/#post-40",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-40"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "şehir, kadın, dönüş, Fatma Altun, edebiyat",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-40" class="post-title-link">Yara İzlerinin Tadilat Öncesi</a><br></h2>
+                        <p itemprop="description">İki Şehir Bir Kadın</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-40" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Fatma Altun</span>
+                            <img src="https://vom-blog.com/images/fatma-1.png" alt="Fatma Altun avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/2.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-40" class="image featured clickable-img" data-img="https://vom-blog.com/images/fatma-resim_4.png" itemprop="image"><img src="https://vom-blog.com/images/fatma-resim_4.png" alt="İki Şehir Bir Kadın" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody"><strong>Bütün yaralar kapanır bir zaman sonra. Zaman iyi gelir her şeye derler, iyileştirir bütün yaraları. Peki yaralı olan zamansa, onu kim iyileştirir yaralandığında? Hadi bakalım, çık işin içinden çıkabiliyorsan şimdi. Şimdi mi? Evet, Şimdi… Şimdide kalırsan, yapabilirsin! Yapabilir miyim? Yapabilirim...</strong><br><br>
+Neredeyse hayatı boyunca zihnen çalışmış, nedense bedenen yorulmuştu. Yine de fazladan yorulmaya ihtiyaç duyduğunda herhangi bir spor salonlarına üye olur, tomarla para döktüğü halde genelde yorgun olduğu için ya da kapalı alanda spor yapmak istemediğine karar verir ve gitmeyerek tuhaf bir döngünün içerisinde yorardı kendini. Tek istediği, yatağa girer girmez uykuya dalabilmekti ama ne mümkün… Gündüzleri sürekli uykulu olup, geceleri kaçan uykusunun hatırına neler neler yapmış, yatağa girer girmez uyuyabilmek için zihnindekilere ne taklalar attırmıştı. Sonuçta hep beklemek zorunda kalmıştı. Şimdiyse her şey çok farklıydı. Buradaki ilk gecesinde yatağa bile gidememiş, üzerindeki kıyafetleri çıkartmadan tozlu koltuğun üzerinde uyuya kalmıştı. Elindeki yapılacaklar listesiyle sızıvermişti oracıkta. Oysaki bu gecenin ilk işi, uyumak için bir yatak ve temiz çarşaflar ayarlamaktı. Ama önce sönen sobayı yeniden yakmalıydı. Dışarı çıktı ve odunluğa doğru yürümek için adım atar atmaz yerdeki kayganlık tedirgin etti onu. Beton dökülmüş avlu buz tutmuştu. “Keşke karları küremeseydim” diye düşündü.  Dikkatlice basarak ilerledi ve üzeri karla örtülü toprak alana vardığında gülümsedi. Düşmeden vardığı o yerde biraz durdu ve başarısı için kutladı kendini. Ama daha da önemlisi, uzun zaman sonra ilk defa, güvende hissetmişti. Toprak ona iyi gelecekti…
+<br><br>    
+              Odunluk tıka basa doluydu. Kuru dallar ve biraz da iri kıyımlardan alıp eve geri döndü. Ateşi harladı. Sobanın üzerine bakır bir güğümle su koydu. Eskiden olduğu gibi… Hem çayı demlemek için sıcak suyu olacaktı hem de buharıyla ev çok daha hızlı ısınacaktı. Üşümüyordu. Çünkü hâlâ paltosuyla ve botlarıyla geziniyordu evin içinde. Soyunsa donardı kesin. Üşümekten nefret ediyordu. Üşüdüğünde, soğuk onu geçmişindeki bir geceye götürüyordu her seferinde. Hadi yatın demişti annesi. Hava soğuk olduğundan da hep birlikte sobalı odada uyuyacaklardı. Televizyon da o odadaydı. Uyuyor numarası yapıp izleyebilecekti televizyonu, bu yüzden mutluydu. İzledi de… Büyüklerin izlediği filmler ona yasaktı ama yorgan altından gizlice izlediği çok oluyordu ve izlerken korkudan ölüyordu…</p> 
+                <div class="full-post-content" id="full-40"><p class="full-text"><em>Büyük bir patırtıyla uyandı kız. Bir kadın ve bir erkek bağrışması, kapı çarpması ve tekrar bağırmalar çağırmalar… Adam bağırıyor, kadın onu sakinleştirmeye çalışıyordu. Diğer çocuklar ise uyku ile uyanıklık arasında ne olduğunu anlamaya çalışıyordu. En büyükleriydi kız ama o da küçücüktü. Henüz on üç yaşındaydı. Biri sekiz, diğeri üç yaşında iki kardeşinden sorumlu bırakılmıştı. Belki de bu yüzden kendini daha büyük hissediyordu. Babası öfke kusarken, ağzından dökülen kelimelerin hiçbirini anlamıyordu kız. Adamın annesi olduğu sanılan kadın ise bir yandan ne olduğunu anlamaya çalışıyor, bir yandan da çaresizce sağa sola koşturuyordu. Aynı hengamede çarpan kapıların kırılan camlarına ayak basılmasın diye de toplamaya çalışıyordu bir yandan cam kırıklarını. Adam nedense onu yapmasına engel oluyor ve dışarı doğru çekiştiriyordu yaşlı kadını. “Gidelim de kendi gözlerinle gör!” diye bağırıyordu bir yandan da. Yaşlı kadın sonunda teslim oldu. “Nasıl gidelim, çocuklar ne olacak?” diyebilmişti sadece. Sonra da gecenin karanlığına atıldılar hep beraber. Adam, annesini arabaya ittirdi. Üç çocuğunu da çuval gibi atıverdi arka koltuğa. Kadın çocukları usulca yerleştirdi. Ağlayan en küçük ile şaşkınlıktan gözleri pörtleyen ortancayı sakinleştirip büyük olana emanet ederek ön koltuğa geçti. Yola koyuldular. Oğlunun delice kullandığı arabaya bindiğine bir pişman, ne göreceğini bilmediğinden çocukları yanına aldığına bin pişman halde, hâlâ oğluna “Yapma, yavaş sür, sus, bağırma” deyip duruyordu. Çocuklar arka koltukta savrulup duruyorlardı. Kız olan kardeşlerinden birine sarılmış, diğerini kucağına almıştı. Üçünün de ayakları çıplaktı. Titriyorlardı soğuktan…</em><br><br>
+İşte her üşüdüğünde, arka koltuktaki o kız çocuğunun çaresizliği sarıyordu bedenini ve içi titriyordu. O kızın yerine koyuyordu kendini, sessiz ve hareketsiz bir çırpınıştı onunkisi. Hiç geçmedi korkusu, hiç bitmedi nefreti. Bu yaşta bile üşüdüğünde hâlâ o geceyi hatırlıyor…  Bir de yara izi taşıyordu o geceden kalan. Bir gün bir yazısında ufacık bahsetse de hep gizlediği bir yara izi vardı bedeninde… Peki ya ruhundaki yara izleri?
+<br><br>
+“Hadi yara izlerimi herkesten gizledim diyelim, peki her sabah yüzümü yıkadıktan sonra baktığım aynadaki o kadından gizleyemediklerim ne olacak? En büyük yara onun ruhunda, kalbinde. İzi kalan yaraların başında gelmiyor mu kalp kırıklıkları? Senin kalbin hiç kırılmadı mı? Unuttun mu sana yaşatılanı? Ne çok sordum değil mi? Sen cevaplama istersen. Bazı soruların cevapları suskundur. Sessizce verilir…” diyerek başlıyordu bir öyküsündeki karakter konuşmaya. Genelde onun yaptığı gibi ayna karşısında kendi kendisiyle konuştururdu karakterlerini de… 
+<br><br>
+“Bir hatırlatma notu düşmeliyim” diye düşünürken not defterini nereye bıraktığını anımsamak için etrafa göz gezdirdi. Tezgâhta buldu defteri ve yazdı. “İnsan kendiyle iyi geçinmeli. Konuşabilmeli, anlaşamasa da denemeli. Başkalarıyla konuşurken de aslında kendimizle konuşuyoruz. Farkında değiliz. Diğerleriyle yaptığımız bütün kavgaları da kendimizle yapıyormuşuz aslında. Ne garip değil mi? Sanıyoruz ki o, biz değiliz. Her söz, her ses, her hareket bizden bizedir oysaki. Biz bunu unutuyoruz.” Notunu aldıktan sonra yeniden etrafına bakındı ve nereden nasıl başlaması gerektiğini düşündü bir kez daha. Önce temizlik yapmalıydı. Sonra düzen oluşturur, devamını da sağlardı. Eksikleri tespit edip fazlalıklardan kurtulmalıydı. Bütün bunları yardımsız yapamazdı. Yola çıkmadan önce telefonla ayarlamıştı birilerini. Öğlene doğru gelirler diye düşündü. Onlar gelene kadar evi dolaşmalı ve eksik gedik ne varsa tespit etmeliydi. Madem bundan böyle burada yaşayacaktı, o zaman burası yaşanır bir hâle sokulmalıydı… Bütün yaralarını bir anda kapatamasa da bir öncelik listesi yapabilirdi. Kolaylıkla iyileştirebileceklerini hallederek başlayabilirdi. Gerisi çorap söküğü… 
+<br><br>
+Yeni yol, yeni hayat… Zamanla her şeyi unuttururdu yeni bir yerde uyanmak… Unutmasa da sık sık hatırlamayacağı kesindi çünkü çok meşgul olacaktı. Çok yorulacaktı. Düşünmek için duraksadığında belki de uyuyakalacaktı… Zaman gösterecekti. Zaman, bütün olacaklara ve olamayacaklara gebeydi… Buraya gelirken her şeyi geride bırakmaya karar vermişti. Düşünerek kendine geçmişi yük edinmeyecekti. “Sadece şimdi var!” dedi elinde tuttuğu yarın sabah yapılacaklar listesine bakarken. “Sadece şimdide varım!”</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-40" class="button read-more-btn" data-id="40">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="40"><a href="#post-40"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-40">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-40"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-40" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-40" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="40">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 41 - Adana'yı Yaşarken (eski ID:27) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="41" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Adana'yı Yaşarken",
+                    "description": "Begümün Gözünden Dilinden",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Begüm Özüer"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/BEG-2.png",
+                    "url": "https://vom-blog.com/#post-41",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-41"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "Adana, yemek, kültür, Begüm Özüer, seyahat",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-41" class="post-title-link">Adana&rsquo;yı Yaşarken</a></h2>
+                        <p itemprop="description">Begümün Gözünden Dilinden</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-41" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Begüm Özüer</span>
+                            <img src="https://vom-blog.com/images/begum.png" alt="Begüm Özüer avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/3.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-41" class="image featured clickable-img" data-img="https://vom-blog.com/images/BEG-4.png" itemprop="image"><img src="https://vom-blog.com/images/BEG-4.png" alt="Begümün Gözünden" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Şimdi yazılarım da biraz daha Adana’dan bahsetmek istiyorum, çünkü her gün yeni bir şey hatırlıyorum ve karşıma Adana çıkıyor. Mesela bugün yazıya başlamadan evvel deniz kenarında arkadaşıma ayakkabımı bulamıyorum acaba Adana’da mı bıraktım diye konuşurken yanımızda oturan bir hanım, o zaman sizde Adana’dan buraya tatile geldiniz dedi. Yok ben işte eşimin işi nedeni ile Adana’ da kaldık derken, Adana’yı konuşmaya başladık, yani Adana beni çekiyor adeta. Geçenlerde de bir market de kasada bir hanım kuravasan güzel mi? derken bende duramam tabii evet çok güzel ve uygun fiyatlı diye müdahil oldum, sonra o hanım ay Adana’da olsa keşke bu market deyince ve Adana muhabbeti başladı, telefonlar alınıp verildi lütfen bir kahve içelim ile devam etti.
+<br><br>
+Ben şimdi Adana’yı nasıl yazmam.
+<br><br>
+Arkadaşım Zülay’dan Adana’yı o kadar çok dinlemiştim ki hep gitmeyi, oraları görmeyi çok istemiştim ve Allah bana 2 sene Adana şansı verdi, dedi ki hadi bakalım yaşayarak gör.</p>
+                <div class="full-post-content" id="full-41"><p class="full-text">Adana anılarımın içinde sanırım en önemlisi Kızım ile Filippo’nun  (damat)  Adana’ya geldiğinde onların evlenmiş olduğu haberini almaktı, aslında beklenen bir haberdi ama yine de şaşırdık, mutlu olduk, sonrasında da İtalya’da düğün, belki sonraki bir yazı 😊)  
+<br><br>
+Adana’da hiçbir şey yapamıyorsan, 5 Ocak meydanında veya Ulu cami önünde otur çay, kahve iç ve etrafı gözlemle, özellikle ağaçlar altında oturmak çok keyifli. Sonra Yeni Uğur dan tahin al, cezerye al ki, şimdi de İstanbul’a kargo ile alıyorum, ürün şahane, fiyat inanılmaz….
+<br><br>
+Bu arada Eski çarşıdan Kazancılar tarafına yürüyerek gidersen Yağ Cami’ye gir ve kapısında fotoğraf çektir ama kamerayı yere koyarak, fotoğrafını yazının başına koydum detay sonra …
+<br><br>
+Eski çarşının elden geçirilmesi, hamamın ve etrafın restore edilmesi, saat kulesi görülecek yerler.
+<br><br>
+Adana’ya hayat veren Seyhan nehri ve göl, yazın sıcaklarda bile nefes aldıran kıyılar, sabahları erken saat de kenarında yapılan kahve kahvaltı keyfi….
+<br><br>
+Adana’ya yağan yağmurlar hem sevindirir hem de mutsuz eder, şöyle kİ; Çukurova’nın yağmura ihtiyacı var ama yağmur sonrası gelen nem de mutsuzluk…
+<br><br>
+ Ve 65 yaşıma Adana’da girmek, İstanbul’dan önce Adana’da ücretsiz ulaşım kartı almak    
+<br><br>
+İşte bu ay da böyle, Adana’yı yazmaya devam…</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-41" class="button read-more-btn" data-id="41">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="41"><a href="#post-41"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-41">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-41"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-41" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-41" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="41">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 42 - Bakışık Halde Olabilmek (eski ID:28) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="42" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Bakışık Halde Olabilmek",
+                    "description": "Aynı Yöne Bakanlar",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Elif Biçer"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/ELF_2.png",
+                    "url": "https://vom-blog.com/#post-42",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-42"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "sanat, mozaik, resim, Elif Biçer, yaratıcılık",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-42" class="post-title-link">Ayvalık Sokaklarında Geçmişin İzleri</a></h2>
+                        <p itemprop="description">Aynı Yöne Bakanlar</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-42" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Elif Biçer</span>
+                            <img src="https://vom-blog.com/images/elif.png" alt="Elif Biçer avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/4.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-42" class="image featured clickable-img" data-img="https://vom-blog.com/images/ELF_4.png" itemprop="image"><img src="https://vom-blog.com/images/ELF_4.png" alt="Aynı Yöne Bakanlar" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Var gücüyle içimde duran eskiye hayranlık, hayatım boyunca beni yalnız bırakmadı. Ne zaman yıllara meydan okurcasına dimdik  ayakta duran bir ev görsem, uzaklara dalarım. Belki böyle bir ev, çocukluk yıllarımın yaz tatillerinde bana eşlik ettiği için, belki de bu yapılar ruhuma büyük bir dinginlik verdiği için, kim bilir... Dede eviydi hafızamda canlanan bu ev, inip çıkarken gıcırdayan ahşap merdivenleri olan. Yoldan geldiğimizde, ellerimizi dayayıp, musluğundan akan buz gibi suyunu kana kana içtiğimiz. Tuğla ile örülmüş balkon duvarlarının arasından kırmızı sardunyalar sarkan, bahçesinde taze sebze, meyveleri olan.Bana o yıllarda masal gibi gelen bir yuvaydı burası. Huzur o denli hissedilirdi ki oraya vardığımızda, bir yanım hep kalmak isterdi o mutlu oyun alanında. 
+                <br><br>
+Ayvalık  da, yıllar önce orayı ilk keşfettiğimde beni adeta bu yaşanmışlığa geri götürdü. Sokakları, tarihten izlerini hiç koparmadığını simgeleyen dokusu, yürümekte zorlandığım dar yolları, ruhu olan taş evleri. O günlerde dakikalarca seyredip,  hayaller kurduğum sahneler şu an bile hafızamda bir bir canlanıyor... Kimler bu cumbalarda oturup yol gözledi, acılarını paylaştı, mutluluklarını birer yudum kahve eşliğinde çoğalttı. Avlularında çocukları ile neşe dolu saatlerini geçirdi deyip duruyordum. İki kapı olurmuş bu nostaljik evlerde. Hayat kapısı ve cümle kapısı. Hayat kapısı: Evin avlusuna veya ana yaşam alanına açılan kapı. Cümle kapısı: Misafir geldiğinde ağırlanacağı bölüme alınması için kullanılan kapı. Bu kapılar o kadar özenli ve rengarenk yapılmış ki;gökkuşağı renkleri gibi  içimizi ısıtırcasına karşımıza çıkıveriyor. Yöreye özgü sarımsak taşı, evlere pembe rengi ile sakinleştirici bir enerji verirken, ahşap ile uyumu kusursuz bir güzellik yaratıyor. Evlerin özellikle birkaç basamak ile sokağa açılan kapıları;aslan başı, el gibi figürlü süslü kapı tokmakları ile yöreye  ayrı bir tarz katıyor.</p>
+                <div class="full-post-content" id="full-42"><p class="full-text">Ayvalık sadece mimarisi ile değil, o mimariyle uyum içindeki antika dükkanları ile de insanı tarihte gezintiye çıkarıyor. Davet sofralarına eşlik etmiş yemek takımları, elektriksiz geceleri aydınlatan şinanaylar, gaz lambaları, nefis yemeklerin kahramanları bakır tencereler, ince ince işlenmiş goblen tablolar, plaklar tüm güzellikleriyle bu atmosfere eşlik ediyor. 
+<br><br>
+Yaşantımızı güzelleştirmek için kendimize küçük mutluluk anları hediye edebilmek, tüm canlılara minik de olsa dokunuşlar yaparak iyiliği çoğaltmak, bize varoluş amacımızı hissettiren çok değerli duygular bence. Bunlar “İstediğim hayatı yaşıyorum!” dememize yardım eden harika nedenlerden sadece birkaçı. Tıpkı yıllardır özlemini duyduğum yazma arzumun doruğa ulaştığı an, karşıma çıkan bu eşsiz fırsat sayesinde kelimelerimi kâğıda dökmem gibi. Yıllar sonra beni yeniden yazmaya teşvik eden gizli sırrım ise; lise yıllarında katıldığım o kompozisyon yarışmasında elde ettiğim dereceydi. Ayrıca beni yüreklendiren diğer unsur; ''Toplum Kalkınmasında Kadın Eğitimin Önemi'' konu başlığıyla o yaşta yazdıklarım ve bir parça farkındalık yaratabilmiş olmanın mutluluğuydu. “İste ve yap!” felsefesiyle bu hayatı içimize sindirip katma değer yaratarak, istediğimiz gibi yaşamaya devam edelim öyleyse… 
+<br><br>
+Bu coğrafyanın belirgin bir başka  özelliği ise zeytin ağacı. Meyvesiyle damak tadına hitap etmek istercesine çıktığı eşsiz yolculuk, ağacın mitolojide" Ölümsüz Ağaç"olarak anılmasına neden olmuş. Barışı simgeleyen duruşu da, Ayvalık'ın sembolü haline gelmiş.
+<br><br>					
+Zeytin ağacı; barışı, ölümsüzlüğü ve bereketi simgeleyerek katkı sağlıyor bu topraklara. Ama benim için  en anlamlı olan, 1955 yılında başlatılan her cuma ve pazar günleri akşam üzeri, göndere Türk bayrağı çekilmesi töreni sırasında, belediye hoparlörleri aracılığıyla duyurulan İstiklal Marşı'mızın okunması, halkın birlik ruhu içinde saygı duruşuna geçmesi. İşte Ayvalık' ı daha çok sevme nedenim... Tarihi ile olduğu kadar, gelenekleri, barış içinde yaşayan insanları, damağa ve göze hitap etmesi  ile de yıllarca adından söz ettirmeye devam edecek gibi değil mi?	
+<br><br>					
+Sevgili Ayvalık, kendine hayran bırakıyorsun, umuyorum tarihi dokun  korunur ve bize hissettirdiklerini gelecek nesillere de aktarmaya devam edersin. İnsanın kendi ile bağ kurduğu nadir bir cevhersin...</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-42" class="button read-more-btn" data-id="42">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="42"><a href="#post-42"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-42">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-42"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-42" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-42" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="42">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 43 - Yitip Gidenler (eski ID:29) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="43" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Yitip Gidenler",
+                    "description": "Sesler Yüzler Sokaklar",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Fuat Durutaş"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/FU-2.png",
+                    "url": "https://vom-blog.com/#post-43",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-43"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "futbol, anı, Çapa, Fuat Durutaş, semt",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-43" class="post-title-link">Olimpos Gazozu, Frigo ve Beyaz Perde</a></h2>
+                        <p itemprop="description">Sesler, Yüzler, Sokaklar</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-43" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Fuat Durutaş</span>
+                            <img src="https://vom-blog.com/images/fuat.png" alt="Fuat Durutaş avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/3.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-43" class="image featured clickable-img" data-img="https://vom-blog.com/images/FU-4.png" itemprop="image"><img src="https://vom-blog.com/images/FU-4.png" alt="Sesler Yüzler Sokaklar" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Yitirince kıymetini anlamak, özlem duymak, anlayınca ve özleyince de ulaşamamak. Peyami Safa’nın Fatih Harbiye romanına konu olmuş Fatih’in, eskide kalmış ve yitirilmiş eğlence ve kültür mekanlarını sizlere hatırlatmaya, bilmeyenlerin de gözlerinde canlanmasına çalışacağım bu yazımda, her birinde de yaşanmışlıkları dile getirerek. 
+<br><br>
+Tabii ki önce tiyatrolar. Fındıkzade’de Kenan Büke Tiyatrosu, Halıcılar Caddesi’nde Gülriz Sururi – Engin Cezzar Tiyatrosu, Kocamustafapaşa’da Çevre Tiyatrosu ile Şehzadebaşı’nda Reşat Nuri Sahnesi. Gülriz Sururi Engin Cezzar Topluluğu’nun, kırmızı beyaz olarak hayal etmenizi arzu ettiğim alameti farikası yazımın en sonunda… Yazının sonunda göreceğiniz alameti farikanın, zemini beyaz, yazıları ve boyamaları kırmızı idi. Böyle hayal etmenizi arzu ediyorum… Reşat Nuri Sahnesi ise bugünlerde restore ediliyor… </p>
+                <div class="full-post-content" id="full-43"><p class="full-text">Şehzadebaşı’ndan bahsediyorsun, Direklerarası tiyatrolarından bahsetmiyorsun dediğinizi duyar gibiyim. Direklerarasının tiyatrolarına yetişemedim…  Yaşım yetmedi. Kenan Büke Tiyatrosu’nda Aziz Basmacı ve Vahi Öz sahne alırdı. O zamanlar ailece ayda bir kere tiyatroya gidilmesi adettendi. Bazen de iki ayda bir. Çünkü, sahneye konan her oyun en az bir ay sahnede kalırdı. Aynı oyunu bir daha seyredecek aile bütçesi kimsede yoktu. Gülriz Sururi – Engin Cezzar Tiyatrosu kapanarak sonrasında  Zevk Sineması oldu. Füsun-Altan Erbulak ve Nevra-Metin Serezli tarafından kurulan Çevre Tiyatrosu.  Bu tiyatro daha sonradan Nejat Uygur’un sahne almasıyla birlikte, onun adıyla anılmaya başlandı. Reşat Nuri Sahnesi ise ilk çocuk tiyatrosuna gittiğim sahnedir. Maddi imkansızlıklar nedeniyle Kenan Büke ve Gülriz Sururi-Engin Cezzar Tiyatrolarının kapanması, tiyatro severler için üzücü idi. Çevre Tiyatrosu’nun Semaver Kumpanya, Reşat Nuri Sahnesi’nin ise adıyla gösterilerine devam etmesi hüznümü azaltıyor biraz.
+<br><br>
+Şimdi sıra geldi sinemalara. Eski adıyla Direklerarası, yani Şehzadebaşı sinemalarından başlayıp, yazlık sinemalarla tamamlamaya çalışayım Fatih’in sinemalarını. 
+<br><br>
+Kulüp Sineması, Türk Filmi oynatan ve en popüler sinemalardandı. Girişin her iki tarafında gösterimdeki film sahnelerinden oluşan hareketli ve kitap şeklinde belirli aralıklarla sayfaları katlanan birer albüm vardı. İki albümdeki fotoğraflar da aynı anda kitap sayfası çevirir gibi hareket ederlerdi, durdukları cam kutuların içinde. Hem sinemaya girenler, hem de “hava bedava bulut bedava” diyen Orhan Veli’ye nispet bedavacılar tarafından rağbet görürlerdi bu albümler. Ama bedavacılar filmin sonunu hiçbir zaman anlayamazlardı albümleri seyrederek. 
+<br><br>
+Uzun metrajlı bir film olan Doktor Jivago’yu Yeni Sineması’nda hiç de uyuklamadan seyredişimi unutamam. 
+<br><br>
+Turan Sineması, Direklerarası eğlenceleri zamanında tiyatro, sonrasında da sinemaya dönüşümü. Tiyatro haline benim yaşımdakiler yetişemedi. Sinema haline de son zamanlarında adı kötüye çıktığından, belli bir zümre! Hariç cesaret edip gidilemiyordu… 
+<br><br>
+Şehzadebaşı Sineması tek katlı Caddeye paralel başlı başına upuzun bir sinemaydı. Hep yabancı film getirirdi.  
+<br><br>
+Anneler nevaleleri masalara dizer, çocuklar da katırtırnağı toplamaya çıkardık. Katırtırnaklarıyla ilk tanışmam bana çok acı verdi. Çiçeği yaprağından koparmanın verdiği pişmanlık duygusu acısı değildi bu, koparmaya çalıştığım ama kopmayan katırtırnağının elime verdiği acıydı bu…  Meğer katırtırnağı koparılarak toplanmazmış… Elin zedelenirmiş… İlla ki kesici bir aletle kesilmesi lazımmış. Zaten elim de zedelenmişti. Sonrasında da, hayran hayran, kocaman sarı tarlayı seyrederek, uyuya kalmışım. Uyandığım yer, eve dönüş yolundaki bir vapurdu. Uyku sersemi olmasam, vapurun adını mutlaka hatırlardım.
+<br><br>					
+Fatih’in en şaşalı sinemalarından ikisi Halıcılar Caddesi’ndeki Renk ve Zevk sinemaları idi. İkisi de yan yanaydı. Kıdemli ve salonu en büyük olan Renk’ti. Balkonu da vardı, sekiz tane locası da. Hep yabancı filmler getirmesine rağmen bir kereliğine bu kuralı bozdu, “Ölünceye Kadar” filmini getirerek. Selda Alkor, Kartal Tibet, Semiramis Pekkan, Münir Özkul ve diğerleri… Her cumartesi Renk Sineması’nın ilk matinesi olan 11:00 matinesine gitmek, adettendi. Adet olma sebebi ise tamamen ekonomik, 175 kuruştu çünkü. İlk matine için uzun kuyruklar oluşurdu. 					
+<br><br>
+Zevk Sineması, Gülriz Sururi-Engin Cezzar Tiyatrosu’nun kapanmasından sonra sinema olarak hayatımızdaki yerini aldı. Renk’e göre çok daha küçüktü. Tiyatro salonundan devşirme olunca, o zamanın devasa salonlarına göre çok mütevazıydı. Yerli film getirirdi. Tiyatrodan devşirme olduğu için, locaları sağ ve sol yanlardaydı, opera salonlarını çağrıştırırcasına…					
+<br><br>
+Yazlık sinemalardan ise Malta’da, Çarşamba Pazarı’nın kurulduğu yerdeki Madalyon ile Atikali’deki Lüks Sinemaları. Tahta sandalyeli, çakıl taşlarıyla döşenmiş  kocaman bir bahçe, bir duvarın beyaza boyanmasıyla da oluşturulmuş beyaz perde… Olmazsa olmaz ise ay çekirdeği, kabuklarını yere atmanın serbest olduğu bir sinema olmasıydı. Ama, film oynarken çekirdek yemek yasaktı. Beyaz perdenin sağında da işçilerin kaldığı dört beş katlı bir han ve odaların pencerelerinden kah çaylarını, kah sigaralarını içerek herhalde en kolay elde ettikleri keyif olan, bu işçilerin bedava film seyretmeleri. 	
+Lüks, Madalyon’a göre daha küçük, daha mütevazıydı. Sinema bahçesi, bir dönem Sağmalcılar’da ortaya çıkan kolera salgını nedeniyle aşı noktası olarak belirlenmişti ve Fatih’te ikamet eden insanların bazıları Lüks Sineması bahçesinde aşı olmuşlardı.   					
+<br><br>
+O zamanlar sinemaya gitmenin ve sinema kültürünün ortak noktaları da sinemalarda satılan yiyecek ve içeceklerdi. Bu yiyecek ve içecekler arasında favori olan içecek Olimpos Gazozu, yiyecekler ise, Koko ve Frigo idi. Ne hikmetse, Frigo’nun ambalaj rengi sarı-lacivert idi. Rivayet odur ki, çoğu çocuğa sinema kültürünü ve film seyretmeyi de bu yiyecekler ve içecekler aşılamıştır.  
+<br><br>
+Ve gazinolar… Vatan Caddesi’ndeki Lunapark Gazinosu rahmetli Osman Kavran’ın lunapark ile beraber işlettiği bir gazinoydu. O zamanlar yemek ve içki yoktu, semaverli çay servisi vardı. Sonradan yemekli ve içkili oldu. Kimler sahne almadı ki  ki? Mediha Demirkıran, Orhan Şener, Yaşar Özel, Sevim Çağlayan, Berkant, Serpil Örümcer, Sadri Alışık, Beyaz Kelebekler, Yıldırım Gürses, Kamuran Akkor, Vasfi Uçaroğlu ve Durul Gence Orkestraları… Masalar ve sandalyeler tahtadandı. Sahnede sunulan sanat ise dört dörtlüktü. Şatafat ve ihtişam, yerini sanat ve sanatçının güzelliğine bırakıyor ve bu seyircileri fazlasıyla  doyuruyordu.
+<br><br>
+Çakıl ve Gar gazinoları ise yemekli ve içkili mekanlar olup, Yenikapı’daydılar. Nevzat ve Behzat Şenyıldız kardeşlerindi. Tüm gazinolarda olduğu gibi fasılla program başlar, sırasıyla aranjman, türkü söyleyen ve assolist öncesi bir sanatçı sahne alırdı. Assolist çıktığı zamansa sadece müzisyenler enstrümanlarını çalar, kim sahne aldıysa sadece onun sesi çınlardı gazinoda… Garsonlar servisi keser, müşteriler de çatal bıçak ve içki kadehleriyle oynaşmayı. Sanata ve sanatçıya saygı ise tavan yapardı. 					
+<br><br>
+Saydığım sanat merkezlerinin çoğu bugün yok. Fatih’in bu gün geldiği bu durum içimi acıtıyor. Naçizane kimseyi hüzünlendirmeden düşündürmek istiyorum. Üzücü olan İstanbul'un en eski yerleşimleri arasında gösterilen buradaki kültürel yapının, yıllar içinde çok hızlı yitirilmesi...</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-43" class="button read-more-btn" data-id="43">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="43"><a href="#post-43"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-43">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-43"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-43" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-43" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="43">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 44 - Bulutlarla Sohbet (eski ID:30) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="44" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Bulutlarla Sohbet",
+                    "description": "Kelimelerin Tınısı",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Özlem Tüm"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/oz-2.png",
+                    "url": "https://vom-blog.com/#post-44",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-44"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "bulut, sohbet, doğa, Özlem Tüm, şiir",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-44" class="post-title-link">Rüzgar </a></h2>
+                        <p itemprop="description">Kelimelerin Tınısı</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-44" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Özlem Tüm</span>
+                            <img src="https://vom-blog.com/images/ozlem.png" alt="Özlem Tüm avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/5.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-44" class="image featured clickable-img" data-img="https://vom-blog.com/images/oz-4.png" itemprop="image"><img src="https://vom-blog.com/images/oz-4.png" alt="Kelimelerin Tınısı" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Rüzgar
+				Sevdiğim
+				<br><br>
+				Sevdiceğim
+				<br><br>
+				Benim sevdiğim
+				<br><br>
+				Bana iyi gelenim
+				<br><br>
+				Hasretle beklediğim
+				<br><br>
+				Saçlarımı uçuranım
+				<br><br>
+				Tenimi yenileyenim
+				<br><br>
+				Eteklerimi zil çaldıranım
+				<br><br>
+				Çalan zilde
+				<br><br>
+				Kabuk değiştirenim
+				<br><br>
+				Bana mutluluklar dileyenim
+				<br><br>
+				Mutlulukları özgürce
+				<br><br>
+				Önüme sunanım</p>
+                <div class="full-post-content" id="full-44"><p class="full-text">Ne zaman
+ <br><br>
+ Yüzümde dans edecek
+<br><br>
+Adımları
+<br><br>
+Bilmeden beklediğim
+<br><br>
+Karşısında duramadığım
+<br><br>
+Kendimi özgürce bıraktığım
+<br><br>
+Karmaşam
+<br><br>
+Vazgeçişlerim
+<br><br>
+Gece gelenim
+<br><br>
+Gündüz bekletenim
+<br><br>
+Yaşamımda olmazsa olmazım
+<br><br>
+Güzel geçecek dakikaların
+<br><br>
+Başlangıcı…</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-44" class="button read-more-btn" data-id="44">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="44"><a href="#post-44"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-44">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-44"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-44" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-44" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="44">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 45 - Bellek (eski ID:31) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="45" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Bellek: Bireyden Topluma Yaşamın İzleri",
+                    "description": "Zamanın Ruhu",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Dr. Funda Çar"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/FUN-2.png",
+                    "url": "https://vom-blog.com/#post-45",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-45"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "bellek, hafıza, toplum, Funda Çar, psikoloji",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-45" class="post-title-link">İyi ki...</a></h2>
+                        <p itemprop="description">Zamanın Ruhu</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-45" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Dr. Funda Çar</span>
+                            <img src="https://vom-blog.com/images/funda.png" alt="Dr. Funda Çar avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/6.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-45" class="image featured clickable-img" data-img="https://vom-blog.com/images/FUN-4.png" itemprop="image"><img src="https://vom-blog.com/images/FUN-4.png" alt="Zamanın Ruhu" width="1408" height="768" loading="lazy"></a>
+                <p itemprop="articleBody">
+Aslında niyeti sadece saklama alanı çok dolan telefonunu hafifletmekti. Elimizde telefon, her gidilen ortamda bir görüntü alınıyor; bu sefer de telefon ve bilgisayarda haddinden çok birikim oluyordu. Önce gereksiz video ve fotoğrafları ayıklayayım dedi. "Dört bin küsur görüntü, ne ara bu kadar biriktirdin?" diye kendine kızdı. "Teknoloji fazlalaştıkça daha mı tembel oldu acaba?" diye hayıflandı. Mesajlaşma aplikasyonunda bazı mesajlaştığı numaraların sahiplerini bile hatırlamıyordu; ilk o lüzumsuz mesajları sildi... Öffledi, çünkü bunları silmesi hiç ibreyi oynatmamıştı; hâlâ "Telefon yüküm ağır," diyordu...
+<br><br>
+Sonra birtakım ses kayıtlarına girdi, unuttuğu kayıtlar gün yüzüne çıktı. Silmeden onları dinledi, bazısı şu an kulağa o kadar komik geliyordu ki... Ses kayıtlarının çoğu lüzumsuzmuş, onlardan da kurtuldu. Tekrar telefon ayarlarından saklama alanına girdi. Bunlar değildi sorun, daha çok video eksiltmeliydi... Ama silmeye kıyamadığı çok video vardı. Bunun üzerine yine mesajlaşma aplikasyonundan arkadaşlarının yolladığı ses kayıtlarını, karikatürleri, günaydın emojilerini kaldırdı. Çok kere paylaşılmış video ve fotoğrafları kaldırdı. Telefon elinde artık ısıtıcıya dönüşmüştü ama dışarısı 30 dereceydi... Böyle birkaç günlük çabayla birkaç GB kurtardı ama yedekleme yapması ve telefonu tamamen boşaltması gerektiğini biliyordu. Ama bu sefer yedeklediği şey elinin altında olacak mıydı? "Keşke daha fazla GB olan bir telefon alsaydım," diye hayıflandı kendi kendine...
+<br><br>
+Video ve fotoğrafları temizleme işi eski anıları çağırmaya dönüşmüştü.</p>
+                <div class="full-post-content" id="full-45"><p class="full-text">Sonra mail kutusuna geldi sıra; esas orası Pandora’nın kutusuydu ve gerçekten içinde direkt çöp kutusuna yollanacak binlerce mail vardı... Onları çöplüğe yollayıp sonra çöplüğü de temizliyordu... Sonra aklına ta en başa gitmek geldi. Mesela adı "Eskiler" olan bir dosya vardı; orada ne var acaba diye bakmaya başladı. Gerçekten eskiler vardı; hiç hatırlamadığı, belki de kendi hafızasında da çok gerilere attığı eski duygular, kızgınlıklar, çatışmalar... "Ne zor yıllardı," diye hatırladı. Bazı satırlara "Bunu ben mi yazmışım?" diye bir daha baktı... Kırmak, acıtmak için yazılmış mesajlar... O zamanlar duyguları, hayatı ne kadar karışıktı... "Yeni bir ben, güçlü bir ben olacağım," diye ne kadar çabalamıştı... Hem kendi için hem evladı için güçlü bir kadın olmalıydı ve kimseye muhtaç olmamalıydı. Derdi vardı, kendine derman olmaya çabalıyordu.
+<br><br>
+Şimdi silmek için okuduğu bu mailler, geçmiş zor günleri getirdi koydu önüne. Okudukça onları silmeye eli gitmedi. Öyle ya, bu kadar yükü o kadar kırılgan haliyle taşımıştı. Evladıyla birlikte büyük çalkantıları aşmışlar, büyümüşlerdi... Artık sular durulmuştu; çok zaman geçti o kızgınlıkların üzerinden, herkes yatıştı. Acıtan, kalp kırıcı sözcükler yerini daha sakin bir dile bıraktı. "Doğadaki gibi," diye düşündü, her fırtınanın sonrası sütliman bir havadır. Bugün olduğun sen; geçmişte yaşadıklarınla, uğurladıklarınla ve geriye kalan izlerle oldun... O silmeye elinin gitmediği postalar (mailler) o zamanda kalmışlar; bugün o sözleri yazan, hisseden sana yabancısın. Bir damla yaş akıyor o günkü haline.
+<br><br>
+O mailler kalabilir gerçekten. Artık o günkü ağırlıkları yok kalbinde. O bir damla yaş ve kalbindeki sızı da olsun zaten. Dönüp baktığında "İyi ki," dediğin çok şeyin var; acıtan sözler de varsın kalsın o mail kutusunda...</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-45" class="button read-more-btn" data-id="45">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="45"><a href="#post-45"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-45">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-45"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-45" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-45" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="45">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 46 - Seçi-yorum (eski ID:32) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="46" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Seçi-yorum",
+                    "description": "ce",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Hatice Sarıkaya"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/hat-2.png",
+                    "url": "https://vom-blog.com/#post-46",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-46"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "seçim, karar, anı, Hatice Sarıkaya, hayat",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-46" class="post-title-link">Koala</a></h2>
+                        <p itemprop="description">ce</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-46" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Hatice Sarıkaya</span>
+                            <img src="https://vom-blog.com/images/hatice.png" alt="Hatice Sarıkaya avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/7.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-46" class="image featured clickable-img" data-img="https://vom-blog.com/images/HAT-4.png" itemprop="image"><img src="https://vom-blog.com/images/HAT-4.png" alt="ce" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">
+Koala diğer canlılarla yemek için rekabete girmeye üşendiğinden besin değeri düşük ve diğer canlılar için zehirli okaliptüs yapraklarıyla beslenirmiş. Koala kadar olmasa da insan da hayli tembel bir canlı. Çalışkan bilim insanları, canlıların davranışlarını gözlemlemiş, araştırmış, incelemiş doğrudan "tembel" dememiş de "En Az Çaba İlkesi" demiş. İlke gereği kısaca: ek bir motivasyon ya da engel yoksa hedefe ulaşmak için her zaman en kolay yolu seçiyoruz. 
+<br><br>
+Ancak bizim için bir şey; örneğin başarı, saygınlık, şöhret, aile bağları, kendini gerçekleştirmek çabası, aidiyet duygusu, mutluluk, aşk, para, daha çok para v.s. değerli olduğunda hep fazlasını istiyoruz. Sürmesi için her şeyi yapıyoruz. Diğerlerinin haklarını/sınırlarını ihlal etmediği sürece fazlasını istemek, değerlermiz için ne gerekiyorsa yapmak iyidir. Kendine iyi gelen, herkese iyi gelir.
+<br><br>
+Konumuza dönelim: Tembellik demeyelim de aylaklık harika değil midir? Düşünsenize ağaçların arasında çimlere uzanmışsınız hafif bir rüzgar var, uzaktan gelen su şırıltısı, yapraklar sallanıyor.. Onları dinlerken o muazzam armonide siz de rüzgarın suya uçurduğu bir yaprak oluveriyorsunuz.</p>
+                <div class="full-post-content" id="full-46"><p class="full-text">Yağmurlu bir günde kahvenizi demlemişsiniz kahve kokusu odayı doldurmuş, pencere kenarındaki koltuğa oturmuşsunuz, yağmur damlaları camda size eşlik ederken, siz bir an önce kitabı bitireyim telaşı olmadan her cümlenin keyfini çıkararak kitabınızı okuyorsunuz. 
+<br><br>
+Günün ortasında işi gücü, keşmekeşi, iyi haberleri, kötü haberleri bir yana bırakıyor, uzanıyor, gözlerinizi kapatıp her şeye kısa bir ara veriyorsunuz. Bir süre hiç bir şey yapmamanın lüksünü yaşıyorsunuz. 
+<br><br>
+Denizin dibinde oturuyor, etrafınızdaki gürültüye aldırmadan dalgalarının sesini dinleyip denizin kokusunu duyarak  yaşamanın tadını çıkarıyorsunuz. Ya da denizin ortasında bir teknedesiniz.  sonsuz maviliklere dalıp gidiyorsunuz. Balıklar geçiyor yanıbaşınızdan "Rakı şişesinde balık olsam" şiirini hatırlıyorsunuz. Siz de denize atılmış, içinde mektup olan bir şişe oluyorsunuz. Mektubu kim yazmış, kime yazmış ne fark eder.. Siz akıştasınız. Bir gün karaya çıkarsınız biri sizi bulur mektubu okur.
+<br><br>
+Yolunuzda yürürken o kadar da aceleye gerek yok sanki. Yol belki uzun belki kısa ama elbet sonu gelecek. Yürürken yol kenarındaki çiçekleri fark edebilmek, hatta durup manzaranın tadını çıkarabilmek belki de aylaklığı sanata dönüştürmenin bir yoludur, diğer harika seçenekler gibi.
+<br><br>
+Size, ruhunuza iyi gelecek güzelliklerin farkında olmanız dileğiyle.
+<br><br>
+ce</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-46" class="button read-more-btn" data-id="46">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="46"><a href="#post-46"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-46">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-46"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-46" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-46" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="46">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 47 - Tertemiz (eski ID:33) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="47" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Tertemiz",
+                    "description": "Münirenin Kaleminden",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Münire Özgencan"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/M-2.png",
+                    "url": "https://vom-blog.com/#post-47",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-47"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "temizlik, anı, Münire Özgencan, çamaşır",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-47" class="post-title-link">Güneşli Günler</a></h2>
+                        <p itemprop="description">Münirenin Kaleminden</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-47" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Münire Özgencan</span>
+                            <img src="https://vom-blog.com/images/münire.png" alt="Münire Özgencan avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/4.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-47" class="image featured clickable-img" data-img="https://vom-blog.com/images/M-4.png" itemprop="image"><img src="https://vom-blog.com/images/M-4.png" alt="Münirenin Kaleminden" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Sarı bir haziran sabahı. Gün doğmak üzereyken uyanıyorum bu sabah. Henüz herkes uykuda. Pencereyi açıp üç derin nefes alıyorum peş peşe. Karşıdaki zeytin ağacından serçe sürüsü havalanıyor. Kanat sesleri kalıyor gökyüzünde bir vakit. “Size de günaydın serçeler” diyorum gülümseyerek.</p>
+                <div class="full-post-content" id="full-47"><p class="full-text">
+Öğle güneşinin cazibesine yenik düşen şişko beyaz kedi çoktan uykuya dalıyor. Güneş karşıdaki evin penceresine yansıyıp gözümü alıyor.
+<br><br>
+“Güneş, güneş” diye tekrarlıyorum. İçim ısınıyor. Oturduğum yerden fırlıyorum. Ayakkabılarımı çıkarıyorum. Başımı kaldırıp gökyüzüne güneşe dönüyorum yüzümü. Uçsuz bucaksız bir günebakan tarlasının tam ortasındayım şimdi.</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-47" class="button read-more-btn" data-id="47">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="47"><a href="#post-47"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-47">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-47"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-47" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-47" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="47">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 48 - Düşüşün Anatomisi (eski ID:34) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="48" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Düşüşün Anatomisi",
+                    "description": "Zülay'dan",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Zülay Güçlü"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/Zul-2.png",
+                    "url": "https://vom-blog.com/#post-48",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-48"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "düşüş, hayat, Zülay Güçlü, felsefe",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                  <div class="title">
+                    <h2 itemprop="headline"><a href="#post-48" class="post-title-link">Sevgili Nezaket Hanım, Nezaket Bey…</a></h2>
+                      <p itemprop="description">Zülay'dan</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-48" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Zülay Güçlü</span>
+                            <img src="https://vom-blog.com/images/zulay.png" alt="Zülay Güçlü avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/lego/1.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-48" class="image featured clickable-img" data-img="https://vom-blog.com/images/Zul-4.png" itemprop="image"><img src="https://vom-blog.com/images/Zul-4.png" alt="Zülay'dan" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Sizi çok severim. Varlığınız içimi ısıtır, hayata ve insana olan inancımı tazeler. Çünkü nezaket, insanın taşıyabileceği en güzel hallerden biridir. Bir başkasına saygıyla yaklaşmak, onun sınırlarını gözetmek, kırılabileceğini hesaba katmak, anlamaya çalışmak… Bütün bunların içinde sessiz ama güçlü bir insanlık hâli vardır.
+                <br><br>
+Nezaketin çocuklukta filizlenen bir duygu olduğuna inanıyorum. Bize sevginin nasıl verildiği, nasıl kabul edildiği, hatta bazen nasıl hak edilmesi gerektiği, daha küçücükken öğretiliyor. Sevgi kimi zaman koşullara bağlanıyor; uslu olursan, başarılı olursan, beklentileri karşılarsan daha çok sevilirsin gibi görünmez anlaşmaların içine doğuyoruz. Böylece fark etmeden şunu öğreniyoruz: Bir şey almak istiyorsan, karşılığında bir şey vermelisin. </p>
+                <div class="full-post-content" id="full-48"><p class="full-text">Bu varsayımdan  ‘Ben nazik olursam, karşımdaki de nazik olur’ diye bir cümle… Sanmam. Hayır. Nezaket, insanın karakterine yerleşmiş bir duruş olduğunda güzeldir. Belki de bize çocukken en az öğretilen şeylerden biri buydu: Kendine de iyi davran. Tanıdığım nazik insanlar içinde en sevdiğim, tabii ki ablam. Her zaman herkese karşı saygılı, sevgili, özenli. Son zamanlarda onunla şahane zamanlar geçirdim. Ne mutlu bize, değil mi?
+<br><br>
+Buraya kadar her şey çok hoş, çok insani. Ben de öyle düşünüyordum. Ta ki çok daha önemli bir şeyi fark edene kadar. Ablam, herkesten önce kendine karşı nazik. Hadi bakalım… Bambaşka bir yere geldik.   
+<br><br>
+Bence bu çok özel bir şey. Çünkü ben kendime karşı öyle biri değilim. Hatta “maalesef değilim” demem daha doğru. Kendimize karşı nasıl konuştuğumuzu, kendimize ne kadar anlayış gösterdiğimizi hiç düşünmeden geçiyoruz bazen. Başkalarına göstermekten çekinmediğimiz şefkati kendimizden esirgiyoruz.
+<br><br>
+Oysa ablamda başka bir şey gördüm. Kendine verdiği değerin, kendine gösterdiği nezaketin çevresine de yayıldığını… Nezaket önce insanın kendi içindeki sesle başlıyor. Kendine söylerken kullandığın kelimeleri düşünmekle… Yorulduğunda kendine izin vermekle… Hata yaptığında kendini yerden yere vurmak yerine, “Olabilir, insanım,” diyebilmekle…
+<br><br>
+İnsan kendine nazik olunca, dünya da biraz daha güzel bir yer oluyor sanki. Kendini sev, herkes sevsin. Kendine değer ver, herkes değer versin. Bunları bir persona gibi takınabilirsin elbette. Nazik görünmeyi öğrenebilirsin. Güzel cümleler kurabilir, herkese kibar davranabilirsin.
+<br><br>
+Ama kendine nazik olmak başka bir şeymiş. Çok zormuş. Ve bir o kadar da güzelmiş. Bazen hayat sana seni büyüten şeyler yaşatıyor ya… Benim için bu süreç de öyle bir şey oldu. Kendime bakmayı, kendime nasıl davrandığımı fark etmeyi öğretti. Canımın içi, güzel ablam… Bana kattıkların için çok teşekkür ederim. Ama en çok bunu sevdim.
+<br><br>
+Nezaket hanım, nezaket bey… Önce kendinize.</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-48" class="button read-more-btn" data-id="48">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="48"><a href="#post-48"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-48">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-48"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-48" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-48" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="48">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 49 - Aşkın Matematiği (eski ID:35) -->
+            <!-- ============================================ -->
+          <article class="post" data-post-id="49" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Aşkın Matematiği",
+                    "description": "Paralaks",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Sevim Yücel"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/SEV-2.png",
+                    "url": "https://vom-blog.com/#post-49",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-49"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "aşk, matematik, kitap, Sevim Yücel, Keigo Higashino",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                  <div class="title">
+                    <h2 itemprop="headline"><a href="#post-49" class="post-title-link">Ayrışma</a></h2>
+                      <p itemprop="description">Paralaks </p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-49" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Sevim Yücel</span>
+                            <img src="https://vom-blog.com/images/sevim.png" alt="Sevim Yücel avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/6.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-49" class="image featured clickable-img" data-img="https://vom-blog.com/images/SEV-4.png" itemprop="image"><img src="https://vom-blog.com/images/SEV-4.png" alt="Sevim Yücel - Paralaks" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">İlkokula giderken en yakın arkadaşım Fatoş'tu. 
+                  <br><br>
+                  İkimiz de ailelerimizin her anlamda bir büyük kardeşe emanet edilen son çocuklarıydık. Büyüklerimizin küçülmüş giysilerini giyer, ne yeterince çocuk ne de onlarla arkadaş olabilecek kadar büyük olurduk… Fatoş'la kardeş olmayı seçtik. Bayramlarda aynı mahallede şeker toplardık.</p>
+                <div class="full-post-content" id="full-49"><p class="full-text">Yılda bir ya da iki kez babam elimden tutup YUKİ mağazasına götürürdü. Pangaltı'nda küçük bir pasajın içinde olan mağaza bana göre en güzel çocuk ayakkabılarını satardı. Önce uzun uzun vitrini incelerdim. Sonra Fatoş'a alınan siyah rugan ayakkabıları bulurdu gözlerim. Babam mağaza sahibiyle uzun pazarlığa girişirdi. Elimdeki poşetin içindeki ayakkabı kutusunu sıkıca tutardım. Tokalaşarak yapılan pazarlık ve ayakkabı kutusu arasında geçen zaman bir ömür gibiydi. Ama mağazadan YUKİ poşetiyle çıkmanın mutluluğu her şeye değerdi. Babamı severdim. Pazarlık yapmayı ömür boyu beceremedim. Sahip olmaya engeldi sanki, eli boş dönmek vardı.
+                    <br><br>
+                  O bayram sabahı, gülkurusu jarse (Trevira) pantolon, beyaz yakalı penye gömlek ve siyah rugan ayakkabılarımızla Fatoş'la bir örnek giyinmiştik. Pantolonun fermuarının hemen üzerinde 3 düğmesi vardı. Göğsün ortasına kadar düğmeleri inen beyaz penye gömleğin yumuşaklığı, teni kaşındırmayan dokusu hâlâ aklımda. Pantolon ve gömleği bayramlık olarak ben seçmiştim.
+                    <br><br>
+                   Hiçbirimizin ailesinin arabası yoktu. Fatoş'un dayısı uzun yol otobüs şoförüydü. Bayram günü Fatoş'a, "Arkadaşlarını topla, küçük bir gezi yapalım," demiş. Mahallenin tüm çocukları toplandık. Fatoş otobüsün kapısında durup çocukları içeri almaya başladı. Sıra bana gelince "Binme sen," dedi. Kenarda durup sıradaki çocuklara, "Beni bindirmedi, seni mi bindirecek?" deyip durdum. Bütün mahalle çocukları otobüse bindi; ben hariç.
+                    <br><br>
+                    "Neden?" sorusunun ağırlığıyla ilk o zaman karşılaştım. Küçük iktidarlar ve rekabet mahallede, henüz çocukken şekilleniyor.
+                    <br><br>
+                   O yolculukta ben yoktum. Ama otobüs de Fatoş da geri gelecekti. Otobüs mahalleye geri dönünceye kadar eve gitmedim. Bekledim.
+                    <br><br>
+                    Dışarıda kalmak, ayrışma çocukken başlıyor, siz farkına bile varmadan. Binemediğiniz otobüsler yollarına devam ediyor; bazılarına biz binmiyoruz, bazıları durağa bile uğramadan hızla gözümüzün önünden geçip gidiyor…</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-49" class="button read-more-btn" data-id="49">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="49"><a href="#post-49"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-49">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-49"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-49" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-49" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="49">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 50 - Bir Çömlek Neden Çatlar? (eski ID:36) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="50" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Bir Çömlek Neden Çatlar?",
+                    "description": "Küçük Şeylerin Hikâyesi (Hayatın gözden kaçan ayrıntılarına dair denemeler)",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Fulya Yılmaz"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/yeni-post-36.png",
+                    "url": "https://vom-blog.com/#post-50",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-50"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "seramik, çömlek, hayat, Fulya Yılmaz, deneme",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-50" class="post-title-link">Misketler</a></h2>
+                        <p itemprop="description">Küçük Şeylerin Hikâyesi <em>(Hayatın gözden kaçan ayrıntılarına dair denemeler)</em></p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-50" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Fulya Yılmaz</span>
+                            <img src="https://vom-blog.com/images/fulya.png" alt="Fulya Yılmaz avatar" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/women/6.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-50" class="image featured clickable-img" data-img="https://vom-blog.com/images/FULYA-4.png" itemprop="image"><img src="https://vom-blog.com/images/FULYA-4.png" alt="Küçük Şeylerin Hikâyesi" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">Çocukluğumun en güzel renkleri başka çocukların ceplerinde şıkırdardı. Bizim mahallenin çocukları öğleden sonraları ıhlamur ağacının altında toplanır, sokağın tozuna çömelip ceplerindeki misketleri önlerine boşaltırlardı. Saydam olanları, süt beyazları, lacivertleri… Bazılarının içinde turuncu bir yol uzanır, bazılarında kırmızı bir damar kıvrılırdı. Güneşe kaldırıldıklarında camın içinde küçücük gökkuşakları yanardı.
+                <br><br>
+                İlk büyük kâsemi hâlâ hatırlarım. Günlerce emek vermiştim. Fırının kapağını açarken içimde çocukça bir sevinç vardı. Sonra onu elime aldım.
+				 <br><br>
+				Tık.</p>
+                <div class="full-post-content" id="full-50"><p class="full-text">İki küçük dünya birbirine çarpardı. Biri yolundan sapar, öteki birkaç karış ötede dururdu. Bazen tek bir vuruş, az önce bir çocuğun avucunda güneşi tutan misketi başka bir cebin karanlığına gönderirdi. Toprağa çizgiler çekilir, mesafeler adımlarla ölçülür, kimin nereden atacağı kararlaştırılırdı. Anlaşmazlık çıktığında birkaç el aynı anda yere uzanır, ayakkabı burunları toprağı sıyırır, çizgi silinip yeniden çekilirdi.
+<br><br>
+Kuralları oynayanlar koyardı.
+<br><br>
+Sokağın kendi hukuku vardı. Kaybettiysen kaybetmiştin; avucunu kapatır, içinde artık olmayan şeyin boşluğuyla oyuna devam ederdin.Eve gidip anlatılmaz, anne çağrılmaz, baba hakem yapılmazdı. Bazı kayıpların şahidi yalnızca çocuklardı. Akşam olduğunda dizlerdeki toz silkelenir, sokakta olan sokakta kalırdı. Ben bu hukuku oyuna girmeden öğrenmiştim.
+<br><br>
+O gün ilk kez çocukların arasına karıştım. Toprağa çömeldim. Dizlerim onların dizleriyle aynı hizaya geldiğinde misketler artık uzaktan seyredilen renkler değildi. Turuncu misket tam önümdeydi. İçindeki yol cam boyunca kıvrılıyor, güneş vurdukça rengi derinleşiyordu. Elimi uzattım.
+<br><br>
+Sonrasını tam hatırlamıyorum. Oyuna katılmak için bir şey söyledim mi, yoksa parmaklarım miskete değmeden önce mi duydum? Hafıza bazen bütün bir öğleden sonrayı siler de üç kelimeyi olduğu yerde bırakır:
+<br><br>
+“Kız oyunu değil.”
+<br><br>
+Kimin söylediğini hatırlamıyorum. Yüz çoktan silindi; cümle kaldı. O gün toprağa iki çizgi çekilmişti. Biri oyun içindi. Öteki görünmüyordu; elimi uzattığımda oradaydı. Geri çekildim. Doğrulup dizlerimdeki tozu silkeledim.
+<br><br>
+Tık.
+<br><br>
+Bir misket diğerine çarptı, bir başkası çemberin dışına yuvarlandı. Oyun sürerken ben ıhlamurun gövdesine yaslandım. Akşamüstü gölgeleri uzayınca evlerden çocukların isimleri çağrılmaya başladı. Misketler toplandı. Sokakta ayakkabı izleri, yarım kalmış çemberler ve küçük çukurlar kaldı; havada ezilmiş ıhlamur çiçeklerinin kokusu vardı.Tam eve dönecekken ayakkabı izlerinin arasında turuncu misketi fark ettim. Eğilip aldım. Avucumu kapattım, sonra yeniden açıp güneşe tuttum. Camın içindeki turuncu yol hâlâ oradaydı.
+<br><br>
+Misket avucumda birkaç adım yürüdüm. Sonra durdum. Benim değildi. Daha doğrusu, onu kazanmamıştım. Geri dönüp çemberin içine bıraktım. Akşam güneşinin altında, tozun üzerinde turuncu leke öylece kaldı. Eve yine boş ceple döndüm.
+<br><br>
+O zamanlardan geriye pek az şey kaldı. Sokağa asfalt döküldü, ıhlamur ağacı yok oldu. Çocukların yüzleri birbirine karıştı. Turuncu misketi de unuttuğumu sanıyordum. Ta ki yıllar sonra bir vitrinin önünde durana kadar. Camın ardında onlarca misket vardı. Saydamlar, süt beyazları, lacivertler… İçeri girdim. Birini seçebilirdim; avucumu doldurdum. O günden sonra sanki misketleri daha çok görür oldum. Oyuncakçı vitrinlerinde, eski eşya tezgâhlarında, unutulmuş kavanozların dibinde… Karşıma çıktıkça aldım.
+<br><br>
+Şimdi evde bir kâsenin içinde duruyorlar. Sabah güneşi vurduğunda camın içindeki renkler uyanıyor; kırmızı ince bir damar gibi beliriyor, lacivert koyulaşıyor, turuncu eski bir akşamüstü gibi yanıyor. Bazen elimi kâsenin içine daldırıyorum. Misketler avucumun altında birbirlerine değiyor.
+<br><br>
+Şıkır.
+<br><br>
+O sesi hemen tanıyorum. Bu sabah kâsenin içinden turuncu misketi aldım. Avucumda biraz çevirdikten sonra masaya bıraktım. Karşısına lacivert olanı koydum. Elim, benden önce hatırladı.
+<br><br>
+Tık.					
+<br><br>
+Turuncu misket laciverte çarptı.</p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-50" class="button read-more-btn" data-id="50">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="50"><a href="#post-50"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-50">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-50"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-50" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-50" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="50">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+            <!-- ============================================ -->
+            <!-- POST 51 - YENİ POST (eski ID:37) -->
+            <!-- ============================================ -->
+            <article class="post" data-post-id="51" itemscope itemtype="https://schema.org/BlogPosting">
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "YENİ POST BAŞLIĞI",
+                    "description": "Yeni post açıklaması",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Yazar Adı"
+                    },
+                    "datePublished": "2026-08-03",
+                    "dateModified": "2026-08-03",
+                    "image": "https://vom-blog.com/images/yeni-post-37.png",
+                    "url": "https://vom-blog.com/#post-51",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "https://vom-blog.com/#post-51"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "VOM YAYIN",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://vom-blog.com/favicon-32x32.png"
+                        }
+                    },
+                    "keywords": "yeni, post, ekleme",
+                    "inLanguage": "tr"
+                }
+                </script>
+                <header>
+                    <div class="title">
+                        <h2 itemprop="headline"><a href="#post-51" class="post-title-link">Arkası Yarın: L I</a></h2>
+                        <p itemprop="description">Görme Biçimleri</p>
+                    </div>
+                    <div class="meta">
+                        <span class="post-date" itemprop="datePublished" content="2026-08-03">1 Eylül 2026</span>
+                        <a href="#post-51" class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <span class="name" itemprop="name">Gürhan Yücel</span>
+                        <img src="https://vom-blog.com/images/gur.png" alt="Gürhan Yücel" width="56" height="56" loading="lazy" onerror="this.src='https://randomuser.me/api/portraits/men/5.jpg'">
+                        </a>
+                    </div>
+                </header>
+                <a href="#post-51" class="image featured clickable-img" data-img="https://vom-blog.com/images/Gur-4.png" itemprop="image"><img src="https://vom-blog.com/images/Gur-4.png" alt="Görme Biçimleri" width="800" height="450" loading="lazy"></a>
+                <p itemprop="articleBody">4. BÖLÜM: BOŞLUK
+					<br><br>
+Camı araladım; içeri giren soğuk nem, odadaki eski kitap kokusuna karıştı. Zihnimde tek bir cümle yankılanıyordu: "Boşluğu bul ve değiştir." Harfleri değil... Boşluğu. Masanın üzerindeki çıktıyı yeniden incelemeye başladım. Bu kez odağım yazı değil, yazının çevresindeki alandı. Dakikalar sonra fark ettim: Parşömen kuşağındaki o boş bölüm, rastgele bir duraklama değildi. Fotoğrafın kenarında çok silik bir çift başlı kartal pençesi görülüyordu sanki. Cetveli elime alıp milimetrik bir ölçüm yaptım. Sağ kıvrım, sol kıvrım, orta eksen... Hepsi birbirine altın oranla bağlıydı. Bu bir ressamın estetik tercihi değil, bir kriptografın şemasıydı. Ferzen Hoca’nın o eski uyarısı kulaklarımda çınladı:
+“Orta Çağ’da bazen yazıyı okuman için değil, görmen için çizerler.”
+                <br><br>
+Gözlerim Latince notun üzerinde gezindi: Non litteras muta. Vacuum muta. ("Harfleri değiştirme. Boşluğu değiştir.") Dr. Funda’nın gönderdiği o kısa mesajın —“Sadece değiştir”— ağırlığını şimdi hissediyordum. Tam o sırada telefonum titredi. Numara gizliydi. Tek satırlık bir ileti:
+“Floransa ilk duraktı. İkinci fresk hiçbir zaman İtalya’da olmadı.”
+<br><br>
+Altında yalnızca bir koordinat parçası vardı: 41.0086 Gerisi yoktu. Boylam eksikti. Eksik olan yine boşluktu. Ama bir simgebilimci için bu rakam yeterliydi. Haritaya bile bakmadan fısıldadım: “Konstantinopolis.” Floransa’daki fresk bir başlangıç değildi; yüzyıllar önce İstanbul’dan yağmalanan daha büyük bir bütünün ilk parçasıydı. Ve birileri, bunu tamamlamamı istiyordu. Ama neden ben?
+<br><br>
+Sahaf Burak'ın yazdığına göre Floransa'daki bir restorasyon atölyesinde çalışan eski dostu göndermişti. İlk bakışta sıradan görünüyordu. Duvar resminin ayrıntısında, kurumuş otların arasında sıkışmış sararmış bir parşömen kuşağı... Altındaki fresk ise neredeyse tamamen dökülmüştü. Boyanın geriye bıraktığı boşlukta yalnızca iki harf okunuyordu. L.I</p>
+                <div class="full-post-content" id="full-51"><p class="full-text">Gece yarısını çoktan geçmişti. Ekranın ışığı duvarda çarpık gölgeler oluştururken Burak’ın gönderdiği fotoğrafı büyüttüm. "L.I." harfleri... Bitişik miydiler, yoksa aradaki o mikroskobik nokta bir ayraç mıydı? Konstantinopolis'te semboller hiçbir zaman yalnızca süs olmadı. Bunun en eski örneklerinden biri İmparatoriçe Irene dönemiydi. 769 yılında geleceğin imparatoru IV. Leon ile evlendiği gün, Hipodrom'dan Büyük Saray'a kadar uzanan alay güzergâhı beyaz zambaklarla süslenmişti. Saray kronikleri bunu yalnızca bir düğün ayrıntısı olarak aktarır. Oysa Bizans'ta zambak, yalnızca saflığı değil, meşruiyeti de simgeliyordu. O zaman zambak ipucu olabilir miydi? LILIVM... Latince zambak. Onlarca olasılığı kâğıda döktüm ama hiçbiri yerine oturmadı. Sonra bambaşka bir ihtimal zihnimde belirdi. Ya bu bir ismin başlangıcıysa?
+<br><br>
+Raflardan ikonografi kitaplarını indirdim. Saatler sonra aynı ifade yeniden karşıma çıktı: Sicut lilium inter spinas. ("Dikenler arasında bir zambak.") Fotoğrafa yeniden döndüm. Gerçekten de freskin kenarında neredeyse seçilemeyecek kadar silik, beyaz bir zambak vardı. Parşömendeki L.I., Lilium kelimesinin başlangıcı olabilir miydi? Olabilirdi. Ama tuhaf olan şuydu: Eğer öyleyse... Yazının geri kalanı neden silinmişti? Bir restoratör hiçbir zaman yalnızca ilk iki harfi bırakacak şekilde temizlik yapmazdı. Bu bilinçliydi. Birileri özellikle L.I.'yi görünür bırakmıştı.
+<br><br>                    
+Dikenler arasında bir zambak gibi Meryem’i simgeleyen en köklü ifadelerden biriydi... Fotoğrafa daha yakından, resmin dokusuna baktım. Evet, oradaydı. Freskin kenarında, restorasyon tozlarının altına gizlenmiş, seçilmesi imkânsız soluk bir zambak sapı. Parşömen kuşağı, kutsal sayılan bu çiçeğin sapını tam ortadan kesiyordu. Bir ressam bunu asla yapmazdı. Demek ki o kuşak, freske yüzyıllar sonra eklenmiş sahte bir katmandı.
+<br><br>
+Ferzen Hoca’nın masasında açık bıraktığı De Occulta Philosophia Libri Tres (Gizli Felsefe Üzerine Üç Kitap - Heinrich Cornelius Agrippa, 1533) kitabını hatırladım. Hemen dijital nüshasını taradım. Sayfalarca mühür, gezegen daireleri ve hermetik sembol... Aradığım mühür orada değildi ama bir dipnot kanımı dondurdu:
+<br><br>
+“Bazı mühürler sahibine ait değildir; Doğu’nun en eski kaynağından, Byzantium’dan süzülüp gelmiştir.” Mühür Rönesans’a ait değildi. Rönesans yalnızca onu kopyalamış, aslı ise İstanbul’un dehlizlerinde kaybolmuş olabilirdi. Tam o anda bilgisayarım kendiliğinden karardı. Yeni bir ileti düştü. Gönderen yok, konu yok. Sadece siyah-beyaz bir görsel: Kendi kuyruğunu ısıran bir yılan. Ouroboros. Görselin özelliklerini açtım. Hiçbir açıklama yoktu. Yalnızca dosya adı: MCCIV. Roma rakamıyla 1204; Konstantinopolis'in yağmalandığı yıl.
+<br><br>                    
+Resimdeki yılanın pulları dikkatle incelendiğinde harflerden oluştuğu görülüyordu. Merkeze ise yine o iki kelime kazınmıştı: Sigillum Custodis. Ancak bu kez yılan kusursuz bir çember oluşturmuyordu; gövdesinde dört simetrik kesinti vardı. Kuzey, Güney, Doğu ve Batı. Mühür bilinçli olarak dört parçaya bölünmüştü. 1204: Dördüncü Haçlı Seferi. Konstantinopolis’in Latinler tarafından yağmalandığı, kutsal emanetlerin Avrupa’ya kaçırıldığı o kara yıl...
+<br><br>
+Sabah olduğunda yağmur dinmemişti. Artık emindim: Aradığım şey bir kelime ya da isim değildi. Aradığım şey; 1204 yılında parçalanarak dünyanın farklı köşelerine savrulan, birleştirildiğinde belki de tarihin akışını değiştirecek olan o "Kayıp Mühür “ün izindeki harflerdi. Kapalıçarşı’da eski mühürlerin dilinden anlayan tek bir adam vardı. İnsanlar ona koleksiyoncu diyordu; bense onun mühürleri toplamadığını, mühürlerin ona sığındığını biliyordum. Ceketimi alıp dışarı çıktım. Şehir, yüzyıllardır sakladığı sırrı fısıldamaya hazırdı ama ben bu sesin ne kadar tehlikeli olduğunu henüz bilmiyordum...
+<br><br>
+<em>Sürecek...</em> </p></div>
+                <div class="post-footer">
+                    <ul class="actions"><li><a href="#post-51" class="button read-more-btn" data-id="51">Devamını Oku</a></li></ul>
+                    <ul class="stats"><li class="comment-toggle" data-post="51"><a href="#post-51"><i class="fas fa-comment"></i> Yorumlar (<span class="comment-count">0</span>)</a></li></ul>
+                </div>
+                <div class="comments-section" id="comments-section-51">
+                    <div class="comments-title">Yorumlar (<span class="comment-count-display">0</span>)</div>
+                    <div class="comments-list" id="comments-list-51"></div>
+                    <div class="add-comment-form">
+                        <input type="text" class="comment-input" id="comment-name-51" placeholder="Adınız">
+                        <textarea class="comment-text" id="comment-text-51" placeholder="Yorumunuzu yazın..." rows="2"></textarea>
+                        <button class="submit-comment" data-post="51">Gönder</button>
+                    </div>
+                </div>
+                <div class="old-posts-link"><a href="index3.html" target="_blank"><i class="fas fa-archive"></i> Eski Yazılar</a></div>
+            </article>
+
+        </div>
+
+        <!-- İLETİŞİM BÖLÜMÜ -->
+        <div class="contact-bottom" id="contactSection">
+            <h2>VOM VOMITORIUM</h2>
+            <p>Sanatın gücüne ve kültürün toplumsal değişimdeki rolüne inanan bir grup yazar ve sanatseverden oluşmaktadır. Topluluk üyeleri edebiyat, tiyatro, müzik, resim ve diğer sanat dallarında yeteneklerini birleştirerek insan deneyimine odaklı eserler üretmektedir. Ticari bir amacı olmayan grup, Cumhuriyet değerlerine bağlı kalarak sanatsal özgürlüğü teşvik eden bir platform sunmaktadır.
+            <br><br>
+            VOM VOMITORIUM, farklı etkinliklerle geniş bir kitleye ulaşmayı hedeflemektedir. Hem sanatsal üretimlerle hem de toplumsal etkileşimleriyle kültürel ve sanatsal zenginlik yaratmaya çalışan bir topluluktur.
+            <br><br>
+            VOMITORIUM kelimesi, ilk olarak MS 4. yüzyılda Romalı yazar Macrobius tarafından kullanılmıştır. Bu terim, seyircilerin amfitiyatrolardaki koltuklarından hızla çıkmalarını sağlayan geçitleri tanımlamak için kullanılmıştır. Aynı şekilde, VOM, sanatseverlerin sanatla buluşmasını hızlı ve etkili bir şekilde sağlayan bir geçit olmayı amaçlamaktadır.
+            <br><br></p>
+
+<script>
+function sendEmail() {
+    var kullanici = "vomitarium";
+    var domain = "proton.me";
+    window.location.href = "mailto:" + kullanici + "@" + domain;
+}
+</script>
+
+            <div class="site-footer" style="text-align:center !important;">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 0.5rem;">
+                    <a href="#" onclick="sendEmail(); return false;" 
+                       style="color: #2c5f8a; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s ease; cursor: pointer;"
+                       onmouseover="this.style.color='#6c86a3'"
+                       onmouseout="this.style.color='#2c5f8a'">
+                       <i class="fas fa-envelope"></i> İletişim
+                    </a>
+                    <a href="https://www.instagram.com/vom_oyun/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" 
+                       style="color: #4a5568; font-size: 1.5rem; transition: color 0.3s ease;"
+                       onmouseover="this.style.color='#6c86a3'"
+                       onmouseout="this.style.color='#4a5568'">
+                       <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <p style="text-align:center !important; font-size:0.7rem; color:#6c86a3; margin:0; padding:0;">© 2026 VOM YAYIN | Tasarım: VOM | Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+
+<script>
+    // ============================================
+    // FIREBASE - YENİ SIRALAMA (38-51)
+    // ============================================
+    const firebaseConfig = {
+        apiKey: "AIzaSyCp-NfSJmRSTAAWrNla5tH2OY9wMr87mFA",
+        authDomain: "vom-yayin.firebaseapp.com",
+        databaseURL: "https://vom-yayin-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "vom-yayin",
+        storageBucket: "vom-yayin.firebasestorage.app",
+        messagingSenderId: "93785669208",
+        appId: "1:93785669208:web:ecccf7c03aa3ad6117d42d"
+    };
+
+    // Firebase'i başlat
+    if (typeof firebase !== 'undefined') {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function formatDate(date) {
+            if (!date) return '';
+            let d = date.toDate ? date.toDate() : new Date(date);
+            return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+        }
+
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+
+        // ============================================
+        // YORUMLARI YÜKLE - AYNI KOLEKSİYON (comments)
+        // ============================================
+        window.loadComments = function(postId) {
+            const commentsRef = db.collection('comments').doc('post_' + postId).collection('allComments');
+            const listDiv = document.getElementById('comments-list-' + postId);
+            const countDisplay = document.querySelector('#comments-section-' + postId + ' .comment-count-display');
+            const toggleCount = document.querySelector('.comment-toggle[data-post="' + postId + '"] .comment-count');
+
+            const processSnapshot = (snapshot) => {
+                const count = snapshot.size;
+                if (toggleCount) toggleCount.innerText = count;
+                if (countDisplay) countDisplay.innerText = count;
+                if (!listDiv) return;
+
+                if (count === 0) {
+                    listDiv.innerHTML = '<div style="padding:0.5rem; text-align:center; color:#888;">Henüz yorum yok. İlk yorumu sen yap!</div>';
+                    return;
+                }
+
+                let html = '';
+                snapshot.forEach(function(doc) {
+                    const comment = doc.data();
+                    html += '<div class="comment-item">';
+                    html += '<strong>' + escapeHtml(comment.author || 'Ziyaretçi') + '</strong>: ' + escapeHtml(comment.text || '');
+                    if (comment.createdAt) {
+                        html += '<div style="font-size:0.6rem; color:#aaa; margin-top:4px;">' + formatDate(comment.createdAt) + '</div>';
+                    }
+                    html += '<button class="delete-btn" data-post="' + postId + '" data-id="' + doc.id + '"><i class="fas fa-trash"></i></button>';
+                    html += '</div>';
+                });
+                listDiv.innerHTML = html;
+                
+                listDiv.querySelectorAll('.delete-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const pwd = prompt("Yorumu silmek için şifre girin:");
+                        if (pwd === "vom2026") {
+                            db.collection('comments').doc('post_' + postId).collection('allComments').doc(this.dataset.id).delete();
+                        } else if (pwd !== null) {
+                            alert("Hatalı şifre!");
+                        }
+                    });
+                });
+            };
+
+            if (isBot) {
+                commentsRef.orderBy('createdAt', 'desc').get().then(processSnapshot).catch(() => {});
+            } else {
+                commentsRef.orderBy('createdAt', 'desc').onSnapshot(processSnapshot, (error) => {
+                    console.warn('Yorum dinleme hatası:', error);
+                });
+            }
+        };
+
+        // ============================================
+        // YORUM GÖNDER - AYNI KOLEKSİYON (comments)
+        // ============================================
+        document.querySelectorAll('.submit-comment').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const pid = this.dataset.post;
+                const nameInp = document.getElementById('comment-name-' + pid);
+                const textInp = document.getElementById('comment-text-' + pid);
+                
+                if (!textInp || !textInp.value.trim()) {
+                    alert('Lütfen bir yorum yazın.');
+                    return;
+                }
+                
+                const author = nameInp ? nameInp.value.trim() : '';
+                const text = textInp.value.trim();
+
+                db.collection('comments').doc('post_' + pid).collection('allComments').add({
+                    author: author || "Ziyaretçi",
+                    text: text,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    if(nameInp) nameInp.value = '';
+                    if(textInp) textInp.value = '';
+                    alert('✅ Yorumunuz başarıyla gönderildi!');
+                }).catch((error) => {
+                    console.error('❌ Yorum gönderme hatası:', error);
+                    alert('❌ Yorum gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                });
+            });
+        });
+
+        // Tüm post'lar için yorumları yükle (ID: 38-51)
+        for (let i = 38; i <= 51; i++) {
+            window.loadComments(i);
+        }
+
+        console.log("✅ Firebase yorum sistemi (yeni sıralama) başarıyla başlatıldı.");
+    } else {
+        console.warn("❌ Firebase SDK henüz yüklenemedi.");
+        for (let i = 38; i <= 51; i++) {
+            const tc = document.querySelector('.comment-toggle[data-post="' + i + '"] .comment-count');
+            if (tc) tc.innerText = '0';
+        }
+    }
+
+    // ============================================
+    // GECE MODU
+    // ============================================
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    if (darkModeToggle) {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu';
+        }
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu';
+            } else {
+                localStorage.setItem('theme', 'light');
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Gece Modu';
+            }
+        });
+    }
+
+    // ============================================
+    // "DEVAMINI OKU" BUTONLARI
+    // ============================================
+    document.querySelectorAll('.read-more-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const id = this.dataset.id;
+            const fullDiv = document.getElementById('full-' + id);
+            if (fullDiv) {
+                fullDiv.classList.toggle('show');
+                this.innerText = fullDiv.classList.contains('show') ? 'Daha Az Göster' : 'Devamını Oku';
+            }
+        });
+    });
+
+    // ============================================
+    // YORUM PANELİ AÇ/KAPA
+    // ============================================
+    document.querySelectorAll('.comment-toggle').forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pid = this.dataset.post;
+            const sec = document.getElementById('comments-section-' + pid);
+            if (sec) {
+                sec.style.display = (sec.style.display === 'block') ? 'none' : 'block';
+            }
+        });
+    });
+
+    // ============================================
+    // LIGHTBOX
+    // ============================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    window.closeLightbox = function() { if(lightbox) lightbox.classList.remove('show'); document.body.style.overflow = ''; };
+    
+    document.querySelectorAll('.clickable-img').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+            e.preventDefault();
+            const img = this.querySelector('img');
+            if (img && img.src && lightboxImg && lightbox) {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    // ============================================
+    // ARAMA
+    // ============================================
+    const searchInput = document.getElementById('searchInputSide');
+    const searchBtn = document.getElementById('searchBtnSide');
+    function doSearch() {
+        const q = searchInput ? searchInput.value.trim() : '';
+        if(q) window.open('https://www.google.com/search?q=' + encodeURIComponent(q), '_blank');
+    }
+    if(searchBtn) searchBtn.addEventListener('click', doSearch);
+    if(searchInput) searchInput.addEventListener('keypress', function(e) { if(e.key === 'Enter') doSearch(); });
+
+    document.getElementById('contactNavLink')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('contactSection')?.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
